@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE routes PUBLIC "-//Liferay//DTD Friendly URL Routes 6.1.0//EN"
+    "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_1_0.dtd">
+
+<routes>
+    <route>
+        <pattern>/</pattern>
+        <generated-parameter name="mvcPath">viewPath_0</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_1/{seg0}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_2/{seg0}/{seg1}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_3/{seg0}/{seg1}/{seg2}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_4/{seg0}/{seg1}/{seg2}/{seg3}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_5/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_6/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}/{seg6:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_7/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}/{seg6}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}/{seg6:[^/]*}/{seg7:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_8/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}/{seg6}/{seg7}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}/{seg6:[^/]*}/{seg7:[^/]*}/{seg8:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">viewPath_9/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}/{seg6}/{seg7}/{seg8}</generated-parameter>
+    </route>
+</routes>

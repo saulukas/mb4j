@@ -1,0 +1,51 @@
+
+    Very composite brick wants to say Very Composite Hello :)
+    =============================================================================
+    .... 
+    ....     More composite brick wants to say More Composite Hello :)
+    ....     --------------------------------------------------------------------
+    ....     composite1: 
+    ....     
+    ....         Composite brick wants to say Composite Hello 1 :)
+    ....     
+    ....         1. Just wanted to say First Hello :)
+    ....         2. Just wanted to say Second Hello :)
+    ....     
+    ....     --------------------------------------------------------------------
+    ....     composite2: 
+    ....     -----------     Composite brick wants to say Composite Hello 2 :)
+    ....     ----------- 
+    ....     -----------     1. Just wanted to say First Hello :)
+    ....     -----------     2. Just wanted to say Second Hello :)
+    ....     ----------- 
+    ....     --------------------------------------------------------------------
+    ....     simple: Just wanted to say Simple Hello :)
+    .... 
+    =============================================================================
+    .... 
+    ....     Composite brick wants to say Composite Hello :)
+    .... 
+    ....     1. Just wanted to say First Hello :)
+    ....     2. Just wanted to say Second Hello :)
+    .... 
+    =============================================================================
+    .... Just wanted to say <Hello> :)
+    =============================================================================
+    .... 
+    ....     List of bricks:
+    .... 
+    ....     Just wanted to say water2 :)
+    ....     Just wanted to say bread2 :)
+    ....     Just wanted to say onion2 :)
+    .... 
+    ....     Just wanted to say water2 :) <---> Just wanted to say bread2 :) <---> Just wanted to say onion2 :)
+    .... 
+    =============================================================================
+    .... 
+    ....     List of custom items:
+    .... 
+    ....     1. Just wanted to say water :)
+    ....     2. Just wanted to say bread :)
+    ....     3. Just wanted to say onion :)
+    ....     
+    =============================================================================
