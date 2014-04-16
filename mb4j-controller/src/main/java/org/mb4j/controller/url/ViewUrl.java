@@ -1,8 +1,9 @@
 package org.mb4j.controller.url;
 
-import org.mb4j.controller.path.ViewPath;
 import org.mb4j.controller.View;
 import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.path.ViewPath;
+import org.mb4j.controller.path.ViewPathBuilder;
 
 public class ViewUrl {
   public final Class<? extends View> viewClass;
@@ -19,6 +20,10 @@ public class ViewUrl {
 
   public static ViewUrl of(Class<? extends View> viewClass, ViewPath path) {
     return new ViewUrl(viewClass, ViewParams.of(path));
+  }
+
+  public static ViewUrl of(Class<? extends View> viewClass, ViewPathBuilder pathBuilder) {
+    return ViewUrl.of(viewClass, pathBuilder.instance());
   }
 
   public static ViewUrl of(Class<? extends View> viewClass, ViewParams params) {

@@ -2,9 +2,6 @@ package org.mb4j.liferay.sample.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.liferay.sample.domain.Event;
-import org.mb4j.liferay.sample.domain.EventSaveCommand;
-import org.mb4j.liferay.sample.event.list.EventListBrickView;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
 import static org.mb4j.controller.ViewResponse.redirectTo;
@@ -12,7 +9,8 @@ import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormField;
 import org.mb4j.controller.form.FormFiller;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.liferay.sample.domain.Event;
+import org.mb4j.liferay.sample.domain.EventSaveCommand;
 
 public class EventEditForm extends Form {
   final FormField id = FormField.requiredField();
@@ -22,6 +20,14 @@ public class EventEditForm extends Form {
 
   @Singleton
   public static class Filler extends FormFiller<Filler.Params, EventEditForm> {
+    public static class Params {
+      final Event event;
+
+      public Params(Event event) {
+        this.event = event;
+      }
+    }
+
     @Override
     protected EventEditForm createFormFrom(Params params) {
       EventEditForm form = new EventEditForm();
@@ -31,14 +37,6 @@ public class EventEditForm extends Form {
       form.imageUrl.setValue(params.event.imageUrl);
       return form;
     }
-
-    public static class Params {
-      final Event event;
-
-      public Params(Event event) {
-        this.event = event;
-      }
-    }
   }
 
   @Singleton
@@ -46,16 +44,11 @@ public class EventEditForm extends Form {
     @Inject
     EventSaveCommand saveCommand;
 
-    public static ViewUrl url() {
-      return ViewUrl.of(SaveAction.class);
-    }
-
     @Override
     protected ViewResponse doHandle(ViewRequest request, EventEditForm form) {
-      System.out.println("save event: " + form);
       Event event = createEventFrom(form);
       saveCommand.save(event);
-      return redirectTo(EventListBrickView.url());
+      return redirectTo(null); // not implemented yet
     }
 
     private Event createEventFrom(EventEditForm form) throws NumberFormatException {
