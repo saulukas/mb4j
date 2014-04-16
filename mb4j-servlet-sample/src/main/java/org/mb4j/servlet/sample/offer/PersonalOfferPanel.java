@@ -1,4 +1,4 @@
-package org.mb4j.servlet.sample.master;
+package org.mb4j.servlet.sample.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
@@ -6,8 +6,8 @@ import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.url.ViewUrl;
 
 @Singleton
-public class DefaultHeaderPanel {
-  public DefaultHeaderPanelBrick brickFrom(ViewRequest request) {
+public class PersonalOfferPanel {
+  public PersonalOfferPanelBrick brickFrom(ViewRequest request) {
     return brickFrom(request, Params.from(request));
   }
 
@@ -26,8 +26,8 @@ public class DefaultHeaderPanel {
     }
   }
 
-  private DefaultHeaderPanelBrick brickFrom(ViewRequest request, Params params) {
-    DefaultHeaderPanelBrick brick = new DefaultHeaderPanelBrick();
+  private PersonalOfferPanelBrick brickFrom(ViewRequest request, Params params) {
+    PersonalOfferPanelBrick brick = new PersonalOfferPanelBrick();
     brick.offerVisible = !params.isOfferTextEmpty();
     brick.offerText = params.offerText;
     brick.offerLinkText = (brick.offerVisible ? "Hide personal offer" : "Show personal offer");

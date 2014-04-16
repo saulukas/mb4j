@@ -1,5 +1,6 @@
 package org.mb4j.servlet.sample.master;
 
+import org.mb4j.servlet.sample.offer.PersonalOfferPanel;
 import com.google.inject.Singleton;
 import org.mb4j.brick.Brick;
 import org.mb4j.brick.RawBrick;
@@ -9,7 +10,7 @@ import org.mb4j.controller.ViewRequest;
 
 @Singleton
 public abstract class MasterLayoutPage implements Page {
-  final DefaultHeaderPanel headerPanel = new DefaultHeaderPanel();
+  final PersonalOfferPanel headerPanel = new PersonalOfferPanel();
 
   @Override
   public PageResponse handle(ViewRequest request) {
