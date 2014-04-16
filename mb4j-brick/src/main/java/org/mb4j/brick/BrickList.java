@@ -1,12 +1,10 @@
-package org.mb4j.brick.prebaked;
+package org.mb4j.brick;
 
 import com.samskivert.mustache.Template.Fragment;
 import java.io.Writer;
-import org.mb4j.brick.Brick;
 import org.mb4j.brick.renderer.RenderingScope;
 
 public class BrickList extends Brick {
-
   public final Iterable<? extends Brick> items;
 
   public BrickList(Iterable<? extends Brick> items) {
@@ -17,5 +15,4 @@ public class BrickList extends Brick {
   public void execute(Fragment frag, Writer out) {
     ((RenderingScope) out).renderList(items, frag);
   }
-
 }

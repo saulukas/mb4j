@@ -3,7 +3,7 @@ package org.mb4j.liferay.sample;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.mb4j.brick.BrickRenderer;
+import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.liferay.sample.domain.EventDomainModule;
 import org.mb4j.liferay.sample.event.EventPortletModule;

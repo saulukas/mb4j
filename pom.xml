@@ -18,7 +18,6 @@
     <module>mb4j-liferay-sample</module>
     <module>mb4j-servlet</module>
     <module>mb4j-servlet-sample</module>
-    <module>mb4j-servlet-sample-2</module>
   </modules>
 
   <properties>

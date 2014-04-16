@@ -5,7 +5,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.mb4j.brick.BrickRenderer;
+import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.http.HttpFilter;
 import org.mb4j.http.HttpNamedParams;
 import static org.mb4j.http.HttpPathToHome.pathStringToHomeFrom;

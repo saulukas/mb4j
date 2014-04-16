@@ -1,7 +1,7 @@
 package org.mb4j.liferay.sample;
 
 import com.google.inject.Injector;
-import org.mb4j.brick.BrickRenderer;
+import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.liferay.BrickPortlet;
 import org.mb4j.controller.ViewMap;
 

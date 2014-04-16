@@ -1,8 +1,8 @@
-package org.mb4j.brick;
+package org.mb4j.brick.renderer;
 
-import org.mb4j.brick.renderer.RenderingScope;
-import org.mb4j.brick.template.TemplateProvider;
 import java.io.Writer;
+import org.mb4j.brick.Brick;
+import org.mb4j.brick.template.TemplateProvider;
 
 public class BrickRenderer {
   private final TemplateProvider templateProvider;

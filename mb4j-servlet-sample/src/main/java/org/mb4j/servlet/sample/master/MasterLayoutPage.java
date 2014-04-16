@@ -2,34 +2,28 @@ package org.mb4j.servlet.sample.master;
 
 import com.google.inject.Singleton;
 import org.mb4j.brick.Brick;
-import org.mb4j.brick.prebaked.RawBrick;
+import org.mb4j.brick.RawBrick;
+import org.mb4j.controller.Page;
+import org.mb4j.controller.PageResponse;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.baker.ViewBrickBaker;
 
-public class MasterLayoutPage extends Brick {
-  Brick header;
-  Brick content;
-  Brick footer;
-  String title = "Events";
-  String dummy_js;
+@Singleton
+public abstract class MasterLayoutPage implements Page {
+  final DefaultHeaderPanel headerPanel = new DefaultHeaderPanel();
 
-  @Singleton
-  protected static class Baker<P> implements ViewBrickBaker<P> {
-    final DefaultHeaderBrick.Baker headerBaker = new DefaultHeaderBrick.Baker();
-    final ViewBrickBaker<P> contentBaker;
-
-    protected Baker(ViewBrickBaker<P> contentBaker) {
-      this.contentBaker = contentBaker;
-    }
-
-    @Override
-    public MasterLayoutPage bakeBrick(ViewRequest request, P params) {
-      MasterLayoutPage brick = new MasterLayoutPage();
-      brick.header = headerBaker.bakeBrick(request, DefaultHeaderBrick.Baker.Params.from(request));
-      brick.content = contentBaker.bakeBrick(request, params);
-      brick.footer = new RawBrick("default FOOTER");
-      brick.dummy_js = request.staticUrl("js/dummy.js");
-      return brick;
-    }
+  @Override
+  public PageResponse handle(ViewRequest request) {
+    return new PageResponse(bakeBrick(request));
   }
+
+  private MasterLayoutPageBrick bakeBrick(ViewRequest request) {
+    MasterLayoutPageBrick brick = new MasterLayoutPageBrick();
+    brick.header = headerPanel.brickFrom(request);
+    brick.content = bakeContentBrick(request);
+    brick.footer = new RawBrick("default FOOTER");
+    brick.dummy_js = request.staticUrl("js/dummy.js");
+    return brick;
+  }
+
+  protected abstract Brick bakeContentBrick(ViewRequest request);
 }

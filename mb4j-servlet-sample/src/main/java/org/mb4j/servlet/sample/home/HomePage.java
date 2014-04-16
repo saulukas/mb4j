@@ -1,29 +1,21 @@
 package org.mb4j.servlet.sample.home;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import org.mb4j.brick.Brick;
 import org.mb4j.servlet.sample.master.MasterLayoutPage;
+import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.url.ViewUrl;
-import org.mb4j.controller.baker.ParameterlessBakerView;
 
 public class HomePage extends MasterLayoutPage {
+  @Inject
+  HomeContentPanel contentPanel;
+
   public static ViewUrl url() {
-    return ViewUrl.of(View.class);
+    return ViewUrl.of(HomePage.class);
   }
 
-  @Singleton
-  public static class Baker extends MasterLayoutPage.Baker<Void> {
-    @Inject
-    public Baker(HomeContentBrick.Baker contentBaker) {
-      super(contentBaker);
-    }
-  }
-
-  @Singleton
-  public static class View extends ParameterlessBakerView<Baker> {
-    @Inject
-    public View(Baker baker) {
-      super(baker);
-    }
+  @Override
+  protected Brick bakeContentBrick(ViewRequest request) {
+    return contentPanel.bakeBrick(request);
   }
 }

@@ -3,7 +3,7 @@ package org.mb4j.brick.samples;
 import java.util.ArrayList;
 import java.util.List;
 import org.mb4j.brick.Brick;
-import org.mb4j.brick.prebaked.BrickList;
+import org.mb4j.brick.BrickList;
 import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")

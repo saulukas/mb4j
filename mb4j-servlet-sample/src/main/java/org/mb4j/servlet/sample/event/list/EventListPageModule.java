@@ -7,9 +7,8 @@ import com.google.inject.Singleton;
 public class EventListPageModule extends AbstractModule {
   @Override
   protected void configure() {
-    bind(EventListBrick.Baker.class);
-    bind(EventListItemBrick.Baker.class);
-    bind(EventListPage.Baker.class);
-    bind(EventListPage.View.class);
+    bind(EventListPanel.class);
+    bind(EventListItemPanel.class);
+    bind(EventListPage.class);
   }
 }

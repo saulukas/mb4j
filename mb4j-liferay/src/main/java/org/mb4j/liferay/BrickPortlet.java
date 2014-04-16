@@ -9,7 +9,7 @@ import javax.portlet.MimeResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import org.mb4j.brick.BrickRenderer;
+import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.NamedParams;
 import org.mb4j.controller.ViewMap;
 import org.mb4j.controller.ViewParams;

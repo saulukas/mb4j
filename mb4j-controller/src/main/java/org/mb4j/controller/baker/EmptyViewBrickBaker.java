@@ -1,6 +1,6 @@
 package org.mb4j.controller.baker;
 
-import org.mb4j.brick.prebaked.EmptyBrick;
+import org.mb4j.brick.EmptyBrick;
 import org.mb4j.controller.ViewRequest;
 
 public class EmptyViewBrickBaker<P> implements ViewBrickBaker<P> {

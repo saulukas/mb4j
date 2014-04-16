@@ -1,8 +1,7 @@
-package org.mb4j.brick.prebaked;
+package org.mb4j.brick;
 
 import com.samskivert.mustache.Template;
 import java.io.Writer;
-import org.mb4j.brick.Brick;
 
 public class EmptyBrick extends Brick {
   private static final EmptyBrick INSTANCE = new EmptyBrick();

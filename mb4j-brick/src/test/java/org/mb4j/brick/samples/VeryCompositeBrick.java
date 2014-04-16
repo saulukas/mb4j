@@ -1,7 +1,6 @@
 package org.mb4j.brick.samples;
 
 import org.mb4j.brick.Brick;
-import org.mb4j.brick.BrickBaker;
 import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
@@ -16,7 +15,7 @@ public class VeryCompositeBrick extends Brick {
   VeryCompositeBrick() {
   }
 
-  public static class Baker implements BrickBaker<Baker.Params> {
+  public static class Baker {
     public VeryCompositeBrick bakeBrick(Params params) {
       VeryCompositeBrick brick = new VeryCompositeBrick();
       brick.message = params.message;

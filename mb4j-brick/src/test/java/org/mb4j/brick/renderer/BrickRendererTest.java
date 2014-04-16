@@ -1,10 +1,10 @@
-package org.mb4j.brick;
+package org.mb4j.brick.renderer;
 
-import org.mb4j.brick.Brick;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.brick.renderer.RendererUtils;
+import org.mb4j.brick.Brick;
+import org.mb4j.brick.TestingUtils;
 import org.mb4j.brick.samples.CompositeBrick;
 import org.mb4j.brick.samples.CompositeWithUnindentedBrick;
 import org.mb4j.brick.samples.ListOfBrickItems;

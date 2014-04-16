@@ -2,7 +2,6 @@ package org.mb4j.brick.renderer;
 
 import java.io.StringWriter;
 import org.mb4j.brick.Brick;
-import org.mb4j.brick.BrickRenderer;
 import org.mb4j.brick.template.TemplateProviderFromClasspath;
 
 public class RendererUtils {

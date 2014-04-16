@@ -12,15 +12,15 @@ import static org.mb4j.controller.path.ViewPathString.viewPath;
 
 @Singleton
 public class ServletSampleViewMap extends ViewMap {
-    @Inject
-    public ServletSampleViewMap(
-            HomePage.View home,
-            EventListPage.View eventList,
-            EventEditPage.View eventEdit,
-            EventEditForm.SaveAction eventSave) {
-        super(ViewMounter.withHomeView(home)
-                .mount(viewPath("event/*"), eventList)
-                .mount(viewPath("event/edit/*"), eventEdit)
-                .mount(viewPath("event/save"), eventSave));
-    }
+  @Inject
+  public ServletSampleViewMap(
+      HomePage home,
+      EventListPage eventList,
+      EventEditPage eventEdit,
+      EventEditForm.SaveAction eventSave) {
+    super(ViewMounter.withHomeView(home)
+        .mount(viewPath("event/*"), eventList)
+        .mount(viewPath("event/edit/*"), eventEdit)
+        .mount(viewPath("event/save"), eventSave));
+  }
 }

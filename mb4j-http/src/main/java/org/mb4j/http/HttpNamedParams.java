@@ -21,7 +21,7 @@ public class HttpNamedParams {
 
   public static NamedParams namedParametersFromRawQueryString(String rawQueryString) {
     UrlEncodedQueryString query = UrlEncodedQueryString.parse(rawQueryString);
-    Map<String, String> name2value = new HashMap<String, String>();
+    Map<String, String> name2value = new HashMap<>();
     Iterator<String> names = query.getNames();
     while (names.hasNext()) {
       String name = names.next();
@@ -35,12 +35,6 @@ public class HttpNamedParams {
     UrlEncodedQueryString query = UrlEncodedQueryString.create();
     for (String name : params.names()) {
       query.append(name, params.valueOf(name));
-    }
-    Map<String, String> name2value = new HashMap<String, String>();
-    Iterator<String> names = query.getNames();
-    while (names.hasNext()) {
-      String name = names.next();
-      name2value.put(name, query.get(name));
     }
     return query.toString();
   }
