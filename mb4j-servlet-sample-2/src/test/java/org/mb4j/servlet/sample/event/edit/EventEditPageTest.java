@@ -1,12 +1,12 @@
 package org.mb4j.servlet.sample.event.edit;
 
 import org.junit.Test;
-import static org.mb4j.renderer.RendererUtils.renderToString4Development;
-import static org.mb4j.view.ViewTesting.request4Tests;
+import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
+import static org.mb4j.controller.ViewTesting.request4Tests;
 import static org.mb4j.servlet.sample.ServletSampleTestApplication.inject;
 import static org.mb4j.servlet.sample.event.TypicalEvents.fishingEventId;
-import org.mb4j.view.PageResponse;
-import org.mb4j.view.url.ViewUrl;
+import org.mb4j.controller.PageResponse;
+import org.mb4j.controller.url.ViewUrl;
 
 public class EventEditPageTest {
   private final EventEditPage page = inject(EventEditPage.class);

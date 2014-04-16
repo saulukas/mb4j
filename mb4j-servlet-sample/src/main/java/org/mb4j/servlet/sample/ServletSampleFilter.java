@@ -1,9 +1,9 @@
 package org.mb4j.servlet.sample;
 
 import com.google.inject.Inject;
-import org.mb4j.BrickRenderer;
+import org.mb4j.brick.BrickRenderer;
 import org.mb4j.servlet.BrickServletFilter;
-import org.mb4j.view.ViewMap;
+import org.mb4j.controller.ViewMap;
 
 public class ServletSampleFilter extends BrickServletFilter {
     @Inject

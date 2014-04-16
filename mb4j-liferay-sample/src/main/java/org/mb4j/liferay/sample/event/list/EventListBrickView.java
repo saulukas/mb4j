@@ -2,9 +2,9 @@ package org.mb4j.liferay.sample.event.list;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.baker.BakerView;
-import org.mb4j.view.url.ViewUrl;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.baker.BakerView;
+import org.mb4j.controller.url.ViewUrl;
 
 @Singleton
 public class EventListBrickView extends BakerView<EventListBrick.Baker.Params> {

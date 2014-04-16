@@ -1,10 +1,10 @@
 package org.mb4j.servlet.sample.master;
 
 import com.google.inject.Singleton;
-import org.mb4j.Brick;
-import org.mb4j.bricks.RawBrick;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.baker.ViewBrickBaker;
+import org.mb4j.brick.Brick;
+import org.mb4j.brick.prebaked.RawBrick;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.baker.ViewBrickBaker;
 
 public class MasterLayoutPage extends Brick {
   Brick header;

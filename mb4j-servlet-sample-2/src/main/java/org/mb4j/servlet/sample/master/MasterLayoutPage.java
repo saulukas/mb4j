@@ -1,11 +1,11 @@
 package org.mb4j.servlet.sample.master;
 
 import com.google.inject.Singleton;
-import org.mb4j.Brick;
-import org.mb4j.bricks.RawBrick;
-import org.mb4j.view.Page;
-import org.mb4j.view.PageResponse;
-import org.mb4j.view.ViewRequest;
+import org.mb4j.brick.Brick;
+import org.mb4j.brick.prebaked.RawBrick;
+import org.mb4j.controller.Page;
+import org.mb4j.controller.PageResponse;
+import org.mb4j.controller.ViewRequest;
 
 @Singleton
 public abstract class MasterLayoutPage implements Page {

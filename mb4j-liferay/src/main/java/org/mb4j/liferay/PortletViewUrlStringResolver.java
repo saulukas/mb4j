@@ -3,10 +3,10 @@ package org.mb4j.liferay;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
 import static org.mb4j.http.HttpNamedParams.queryStringFrom;
-import org.mb4j.view.mount.PathFromViewClassResolver;
-import org.mb4j.view.path.ViewPath;
-import org.mb4j.view.url.ViewUrl;
-import org.mb4j.view.url.ViewUrlStringResolver;
+import org.mb4j.controller.mount.PathFromViewClassResolver;
+import org.mb4j.controller.path.ViewPath;
+import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.ViewUrlStringResolver;
 
 public class PortletViewUrlStringResolver implements ViewUrlStringResolver {
   private final MimeResponse portletResponse;

@@ -1,12 +1,12 @@
 package org.mb4j.liferay.sample.event.list;
 
 import com.google.inject.Singleton;
-import org.mb4j.Brick;
+import org.mb4j.brick.Brick;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.event.edit.EventEditBrick;
 import org.mb4j.liferay.sample.event.edit.EventEditBrickView;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.baker.ViewBrickBaker;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.baker.ViewBrickBaker;
 
 public class EventListItemBrick extends Brick {
     Event event;

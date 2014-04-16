@@ -1,10 +1,10 @@
 package org.mb4j.servlet.sample.home;
 
 import com.google.inject.Singleton;
-import org.mb4j.Brick;
+import org.mb4j.brick.Brick;
 import org.mb4j.servlet.sample.event.list.EventListPage;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.baker.ParameterlessViewBrickBaker;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.baker.ParameterlessViewBrickBaker;
 
 public class HomeContentBrick extends Brick {
   String oneEventUrl;

@@ -6,9 +6,9 @@ import org.mb4j.liferay.sample.event.edit.EventEditBrickView;
 import org.mb4j.liferay.sample.event.edit.EventEditForm;
 import org.mb4j.liferay.sample.event.list.EventListBrickView;
 import org.mb4j.liferay.sample.SampleBasePortlet;
-import org.mb4j.view.ViewMap;
-import org.mb4j.view.mount.ViewMounter;
-import static org.mb4j.view.path.ViewPathString.viewPath;
+import org.mb4j.controller.ViewMap;
+import org.mb4j.controller.mount.ViewMounter;
+import static org.mb4j.controller.path.ViewPathString.viewPath;
 
 public class EventListPortlet extends SampleBasePortlet {
   @Singleton

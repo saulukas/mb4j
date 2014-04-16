@@ -7,18 +7,18 @@
 
   <groupId>org.mb4j</groupId>
   <artifactId>mb4j</artifactId>
-  <version>0.3.3-SNAPSHOT</version>
+  <version>0.3.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
-    <module>mb4j-core</module>
+    <module>mb4j-brick</module>
+    <module>mb4j-controller</module>
     <module>mb4j-http</module>
     <module>mb4j-liferay</module>
     <module>mb4j-liferay-sample</module>
     <module>mb4j-servlet</module>
     <module>mb4j-servlet-sample</module>
     <module>mb4j-servlet-sample-2</module>
-    <module>mb4j-view</module>
   </modules>
 
   <properties>

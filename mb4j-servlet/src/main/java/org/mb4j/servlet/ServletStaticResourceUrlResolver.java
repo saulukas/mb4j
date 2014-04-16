@@ -1,6 +1,6 @@
 package org.mb4j.servlet;
 
-import org.mb4j.view.url.StaticResourceUrlResolver;
+import org.mb4j.controller.url.StaticResourceUrlResolver;
 
 public class ServletStaticResourceUrlResolver implements StaticResourceUrlResolver {
   public final String path2home;

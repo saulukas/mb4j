@@ -6,9 +6,9 @@ import org.mb4j.servlet.sample.event.edit.EventEditForm;
 import org.mb4j.servlet.sample.event.edit.EventEditPage;
 import org.mb4j.servlet.sample.event.list.EventListPage;
 import org.mb4j.servlet.sample.home.HomePage;
-import org.mb4j.view.ViewMap;
-import org.mb4j.view.mount.ViewMounter;
-import static org.mb4j.view.path.ViewPathString.viewPath;
+import org.mb4j.controller.ViewMap;
+import org.mb4j.controller.mount.ViewMounter;
+import static org.mb4j.controller.path.ViewPathString.viewPath;
 
 @Singleton
 public class ServletSampleViewMap extends ViewMap {

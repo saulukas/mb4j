@@ -7,10 +7,10 @@ import java.util.List;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventListQuery;
 import org.mb4j.servlet.sample.event.list.EventListPanelBrick.DecoratedListItem;
-import org.mb4j.view.ViewParams;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.path.ViewPathBuilder;
-import org.mb4j.view.url.ViewUrl;
+import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.path.ViewPathBuilder;
+import org.mb4j.controller.url.ViewUrl;
 
 @Singleton
 public class EventListPanel {

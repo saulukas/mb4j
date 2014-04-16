@@ -4,11 +4,11 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.view.mount.PathFromViewClassResolver;
-import org.mb4j.view.path.ViewPath;
-import org.mb4j.view.url.ViewUrl;
-import org.mb4j.view.url.ViewUrlStringResolver;
-import org.mb4j.view.NamedParams;
+import org.mb4j.controller.mount.PathFromViewClassResolver;
+import org.mb4j.controller.path.ViewPath;
+import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.ViewUrlStringResolver;
+import org.mb4j.controller.NamedParams;
 
 public class ServletViewUrlStringResolver implements ViewUrlStringResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();

@@ -3,7 +3,7 @@ package org.mb4j.servlet.sample.event.list;
 import com.google.inject.Singleton;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.event.edit.EventEditPage;
-import org.mb4j.view.ViewRequest;
+import org.mb4j.controller.ViewRequest;
 
 @Singleton
 public class EventListItemPanel {

@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import org.mb4j.view.NamedParams;
+import org.mb4j.controller.NamedParams;
 
 public class HttpNamedParams {
   public static NamedParams namedParamsFrom(HttpServletRequest req) {
-    Map<String, String> name2value = new HashMap<String, String>();
+    Map<String, String> name2value = new HashMap<>();
     Enumeration<String> names = req.getParameterNames();
     while (names.hasMoreElements()) {
       String name = names.nextElement();

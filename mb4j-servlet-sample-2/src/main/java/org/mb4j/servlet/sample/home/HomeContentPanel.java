@@ -2,7 +2,7 @@ package org.mb4j.servlet.sample.home;
 
 import com.google.inject.Singleton;
 import org.mb4j.servlet.sample.event.list.EventListPage;
-import org.mb4j.view.ViewRequest;
+import org.mb4j.controller.ViewRequest;
 
 @Singleton
 public class HomeContentPanel {

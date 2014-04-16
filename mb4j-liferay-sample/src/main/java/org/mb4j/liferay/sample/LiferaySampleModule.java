@@ -3,12 +3,12 @@ package org.mb4j.liferay.sample;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.mb4j.BrickRenderer;
+import org.mb4j.brick.BrickRenderer;
+import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.liferay.sample.domain.EventDomainModule;
 import org.mb4j.liferay.sample.event.EventPortletModule;
 import org.mb4j.liferay.sample.offer.PersonalOfferPortletModule;
 import org.mb4j.liferay.sample.util.ModuleWithExplicitBindings;
-import org.mb4j.renderer.RendererUtils;
 
 public class LiferaySampleModule extends AbstractModule {
   public static Injector injector() {

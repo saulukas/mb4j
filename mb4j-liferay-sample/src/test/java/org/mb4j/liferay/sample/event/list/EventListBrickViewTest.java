@@ -4,9 +4,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import static org.mb4j.liferay.sample.LiferaySampleTestApplication.inject;
-import static org.mb4j.renderer.RendererUtils.renderToString4Development;
-import org.mb4j.view.ViewResponse;
-import static org.mb4j.view.ViewTesting.request4Tests;
+import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
+import org.mb4j.controller.ViewResponse;
+import static org.mb4j.controller.ViewTesting.request4Tests;
 
 public class EventListBrickViewTest {
     private final EventListBrickView view = inject(EventListBrickView.class);

@@ -1,8 +1,8 @@
 package org.mb4j.servlet;
 
-import org.mb4j.view.View;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.ViewResponse;
+import org.mb4j.controller.View;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ViewResponse;
 
 public class TypicalViews {
   public static class Home implements View {

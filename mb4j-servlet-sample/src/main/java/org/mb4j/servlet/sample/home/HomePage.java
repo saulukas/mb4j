@@ -3,8 +3,8 @@ package org.mb4j.servlet.sample.home;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.servlet.sample.master.MasterLayoutPage;
-import org.mb4j.view.url.ViewUrl;
-import org.mb4j.view.baker.ParameterlessBakerView;
+import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.baker.ParameterlessBakerView;
 
 public class HomePage extends MasterLayoutPage {
   public static ViewUrl url() {

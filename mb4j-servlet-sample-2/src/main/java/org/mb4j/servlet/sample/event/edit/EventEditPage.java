@@ -1,11 +1,11 @@
 package org.mb4j.servlet.sample.event.edit;
 
 import com.google.inject.Inject;
-import org.mb4j.Brick;
-import static org.mb4j.view.path.ViewPathBuilder.viewPath;
+import org.mb4j.brick.Brick;
+import static org.mb4j.controller.path.ViewPathBuilder.viewPath;
 import org.mb4j.servlet.sample.master.MasterLayoutPage;
-import org.mb4j.view.url.ViewUrl;
-import org.mb4j.view.ViewRequest;
+import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.ViewRequest;
 
 public class EventEditPage extends MasterLayoutPage {
   @Inject

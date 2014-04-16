@@ -7,11 +7,11 @@ import static org.mb4j.http.HttpPathToHome.pathStringToHomeFrom;
 import org.mb4j.servlet.TypicalViews.DocumentEdit;
 import org.mb4j.servlet.TypicalViews.DocumentNew;
 import org.mb4j.servlet.TypicalViews.Home;
-import org.mb4j.view.NamedParams;
-import org.mb4j.view.ViewParams;
-import org.mb4j.view.mount.ViewMounter;
-import static org.mb4j.view.path.ViewPathString.viewPath;
-import org.mb4j.view.url.ViewUrl;
+import org.mb4j.controller.NamedParams;
+import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.mount.ViewMounter;
+import static org.mb4j.controller.path.ViewPathString.viewPath;
+import org.mb4j.controller.url.ViewUrl;
 
 public class ServletViewUrlStringResolverTest {
   @Test

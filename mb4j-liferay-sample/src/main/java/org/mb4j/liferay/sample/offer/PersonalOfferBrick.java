@@ -2,10 +2,10 @@ package org.mb4j.liferay.sample.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.Brick;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.baker.ViewBrickBaker;
-import org.mb4j.view.url.ViewUrl;
+import org.mb4j.brick.Brick;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.baker.ViewBrickBaker;
+import org.mb4j.controller.url.ViewUrl;
 
 public class PersonalOfferBrick extends Brick {
     boolean offerVisible = false;

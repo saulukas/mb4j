@@ -5,14 +5,14 @@ import com.google.inject.Singleton;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventSaveCommand;
 import org.mb4j.liferay.sample.event.list.EventListBrickView;
-import org.mb4j.view.ViewRequest;
-import org.mb4j.view.ViewResponse;
-import static org.mb4j.view.ViewResponse.redirectTo;
-import org.mb4j.view.form.Form;
-import org.mb4j.view.form.FormAction;
-import org.mb4j.view.form.FormField;
-import org.mb4j.view.form.FormFiller;
-import org.mb4j.view.url.ViewUrl;
+import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ViewResponse;
+import static org.mb4j.controller.ViewResponse.redirectTo;
+import org.mb4j.controller.form.Form;
+import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormField;
+import org.mb4j.controller.form.FormFiller;
+import org.mb4j.controller.url.ViewUrl;
 
 public class EventEditForm extends Form {
   final FormField id = FormField.requiredField();
