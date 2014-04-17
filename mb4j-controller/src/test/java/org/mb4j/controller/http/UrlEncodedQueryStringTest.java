@@ -22,8 +22,9 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-package org.mb4j.http;
+package org.mb4j.controller.http;
 
+import org.mb4j.controller.http.UrlEncodedQueryString;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import junit.framework.TestCase;
-import org.mb4j.http.UrlEncodedQueryString.Separator;
+import org.mb4j.controller.http.UrlEncodedQueryString.Separator;
 
 /**
  * Unit tests for UrlEncodedQueryString

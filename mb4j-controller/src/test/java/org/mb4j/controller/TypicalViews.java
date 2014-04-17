@@ -1,9 +1,5 @@
 package org.mb4j.controller;
 
-import org.mb4j.controller.ViewResponse;
-import org.mb4j.controller.View;
-import org.mb4j.controller.ViewRequest;
-
 public class TypicalViews {
   public static class Home implements View {
     public ViewResponse handle(ViewRequest request) {

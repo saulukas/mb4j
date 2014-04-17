@@ -19,7 +19,7 @@ import org.mb4j.controller.mount.ViewFromPathResolver;
 import org.mb4j.controller.path.ViewPath;
 import static org.mb4j.controller.path.ViewPathString.pathStringOf;
 import org.mb4j.controller.url.ViewUrl;
-import static org.mb4j.http.HttpNamedParams.namedParametersFromRawQueryString;
+import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import static org.mb4j.liferay.PortletPathToHome.pathStringToHomeFrom;
 import static org.mb4j.liferay.PortletViewPathUtils.currentURI;
 import static org.mb4j.liferay.PortletViewPathUtils.viewPathFrom;

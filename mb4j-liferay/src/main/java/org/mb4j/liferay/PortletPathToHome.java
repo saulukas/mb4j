@@ -1,7 +1,7 @@
 package org.mb4j.liferay;
 
 import javax.portlet.PortletRequest;
-import org.mb4j.http.HttpPathToHome;
+import org.mb4j.controller.http.HttpPathToHome;
 
 public class PortletPathToHome {
   public static String pathStringToHomeFrom(PortletRequest request, String pathString) {

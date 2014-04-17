@@ -1,4 +1,4 @@
-package org.mb4j.http;
+package org.mb4j.controller.http;
 
 public class HttpPathToHome {
   public static String pathStringToHomeFrom(String pathString) {

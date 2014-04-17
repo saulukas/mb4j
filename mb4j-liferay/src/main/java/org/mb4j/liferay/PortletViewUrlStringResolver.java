@@ -2,7 +2,7 @@ package org.mb4j.liferay;
 
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
-import static org.mb4j.http.HttpNamedParams.queryStringFrom;
+import static org.mb4j.controller.http.HttpNamedParams.queryStringFrom;
 import org.mb4j.controller.mount.PathFromViewClassResolver;
 import org.mb4j.controller.path.ViewPath;
 import org.mb4j.controller.url.ViewUrl;

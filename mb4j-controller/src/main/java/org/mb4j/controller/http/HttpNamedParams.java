@@ -1,4 +1,4 @@
-package org.mb4j.http;
+package org.mb4j.controller.http;
 
 import java.util.Enumeration;
 import java.util.HashMap;

@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.mb4j</groupId>
     <artifactId>mb4j</artifactId>
-    <version>0.3.4-SNAPSHOT</version>
+    <version>0.3.5-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -19,7 +19,7 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>mb4j-http</artifactId>
+      <artifactId>mb4j-controller</artifactId>
       <version>${project.version}</version>
     </dependency>
 

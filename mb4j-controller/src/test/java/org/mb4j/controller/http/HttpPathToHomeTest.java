@@ -1,9 +1,9 @@
-package org.mb4j.http;
+package org.mb4j.controller.http;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import static org.mb4j.http.HttpPathToHome.pathStringToHomeFrom;
+import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
 
 public class HttpPathToHomeTest {
   @Test
