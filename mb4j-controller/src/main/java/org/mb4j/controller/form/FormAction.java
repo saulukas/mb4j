@@ -2,7 +2,7 @@ package org.mb4j.controller.form;
 
 import java.lang.reflect.ParameterizedType;
 import org.mb4j.controller.Controller;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ViewResponse;
 
 public abstract class FormAction<F extends Form> implements Controller {
@@ -13,15 +13,15 @@ public abstract class FormAction<F extends Form> implements Controller {
     this.formClass = (Class<F>) genericAction.getActualTypeArguments()[0];
   }
 
-  protected abstract ViewResponse doHandle(ViewRequest request, F form);
+  protected abstract ViewResponse doHandle(ControllerRequest request, F form);
 
   @Override
-  public ViewResponse handle(ViewRequest request) {
+  public ViewResponse handle(ControllerRequest request) {
     F form = createFormFrom(request);
     return doHandle(request, form);
   }
 
-  private F createFormFrom(ViewRequest request) {
+  private F createFormFrom(ControllerRequest request) {
     F form = createEmptyForm();
     form.resolveFieldNames(request.actionParamNameResolver);
     for (String name : request.url().params.named.names()) {

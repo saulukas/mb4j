@@ -6,8 +6,8 @@ import org.mb4j.controller.url.ControllerUrl2StringResolver;
 import org.mb4j.controller.form.Form;
 
 public class ViewTesting {
-  public static ViewRequest request4Tests(ControllerUrl url) {
-    return new ViewRequest(
+  public static ControllerRequest request4Tests(ControllerUrl url) {
+    return new ControllerRequest(
         url,
         staticUrlResolver4Tests("../path2home/../"),
         viewUrlResolver4Tests("../path2home/../"),

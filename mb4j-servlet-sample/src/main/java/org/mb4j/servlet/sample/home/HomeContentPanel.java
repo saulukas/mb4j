@@ -2,11 +2,11 @@ package org.mb4j.servlet.sample.home;
 
 import com.google.inject.Singleton;
 import org.mb4j.servlet.sample.event.list.EventListPage;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 
 @Singleton
 public class HomeContentPanel {
-  public HomeContentPanelBrick bakeBrick(ViewRequest request) {
+  public HomeContentPanelBrick bakeBrick(ControllerRequest request) {
     HomeContentPanelBrick brick = new HomeContentPanelBrick();
     brick.oneEventUrl = request.stringOf(EventListPage.url(1));
     brick.twoEventsUrl = request.stringOf(EventListPage.url(2));

@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.controller.BrickBakerPage;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
@@ -29,18 +29,18 @@ public class EventListPage extends BrickBakerPage {
   }
 
   @Override
-  public EventListPageBrick bakeBrickFrom(ViewRequest request) {
+  public EventListPageBrick bakeBrickFrom(ControllerRequest request) {
     return bakeBrick(request, Params.from(request));
   }
 
-  EventListPageBrick bakeBrick(ViewRequest request, Params params) {
+  EventListPageBrick bakeBrick(ControllerRequest request, Params params) {
     EventListPageBrick brick = new EventListPageBrick();
     brick.list = initDecoratedList(params, request);
     brick.reverseOrderUrl = request.stringOf(initReverseOrderUrl(params, request));
     return brick;
   }
 
-  private List<DecoratedListItem> initDecoratedList(Params params, ViewRequest request) {
+  private List<DecoratedListItem> initDecoratedList(Params params, ControllerRequest request) {
     LinkedList<DecoratedListItem> list = new LinkedList<>();
     List<Event> events = eventListQuery.resultFor(params.maxResultCount);
     for (Event event : events) {
@@ -54,7 +54,7 @@ public class EventListPage extends BrickBakerPage {
     return list;
   }
 
-  private ControllerUrl initReverseOrderUrl(Params params, ViewRequest request) {
+  private ControllerUrl initReverseOrderUrl(Params params, ControllerRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.url().withReplacedParam(Params.REVERSE_ORDER, "")
@@ -72,7 +72,7 @@ public class EventListPage extends BrickBakerPage {
       this.reverseOrder = reverseOrder;
     }
 
-    public static Params from(ViewRequest request) {
+    public static Params from(ControllerRequest request) {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
@@ -84,15 +84,15 @@ public class EventListPage extends BrickBakerPage {
       return UrlParams.of(pathBuilder.instance());
     }
 
-    private static int readMaxEventCount(ViewRequest request) {
+    private static int readMaxEventCount(ControllerRequest request) {
       int maxEventCount = SHOW_ALL;
-      if (request.pathParamsReader.hasMoreSegments()) {
-        maxEventCount = Integer.parseInt(request.pathParamsReader.readSegment());
+      if (request.hasMorePathSegments()) {
+        maxEventCount = Integer.parseInt(request.readPathSegment());
       }
       return maxEventCount;
     }
 
-    private static boolean readReverseOrderFlag(ViewRequest request) {
+    private static boolean readReverseOrderFlag(ControllerRequest request) {
       return request.url().params.named.valueOf(REVERSE_ORDER) != null;
     }
   }

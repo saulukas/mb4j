@@ -13,7 +13,7 @@ import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.url.UrlParams;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.url.UrlPath;
@@ -48,20 +48,20 @@ public class BrickPortlet extends GenericPortlet {
     ControllerUrl url = ControllerUrl.of(
         resolverResult.controller.getClass(),
         UrlParams.of(resolverResult.paramsPath, namedParams));
-    ViewRequest viewReq = createViewRequest(url, path2home, response);
+    ControllerRequest viewReq = createViewRequest(url, path2home, response);
     ViewResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);
   }
 
-  private ViewRequest createViewRequest(ControllerUrl url, String path2home, MimeResponse response) {
-    return new ViewRequest(
+  private ControllerRequest createViewRequest(ControllerUrl url, String path2home, MimeResponse response) {
+    return new ControllerRequest(
         url,
         new PortletStaticResourceUrlResolver(path2home),
         new PortletViewUrlStringResolver(response, views.controllerClass2UrlPathResolver()),
         new PortletFormFieldNameResolver());
   }
 
-  private void handle(ViewRequest viewReq, ViewResponse viewResp, RenderResponse response)
+  private void handle(ControllerRequest viewReq, ViewResponse viewResp, RenderResponse response)
       throws IOException {
     switch (viewResp.type) {
     case BRICK:

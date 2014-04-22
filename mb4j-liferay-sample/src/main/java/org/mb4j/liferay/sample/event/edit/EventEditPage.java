@@ -3,9 +3,9 @@ package org.mb4j.liferay.sample.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.BrickBakerPage;
-import org.mb4j.controller.ViewRequest;
-import static org.mb4j.controller.url.UrlPathBuilder.urlPath;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.url.ControllerUrl;
+import static org.mb4j.controller.url.UrlPathBuilder.urlPath;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventQuery;
 
@@ -21,7 +21,7 @@ public class EventEditPage extends BrickBakerPage {
   }
 
   @Override
-  public EventEditPageBrick bakeBrickFrom(ViewRequest request) {
+  public EventEditPageBrick bakeBrickFrom(ControllerRequest request) {
     int eventId = readEventIdFrom(request);
     Event event = eventQuery.eventOrNullFor(eventId);
     EventEditPageBrick brick = new EventEditPageBrick();
@@ -30,7 +30,7 @@ public class EventEditPage extends BrickBakerPage {
     return brick;
   }
 
-  private int readEventIdFrom(ViewRequest request) {
-    return Integer.parseInt(request.pathParamsReader.readSegment());
+  private int readEventIdFrom(ControllerRequest request) {
+    return Integer.parseInt(request.readPathSegment());
   }
 }

@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventSaveCommand;
 import org.mb4j.servlet.sample.event.list.EventListPage;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ViewResponse;
 import static org.mb4j.controller.ViewResponse.redirectTo;
 import org.mb4j.controller.form.Form;
@@ -46,7 +46,7 @@ public class EventEditForm extends Form {
     EventSaveCommand saveCommand;
 
     @Override
-    protected ViewResponse doHandle(ViewRequest request, EventEditForm form) {
+    protected ViewResponse doHandle(ControllerRequest request, EventEditForm form) {
       Event event = createEventFrom(form);
       saveCommand.save(event);
       return redirectTo(EventListPage.url());

@@ -5,7 +5,7 @@ import org.mb4j.controller.form.Form;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ViewResponse;
 
 public class FormActionTest {
@@ -14,7 +14,7 @@ public class FormActionTest {
 
   static class SomeAction extends FormAction<SomeForm> {
     @Override
-    protected ViewResponse doHandle(ViewRequest request, SomeForm form) {
+    protected ViewResponse doHandle(ControllerRequest request, SomeForm form) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }

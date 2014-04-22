@@ -4,7 +4,7 @@ import com.google.inject.Singleton;
 import org.mb4j.brick.Brick;
 import org.mb4j.brick.RawBrick;
 import org.mb4j.controller.BrickBakerPage;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.servlet.sample.offer.PersonalOfferPanel;
 
 @Singleton
@@ -12,7 +12,7 @@ public abstract class MasterLayoutPage extends BrickBakerPage {
   final PersonalOfferPanel headerPanel = new PersonalOfferPanel();
 
   @Override
-  public Brick bakeBrickFrom(ViewRequest request) {
+  public Brick bakeBrickFrom(ControllerRequest request) {
     MasterLayoutPageBrick brick = new MasterLayoutPageBrick();
     brick.header = headerPanel.bakeBrickFrom(request);
     brick.content = bakeContentBrick(request);
@@ -21,5 +21,5 @@ public abstract class MasterLayoutPage extends BrickBakerPage {
     return brick;
   }
 
-  protected abstract Brick bakeContentBrick(ViewRequest request);
+  protected abstract Brick bakeContentBrick(ControllerRequest request);
 }

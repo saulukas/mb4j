@@ -2,7 +2,7 @@ package org.mb4j.liferay.sample.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ViewResponse;
 import static org.mb4j.controller.ViewResponse.redirectTo;
 import org.mb4j.controller.form.Form;
@@ -45,7 +45,7 @@ public class EventEditForm extends Form {
     EventSaveCommand saveCommand;
 
     @Override
-    protected ViewResponse doHandle(ViewRequest request, EventEditForm form) {
+    protected ViewResponse doHandle(ControllerRequest request, EventEditForm form) {
       Event event = createEventFrom(form);
       saveCommand.save(event);
       return redirectTo(null); // not implemented yet

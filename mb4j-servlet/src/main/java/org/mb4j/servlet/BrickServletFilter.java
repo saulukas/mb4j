@@ -12,7 +12,7 @@ import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.url.UrlParams;
-import org.mb4j.controller.ViewRequest;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.url.UrlPath;
@@ -42,20 +42,20 @@ public class BrickServletFilter extends HttpFilter {
     ControllerUrl url = ControllerUrl.of(resolvedView.controller.getClass(), UrlParams.of(
         resolvedView.paramsPath,
         HttpNamedParams.namedParamsFrom(httpReq)));
-    ViewRequest viewReq = createViewRequest(path2home, url);
+    ControllerRequest viewReq = createViewRequest(path2home, url);
     ViewResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
   }
 
-  private ViewRequest createViewRequest(String path2home, ControllerUrl url) {
-    return new ViewRequest(
+  private ControllerRequest createViewRequest(String path2home, ControllerUrl url) {
+    return new ControllerRequest(
         url,
         new ServletStaticResourceUrlResolver(path2home),
         new ServletViewUrlStringResolver(path2home, views.controllerClass2UrlPathResolver()),
         ServletFormFieldNameResolver.INSTANCE);
   }
 
-  private void handle(ViewRequest viewReq, ViewResponse viewResp, HttpServletResponse httpResp)
+  private void handle(ControllerRequest viewReq, ViewResponse viewResp, HttpServletResponse httpResp)
       throws IOException {
     switch (viewResp.type) {
     case BRICK:

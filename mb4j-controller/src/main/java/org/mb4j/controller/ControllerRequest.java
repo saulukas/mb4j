@@ -7,14 +7,14 @@ import org.mb4j.controller.url.ControllerUrl2StringResolver;
 import org.mb4j.controller.url.StaticResourceUrlResolver;
 import org.mb4j.controller.url.UrlPathReader;
 
-public class ViewRequest {
+public class ControllerRequest {
   private final ControllerUrl url;
-  public final UrlPathReader pathParamsReader;
+  private final UrlPathReader pathParamsReader;
   private final StaticResourceUrlResolver staticResourceUrlResolver;
   private final ControllerUrl2StringResolver viewUrlResolver;
   public final Form.NameResolver actionParamNameResolver;
 
-  public ViewRequest(
+  public ControllerRequest(
       ControllerUrl url,
       StaticResourceUrlResolver staticUrlResolver,
       ControllerUrl2StringResolver viewUrlResolver,
@@ -36,6 +36,14 @@ public class ViewRequest {
 
   public String staticUrl(String urlFromHome) {
     return staticResourceUrlResolver.urlForStaticResource(urlFromHome);
+  }
+
+  public boolean hasMorePathSegments() {
+    return pathParamsReader.hasMoreSegments();
+  }
+
+  public String readPathSegment() {
+    return pathParamsReader.readSegment();
   }
 
   @Override
