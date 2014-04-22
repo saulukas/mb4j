@@ -17,7 +17,7 @@ public abstract class MasterLayoutPage extends BrickBakerPage {
     brick.header = headerPanel.bakeBrickFrom(request);
     brick.content = bakeContentBrick(request);
     brick.footer = new RawBrick("default FOOTER");
-    brick.dummy_js = request.staticUrl("js/dummy.js");
+    brick.dummy_js = request.resolveStaticUrl("js/dummy.js");
     return brick;
   }
 

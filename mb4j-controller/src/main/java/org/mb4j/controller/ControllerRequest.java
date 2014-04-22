@@ -5,19 +5,20 @@ import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
-import org.mb4j.controller.url.StaticResourceUrlResolver;
+import org.mb4j.controller.url.StaticUrl4Request;
+import org.mb4j.controller.url.StaticUrl4RequestResolver;
 import org.mb4j.controller.url.UrlPathReader;
 
 public class ControllerRequest {
   private final ControllerUrl url;
   private final UrlPathReader pathParamsReader;
-  private final StaticResourceUrlResolver staticResourceUrlResolver;
+  private final StaticUrl4RequestResolver staticResourceUrlResolver;
   private final ControllerUrl4RequestResolver controllerUrlResolver;
   public final Form.NameResolver actionParamNameResolver;
 
   public ControllerRequest(
       ControllerUrl url,
-      StaticResourceUrlResolver staticUrlResolver,
+      StaticUrl4RequestResolver staticUrlResolver,
       ControllerUrl4RequestResolver controllerUrlResolver,
       Form.NameResolver actionParamNameResolver) {
     this.url = url;
@@ -35,8 +36,8 @@ public class ControllerRequest {
     return controllerUrlResolver.resolve(url);
   }
 
-  public String staticUrl(String urlFromHome) {
-    return staticResourceUrlResolver.urlForStaticResource(urlFromHome);
+  public StaticUrl4Request resolveStaticUrl(String urlFromHome) {
+    return staticResourceUrlResolver.resolveStaticUrl(urlFromHome);
   }
 
   public boolean hasMorePathSegments() {
