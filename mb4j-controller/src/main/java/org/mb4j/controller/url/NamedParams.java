@@ -1,4 +1,4 @@
-package org.mb4j.controller;
+package org.mb4j.controller.url;
 
 import java.util.Collections;
 import java.util.Map;

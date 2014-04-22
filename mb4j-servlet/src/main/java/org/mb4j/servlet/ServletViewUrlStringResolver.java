@@ -7,10 +7,10 @@ import java.util.Collection;
 import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ViewUrlStringResolver;
-import org.mb4j.controller.NamedParams;
+import org.mb4j.controller.url.ControllerUrl2StringResolver;
+import org.mb4j.controller.url.NamedParams;
 
-public class ServletViewUrlStringResolver implements ViewUrlStringResolver {
+public class ServletViewUrlStringResolver implements ControllerUrl2StringResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
   private final ControllerClass2UrlPathResolver pathResolver;

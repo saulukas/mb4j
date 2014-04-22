@@ -1,5 +1,5 @@
 package org.mb4j.controller.url;
 
-public interface ViewUrlStringResolver {
+public interface ControllerUrl2StringResolver {
   String urlStringOf(ControllerUrl viewUrl);
 }

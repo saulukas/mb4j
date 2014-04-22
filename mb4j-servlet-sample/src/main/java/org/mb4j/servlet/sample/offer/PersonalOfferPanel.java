@@ -19,7 +19,7 @@ public class PersonalOfferPanel implements BrickBaker {
 
     public static Params from(ViewRequest request) {
       Params params = new Params();
-      params.offerText = request.url.params.named.valueOf(OFFER_TEXT);
+      params.offerText = request.url().params.named.valueOf(OFFER_TEXT);
       return params;
     }
 
@@ -40,7 +40,7 @@ public class PersonalOfferPanel implements BrickBaker {
 
   private ControllerUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
-        ? request.url.withDeletedParam(Params.OFFER_TEXT)
-        : request.url.withReplacedParam(Params.OFFER_TEXT, newOffer);
+        ? request.url().withDeletedParam(Params.OFFER_TEXT)
+        : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);
   }
 }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import org.mb4j.controller.NamedParams;
+import org.mb4j.controller.url.NamedParams;
 
 public class HttpNamedParams {
   public static NamedParams namedParamsFrom(HttpServletRequest req) {

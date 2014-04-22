@@ -6,9 +6,9 @@ import static org.mb4j.controller.http.HttpNamedParams.queryStringFrom;
 import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ViewUrlStringResolver;
+import org.mb4j.controller.url.ControllerUrl2StringResolver;
 
-public class PortletViewUrlStringResolver implements ViewUrlStringResolver {
+public class PortletViewUrlStringResolver implements ControllerUrl2StringResolver {
   private final MimeResponse portletResponse;
   private final ControllerClass2UrlPathResolver pathResolver;
 

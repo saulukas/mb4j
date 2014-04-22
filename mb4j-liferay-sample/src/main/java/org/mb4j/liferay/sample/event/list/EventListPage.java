@@ -5,10 +5,10 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.controller.BrickBakerPage;
-import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.url.UrlPathBuilder;
 import org.mb4j.controller.url.ControllerUrl;
+import org.mb4j.controller.url.UrlParams;
+import org.mb4j.controller.url.UrlPathBuilder;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventListQuery;
 import org.mb4j.liferay.sample.event.list.EventListPageBrick.DecoratedListItem;
@@ -57,8 +57,8 @@ public class EventListPage extends BrickBakerPage {
   private ControllerUrl initReverseOrderUrl(Params params, ViewRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
-        ? request.url.withReplacedParam(Params.REVERSE_ORDER, "")
-        : request.url.withDeletedParam(Params.REVERSE_ORDER);
+        ? request.url().withReplacedParam(Params.REVERSE_ORDER, "")
+        : request.url().withDeletedParam(Params.REVERSE_ORDER);
   }
 
   public static class Params {
@@ -93,7 +93,7 @@ public class EventListPage extends BrickBakerPage {
     }
 
     private static boolean readReverseOrderFlag(ViewRequest request) {
-      return request.url.params.named.valueOf(REVERSE_ORDER) != null;
+      return request.url().params.named.valueOf(REVERSE_ORDER) != null;
     }
   }
 }

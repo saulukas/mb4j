@@ -1,6 +1,5 @@
 package org.mb4j.controller.url;
 
-import org.mb4j.controller.NamedParams;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
 public class UrlParams {

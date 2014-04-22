@@ -24,10 +24,10 @@ public abstract class FormAction<F extends Form> implements Controller {
   private F createFormFrom(ViewRequest request) {
     F form = createEmptyForm();
     form.resolveFieldNames(request.actionParamNameResolver);
-    for (String name : request.url.params.named.names()) {
+    for (String name : request.url().params.named.names()) {
       FormField param = form.fieldBy(name);
       if (param != null) {
-        param.setValue(request.url.params.named.valueOf(name));
+        param.setValue(request.url().params.named.valueOf(name));
       }
     }
     return form;

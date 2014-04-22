@@ -10,7 +10,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.controller.NamedParams;
+import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ViewRequest;

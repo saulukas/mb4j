@@ -3,7 +3,7 @@ package org.mb4j.servlet;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.controller.NamedParams;
+import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
 import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
 import org.mb4j.controller.mapping.ControllerMappings;
