@@ -15,7 +15,6 @@ import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
-import org.mb4j.controller.reflection.SimpleClassName;
 
 class ControllerMounterNode implements UrlPath2ControllerResolver {
   @Nullable

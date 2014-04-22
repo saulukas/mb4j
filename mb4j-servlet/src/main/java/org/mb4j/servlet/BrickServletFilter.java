@@ -17,6 +17,7 @@ import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.url.ControllerUrl;
+import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
@@ -67,8 +68,8 @@ public class BrickServletFilter extends HttpFilter {
     }
     if (viewResp instanceof FormActionResponse) {
       FormActionResponse formActionResponse = (FormActionResponse) viewResp;
-      String location = viewReq.stringOf(formActionResponse.redirectToControllerUrl);
-      httpResp.sendRedirect(location);
+      ControllerUrl4Request location = viewReq.resolve(formActionResponse.redirectToControllerUrl);
+      httpResp.sendRedirect(location.toString());
       return;
     }
     throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()

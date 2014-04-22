@@ -34,7 +34,7 @@ public class PersonalOfferPanel implements BrickBaker {
     brick.offerText = params.offerText;
     brick.offerLinkText = (brick.offerVisible ? "Hide personal offer" : "Show personal offer");
     String newOffer = brick.offerVisible ? "" : "Consider going to fishing event!";
-    brick.toggleOfferUrl = request.stringOf(initTogglePersonalOfferUrl(request, newOffer));
+    brick.toggleOfferUrl = request.resolve(initTogglePersonalOfferUrl(request, newOffer));
     return brick;
   }
 

@@ -26,12 +26,12 @@ public class ServletViewUrlStringResolverTest {
     ServletViewUrlStringResolver resolver = new ServletViewUrlStringResolver(
         path2home,
         new ControllerMappings(mounter).controllerClass2UrlPathResolver());
-    assertThat(resolver.urlStringOf(ControllerUrl.of(Home.class)), is("../../"));
-    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentNew.class)), is("../../document/new"));
-    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentEdit.class)), is("../../document/edit"));
-    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentNew.class, UrlParams.of(urlPathOf("1/2/3")))),
+    assertThat(resolver.resolve(ControllerUrl.of(Home.class)).toString(), is("../../"));
+    assertThat(resolver.resolve(ControllerUrl.of(DocumentNew.class)).toString(), is("../../document/new"));
+    assertThat(resolver.resolve(ControllerUrl.of(DocumentEdit.class)).toString(), is("../../document/edit"));
+    assertThat(resolver.resolve(ControllerUrl.of(DocumentNew.class, UrlParams.of(urlPathOf("1/2/3")))).toString(),
         is("../../document/new/1/2/3"));
-    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentEdit.class, UrlParams.of(urlPathOf("a/b/c")))),
+    assertThat(resolver.resolve(ControllerUrl.of(DocumentEdit.class, UrlParams.of(urlPathOf("a/b/c")))).toString(),
         is("../../document/edit/a/b/c"));
     NamedParams namedParams = NamedParams.empty()
         .withReplacedParam("order", "ascending")
@@ -40,7 +40,7 @@ public class ServletViewUrlStringResolverTest {
         .withReplacedParam("name with spaces", "someValue");
     System.out.println("" + namedParams);
     ControllerUrl url = ControllerUrl.of(DocumentEdit.class, UrlParams.of(urlPathOf("127"), namedParams));
-    assertThat(resolver.urlStringOf(url), is("../../document/edit"
+    assertThat(resolver.resolve(url).toString(), is("../../document/edit"
         + "/127"
         + "?lt_message=vidur%20pr%C5%ABdo%20bli%C5%ABdas%20pl%C5%ABdo"
         + "&name%20with%20spaces=someValue"

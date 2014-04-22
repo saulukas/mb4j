@@ -25,7 +25,7 @@ public class EventEditPage extends BrickBakerPage {
     int eventId = readEventIdFrom(request);
     Event event = eventQuery.eventOrNullFor(eventId);
     EventEditPageBrick brick = new EventEditPageBrick();
-    brick.actionSaveUrl = request.stringOf(ControllerUrl.of(EventEditForm.SaveAction.class));
+    brick.actionSaveUrl = request.resolve(ControllerUrl.of(EventEditForm.SaveAction.class));
     brick.form = formFiller.filledForm(request, new EventEditForm.Filler.Params(event));
     return brick;
   }

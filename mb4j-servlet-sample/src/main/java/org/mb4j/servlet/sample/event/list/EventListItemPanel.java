@@ -11,7 +11,7 @@ public class EventListItemPanel {
     EventListItemPanelBrick brick = new EventListItemPanelBrick();
     brick.event = event;
     brick.eventImageUrl = request.staticUrl(event.imageUrl);
-    brick.eventEditUrl = request.stringOf(EventEditPage.url(event.id));
+    brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));
     return brick;
   }
 }

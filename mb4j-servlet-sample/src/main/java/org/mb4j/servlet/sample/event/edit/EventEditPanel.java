@@ -17,7 +17,7 @@ public class EventEditPanel {
   public EventEditPanelBrick bakeBrick(ControllerRequest request, int eventId) {
     Event event = eventQuery.eventOrNullFor(eventId);
     EventEditPanelBrick brick = new EventEditPanelBrick();
-    brick.actionSaveUrl = request.stringOf(ControllerUrl.of(EventEditForm.SaveAction.class));
+    brick.actionSaveUrl = request.resolve(ControllerUrl.of(EventEditForm.SaveAction.class));
     brick.form = formFiller.filledForm(request, new EventEditForm.Filler.Params(event));
     return brick;
   }

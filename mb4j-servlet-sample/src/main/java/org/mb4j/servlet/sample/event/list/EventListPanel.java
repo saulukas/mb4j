@@ -26,7 +26,7 @@ public class EventListPanel {
   EventListPanelBrick bakeBrick(ControllerRequest request, Params params) {
     EventListPanelBrick brick = new EventListPanelBrick();
     brick.list = initDecoratedList(params, request);
-    brick.reverseOrderUrl = request.stringOf(initReverseOrderUrl(params, request));
+    brick.reverseOrderUrl = request.resolve(initReverseOrderUrl(params, request));
     return brick;
   }
 

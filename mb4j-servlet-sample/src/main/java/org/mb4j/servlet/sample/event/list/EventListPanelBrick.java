@@ -2,10 +2,11 @@ package org.mb4j.servlet.sample.event.list;
 
 import java.util.List;
 import org.mb4j.brick.Brick;
+import org.mb4j.controller.url.ControllerUrl4Request;
 
 public class EventListPanelBrick extends Brick {
   List<DecoratedListItem> list;
-  String reverseOrderUrl;
+  ControllerUrl4Request reverseOrderUrl;
 
   static class DecoratedListItem {
     EventListItemPanelBrick item;

@@ -1,4 +1,4 @@
-package org.mb4j.controller.reflection;
+package org.mb4j.controller.mapping;
 
 public class SimpleClassName {
   public static String of(Class<?> klass) {

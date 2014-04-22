@@ -1,10 +1,11 @@
 package org.mb4j.liferay.sample.offer;
 
 import org.mb4j.brick.Brick;
+import org.mb4j.controller.url.ControllerUrl4Request;
 
 public class PersonalOfferPageBrick extends Brick {
   boolean offerVisible = false;
   String offerText;
   String offerLinkText;
-  String toggleOfferUrl;
+  ControllerUrl4Request toggleOfferUrl;
 }

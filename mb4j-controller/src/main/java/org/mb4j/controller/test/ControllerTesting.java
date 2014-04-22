@@ -3,7 +3,8 @@ package org.mb4j.controller.test;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl2StringResolver;
+import org.mb4j.controller.url.ControllerUrl4Request;
+import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.StaticResourceUrlResolver;
 
 public class ControllerTesting {
@@ -25,11 +26,11 @@ public class ControllerTesting {
     };
   }
 
-  public static ControllerUrl2StringResolver controllerUrlResolver4Tests(final String path2home) {
-    return new ControllerUrl2StringResolver() {
+  public static ControllerUrl4RequestResolver controllerUrlResolver4Tests(final String path2home) {
+    return new ControllerUrl4RequestResolver() {
       @Override
-      public String urlStringOf(ControllerUrl controllerUrl) {
-        return path2home + controllerUrl;
+      public ControllerUrl4Request resolve(ControllerUrl controllerUrl) {
+        return new ControllerUrl4Request(path2home + controllerUrl);
       }
     };
   }

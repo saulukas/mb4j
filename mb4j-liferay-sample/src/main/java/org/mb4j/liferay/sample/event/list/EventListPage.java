@@ -36,7 +36,7 @@ public class EventListPage extends BrickBakerPage {
   EventListPageBrick bakeBrick(ControllerRequest request, Params params) {
     EventListPageBrick brick = new EventListPageBrick();
     brick.list = initDecoratedList(params, request);
-    brick.reverseOrderUrl = request.stringOf(initReverseOrderUrl(params, request));
+    brick.reverseOrderUrl = request.resolve(initReverseOrderUrl(params, request));
     return brick;
   }
 

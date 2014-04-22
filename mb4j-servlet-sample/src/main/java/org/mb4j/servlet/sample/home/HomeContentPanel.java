@@ -8,9 +8,9 @@ import org.mb4j.controller.ControllerRequest;
 public class HomeContentPanel {
   public HomeContentPanelBrick bakeBrick(ControllerRequest request) {
     HomeContentPanelBrick brick = new HomeContentPanelBrick();
-    brick.oneEventUrl = request.stringOf(EventListPage.url(1));
-    brick.twoEventsUrl = request.stringOf(EventListPage.url(2));
-    brick.allEventsUrl = request.stringOf(EventListPage.url(EventListPage.SHOW_ALL));
+    brick.oneEventUrl = request.resolve(EventListPage.url(1));
+    brick.twoEventsUrl = request.resolve(EventListPage.url(2));
+    brick.allEventsUrl = request.resolve(EventListPage.url(EventListPage.SHOW_ALL));
     return brick;
   }
 }

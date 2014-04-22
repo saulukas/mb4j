@@ -5,12 +5,13 @@ import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
 import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
-import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl2StringResolver;
+import org.mb4j.controller.url.ControllerUrl4Request;
+import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.NamedParams;
+import org.mb4j.controller.url.UrlPath;
 
-public class ServletViewUrlStringResolver implements ControllerUrl2StringResolver {
+public class ServletViewUrlStringResolver implements ControllerUrl4RequestResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
   private final ControllerClass2UrlPathResolver pathResolver;
@@ -21,7 +22,7 @@ public class ServletViewUrlStringResolver implements ControllerUrl2StringResolve
   }
 
   @Override
-  public String urlStringOf(ControllerUrl url) {
+  public ControllerUrl4Request resolve(ControllerUrl url) {
     StringBuilder result = new StringBuilder(path2home);
     appendEscapedPath(result, pathResolver.urlPathFor(url.controllerClass));
     if (!url.params.path.isEmpty()) {
@@ -33,7 +34,7 @@ public class ServletViewUrlStringResolver implements ControllerUrl2StringResolve
     if (Strings.isNullOrEmpty(urlString)) {
       urlString = "./";
     }
-    return urlString;
+    return new ControllerUrl4Request(urlString);
   }
 
   private void appendNamedParamsString(StringBuilder result, NamedParams params) {

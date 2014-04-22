@@ -11,9 +11,9 @@ public class AAA_Concepts {
     try {
       List<Class<? extends Controller>> controllers = new ArrayList<>();
       Set<Class<?>> visitedClasses = new HashSet<>();
-      Class viewKlass = Controller.class;
-      collectControllersFor(viewKlass, false, visitedClasses, controllers);
-      System.out.println("Controolers for " + viewKlass.getSimpleName() + ": " + controllers);
+      Class controllerKlass = Controller.class;
+      collectControllersFor(controllerKlass, false, visitedClasses, controllers);
+      System.out.println("Controolers for " + controllerKlass.getSimpleName() + ": " + controllers);
     } catch (Exception ex) {
       System.out.println("Bedele: " + ex);
     }
