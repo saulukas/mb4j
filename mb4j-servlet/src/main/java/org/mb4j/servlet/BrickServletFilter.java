@@ -35,7 +35,6 @@ public class BrickServletFilter extends HttpFilter {
       throws IOException, ServletException {
     String servletPath = httpReq.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
-    String path2home = UrlPathStringToHome.from(servletPath);
     UrlPath2ControllerResolver.Result resolvedView = views.urlPath2ControllerResolver().resolve(path);
     if (!resolvedView.hasController()) {
       chain.doFilter(httpReq, httpResp);
@@ -44,6 +43,7 @@ public class BrickServletFilter extends HttpFilter {
     ControllerUrl url = ControllerUrl.of(resolvedView.controller.getClass(), UrlParams.of(
         resolvedView.paramsPath,
         HttpNamedParams.namedParamsFrom(httpReq)));
+    String path2home = UrlPathStringToHome.from(servletPath);
     ControllerRequest viewReq = createViewRequest(path2home, url);
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
@@ -72,6 +72,6 @@ public class BrickServletFilter extends HttpFilter {
       return;
     }
     throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()
-        + " type: " + viewResp);
+        + ": " + viewResp);
   }
 }
