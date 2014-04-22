@@ -3,7 +3,7 @@ package org.mb4j.controller.form;
 import java.lang.reflect.ParameterizedType;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ViewResponse;
+import org.mb4j.controller.ControllerResponse;
 
 public abstract class FormAction<F extends Form> implements Controller {
   private final Class<F> formClass;
@@ -13,10 +13,10 @@ public abstract class FormAction<F extends Form> implements Controller {
     this.formClass = (Class<F>) genericAction.getActualTypeArguments()[0];
   }
 
-  protected abstract ViewResponse doHandle(ControllerRequest request, F form);
+  protected abstract ControllerResponse doHandle(ControllerRequest request, F form);
 
   @Override
-  public ViewResponse handle(ControllerRequest request) {
+  public ControllerResponse handle(ControllerRequest request) {
     F form = createFormFrom(request);
     return doHandle(request, form);
   }

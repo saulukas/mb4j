@@ -2,37 +2,37 @@ package org.mb4j.controller;
 
 public class TypicalViews {
   public static class Home implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class Tutorial implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOnEvents implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOnSockets implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialTopic implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOtherStuff implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }

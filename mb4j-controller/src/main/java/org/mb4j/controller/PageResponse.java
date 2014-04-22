@@ -2,9 +2,11 @@ package org.mb4j.controller;
 
 import org.mb4j.brick.Brick;
 
-public class PageResponse extends ViewResponse {
+public class PageResponse implements ControllerResponse {
+  public final Brick brick;
+
   private PageResponse(Brick brick) {
-    super(Type.BRICK, brick, null);
+    this.brick = brick;
   }
 
   public static PageResponse pageResponseWith(Brick brick) {

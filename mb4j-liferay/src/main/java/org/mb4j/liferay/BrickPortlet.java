@@ -10,16 +10,17 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.controller.url.NamedParams;
-import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ViewResponse;
+import org.mb4j.controller.ControllerResponse;
+import org.mb4j.controller.PageResponse;
+import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
+import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.url.ControllerUrl;
+import org.mb4j.controller.url.NamedParams;
+import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
-import org.mb4j.controller.url.ControllerUrl;
-import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import static org.mb4j.liferay.PortletPathToHome.pathStringToHomeFrom;
 import static org.mb4j.liferay.PortletViewPathUtils.currentURI;
 import static org.mb4j.liferay.PortletViewPathUtils.viewPathFrom;
@@ -49,7 +50,7 @@ public class BrickPortlet extends GenericPortlet {
         resolverResult.controller.getClass(),
         UrlParams.of(resolverResult.paramsPath, namedParams));
     ControllerRequest viewReq = createViewRequest(url, path2home, response);
-    ViewResponse viewResp = resolverResult.controller.handle(viewReq);
+    ControllerResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);
   }
 
@@ -61,17 +62,15 @@ public class BrickPortlet extends GenericPortlet {
         new PortletFormFieldNameResolver());
   }
 
-  private void handle(ControllerRequest viewReq, ViewResponse viewResp, RenderResponse response)
+  private void handle(ControllerRequest viewReq, ControllerResponse viewResp, RenderResponse response)
       throws IOException {
-    switch (viewResp.type) {
-    case BRICK:
-      renderer.render(viewResp.brick, response.getWriter());
-      break;
-    case REDIRECT_TO_VIEW:
-    default:
-      throw new RuntimeException("Unsupported " + ViewResponse.class.getSimpleName()
-          + " type: " + viewResp.type);
+    if (viewResp instanceof PageResponse) {
+      PageResponse pageResponse = (PageResponse) viewResp;
+      renderer.render(pageResponse.brick, response.getWriter());
+      return;
     }
+    throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()
+        + " type: " + viewResp);
   }
 
   @Override

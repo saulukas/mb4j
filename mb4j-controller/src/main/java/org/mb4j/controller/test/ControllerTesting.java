@@ -1,16 +1,17 @@
-package org.mb4j.controller;
+package org.mb4j.controller.test;
 
-import org.mb4j.controller.url.StaticResourceUrlResolver;
+import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.form.Form;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl2StringResolver;
-import org.mb4j.controller.form.Form;
+import org.mb4j.controller.url.StaticResourceUrlResolver;
 
-public class ViewTesting {
+public class ControllerTesting {
   public static ControllerRequest request4Tests(ControllerUrl url) {
     return new ControllerRequest(
         url,
         staticUrlResolver4Tests("../path2home/../"),
-        viewUrlResolver4Tests("../path2home/../"),
+        controllerUrlResolver4Tests("../path2home/../"),
         actionParamNameResolver4Tests()
     );
   }
@@ -24,11 +25,11 @@ public class ViewTesting {
     };
   }
 
-  public static ControllerUrl2StringResolver viewUrlResolver4Tests(final String path2home) {
+  public static ControllerUrl2StringResolver controllerUrlResolver4Tests(final String path2home) {
     return new ControllerUrl2StringResolver() {
       @Override
-      public String urlStringOf(ControllerUrl viewUrl) {
-        return path2home + viewUrl;
+      public String urlStringOf(ControllerUrl controllerUrl) {
+        return path2home + controllerUrl;
       }
     };
   }

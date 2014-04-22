@@ -2,16 +2,16 @@ package org.mb4j.servlet.sample.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.servlet.sample.domain.Event;
-import org.mb4j.servlet.sample.domain.EventSaveCommand;
-import org.mb4j.servlet.sample.event.list.EventListPage;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ViewResponse;
-import static org.mb4j.controller.ViewResponse.redirectTo;
+import org.mb4j.controller.ControllerResponse;
+import static org.mb4j.controller.FormActionResponse.redirectTo;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormField;
 import org.mb4j.controller.form.FormFiller;
+import org.mb4j.servlet.sample.domain.Event;
+import org.mb4j.servlet.sample.domain.EventSaveCommand;
+import org.mb4j.servlet.sample.event.list.EventListPage;
 
 public class EventEditForm extends Form {
   final FormField id = FormField.requiredField();
@@ -46,7 +46,7 @@ public class EventEditForm extends Form {
     EventSaveCommand saveCommand;
 
     @Override
-    protected ViewResponse doHandle(ControllerRequest request, EventEditForm form) {
+    protected ControllerResponse doHandle(ControllerRequest request, EventEditForm form) {
       Event event = createEventFrom(form);
       saveCommand.save(event);
       return redirectTo(EventListPage.url());

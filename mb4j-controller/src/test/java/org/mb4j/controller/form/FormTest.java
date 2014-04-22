@@ -5,7 +5,7 @@ import org.mb4j.controller.form.Form;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import static org.mb4j.controller.ViewTesting.actionParamNameResolver4Tests;
+import static org.mb4j.controller.test.ControllerTesting.actionParamNameResolver4Tests;
 import static org.mb4j.controller.form.FormField.optionalField;
 import static org.mb4j.controller.form.FormField.requiredField;
 

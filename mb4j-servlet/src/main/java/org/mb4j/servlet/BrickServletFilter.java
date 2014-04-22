@@ -6,18 +6,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
+import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
+import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.ControllerResponse;
+import org.mb4j.controller.FormActionResponse;
+import org.mb4j.controller.PageResponse;
 import org.mb4j.controller.http.HttpFilter;
 import org.mb4j.controller.http.HttpNamedParams;
 import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
-import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.url.UrlParams;
-import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.url.ControllerUrl;
+import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.urlPath;
-import org.mb4j.controller.url.ControllerUrl;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
@@ -43,7 +45,7 @@ public class BrickServletFilter extends HttpFilter {
         resolvedView.paramsPath,
         HttpNamedParams.namedParamsFrom(httpReq)));
     ControllerRequest viewReq = createViewRequest(path2home, url);
-    ViewResponse viewResp = resolvedView.controller.handle(viewReq);
+    ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
   }
 
@@ -55,20 +57,21 @@ public class BrickServletFilter extends HttpFilter {
         ServletFormFieldNameResolver.INSTANCE);
   }
 
-  private void handle(ControllerRequest viewReq, ViewResponse viewResp, HttpServletResponse httpResp)
+  private void handle(ControllerRequest viewReq, ControllerResponse viewResp, HttpServletResponse httpResp)
       throws IOException {
-    switch (viewResp.type) {
-    case BRICK:
-      httpResp.setCharacterEncoding(outputEncodingStringOf(viewResp.brick.getClass()));
-      renderer.render(viewResp.brick, httpResp.getWriter());
-      break;
-    case REDIRECT_TO_VIEW:
-      String location = viewReq.stringOf(viewResp.viewUrl);
-      httpResp.sendRedirect(location);
-      break;
-    default:
-      throw new RuntimeException("Unsupported " + ViewResponse.class.getSimpleName()
-          + " type: " + viewResp.type);
+    if (viewResp instanceof PageResponse) {
+      PageResponse pageResponse = (PageResponse) viewResp;
+      httpResp.setCharacterEncoding(outputEncodingStringOf(pageResponse.brick.getClass()));
+      renderer.render(pageResponse.brick, httpResp.getWriter());
+      return;
     }
+    if (viewResp instanceof FormActionResponse) {
+      FormActionResponse formActionResponse = (FormActionResponse) viewResp;
+      String location = viewReq.stringOf(formActionResponse.redirectToControllerUrl);
+      httpResp.sendRedirect(location);
+      return;
+    }
+    throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()
+        + " type: " + viewResp);
   }
 }

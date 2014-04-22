@@ -2,29 +2,29 @@ package org.mb4j.servlet;
 
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ViewResponse;
+import org.mb4j.controller.ControllerResponse;
 
 public class TypicalViews {
   public static class Home implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class Document implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class DocumentNew implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class DocumentEdit implements Controller {
-    public ViewResponse handle(ControllerRequest request) {
+    public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
