@@ -9,7 +9,7 @@ import org.mb4j.servlet.TypicalViews.DocumentNew;
 import org.mb4j.servlet.TypicalViews.Home;
 import org.mb4j.controller.NamedParams;
 import org.mb4j.controller.ViewParams;
-import org.mb4j.controller.mount.ViewMounter;
+import org.mb4j.controller.mapping.ViewMounter;
 import static org.mb4j.controller.path.UrlPathString.urlPath;
 import org.mb4j.controller.url.ViewUrl;
 

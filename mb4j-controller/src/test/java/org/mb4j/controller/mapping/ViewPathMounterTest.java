@@ -1,6 +1,5 @@
-package org.mb4j.controller.mount;
+package org.mb4j.controller.mapping;
 
-import org.mb4j.controller.mount.ViewPathMounter;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;

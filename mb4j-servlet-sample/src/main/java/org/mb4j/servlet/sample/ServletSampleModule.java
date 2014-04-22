@@ -10,7 +10,7 @@ import org.mb4j.servlet.sample.event.edit.EventEditPageModule;
 import org.mb4j.servlet.sample.event.list.EventListPageModule;
 import org.mb4j.servlet.sample.home.HomePageModule;
 import org.mb4j.servlet.sample.util.ModuleWithExplicitBindings;
-import org.mb4j.controller.ViewMap;
+import org.mb4j.controller.mapping.ViewMap;
 
 public class ServletSampleModule extends AbstractModule {
     public static Injector createInjector() {

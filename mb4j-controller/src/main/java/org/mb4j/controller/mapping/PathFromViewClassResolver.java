@@ -1,4 +1,4 @@
-package org.mb4j.controller.mount;
+package org.mb4j.controller.mapping;
 
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.path.UrlPath;

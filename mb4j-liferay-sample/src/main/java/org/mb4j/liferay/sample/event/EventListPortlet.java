@@ -2,8 +2,8 @@ package org.mb4j.liferay.sample.event;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.ViewMap;
-import org.mb4j.controller.mount.ViewMounter;
+import org.mb4j.controller.mapping.ViewMap;
+import org.mb4j.controller.mapping.ViewMounter;
 import static org.mb4j.controller.path.UrlPathString.urlPath;
 import org.mb4j.liferay.sample.SampleBasePortlet;
 import org.mb4j.liferay.sample.event.edit.EventEditForm;

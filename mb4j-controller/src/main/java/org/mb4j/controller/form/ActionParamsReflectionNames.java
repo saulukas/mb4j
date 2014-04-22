@@ -7,7 +7,7 @@ import org.mb4j.controller.form.Form.NameResolver;
 
 class ActionParamsReflectionNames {
   static Map<String, FormField> resolveNamesFor(Form actionParams, NameResolver nameResolver) {
-    Map<String, FormField> paramMap = new HashMap<String, FormField>();
+    Map<String, FormField> paramMap = new HashMap<>();
     Field[] fields = actionParams.getClass().getDeclaredFields();
     for (Field field : fields) {
       FormField param = resolveName(nameResolver, actionParams, field);

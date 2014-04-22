@@ -48,7 +48,7 @@ public class NamedParams {
   }
 
   private static TreeMap<String, String> createCopyOf(Map<String, String> original) {
-    return new TreeMap<String, String>(original);
+    return new TreeMap<>(original);
   }
 
   @Override

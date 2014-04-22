@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.controller.mount.PathFromViewClassResolver;
+import org.mb4j.controller.mapping.PathFromViewClassResolver;
 import org.mb4j.controller.path.UrlPath;
 import org.mb4j.controller.url.ViewUrl;
 import org.mb4j.controller.url.ViewUrlStringResolver;

@@ -1,19 +1,16 @@
-package org.mb4j.controller.mount;
+package org.mb4j.controller.mapping;
 
-import org.mb4j.controller.mount.ViewFromPathResolver;
-import org.mb4j.controller.mount.PathFromViewClassResolver;
-import org.mb4j.controller.mount.ViewMounter;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
+import org.mb4j.controller.Controller;
 import static org.mb4j.controller.TypicalViews.HOME;
 import static org.mb4j.controller.TypicalViews.TUTORIAL;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_EVENTS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_SOCKETS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_OTHER_STUFF;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_TOPIC;
-import org.mb4j.controller.Controller;
 import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 import static org.mb4j.controller.path.UrlPathString.urlPath;
 
@@ -52,8 +49,8 @@ public class ViewMounterTest {
     assertThat(resolvedView(viewFromPath, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
-  private String resolvedPathString(PathFromViewClassResolver resolver, Controller view) {
-    return pathStringOf(resolver.viewPathFor(view.getClass()));
+  private String resolvedPathString(PathFromViewClassResolver resolver, Controller controller) {
+    return pathStringOf(resolver.viewPathFor(controller.getClass()));
   }
 
   private Controller resolvedView(ViewFromPathResolver viewFromPath, String pathString) {

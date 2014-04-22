@@ -1,8 +1,8 @@
-package org.mb4j.controller;
+package org.mb4j.controller.mapping;
 
-import org.mb4j.controller.mount.PathFromViewClassResolver;
-import org.mb4j.controller.mount.ViewFromPathResolver;
-import org.mb4j.controller.mount.ViewMounter;
+import org.mb4j.controller.mapping.PathFromViewClassResolver;
+import org.mb4j.controller.mapping.ViewFromPathResolver;
+import org.mb4j.controller.mapping.ViewMounter;
 
 public class ViewMap {
     private final ViewMounter mounter;

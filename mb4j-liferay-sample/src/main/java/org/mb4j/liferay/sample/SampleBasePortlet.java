@@ -3,7 +3,7 @@ package org.mb4j.liferay.sample;
 import com.google.inject.Injector;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.liferay.BrickPortlet;
-import org.mb4j.controller.ViewMap;
+import org.mb4j.controller.mapping.ViewMap;
 
 public class SampleBasePortlet extends BrickPortlet {
   protected SampleBasePortlet(Class<? extends ViewMap> viewsClass) {

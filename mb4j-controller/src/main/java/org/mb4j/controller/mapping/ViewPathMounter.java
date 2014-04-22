@@ -1,4 +1,4 @@
-package org.mb4j.controller.mount;
+package org.mb4j.controller.mapping;
 
 import java.util.HashMap;
 import java.util.Map;

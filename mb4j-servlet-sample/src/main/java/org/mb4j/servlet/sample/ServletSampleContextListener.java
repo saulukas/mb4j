@@ -2,7 +2,7 @@ package org.mb4j.servlet.sample;
 
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
-import org.mb4j.controller.ViewMap;
+import org.mb4j.controller.mapping.ViewMap;
 
 public class ServletSampleContextListener extends GuiceServletContextListener {
   @Override
