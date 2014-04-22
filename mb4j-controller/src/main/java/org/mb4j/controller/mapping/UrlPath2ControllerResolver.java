@@ -1,7 +1,7 @@
 package org.mb4j.controller.mapping;
 
 import org.mb4j.controller.Controller;
-import org.mb4j.controller.path.UrlPath;
+import org.mb4j.controller.url.UrlPath;
 
 public interface UrlPath2ControllerResolver {
   Result resolve(UrlPath path);

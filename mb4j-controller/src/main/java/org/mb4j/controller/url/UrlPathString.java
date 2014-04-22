@@ -1,4 +1,4 @@
-package org.mb4j.controller.path;
+package org.mb4j.controller.url;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;

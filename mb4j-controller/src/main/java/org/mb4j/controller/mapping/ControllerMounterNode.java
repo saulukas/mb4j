@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 import org.mb4j.controller.Controller;
-import org.mb4j.controller.path.BufferedUrlPathReader;
-import static org.mb4j.controller.path.BufferedUrlPathReader.bufferedReaderOf;
-import org.mb4j.controller.path.UrlPath;
-import org.mb4j.controller.path.UrlPathString;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
+import org.mb4j.controller.url.BufferedUrlPathReader;
+import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
+import org.mb4j.controller.url.UrlPath;
+import org.mb4j.controller.url.UrlPathString;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.reflection.SimpleClassName;
 
 class ControllerMounterNode implements UrlPath2ControllerResolver {

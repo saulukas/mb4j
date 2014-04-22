@@ -6,9 +6,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import javax.portlet.PortletRequest;
-import org.mb4j.controller.path.UrlPath;
-import org.mb4j.controller.path.UrlPathString;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
+import org.mb4j.controller.url.UrlPath;
+import org.mb4j.controller.url.UrlPathString;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
 public class PortletViewPathUtils {
   public static final String MVC_PATH_PARAM_NAME = "mvcPath";

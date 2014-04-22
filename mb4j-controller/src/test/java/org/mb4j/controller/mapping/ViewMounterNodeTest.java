@@ -10,7 +10,7 @@ import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_EVENTS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_SOCKETS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_OTHER_STUFF;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_TOPIC;
-import static org.mb4j.controller.path.UrlPathString.urlPath;
+import static org.mb4j.controller.url.UrlPathString.urlPath;
 
 public class ViewMounterNodeTest {
   @Test

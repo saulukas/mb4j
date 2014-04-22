@@ -5,10 +5,10 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.controller.BrickBakerPage;
-import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.path.UrlPathBuilder;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.UrlPathBuilder;
+import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventListQuery;
 import org.mb4j.liferay.sample.event.list.EventListPageBrick.DecoratedListItem;
@@ -20,12 +20,12 @@ public class EventListPage extends BrickBakerPage {
   @Inject
   EventListItemPanel itemPanel;
 
-  public static ViewUrl url() {
+  public static ControllerUrl url() {
     return url(Params.SHOW_ALL);
   }
 
-  public static ViewUrl url(int maxEventCount) {
-    return ViewUrl.of(EventListPage.class, new Params(maxEventCount, false).toViewParams());
+  public static ControllerUrl url(int maxEventCount) {
+    return ControllerUrl.of(EventListPage.class, new Params(maxEventCount, false).toViewParams());
   }
 
   @Override
@@ -54,7 +54,7 @@ public class EventListPage extends BrickBakerPage {
     return list;
   }
 
-  private ViewUrl initReverseOrderUrl(Params params, ViewRequest request) {
+  private ControllerUrl initReverseOrderUrl(Params params, ViewRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.url.withReplacedParam(Params.REVERSE_ORDER, "")
@@ -76,12 +76,12 @@ public class EventListPage extends BrickBakerPage {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
-    public ViewParams toViewParams() {
+    public UrlParams toViewParams() {
       UrlPathBuilder pathBuilder = UrlPathBuilder.urlPath();
       if (maxResultCount != SHOW_ALL) {
         pathBuilder = pathBuilder.with(String.valueOf(maxResultCount));
       }
-      return ViewParams.of(pathBuilder.instance());
+      return UrlParams.of(pathBuilder.instance());
     }
 
     private static int readMaxEventCount(ViewRequest request) {

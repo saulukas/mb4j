@@ -1,12 +1,12 @@
-package org.mb4j.controller.path;
+package org.mb4j.controller.url;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
-import static org.mb4j.controller.path.UrlPathString.urlPath;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import static org.mb4j.controller.url.UrlPathString.urlPath;
 
 public class UrlPathStringTest {
   @Test

@@ -11,13 +11,13 @@ import org.mb4j.controller.http.HttpNamedParams;
 import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
-import org.mb4j.controller.path.UrlPath;
-import static org.mb4j.controller.path.UrlPathString.urlPath;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.UrlPath;
+import static org.mb4j.controller.url.UrlPathString.urlPath;
+import org.mb4j.controller.url.ControllerUrl;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
@@ -39,7 +39,7 @@ public class BrickServletFilter extends HttpFilter {
       chain.doFilter(httpReq, httpResp);
       return;
     }
-    ViewUrl url = ViewUrl.of(resolvedView.controller.getClass(), ViewParams.of(
+    ControllerUrl url = ControllerUrl.of(resolvedView.controller.getClass(), UrlParams.of(
         resolvedView.paramsPath,
         HttpNamedParams.namedParamsFrom(httpReq)));
     ViewRequest viewReq = createViewRequest(path2home, url);
@@ -47,7 +47,7 @@ public class BrickServletFilter extends HttpFilter {
     handle(viewReq, viewResp, httpResp);
   }
 
-  private ViewRequest createViewRequest(String path2home, ViewUrl url) {
+  private ViewRequest createViewRequest(String path2home, ControllerUrl url) {
     return new ViewRequest(
         url,
         new ServletStaticResourceUrlResolver(path2home),

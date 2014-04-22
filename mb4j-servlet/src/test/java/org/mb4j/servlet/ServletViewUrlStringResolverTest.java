@@ -4,12 +4,12 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.mb4j.controller.NamedParams;
-import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.url.UrlParams;
 import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.ControllerMounter;
-import static org.mb4j.controller.path.UrlPathString.urlPath;
-import org.mb4j.controller.url.ViewUrl;
+import static org.mb4j.controller.url.UrlPathString.urlPath;
+import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.servlet.TypicalViews.DocumentEdit;
 import org.mb4j.servlet.TypicalViews.DocumentNew;
 import org.mb4j.servlet.TypicalViews.Home;
@@ -26,12 +26,12 @@ public class ServletViewUrlStringResolverTest {
     ServletViewUrlStringResolver resolver = new ServletViewUrlStringResolver(
         path2home,
         new ControllerMappings(mounter).controllerClass2UrlPathResolver());
-    assertThat(resolver.urlStringOf(ViewUrl.of(Home.class)), is("../../"));
-    assertThat(resolver.urlStringOf(ViewUrl.of(DocumentNew.class)), is("../../document/new"));
-    assertThat(resolver.urlStringOf(ViewUrl.of(DocumentEdit.class)), is("../../document/edit"));
-    assertThat(resolver.urlStringOf(ViewUrl.of(DocumentNew.class, ViewParams.of(urlPath("1/2/3")))),
+    assertThat(resolver.urlStringOf(ControllerUrl.of(Home.class)), is("../../"));
+    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentNew.class)), is("../../document/new"));
+    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentEdit.class)), is("../../document/edit"));
+    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentNew.class, UrlParams.of(urlPath("1/2/3")))),
         is("../../document/new/1/2/3"));
-    assertThat(resolver.urlStringOf(ViewUrl.of(DocumentEdit.class, ViewParams.of(urlPath("a/b/c")))),
+    assertThat(resolver.urlStringOf(ControllerUrl.of(DocumentEdit.class, UrlParams.of(urlPath("a/b/c")))),
         is("../../document/edit/a/b/c"));
     NamedParams namedParams = NamedParams.empty()
         .withReplacedParam("order", "ascending")
@@ -39,7 +39,7 @@ public class ServletViewUrlStringResolverTest {
         .withReplacedParam("lt_message", "vidur prūdo bliūdas plūdo")
         .withReplacedParam("name with spaces", "someValue");
     System.out.println("" + namedParams);
-    ViewUrl url = ViewUrl.of(DocumentEdit.class, ViewParams.of(urlPath("127"), namedParams));
+    ControllerUrl url = ControllerUrl.of(DocumentEdit.class, UrlParams.of(urlPath("127"), namedParams));
     assertThat(resolver.urlStringOf(url), is("../../document/edit"
         + "/127"
         + "?lt_message=vidur%20pr%C5%ABdo%20bli%C5%ABdas%20pl%C5%ABdo"

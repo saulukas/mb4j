@@ -1,4 +1,4 @@
-package org.mb4j.controller.path;
+package org.mb4j.controller.url;
 
 import static com.google.common.collect.Lists.newArrayList;
 import java.util.Collections;

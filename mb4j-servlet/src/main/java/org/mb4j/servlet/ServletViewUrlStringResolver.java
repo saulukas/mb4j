@@ -5,8 +5,8 @@ import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
 import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
-import org.mb4j.controller.path.UrlPath;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.UrlPath;
+import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ViewUrlStringResolver;
 import org.mb4j.controller.NamedParams;
 
@@ -21,9 +21,9 @@ public class ServletViewUrlStringResolver implements ViewUrlStringResolver {
   }
 
   @Override
-  public String urlStringOf(ViewUrl url) {
+  public String urlStringOf(ControllerUrl url) {
     StringBuilder result = new StringBuilder(path2home);
-    appendEscapedPath(result, pathResolver.urlPathFor(url.viewClass));
+    appendEscapedPath(result, pathResolver.urlPathFor(url.controllerClass));
     if (!url.params.path.isEmpty()) {
       result.append('/');
       appendEscapedPath(result, url.params.path);

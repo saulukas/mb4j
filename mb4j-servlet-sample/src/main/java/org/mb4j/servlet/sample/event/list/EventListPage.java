@@ -3,7 +3,7 @@ package org.mb4j.servlet.sample.event.list;
 import com.google.inject.Inject;
 import org.mb4j.brick.Brick;
 import org.mb4j.servlet.sample.master.MasterLayoutPage;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.ViewRequest;
 
 public class EventListPage extends MasterLayoutPage {
@@ -11,12 +11,12 @@ public class EventListPage extends MasterLayoutPage {
   @Inject
   EventListPanel contentPanel;
 
-  public static ViewUrl url() {
+  public static ControllerUrl url() {
     return url(SHOW_ALL);
   }
 
-  public static ViewUrl url(int maxEventCount) {
-    return ViewUrl.of(EventListPage.class,
+  public static ControllerUrl url(int maxEventCount) {
+    return ControllerUrl.of(EventListPage.class,
         new EventListPanel.Params(maxEventCount, false).toViewParams());
   }
 

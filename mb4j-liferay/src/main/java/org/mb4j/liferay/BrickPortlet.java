@@ -12,13 +12,13 @@ import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.NamedParams;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
-import org.mb4j.controller.path.UrlPath;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.UrlPath;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import static org.mb4j.liferay.PortletPathToHome.pathStringToHomeFrom;
 import static org.mb4j.liferay.PortletViewPathUtils.currentURI;
@@ -45,15 +45,15 @@ public class BrickPortlet extends GenericPortlet {
       throw new PortletException("No view found for path [" + pathStringOf(path) + "]");
     }
     NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
-    ViewUrl url = ViewUrl.of(
+    ControllerUrl url = ControllerUrl.of(
         resolverResult.controller.getClass(),
-        ViewParams.of(resolverResult.paramsPath, namedParams));
+        UrlParams.of(resolverResult.paramsPath, namedParams));
     ViewRequest viewReq = createViewRequest(url, path2home, response);
     ViewResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);
   }
 
-  private ViewRequest createViewRequest(ViewUrl url, String path2home, MimeResponse response) {
+  private ViewRequest createViewRequest(ControllerUrl url, String path2home, MimeResponse response) {
     return new ViewRequest(
         url,
         new PortletStaticResourceUrlResolver(path2home),

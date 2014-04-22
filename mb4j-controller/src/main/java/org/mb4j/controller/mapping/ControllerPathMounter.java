@@ -3,8 +3,8 @@ package org.mb4j.controller.mapping;
 import java.util.HashMap;
 import java.util.Map;
 import org.mb4j.controller.Controller;
-import org.mb4j.controller.path.UrlPath;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
+import org.mb4j.controller.url.UrlPath;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
 class ControllerPathMounter implements ControllerClass2UrlPathResolver {
   Map<Class<? extends Controller>, UrlPath> viewClass2path = new HashMap<>();

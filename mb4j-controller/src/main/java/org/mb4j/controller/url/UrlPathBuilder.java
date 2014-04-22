@@ -1,4 +1,4 @@
-package org.mb4j.controller.path;
+package org.mb4j.controller.url;
 
 import java.util.LinkedList;
 import java.util.List;

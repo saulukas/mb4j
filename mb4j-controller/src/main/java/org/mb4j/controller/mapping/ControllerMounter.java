@@ -1,10 +1,10 @@
 package org.mb4j.controller.mapping;
 
 import org.mb4j.controller.Controller;
-import org.mb4j.controller.path.BufferedUrlPathReader;
-import static org.mb4j.controller.path.BufferedUrlPathReader.bufferedReaderOf;
-import org.mb4j.controller.path.UrlPath;
-import org.mb4j.controller.path.UrlPathString;
+import org.mb4j.controller.url.BufferedUrlPathReader;
+import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
+import org.mb4j.controller.url.UrlPath;
+import org.mb4j.controller.url.UrlPathString;
 
 public class ControllerMounter {
   public static final UrlPath HOME_CONTROLLER_PATH = UrlPath.empty();

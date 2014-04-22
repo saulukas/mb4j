@@ -6,8 +6,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import static org.mb4j.controller.TypicalViews.HOME;
 import static org.mb4j.controller.TypicalViews.TUTORIAL;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
-import static org.mb4j.controller.path.UrlPathString.urlPath;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import static org.mb4j.controller.url.UrlPathString.urlPath;
 
 public class ViewPathMounterTest {
   @Test

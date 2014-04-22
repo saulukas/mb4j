@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.controller.BrickBakerPage;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.ControllerUrl;
 
 @Singleton
 public class PersonalOfferPage extends BrickBakerPage {
@@ -38,7 +38,7 @@ public class PersonalOfferPage extends BrickBakerPage {
     return brick;
   }
 
-  private ViewUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
+  private ControllerUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
         ? request.url.withDeletedParam(Params.OFFER_TEXT)
         : request.url.withReplacedParam(Params.OFFER_TEXT, newOffer);

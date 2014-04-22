@@ -7,10 +7,10 @@ import java.util.List;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventListQuery;
 import org.mb4j.servlet.sample.event.list.EventListPanelBrick.DecoratedListItem;
-import org.mb4j.controller.ViewParams;
+import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.path.UrlPathBuilder;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.UrlPathBuilder;
+import org.mb4j.controller.url.ControllerUrl;
 
 @Singleton
 public class EventListPanel {
@@ -44,7 +44,7 @@ public class EventListPanel {
     return list;
   }
 
-  private ViewUrl initReverseOrderUrl(Params params, ViewRequest request) {
+  private ControllerUrl initReverseOrderUrl(Params params, ViewRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.url.withReplacedParam(Params.REVERSE_ORDER, "")
@@ -66,12 +66,12 @@ public class EventListPanel {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
-    public ViewParams toViewParams() {
+    public UrlParams toViewParams() {
       UrlPathBuilder pathBuilder = UrlPathBuilder.urlPath();
       if (maxResultCount != SHOW_ALL) {
         pathBuilder = pathBuilder.with(String.valueOf(maxResultCount));
       }
-      return ViewParams.of(pathBuilder.instance());
+      return UrlParams.of(pathBuilder.instance());
     }
 
     private static int readMaxEventCount(ViewRequest request) {

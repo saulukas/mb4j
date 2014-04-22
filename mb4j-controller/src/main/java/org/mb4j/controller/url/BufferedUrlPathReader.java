@@ -1,9 +1,9 @@
-package org.mb4j.controller.path;
+package org.mb4j.controller.url;
 
 import com.google.common.collect.Iterators;
 import java.util.Iterator;
 import java.util.LinkedList;
-import static org.mb4j.controller.path.UrlPathString.pathStringOf;
+import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
 public class BufferedUrlPathReader implements UrlPathReader {
   private final LinkedList<String> processedSegments = new LinkedList<>();

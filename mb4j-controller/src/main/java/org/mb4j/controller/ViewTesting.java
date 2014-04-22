@@ -1,12 +1,12 @@
 package org.mb4j.controller;
 
 import org.mb4j.controller.url.StaticResourceUrlResolver;
-import org.mb4j.controller.url.ViewUrl;
+import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ViewUrlStringResolver;
 import org.mb4j.controller.form.Form;
 
 public class ViewTesting {
-  public static ViewRequest request4Tests(ViewUrl url) {
+  public static ViewRequest request4Tests(ControllerUrl url) {
     return new ViewRequest(
         url,
         staticUrlResolver4Tests("../path2home/../"),
@@ -27,7 +27,7 @@ public class ViewTesting {
   public static ViewUrlStringResolver viewUrlResolver4Tests(final String path2home) {
     return new ViewUrlStringResolver() {
       @Override
-      public String urlStringOf(ViewUrl viewUrl) {
+      public String urlStringOf(ControllerUrl viewUrl) {
         return path2home + viewUrl;
       }
     };
