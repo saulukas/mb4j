@@ -10,7 +10,7 @@ import org.mb4j.servlet.sample.event.edit.EventEditPageModule;
 import org.mb4j.servlet.sample.event.list.EventListPageModule;
 import org.mb4j.servlet.sample.home.HomePageModule;
 import org.mb4j.servlet.sample.util.ModuleWithExplicitBindings;
-import org.mb4j.controller.mapping.ViewMap;
+import org.mb4j.controller.mapping.ControllerMappings;
 
 public class ServletSampleModule extends AbstractModule {
     public static Injector createInjector() {
@@ -22,7 +22,7 @@ public class ServletSampleModule extends AbstractModule {
         install(new EventModule());
         install(new SampleServletHttpModule());
         bindPages();
-        bind(ViewMap.class).to(ServletSampleViewMap.class);
+        bind(ControllerMappings.class).to(ServletSampleViewMap.class);
         bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
     }
 

@@ -1,6 +1,5 @@
 package org.mb4j.controller.mapping;
 
-import org.mb4j.controller.reflection.SimpleClassName;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import static com.google.common.collect.Lists.newArrayList;
@@ -16,19 +15,20 @@ import static org.mb4j.controller.path.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.path.UrlPath;
 import org.mb4j.controller.path.UrlPathString;
 import static org.mb4j.controller.path.UrlPathString.pathStringOf;
+import org.mb4j.controller.reflection.SimpleClassName;
 
-class ViewMounterNode implements ViewFromPathResolver {
+class ControllerMounterNode implements UrlPath2ControllerResolver {
   @Nullable
-  private final ViewMounterNode parent;
+  private final ControllerMounterNode parent;
   @Nullable
   private final String pathSegment;
   private boolean isAsterisk = false;
   @Nullable
-  private Controller view = null;
+  private Controller controller = null;
   @Nullable
-  private Map<String, ViewMounterNode> children = null;
+  private Map<String, ControllerMounterNode> children = null;
 
-  private ViewMounterNode(ViewMounterNode parent, String pathSegment) {
+  private ControllerMounterNode(ControllerMounterNode parent, String pathSegment) {
     this.parent = parent;
     this.pathSegment = pathSegment;
     if (isRoot() && pathSegment != null) {
@@ -39,8 +39,8 @@ class ViewMounterNode implements ViewFromPathResolver {
     }
   }
 
-  static ViewMounterNode createRoot() {
-    return new ViewMounterNode(null, null);
+  static ControllerMounterNode createRoot() {
+    return new ControllerMounterNode(null, null);
   }
 
   @Override
@@ -51,18 +51,18 @@ class ViewMounterNode implements ViewFromPathResolver {
   private Result resolve(BufferedUrlPathReader reader) {
     if (!reader.hasMoreSegments()) {
       return new Result(
-          view,
+          controller,
           reader.processedPath(),
           reader.remainingPath());
     }
     String segment = reader.readSegment();
-    ViewMounterNode child = findChildOrNull(segment);
+    ControllerMounterNode child = findChildOrNull(segment);
     if (child != null) {
       return child.resolve(reader);
     }
     reader.revertLastRead();
     return new Result(
-        (isAsterisk ? view : null),
+        (isAsterisk ? controller : null),
         reader.processedPath(),
         reader.remainingPath());
   }
@@ -73,7 +73,7 @@ class ViewMounterNode implements ViewFromPathResolver {
 
   void mount(BufferedUrlPathReader reader, Controller view) {
     if (!reader.hasMoreSegments()) {
-      setView(reader, view);
+      setController(reader, view);
       return;
     }
     String segment = reader.readSegment();
@@ -84,28 +84,28 @@ class ViewMounterNode implements ViewFromPathResolver {
       }
       reader.revertLastRead();
       isAsterisk = true;
-      setView(reader, view);
+      setController(reader, view);
       return;
     }
-    ViewMounterNode child = findChildOrNull(segment);
+    ControllerMounterNode child = findChildOrNull(segment);
     if (child == null) {
-      child = new ViewMounterNode(this, segment);
+      child = new ControllerMounterNode(this, segment);
       addChild(child);
     }
     child.mount(reader, view);
   }
 
-  private void setView(BufferedUrlPathReader reader, Controller view) {
+  private void setController(BufferedUrlPathReader reader, Controller view) {
     if (hasView()) {
       throw new RuntimeException("Can not mount view " + debugNameOf(view)
           + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
-          + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.view) + ".");
+          + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.controller) + ".");
     }
-    this.view = view;
+    this.controller = view;
   }
 
   private boolean hasView() {
-    return view != null;
+    return controller != null;
   }
 
   private boolean isRoot() {
@@ -120,17 +120,17 @@ class ViewMounterNode implements ViewFromPathResolver {
     return view == null ? "null" : view.getClass().getName();
   }
 
-  private void addChild(ViewMounterNode child) {
+  private void addChild(ControllerMounterNode child) {
     nonNullChildren().put(child.pathSegment, child);
   }
 
-  private ViewMounterNode findChildOrNull(String segment) {
+  private ControllerMounterNode findChildOrNull(String segment) {
     return children == null ? null : children.get(segment);
   }
 
-  private Map<String, ViewMounterNode> nonNullChildren() {
+  private Map<String, ControllerMounterNode> nonNullChildren() {
     if (children == null) {
-      children = new HashMap<String, ViewMounterNode>();
+      children = new HashMap<>();
     }
     return children;
   }
@@ -145,7 +145,7 @@ class ViewMounterNode implements ViewFromPathResolver {
     if (hasView()) {
       result += "   ....";
       result = Strings.padEnd(result, 62 - margin.length(), '.');
-      result += " " + SimpleClassName.of(view.getClass());
+      result += " " + SimpleClassName.of(controller.getClass());
     }
     if (hasChildren()) {
       List<String> childNames = newArrayList(children.keySet());
@@ -153,7 +153,7 @@ class ViewMounterNode implements ViewFromPathResolver {
       Iterator<String> namesIterator = childNames.iterator();
       while (namesIterator.hasNext()) {
         String childName = namesIterator.next();
-        ViewMounterNode child = children.get(childName);
+        ControllerMounterNode child = children.get(childName);
         result += "\n" + margin + "|";
         result += "\n" + margin + "+-- "
             + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));

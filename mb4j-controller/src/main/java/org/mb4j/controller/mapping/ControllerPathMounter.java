@@ -6,11 +6,11 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.path.UrlPath;
 import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 
-class ViewPathMounter implements PathFromViewClassResolver {
-  Map<Class<? extends Controller>, UrlPath> viewClass2path = new HashMap<Class<? extends Controller>, UrlPath>();
+class ControllerPathMounter implements ControllerClass2UrlPathResolver {
+  Map<Class<? extends Controller>, UrlPath> viewClass2path = new HashMap<>();
 
   @Override
-  public UrlPath viewPathFor(Class<? extends Controller> viewClass) {
+  public UrlPath urlPathFor(Class<? extends Controller> viewClass) {
     UrlPath path = viewClass2path.get(viewClass);
     if (path == null) {
       throw new RuntimeException("View was not mounted: " + viewClass);

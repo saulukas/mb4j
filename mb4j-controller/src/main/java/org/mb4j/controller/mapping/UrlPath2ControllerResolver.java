@@ -3,22 +3,22 @@ package org.mb4j.controller.mapping;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.path.UrlPath;
 
-public interface ViewFromPathResolver {
+public interface UrlPath2ControllerResolver {
   Result resolve(UrlPath path);
 
   class Result {
-    public final Controller view;
+    public final Controller controller;
     public final UrlPath mountedPath;
     public final UrlPath paramsPath;
 
-    public Result(Controller view, UrlPath mountedPath, UrlPath paramsPath) {
-      this.view = view;
+    public Result(Controller controller, UrlPath mountedPath, UrlPath paramsPath) {
+      this.controller = controller;
       this.mountedPath = mountedPath;
       this.paramsPath = paramsPath;
     }
 
-    public boolean hasView() {
-      return view != null;
+    public boolean hasController() {
+      return controller != null;
     }
   }
 }

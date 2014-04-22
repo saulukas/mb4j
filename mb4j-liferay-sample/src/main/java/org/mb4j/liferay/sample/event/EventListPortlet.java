@@ -2,8 +2,8 @@ package org.mb4j.liferay.sample.event;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.mapping.ViewMap;
-import org.mb4j.controller.mapping.ViewMounter;
+import org.mb4j.controller.mapping.ControllerMappings;
+import org.mb4j.controller.mapping.ControllerMounter;
 import static org.mb4j.controller.path.UrlPathString.urlPath;
 import org.mb4j.liferay.sample.SampleBasePortlet;
 import org.mb4j.liferay.sample.event.edit.EventEditForm;
@@ -12,13 +12,13 @@ import org.mb4j.liferay.sample.event.list.EventListPage;
 
 public class EventListPortlet extends SampleBasePortlet {
   @Singleton
-  public static class Views extends ViewMap {
+  public static class Views extends ControllerMappings {
     @Inject
     public Views(
         EventListPage eventList,
         EventEditPage eventEdit,
         EventEditForm.SaveAction eventSave) {
-      super(ViewMounter.withDefaultHomeView(eventList)
+      super(ControllerMounter.withDefaultHomeController(eventList)
           .mount(urlPath("edit/*"), eventEdit)
           .mount(urlPath("save"), eventSave));
     }

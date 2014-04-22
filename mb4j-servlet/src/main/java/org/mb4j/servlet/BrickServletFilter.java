@@ -10,20 +10,20 @@ import org.mb4j.controller.http.HttpFilter;
 import org.mb4j.controller.http.HttpNamedParams;
 import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
-import org.mb4j.controller.mapping.ViewMap;
+import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.ViewParams;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
-import org.mb4j.controller.mapping.ViewFromPathResolver;
+import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.path.UrlPath;
 import static org.mb4j.controller.path.UrlPathString.urlPath;
 import org.mb4j.controller.url.ViewUrl;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
-  private final ViewMap views;
+  private final ControllerMappings views;
 
-  public BrickServletFilter(BrickRenderer renderer, ViewMap viewMap) {
+  public BrickServletFilter(BrickRenderer renderer, ControllerMappings viewMap) {
     this.renderer = renderer;
     this.views = viewMap;
   }
@@ -34,16 +34,16 @@ public class BrickServletFilter extends HttpFilter {
     String servletPath = httpReq.getServletPath();
     UrlPath path = urlPath(httpReq.getServletPath());
     String path2home = pathStringToHomeFrom(servletPath);
-    ViewFromPathResolver.Result resolvedView = views.viewFromPathResolver().resolve(path);
-    if (!resolvedView.hasView()) {
+    UrlPath2ControllerResolver.Result resolvedView = views.urlPath2ControllerResolver().resolve(path);
+    if (!resolvedView.hasController()) {
       chain.doFilter(httpReq, httpResp);
       return;
     }
-    ViewUrl url = ViewUrl.of(resolvedView.view.getClass(), ViewParams.of(
+    ViewUrl url = ViewUrl.of(resolvedView.controller.getClass(), ViewParams.of(
         resolvedView.paramsPath,
         HttpNamedParams.namedParamsFrom(httpReq)));
     ViewRequest viewReq = createViewRequest(path2home, url);
-    ViewResponse viewResp = resolvedView.view.handle(viewReq);
+    ViewResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
   }
 
@@ -51,7 +51,7 @@ public class BrickServletFilter extends HttpFilter {
     return new ViewRequest(
         url,
         new ServletStaticResourceUrlResolver(path2home),
-        new ServletViewUrlStringResolver(path2home, views.pathFromViewClassResolver()),
+        new ServletViewUrlStringResolver(path2home, views.controllerClass2UrlPathResolver()),
         ServletFormFieldNameResolver.INSTANCE);
   }
 

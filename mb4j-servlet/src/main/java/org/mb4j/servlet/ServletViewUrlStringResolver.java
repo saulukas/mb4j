@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.controller.mapping.PathFromViewClassResolver;
+import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
 import org.mb4j.controller.path.UrlPath;
 import org.mb4j.controller.url.ViewUrl;
 import org.mb4j.controller.url.ViewUrlStringResolver;
@@ -13,9 +13,9 @@ import org.mb4j.controller.NamedParams;
 public class ServletViewUrlStringResolver implements ViewUrlStringResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
-  private final PathFromViewClassResolver pathResolver;
+  private final ControllerClass2UrlPathResolver pathResolver;
 
-  public ServletViewUrlStringResolver(String path2home, PathFromViewClassResolver pathResolver) {
+  public ServletViewUrlStringResolver(String path2home, ControllerClass2UrlPathResolver pathResolver) {
     this.path2home = path2home;
     this.pathResolver = pathResolver;
   }
@@ -23,7 +23,7 @@ public class ServletViewUrlStringResolver implements ViewUrlStringResolver {
   @Override
   public String urlStringOf(ViewUrl url) {
     StringBuilder result = new StringBuilder(path2home);
-    appendEscapedPath(result, pathResolver.viewPathFor(url.viewClass));
+    appendEscapedPath(result, pathResolver.urlPathFor(url.viewClass));
     if (!url.params.path.isEmpty()) {
       result.append('/');
       appendEscapedPath(result, url.params.path);

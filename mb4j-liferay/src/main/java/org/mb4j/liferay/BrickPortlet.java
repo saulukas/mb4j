@@ -11,11 +11,11 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.NamedParams;
-import org.mb4j.controller.mapping.ViewMap;
+import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.ViewParams;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
-import org.mb4j.controller.mapping.ViewFromPathResolver;
+import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.path.UrlPath;
 import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 import org.mb4j.controller.url.ViewUrl;
@@ -26,9 +26,9 @@ import static org.mb4j.liferay.PortletViewPathUtils.viewPathFrom;
 
 public class BrickPortlet extends GenericPortlet {
   private final BrickRenderer renderer;
-  private final ViewMap views;
+  private final ControllerMappings views;
 
-  public BrickPortlet(BrickRenderer renderer, ViewMap views) {
+  public BrickPortlet(BrickRenderer renderer, ControllerMappings views) {
     this.renderer = renderer;
     this.views = views;
   }
@@ -40,16 +40,16 @@ public class BrickPortlet extends GenericPortlet {
     String path2home = pathStringToHomeFrom(request, currentURI.getRawPath());
     System.out.println("viewPath {" + pathStringOf(path) + "}");
     System.out.println("currentURI {" + currentURI + "}{" + path2home + "}");
-    ViewFromPathResolver.Result resolverResult = views.viewFromPathResolver().resolve(path);
-    if (!resolverResult.hasView()) {
+    UrlPath2ControllerResolver.Result resolverResult = views.urlPath2ControllerResolver().resolve(path);
+    if (!resolverResult.hasController()) {
       throw new PortletException("No view found for path [" + pathStringOf(path) + "]");
     }
     NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
     ViewUrl url = ViewUrl.of(
-        resolverResult.view.getClass(),
+        resolverResult.controller.getClass(),
         ViewParams.of(resolverResult.paramsPath, namedParams));
     ViewRequest viewReq = createViewRequest(url, path2home, response);
-    ViewResponse viewResp = resolverResult.view.handle(viewReq);
+    ViewResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);
   }
 
@@ -57,7 +57,7 @@ public class BrickPortlet extends GenericPortlet {
     return new ViewRequest(
         url,
         new PortletStaticResourceUrlResolver(path2home),
-        new PortletViewUrlStringResolver(response, views.pathFromViewClassResolver()),
+        new PortletViewUrlStringResolver(response, views.controllerClass2UrlPathResolver()),
         new PortletFormFieldNameResolver());
   }
 

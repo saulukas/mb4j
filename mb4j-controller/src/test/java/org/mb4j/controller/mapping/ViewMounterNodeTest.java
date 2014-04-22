@@ -15,7 +15,7 @@ import static org.mb4j.controller.path.UrlPathString.urlPath;
 public class ViewMounterNodeTest {
   @Test
   public void prints_view_tree_as_string() {
-    ViewMounterNode root = ViewMounterNode.createRoot();
+    ControllerMounterNode root = ControllerMounterNode.createRoot();
     root.mount(urlPath(""), HOME);
     root.mount(urlPath("tutorial/*"), TUTORIAL);
     root.mount(urlPath("tutorial/events"), TUTORIAL_ON_EVENTS);
@@ -29,30 +29,30 @@ public class ViewMounterNodeTest {
 
   @Test
   public void mounts_views_at_ViewPaths() {
-    ViewMounterNode root = ViewMounterNode.createRoot();
+    ControllerMounterNode root = ControllerMounterNode.createRoot();
     root.mount(urlPath(""), HOME);
     root.mount(urlPath("tutorial/*"), TUTORIAL);
     root.mount(urlPath("tutorial/events"), TUTORIAL_ON_EVENTS);
     root.mount(urlPath("tutorial/sockets"), TUTORIAL_ON_SOCKETS);
     root.mount(urlPath("tutorial/topic/*"), TUTORIAL_TOPIC);
     root.mount(urlPath("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
-    assertThat(root.resolve(urlPath("")).view, sameInstance(HOME));
-    assertThat(root.resolve(urlPath("tutorial")).view, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPath("tutorial/")).view, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPath("tutorial/1")).view, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPath("tutorial/2/3")).view, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPath("tutorial/events")).view, sameInstance(TUTORIAL_ON_EVENTS));
-    assertThat(root.resolve(urlPath("tutorial/sockets")).view, sameInstance(TUTORIAL_ON_SOCKETS));
-    assertThat(root.resolve(urlPath("tutorial/topic")).view, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPath("tutorial/topic/")).view, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPath("tutorial/topic/7")).view, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPath("tutorial/topic/8/9")).view, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPath("tutorial/other/stuff")).view, sameInstance(TUTORIAL_OTHER_STUFF));
+    assertThat(root.resolve(urlPath("")).controller, sameInstance(HOME));
+    assertThat(root.resolve(urlPath("tutorial")).controller, sameInstance(TUTORIAL));
+    assertThat(root.resolve(urlPath("tutorial/")).controller, sameInstance(TUTORIAL));
+    assertThat(root.resolve(urlPath("tutorial/1")).controller, sameInstance(TUTORIAL));
+    assertThat(root.resolve(urlPath("tutorial/2/3")).controller, sameInstance(TUTORIAL));
+    assertThat(root.resolve(urlPath("tutorial/events")).controller, sameInstance(TUTORIAL_ON_EVENTS));
+    assertThat(root.resolve(urlPath("tutorial/sockets")).controller, sameInstance(TUTORIAL_ON_SOCKETS));
+    assertThat(root.resolve(urlPath("tutorial/topic")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.resolve(urlPath("tutorial/topic/")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.resolve(urlPath("tutorial/topic/7")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.resolve(urlPath("tutorial/topic/8/9")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.resolve(urlPath("tutorial/other/stuff")).controller, sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
   @Test
   public void does_not_allow_several_views_on_same_viewPath() {
-    ViewMounterNode root = ViewMounterNode.createRoot();
+    ControllerMounterNode root = ControllerMounterNode.createRoot();
     root.mount(urlPath("tutorial/topic/*"), TUTORIAL_TOPIC);
     try {
       root.mount(urlPath("tutorial/topic"), TUTORIAL_OTHER_STUFF);
@@ -64,7 +64,7 @@ public class ViewMounterNodeTest {
 
   @Test
   public void allows_asterist_only_at_path_end() {
-    ViewMounterNode root = ViewMounterNode.createRoot();
+    ControllerMounterNode root = ControllerMounterNode.createRoot();
     root.mount(urlPath("*"), TUTORIAL);
     root.mount(urlPath("other/*"), TUTORIAL_OTHER_STUFF);
     try {

@@ -12,16 +12,16 @@ import static org.mb4j.controller.path.UrlPathString.urlPath;
 public class ViewPathMounterTest {
   @Test
   public void mounts_view_classes_at_view_paths() {
-    ViewPathMounter mounter = new ViewPathMounter();
+    ControllerPathMounter mounter = new ControllerPathMounter();
     mounter.mount(urlPath("/"), HOME.getClass());
     mounter.mount(urlPath("tutorial"), TUTORIAL.getClass());
-    assertThat(pathStringOf(mounter.viewPathFor(HOME.getClass())), is(""));
-    assertThat(pathStringOf(mounter.viewPathFor(TUTORIAL.getClass())), is("tutorial"));
+    assertThat(pathStringOf(mounter.urlPathFor(HOME.getClass())), is(""));
+    assertThat(pathStringOf(mounter.urlPathFor(TUTORIAL.getClass())), is("tutorial"));
   }
 
   @Test
   public void does_not_allow_to_mount_same_view_class_twice() {
-    ViewPathMounter mounter = new ViewPathMounter();
+    ControllerPathMounter mounter = new ControllerPathMounter();
     mounter.mount(urlPath("tutorial"), TUTORIAL.getClass());
     try {
       mounter.mount(urlPath("tutorial"), TUTORIAL.getClass());
@@ -39,9 +39,9 @@ public class ViewPathMounterTest {
 
   @Test
   public void throws_exception_when_resolving_unmounted_view() {
-    ViewPathMounter mounter = new ViewPathMounter();
+    ControllerPathMounter mounter = new ControllerPathMounter();
     try {
-      mounter.viewPathFor(TUTORIAL.getClass());
+      mounter.urlPathFor(TUTORIAL.getClass());
       fail();
     } catch (RuntimeException ex) {
       System.out.println("Nice error messge:\n" + ex.getMessage());
