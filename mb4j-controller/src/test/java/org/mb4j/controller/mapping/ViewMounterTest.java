@@ -12,17 +12,17 @@ import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_SOCKETS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_OTHER_STUFF;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_TOPIC;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
-import static org.mb4j.controller.url.UrlPathString.urlPath;
+import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 
 public class ViewMounterTest {
   @Test
   public void mounts_views_at_given_paths() {
     ControllerMounter mounter = ControllerMounter.withHomeController(HOME);
-    mounter.mount(urlPath("/tutorial/*"), TUTORIAL);
-    mounter.mount(urlPath("/tutorial/events"), TUTORIAL_ON_EVENTS);
-    mounter.mount(urlPath("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
-    mounter.mount(urlPath("/tutorial/topic/*"), TUTORIAL_TOPIC);
-    mounter.mount(urlPath("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
+    mounter.mount(urlPathOf("/tutorial/*"), TUTORIAL);
+    mounter.mount(urlPathOf("/tutorial/events"), TUTORIAL_ON_EVENTS);
+    mounter.mount(urlPathOf("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
+    mounter.mount(urlPathOf("/tutorial/topic/*"), TUTORIAL_TOPIC);
+    mounter.mount(urlPathOf("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     String margin = "   ";
     System.out.println("");
     System.out.println(margin + mounter.toString(margin));
@@ -54,6 +54,6 @@ public class ViewMounterTest {
   }
 
   private Controller resolvedView(UrlPath2ControllerResolver viewFromPath, String pathString) {
-    return viewFromPath.resolve(urlPath(pathString)).controller;
+    return viewFromPath.resolve(urlPathOf(pathString)).controller;
   }
 }

@@ -8,7 +8,7 @@ import org.mb4j.controller.url.UrlPathString;
 
 public class ControllerMounter {
   public static final UrlPath HOME_CONTROLLER_PATH = UrlPath.empty();
-  public static final UrlPath DEFAULT_HOME_CONTROLLER_PATH = UrlPathString.urlPath("*");
+  public static final UrlPath DEFAULT_HOME_CONTROLLER_PATH = UrlPathString.urlPathOf("*");
   private final ControllerMounterNode rootNode = ControllerMounterNode.createRoot();
   private final ControllerPathMounter pathMounter = new ControllerPathMounter();
 

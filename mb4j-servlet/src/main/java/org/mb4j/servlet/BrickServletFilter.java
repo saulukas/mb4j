@@ -13,13 +13,13 @@ import org.mb4j.controller.FormActionResponse;
 import org.mb4j.controller.PageResponse;
 import org.mb4j.controller.http.HttpFilter;
 import org.mb4j.controller.http.HttpNamedParams;
-import static org.mb4j.controller.http.HttpPathToHome.pathStringToHomeFrom;
+import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
-import static org.mb4j.controller.url.UrlPathString.urlPath;
+import org.mb4j.controller.url.UrlPathString;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
@@ -34,8 +34,8 @@ public class BrickServletFilter extends HttpFilter {
   protected void filter(HttpServletRequest httpReq, HttpServletResponse httpResp, FilterChain chain)
       throws IOException, ServletException {
     String servletPath = httpReq.getServletPath();
-    UrlPath path = urlPath(httpReq.getServletPath());
-    String path2home = pathStringToHomeFrom(servletPath);
+    UrlPath path = UrlPathString.urlPathOf(servletPath);
+    String path2home = UrlPathStringToHome.from(servletPath);
     UrlPath2ControllerResolver.Result resolvedView = views.urlPath2ControllerResolver().resolve(path);
     if (!resolvedView.hasController()) {
       chain.doFilter(httpReq, httpResp);

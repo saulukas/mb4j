@@ -1,7 +1,7 @@
 package org.mb4j.controller.http;
 
-public class HttpPathToHome {
-  public static String pathStringToHomeFrom(String pathString) {
+public class UrlPathStringToHome {
+  public static String from(String pathString) {
     int slashCount = 0;
     for (int i = 0; i < pathString.length(); i++) {
       if (i != 0 && pathString.charAt(i) == '/') {

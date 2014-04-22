@@ -9,11 +9,11 @@ public class UrlPathString {
   public static final String SLASH = "/";
   public static final String ASTERISK = "*";
 
-  public static UrlPath urlPath(String pathString) {
+  public static UrlPath urlPathOf(String pathString) {
     return new UrlPath(Splitter.on(SLASH).omitEmptyStrings().split(nullToEmpty(pathString)));
   }
 
-  public static String pathStringOf(UrlPath path) {
-    return Joiner.on(SLASH).join(path.segments());
+  public static String pathStringOf(UrlPath urlPath) {
+    return Joiner.on(SLASH).join(urlPath.segments());
   }
 }

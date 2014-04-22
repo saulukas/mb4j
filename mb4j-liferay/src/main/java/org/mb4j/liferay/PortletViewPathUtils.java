@@ -32,7 +32,7 @@ public class PortletViewPathUtils {
     if (Strings.isNullOrEmpty(mvcPath) || !mvcPath.startsWith(VALUE_PREFIX)) {
       return UrlPath.empty();
     }
-    return UrlPathString.urlPath(mvcPath).tail();
+    return UrlPathString.urlPathOf(mvcPath).tail();
   }
 
   public static String mvcPathParamValueFrom(UrlPath path) {

@@ -1,7 +1,7 @@
 package org.mb4j.liferay;
 
 import javax.portlet.PortletRequest;
-import org.mb4j.controller.http.HttpPathToHome;
+import org.mb4j.controller.http.UrlPathStringToHome;
 
 public class PortletPathToHome {
   public static String pathStringToHomeFrom(PortletRequest request, String pathString) {
@@ -9,6 +9,6 @@ public class PortletPathToHome {
     if (contextPath.startsWith("/")) {
       contextPath = contextPath.substring(1);
     }
-    return HttpPathToHome.pathStringToHomeFrom(pathString) + contextPath;
+    return UrlPathStringToHome.from(pathString) + contextPath;
   }
 }
