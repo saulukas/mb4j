@@ -7,7 +7,7 @@ import java.util.List;
 import org.mb4j.controller.BrickBakerPage;
 import org.mb4j.controller.ViewParams;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.path.ViewPathBuilder;
+import org.mb4j.controller.path.UrlPathBuilder;
 import org.mb4j.controller.url.ViewUrl;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventListQuery;
@@ -77,7 +77,7 @@ public class EventListPage extends BrickBakerPage {
     }
 
     public ViewParams toViewParams() {
-      ViewPathBuilder pathBuilder = ViewPathBuilder.viewPath();
+      UrlPathBuilder pathBuilder = UrlPathBuilder.urlPath();
       if (maxResultCount != SHOW_ALL) {
         pathBuilder = pathBuilder.with(String.valueOf(maxResultCount));
       }

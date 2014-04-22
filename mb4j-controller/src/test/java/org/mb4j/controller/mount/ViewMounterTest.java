@@ -13,19 +13,19 @@ import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_EVENTS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_ON_SOCKETS;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_OTHER_STUFF;
 import static org.mb4j.controller.TypicalViews.TUTORIAL_TOPIC;
-import org.mb4j.controller.View;
-import static org.mb4j.controller.path.ViewPathString.pathStringOf;
-import static org.mb4j.controller.path.ViewPathString.viewPath;
+import org.mb4j.controller.Controller;
+import static org.mb4j.controller.path.UrlPathString.pathStringOf;
+import static org.mb4j.controller.path.UrlPathString.urlPath;
 
 public class ViewMounterTest {
   @Test
   public void mounts_views_at_given_paths() {
     ViewMounter mounter = ViewMounter.withHomeView(HOME);
-    mounter.mount(viewPath("/tutorial/*"), TUTORIAL);
-    mounter.mount(viewPath("/tutorial/events"), TUTORIAL_ON_EVENTS);
-    mounter.mount(viewPath("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
-    mounter.mount(viewPath("/tutorial/topic/*"), TUTORIAL_TOPIC);
-    mounter.mount(viewPath("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
+    mounter.mount(urlPath("/tutorial/*"), TUTORIAL);
+    mounter.mount(urlPath("/tutorial/events"), TUTORIAL_ON_EVENTS);
+    mounter.mount(urlPath("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
+    mounter.mount(urlPath("/tutorial/topic/*"), TUTORIAL_TOPIC);
+    mounter.mount(urlPath("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     String margin = "   ";
     System.out.println("");
     System.out.println(margin + mounter.toString(margin));
@@ -52,11 +52,11 @@ public class ViewMounterTest {
     assertThat(resolvedView(viewFromPath, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
-  private String resolvedPathString(PathFromViewClassResolver resolver, View view) {
+  private String resolvedPathString(PathFromViewClassResolver resolver, Controller view) {
     return pathStringOf(resolver.viewPathFor(view.getClass()));
   }
 
-  private View resolvedView(ViewFromPathResolver viewFromPath, String pathString) {
-    return viewFromPath.resolve(viewPath(pathString)).view;
+  private Controller resolvedView(ViewFromPathResolver viewFromPath, String pathString) {
+    return viewFromPath.resolve(urlPath(pathString)).view;
   }
 }

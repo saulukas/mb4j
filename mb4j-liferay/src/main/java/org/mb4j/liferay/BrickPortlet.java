@@ -16,8 +16,8 @@ import org.mb4j.controller.ViewParams;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mount.ViewFromPathResolver;
-import org.mb4j.controller.path.ViewPath;
-import static org.mb4j.controller.path.ViewPathString.pathStringOf;
+import org.mb4j.controller.path.UrlPath;
+import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 import org.mb4j.controller.url.ViewUrl;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import static org.mb4j.liferay.PortletPathToHome.pathStringToHomeFrom;
@@ -36,7 +36,7 @@ public class BrickPortlet extends GenericPortlet {
   @Override
   protected void doView(RenderRequest request, RenderResponse response) throws PortletException, IOException {
     URI currentURI = currentURI(request);
-    ViewPath path = viewPathFrom(request);
+    UrlPath path = viewPathFrom(request);
     String path2home = pathStringToHomeFrom(request, currentURI.getRawPath());
     System.out.println("viewPath {" + pathStringOf(path) + "}");
     System.out.println("currentURI {" + currentURI + "}{" + path2home + "}");

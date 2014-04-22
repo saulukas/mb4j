@@ -10,12 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.mb4j.controller.View;
-import org.mb4j.controller.path.BufferedViewPathReader;
-import static org.mb4j.controller.path.BufferedViewPathReader.bufferedReaderOf;
-import org.mb4j.controller.path.ViewPath;
-import org.mb4j.controller.path.ViewPathString;
-import static org.mb4j.controller.path.ViewPathString.pathStringOf;
+import org.mb4j.controller.Controller;
+import org.mb4j.controller.path.BufferedUrlPathReader;
+import static org.mb4j.controller.path.BufferedUrlPathReader.bufferedReaderOf;
+import org.mb4j.controller.path.UrlPath;
+import org.mb4j.controller.path.UrlPathString;
+import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 
 class ViewMounterNode implements ViewFromPathResolver {
   @Nullable
@@ -24,7 +24,7 @@ class ViewMounterNode implements ViewFromPathResolver {
   private final String pathSegment;
   private boolean isAsterisk = false;
   @Nullable
-  private View view = null;
+  private Controller view = null;
   @Nullable
   private Map<String, ViewMounterNode> children = null;
 
@@ -44,11 +44,11 @@ class ViewMounterNode implements ViewFromPathResolver {
   }
 
   @Override
-  public Result resolve(ViewPath path) {
+  public Result resolve(UrlPath path) {
     return resolve(bufferedReaderOf(path));
   }
 
-  private Result resolve(BufferedViewPathReader reader) {
+  private Result resolve(BufferedUrlPathReader reader) {
     if (!reader.hasMoreSegments()) {
       return new Result(
           view,
@@ -67,19 +67,19 @@ class ViewMounterNode implements ViewFromPathResolver {
         reader.remainingPath());
   }
 
-  void mount(ViewPath path, View view) {
+  void mount(UrlPath path, Controller view) {
     mount(bufferedReaderOf(path), view);
   }
 
-  void mount(BufferedViewPathReader reader, View view) {
+  void mount(BufferedUrlPathReader reader, Controller view) {
     if (!reader.hasMoreSegments()) {
       setView(reader, view);
       return;
     }
     String segment = reader.readSegment();
-    if (Objects.equal(segment, ViewPathString.ASTERISK)) {
+    if (Objects.equal(segment, UrlPathString.ASTERISK)) {
       if (reader.hasMoreSegments()) {
-        throw new RuntimeException("Asterisk '" + ViewPathString.ASTERISK + "'"
+        throw new RuntimeException("Asterisk '" + UrlPathString.ASTERISK + "'"
             + " is only allowed at the path end: \"" + pathStringOf(reader.fullPath()) + "\"");
       }
       reader.revertLastRead();
@@ -95,7 +95,7 @@ class ViewMounterNode implements ViewFromPathResolver {
     child.mount(reader, view);
   }
 
-  private void setView(BufferedViewPathReader reader, View view) {
+  private void setView(BufferedUrlPathReader reader, Controller view) {
     if (hasView()) {
       throw new RuntimeException("Can not mount view " + debugNameOf(view)
           + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
@@ -116,7 +116,7 @@ class ViewMounterNode implements ViewFromPathResolver {
     return children != null && !children.isEmpty();
   }
 
-  private String debugNameOf(View view) {
+  private String debugNameOf(Controller view) {
     return view == null ? "null" : view.getClass().getName();
   }
 

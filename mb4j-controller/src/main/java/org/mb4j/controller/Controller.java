@@ -1,5 +1,5 @@
 package org.mb4j.controller;
 
-public interface View {
+public interface Controller {
   ViewResponse handle(ViewRequest request);
 }

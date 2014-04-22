@@ -1,14 +1,14 @@
 package org.mb4j.controller;
 
-import org.mb4j.controller.path.ViewPath;
-import static org.mb4j.controller.path.ViewPathString.pathStringOf;
+import org.mb4j.controller.path.UrlPath;
+import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 
 public class ViewParams {
-  private static final ViewParams EMPTY = ViewParams.of(ViewPath.empty());
-  public final ViewPath path;
+  private static final ViewParams EMPTY = ViewParams.of(UrlPath.empty());
+  public final UrlPath path;
   public final NamedParams named;
 
-  private ViewParams(ViewPath path, NamedParams named) {
+  private ViewParams(UrlPath path, NamedParams named) {
     this.path = path;
     this.named = named;
   }
@@ -17,11 +17,11 @@ public class ViewParams {
     return EMPTY;
   }
 
-  public static ViewParams of(ViewPath path) {
+  public static ViewParams of(UrlPath path) {
     return of(path, NamedParams.empty());
   }
 
-  public static ViewParams of(ViewPath path, NamedParams named) {
+  public static ViewParams of(UrlPath path, NamedParams named) {
     return new ViewParams(path, named);
   }
 

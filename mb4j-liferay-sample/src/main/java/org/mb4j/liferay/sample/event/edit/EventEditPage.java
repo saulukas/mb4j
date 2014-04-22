@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.BrickBakerPage;
 import org.mb4j.controller.ViewRequest;
-import static org.mb4j.controller.path.ViewPathBuilder.viewPath;
+import static org.mb4j.controller.path.UrlPathBuilder.urlPath;
 import org.mb4j.controller.url.ViewUrl;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventQuery;
@@ -17,7 +17,7 @@ public class EventEditPage extends BrickBakerPage {
   EventEditForm.Filler formFiller;
 
   public static ViewUrl url(int eventId) {
-    return ViewUrl.of(EventEditPage.class, viewPath().with(String.valueOf(eventId)));
+    return ViewUrl.of(EventEditPage.class, urlPath().with(String.valueOf(eventId)));
   }
 
   @Override

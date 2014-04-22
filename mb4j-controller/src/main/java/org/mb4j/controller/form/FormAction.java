@@ -1,11 +1,11 @@
 package org.mb4j.controller.form;
 
 import java.lang.reflect.ParameterizedType;
-import org.mb4j.controller.View;
+import org.mb4j.controller.Controller;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
 
-public abstract class FormAction<F extends Form> implements View {
+public abstract class FormAction<F extends Form> implements Controller {
   private final Class<F> formClass;
 
   public FormAction() {

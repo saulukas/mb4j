@@ -1,7 +1,7 @@
 package org.mb4j.controller;
 
-import static org.mb4j.controller.path.BufferedViewPathReader.bufferedReaderOf;
-import org.mb4j.controller.path.ViewPathReader;
+import static org.mb4j.controller.path.BufferedUrlPathReader.bufferedReaderOf;
+import org.mb4j.controller.path.UrlPathReader;
 import org.mb4j.controller.url.StaticResourceUrlResolver;
 import org.mb4j.controller.url.ViewUrl;
 import org.mb4j.controller.url.ViewUrlStringResolver;
@@ -9,7 +9,7 @@ import org.mb4j.controller.form.Form;
 
 public class ViewRequest {
   public final ViewUrl url;
-  public final ViewPathReader pathParamsReader;
+  public final UrlPathReader pathParamsReader;
   private final StaticResourceUrlResolver staticResourceUrlResolver;
   private final ViewUrlStringResolver viewUrlResolver;
   public final Form.NameResolver actionParamNameResolver;

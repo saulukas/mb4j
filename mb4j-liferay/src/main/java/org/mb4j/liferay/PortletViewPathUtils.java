@@ -6,9 +6,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import javax.portlet.PortletRequest;
-import org.mb4j.controller.path.ViewPath;
-import org.mb4j.controller.path.ViewPathString;
-import static org.mb4j.controller.path.ViewPathString.pathStringOf;
+import org.mb4j.controller.path.UrlPath;
+import org.mb4j.controller.path.UrlPathString;
+import static org.mb4j.controller.path.UrlPathString.pathStringOf;
 
 public class PortletViewPathUtils {
   public static final String MVC_PATH_PARAM_NAME = "mvcPath";
@@ -24,18 +24,18 @@ public class PortletViewPathUtils {
     }
   }
 
-  public static ViewPath viewPathFrom(PortletRequest request) {
+  public static UrlPath viewPathFrom(PortletRequest request) {
     return viewPathFrom(request.getParameter(MVC_PATH_PARAM_NAME));
   }
 
-  public static ViewPath viewPathFrom(String mvcPath) {
+  public static UrlPath viewPathFrom(String mvcPath) {
     if (Strings.isNullOrEmpty(mvcPath) || !mvcPath.startsWith(VALUE_PREFIX)) {
-      return ViewPath.empty();
+      return UrlPath.empty();
     }
-    return ViewPathString.viewPath(mvcPath).tail();
+    return UrlPathString.urlPath(mvcPath).tail();
   }
 
-  public static String mvcPathParamValueFrom(ViewPath path) {
+  public static String mvcPathParamValueFrom(UrlPath path) {
     List<String> segments = path.segments();
     if (segments.size() > MAX_PATH_SEGMENT_COUNT) {
       throw new RuntimeException("View path [" + pathStringOf(path) + "]"

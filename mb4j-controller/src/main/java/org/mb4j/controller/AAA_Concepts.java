@@ -9,9 +9,9 @@ import java.util.Set;
 public class AAA_Concepts {
   void test1() {
     try {
-      List<Class<? extends View>> controllers = new ArrayList<>();
+      List<Class<? extends Controller>> controllers = new ArrayList<>();
       Set<Class<?>> visitedClasses = new HashSet<>();
-      Class viewKlass = View.class;
+      Class viewKlass = Controller.class;
       collectControllersFor(viewKlass, false, visitedClasses, controllers);
       System.out.println("Controolers for " + viewKlass.getSimpleName() + ": " + controllers);
     } catch (Exception ex) {
@@ -23,13 +23,13 @@ public class AAA_Concepts {
       Class<?> klass,
       boolean considerThisKlass,
       Set<Class<?>> visitedClasses,
-      List<Class<? extends View>> result) throws Exception {
+      List<Class<? extends Controller>> result) throws Exception {
     if (visitedClasses.contains(klass)) {
       return;
     }
     visitedClasses.add(klass);
-    if (considerThisKlass && View.class.isAssignableFrom(klass)) {
-      result.add((Class<? extends View>) klass);
+    if (considerThisKlass && Controller.class.isAssignableFrom(klass)) {
+      result.add((Class<? extends Controller>) klass);
     }
     for (Field declaredField : klass.getDeclaredFields()) {
       collectControllersFor(declaredField.getType(), true, visitedClasses, result);

@@ -1,9 +1,9 @@
 package org.mb4j.controller.path;
 
-public interface ViewPathReader {
+public interface UrlPathReader {
   boolean hasMoreSegments();
 
   String readSegment();
 
-  ViewPathReader skipSegment();
+  UrlPathReader skipSegment();
 }

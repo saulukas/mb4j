@@ -15,8 +15,8 @@ import org.mb4j.controller.ViewParams;
 import org.mb4j.controller.ViewRequest;
 import org.mb4j.controller.ViewResponse;
 import org.mb4j.controller.mount.ViewFromPathResolver;
-import org.mb4j.controller.path.ViewPath;
-import static org.mb4j.controller.path.ViewPathString.viewPath;
+import org.mb4j.controller.path.UrlPath;
+import static org.mb4j.controller.path.UrlPathString.urlPath;
 import org.mb4j.controller.url.ViewUrl;
 
 public class BrickServletFilter extends HttpFilter {
@@ -32,7 +32,7 @@ public class BrickServletFilter extends HttpFilter {
   protected void filter(HttpServletRequest httpReq, HttpServletResponse httpResp, FilterChain chain)
       throws IOException, ServletException {
     String servletPath = httpReq.getServletPath();
-    ViewPath path = viewPath(httpReq.getServletPath());
+    UrlPath path = urlPath(httpReq.getServletPath());
     String path2home = pathStringToHomeFrom(servletPath);
     ViewFromPathResolver.Result resolvedView = views.viewFromPathResolver().resolve(path);
     if (!resolvedView.hasView()) {

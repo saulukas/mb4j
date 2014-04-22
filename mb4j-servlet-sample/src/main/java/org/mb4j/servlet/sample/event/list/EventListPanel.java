@@ -9,7 +9,7 @@ import org.mb4j.servlet.sample.domain.EventListQuery;
 import org.mb4j.servlet.sample.event.list.EventListPanelBrick.DecoratedListItem;
 import org.mb4j.controller.ViewParams;
 import org.mb4j.controller.ViewRequest;
-import org.mb4j.controller.path.ViewPathBuilder;
+import org.mb4j.controller.path.UrlPathBuilder;
 import org.mb4j.controller.url.ViewUrl;
 
 @Singleton
@@ -67,7 +67,7 @@ public class EventListPanel {
     }
 
     public ViewParams toViewParams() {
-      ViewPathBuilder pathBuilder = ViewPathBuilder.viewPath();
+      UrlPathBuilder pathBuilder = UrlPathBuilder.urlPath();
       if (maxResultCount != SHOW_ALL) {
         pathBuilder = pathBuilder.with(String.valueOf(maxResultCount));
       }

@@ -5,7 +5,7 @@ import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
 import org.mb4j.controller.mount.PathFromViewClassResolver;
-import org.mb4j.controller.path.ViewPath;
+import org.mb4j.controller.path.UrlPath;
 import org.mb4j.controller.url.ViewUrl;
 import org.mb4j.controller.url.ViewUrlStringResolver;
 import org.mb4j.controller.NamedParams;
@@ -51,7 +51,7 @@ public class ServletViewUrlStringResolver implements ViewUrlStringResolver {
     }
   }
 
-  static void appendEscapedPath(StringBuilder result, ViewPath path) {
+  static void appendEscapedPath(StringBuilder result, UrlPath path) {
     boolean isFirst = true;
     for (String segment : path.segments()) {
       if (!isFirst) {

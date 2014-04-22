@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ViewMap;
 import org.mb4j.controller.mount.ViewMounter;
-import static org.mb4j.controller.path.ViewPathString.viewPath;
+import static org.mb4j.controller.path.UrlPathString.urlPath;
 import org.mb4j.liferay.sample.SampleBasePortlet;
 import org.mb4j.liferay.sample.event.edit.EventEditForm;
 import org.mb4j.liferay.sample.event.edit.EventEditPage;
@@ -19,8 +19,8 @@ public class EventListPortlet extends SampleBasePortlet {
         EventEditPage eventEdit,
         EventEditForm.SaveAction eventSave) {
       super(ViewMounter.withDefaultHomeView(eventList)
-          .mount(viewPath("edit/*"), eventEdit)
-          .mount(viewPath("save"), eventSave));
+          .mount(urlPath("edit/*"), eventEdit)
+          .mount(urlPath("save"), eventSave));
     }
   }
 

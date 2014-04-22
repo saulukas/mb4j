@@ -1,17 +1,17 @@
 package org.mb4j.controller.mount;
 
-import org.mb4j.controller.View;
-import org.mb4j.controller.path.ViewPath;
+import org.mb4j.controller.Controller;
+import org.mb4j.controller.path.UrlPath;
 
 public interface ViewFromPathResolver {
-  Result resolve(ViewPath path);
+  Result resolve(UrlPath path);
 
   class Result {
-    public final View view;
-    public final ViewPath mountedPath;
-    public final ViewPath paramsPath;
+    public final Controller view;
+    public final UrlPath mountedPath;
+    public final UrlPath paramsPath;
 
-    public Result(View view, ViewPath mountedPath, ViewPath paramsPath) {
+    public Result(Controller view, UrlPath mountedPath, UrlPath paramsPath) {
       this.view = view;
       this.mountedPath = mountedPath;
       this.paramsPath = paramsPath;
