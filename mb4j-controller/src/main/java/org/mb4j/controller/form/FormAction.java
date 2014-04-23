@@ -1,13 +1,19 @@
 package org.mb4j.controller.form;
 
+import java.lang.reflect.ParameterizedType;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
 
 public abstract class FormAction<T extends FormData> implements Controller {
-  protected final Class<T> formDataClass;
+  public final Class<T> formDataClass;
 
-  public FormAction(Class<T> formDataClass) {
-    this.formDataClass = formDataClass;
+  public FormAction() {
+    this.formDataClass = initFormDataClass();
+  }
+
+  private Class<T> initFormDataClass() {
+    ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+    return (Class<T>) type.getActualTypeArguments()[0];
   }
 
   @Override

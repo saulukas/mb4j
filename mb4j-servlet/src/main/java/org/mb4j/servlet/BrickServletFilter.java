@@ -56,6 +56,16 @@ public class BrickServletFilter extends HttpFilter {
         url,
         postParams,
         views.controllerClass2UrlPathResolver());
+    if (postParams.names().contains(ServletFormHeaderBrick.FORM_MARKER_PARAM)) {
+      String actionMappedName = null;
+      for (String paramName : postParams.names()) {
+        if (paramName.startsWith(ServletFormData4RequestResolver.ACTION_NAME_PREFIX)) {
+          actionMappedName = paramName.substring(ServletFormData4RequestResolver.ACTION_NAME_PREFIX.length());
+          break;
+        }
+      }
+      System.out.println("Form action '" + actionMappedName + "' :" + postParams);
+    }
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
   }

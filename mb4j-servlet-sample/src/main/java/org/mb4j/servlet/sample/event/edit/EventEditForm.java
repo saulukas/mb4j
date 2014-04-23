@@ -39,10 +39,6 @@ public class EventEditForm {
   }
 
   static class SaveAction extends FormAction<Data> {
-    public SaveAction() {
-      super(Data.class);
-    }
-
     @Override
     protected FormActionResponse handle(ControllerRequest request, Data formData) {
       throw new UnsupportedOperationException("Not supported yet.");
@@ -50,10 +46,6 @@ public class EventEditForm {
   }
 
   static class ResetAction extends FormAction<Data> {
-    public ResetAction() {
-      super(Data.class);
-    }
-
     @Override
     protected FormActionResponse handle(ControllerRequest request, Data formData) {
       throw new UnsupportedOperationException("Not supported yet.");
