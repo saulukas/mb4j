@@ -38,6 +38,10 @@ public class ControllerMounter {
     return pathMounter;
   }
 
+  Iterable<Controller> controllers() {
+    return pathMounter.controllers();
+  }
+
   @Override
   public String toString() {
     return rootNode.toString();
