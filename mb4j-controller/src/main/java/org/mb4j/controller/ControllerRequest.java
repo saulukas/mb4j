@@ -1,6 +1,6 @@
 package org.mb4j.controller;
 
-import org.mb4j.controller.form.Form;
+import org.mb4j.controller.form1.Form;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;

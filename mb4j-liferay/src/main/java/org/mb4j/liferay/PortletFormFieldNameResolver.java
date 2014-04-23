@@ -1,6 +1,6 @@
 package org.mb4j.liferay;
 
-import org.mb4j.controller.form.Form;
+import org.mb4j.controller.form1.Form;
 
 public class PortletFormFieldNameResolver implements Form.NameResolver {
     @Override

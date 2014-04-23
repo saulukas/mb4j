@@ -1,4 +1,4 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form1;
 
 import java.util.Collections;
 import java.util.Map;

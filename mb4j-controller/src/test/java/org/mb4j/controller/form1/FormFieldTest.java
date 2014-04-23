@@ -1,11 +1,10 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form1;
 
-import org.mb4j.controller.form.FormField;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.mb4j.controller.form.FormField.optionalField;
+import static org.mb4j.controller.form1.FormField.optionalField;
 
 public class FormFieldTest {
   @Test

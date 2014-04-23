@@ -1,7 +1,7 @@
 package org.mb4j.controller.test;
 
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.form.Form;
+import org.mb4j.controller.form1.Form;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;

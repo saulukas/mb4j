@@ -1,4 +1,4 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form1;
 
 import com.google.common.base.Strings;
 import java.io.Serializable;

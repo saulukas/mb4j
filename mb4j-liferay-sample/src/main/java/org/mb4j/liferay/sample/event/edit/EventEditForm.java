@@ -5,10 +5,10 @@ import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import static org.mb4j.controller.FormActionResponse.redirectTo;
-import org.mb4j.controller.form.Form;
-import org.mb4j.controller.form.FormAction;
-import org.mb4j.controller.form.FormField;
-import org.mb4j.controller.form.FormFiller;
+import org.mb4j.controller.form1.Form;
+import org.mb4j.controller.form1.FormAction;
+import org.mb4j.controller.form1.FormField;
+import org.mb4j.controller.form1.FormFiller;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventSaveCommand;
 

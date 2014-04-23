@@ -1,4 +1,4 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form1;
 
 import java.lang.reflect.ParameterizedType;
 import org.mb4j.controller.Controller;

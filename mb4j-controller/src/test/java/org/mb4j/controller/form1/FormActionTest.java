@@ -1,7 +1,5 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form1;
 
-import org.mb4j.controller.form.FormAction;
-import org.mb4j.controller.form.Form;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;

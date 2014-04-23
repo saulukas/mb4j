@@ -1,9 +1,9 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form1;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import org.mb4j.controller.form.Form.NameResolver;
+import org.mb4j.controller.form1.Form.NameResolver;
 
 class ActionParamsReflectionNames {
   static Map<String, FormField> resolveNamesFor(Form actionParams, NameResolver nameResolver) {
