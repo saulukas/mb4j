@@ -3,10 +3,11 @@ package org.mb4j.servlet;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
-import org.mb4j.controller.form1.Form;
+import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
+import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.Url4Request;
 
 class ServletControllerRequest extends ControllerRequest {
@@ -16,11 +17,11 @@ class ServletControllerRequest extends ControllerRequest {
   public ServletControllerRequest(
       String path2home,
       ControllerUrl url,
-      ControllerUrl4RequestResolver controllerUrlResolver,
-      Form.NameResolver actionParamNameResolver) {
-    super(url, actionParamNameResolver);
+      NamedParams postParams,
+      ControllerClass2UrlPathResolver class2urlResolver) {
+    super(url, postParams, ServletFormFieldNameResolver.INSTANCE);
     this.path2home = path2home;
-    this.controllerUrlResolver = controllerUrlResolver;
+    this.controllerUrlResolver = new ServletControllerUrl4RequestResolver(path2home, class2urlResolver);
   }
 
   @Override

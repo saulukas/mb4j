@@ -7,6 +7,7 @@ import org.mb4j.controller.form1.Form;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
+import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.Url4Request;
 
 class PortletControllerRequest extends ControllerRequest {
@@ -18,7 +19,7 @@ class PortletControllerRequest extends ControllerRequest {
       ControllerUrl url,
       ControllerUrl4RequestResolver controllerUrlResolver,
       Form.NameResolver actionParamNameResolver) {
-    super(url, actionParamNameResolver);
+    super(url, NamedParams.empty(), actionParamNameResolver);
     this.path2home = path2home;
     this.controllerUrlResolver = controllerUrlResolver;
   }

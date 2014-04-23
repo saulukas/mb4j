@@ -2,7 +2,9 @@ package org.mb4j.servlet.sample.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormActionResponse;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormField;
 import static org.mb4j.controller.form.FormField.createOptionalField;
@@ -36,9 +38,25 @@ public class EventEditForm {
     return data;
   }
 
-  static class SaveAction extends FormAction {
+  static class SaveAction extends FormAction<Data> {
+    public SaveAction() {
+      super(Data.class);
+    }
+
+    @Override
+    protected FormActionResponse handle(ControllerRequest request, Data formData) {
+      throw new UnsupportedOperationException("Not supported yet.");
+    }
   }
 
-  static class ResetAction extends FormAction {
+  static class ResetAction extends FormAction<Data> {
+    public ResetAction() {
+      super(Data.class);
+    }
+
+    @Override
+    protected FormActionResponse handle(ControllerRequest request, Data formData) {
+      throw new UnsupportedOperationException("Not supported yet.");
+    }
   }
 }

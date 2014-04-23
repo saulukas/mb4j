@@ -14,6 +14,7 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import org.mb4j.controller.form.FormActionResponse;
 import org.mb4j.controller.http.HttpFilter;
+import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
@@ -44,15 +45,17 @@ public class BrickServletFilter extends HttpFilter {
       chain.doFilter(httpReq, httpResp);
       return;
     }
-    ControllerUrl url = ControllerUrl.of(resolvedView.controller.getClass(), UrlParams.of(
-        resolvedView.paramsPath,
-        namedParamsFrom(httpReq)));
     String path2home = UrlPathStringToHome.from(servletPath);
+    NamedParams queryParams = namedParametersFromRawQueryString(httpReq.getQueryString());
+    NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
+    ControllerUrl url = ControllerUrl.of(
+        resolvedView.controller.getClass(),
+        UrlParams.of(resolvedView.paramsPath, queryParams));
     ControllerRequest viewReq = new ServletControllerRequest(
         path2home,
         url,
-        new ServletControllerUrl4RequestResolver(path2home, views.controllerClass2UrlPathResolver()),
-        ServletFormFieldNameResolver.INSTANCE);
+        postParams,
+        views.controllerClass2UrlPathResolver());
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
   }

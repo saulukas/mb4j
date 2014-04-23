@@ -17,9 +17,9 @@ public class FormData {
     return formActions;
   }
 
-  public static void collectFieldsFrom(Object data, String namePrefix, Map<String, FormField> formFields) {
+  public static void collectFieldsFrom(FormData data, String namePrefix, Map<String, FormField> formFields) {
     Class dataClass = data.getClass();
-    while (dataClass != null) {
+    while (dataClass != null && FormData.class.isAssignableFrom(dataClass)) {
       Field[] declaredFields = dataClass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
         Object fieldValue;
@@ -31,8 +31,8 @@ public class FormData {
         }
         if (fieldValue instanceof FormField) {
           formFields.put(namePrefix + declaredField.getName(), (FormField) fieldValue);
-        } else {
-          collectFieldsFrom(fieldValue, namePrefix + declaredField.getName() + ".", formFields);
+        } else if (fieldValue instanceof FormData) {
+          collectFieldsFrom((FormData) fieldValue, namePrefix + declaredField.getName() + ".", formFields);
         }
       }
       dataClass = dataClass.getSuperclass();
@@ -41,7 +41,7 @@ public class FormData {
 
   public static void collectActionsFrom(Object data, String namePrefix, Map<String, FormAction> formActions) {
     Class dataClass = data.getClass();
-    while (dataClass != null) {
+    while (dataClass != null && FormData.class.isAssignableFrom(dataClass)) {
       Field[] declaredFields = dataClass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
         Object fieldValue;

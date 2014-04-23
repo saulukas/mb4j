@@ -13,11 +13,13 @@ import org.mb4j.controller.form.FormField4Request;
 import org.mb4j.controller.form1.Form;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
+import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.Url4Request;
 
 public class ControllerTesting {
   public static ControllerRequest request4Tests(ControllerUrl url) {
-    return new ControllerRequest(url, actionParamNameResolver4Tests()) {
+    NamedParams postParameters = NamedParams.empty();
+    return new ControllerRequest(url, postParameters, actionParamNameResolver4Tests()) {
       @Override
       public Url4Request resolveUrl(String urlFromHome) {
         return new Url4Request("../path2home/../" + urlFromHome);

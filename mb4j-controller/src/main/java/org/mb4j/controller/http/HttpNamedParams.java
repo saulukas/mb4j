@@ -1,5 +1,6 @@
 package org.mb4j.controller.http;
 
+import com.google.common.base.Strings;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -7,6 +8,9 @@ import org.mb4j.controller.url.NamedParams;
 
 public class HttpNamedParams {
   public static NamedParams namedParametersFromRawQueryString(String rawQueryString) {
+    if (Strings.isNullOrEmpty(rawQueryString)) {
+      return NamedParams.empty();
+    }
     UrlEncodedQueryString query = UrlEncodedQueryString.parse(rawQueryString);
     Map<String, String> name2value = new HashMap<>();
     Iterator<String> names = query.getNames();
