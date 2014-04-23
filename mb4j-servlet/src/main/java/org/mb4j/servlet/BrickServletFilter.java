@@ -10,12 +10,12 @@ import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import org.mb4j.controller.form.FormActionResponse;
-import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.http.HttpFilter;
 import org.mb4j.controller.http.HttpNamedParams;
 import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.UrlParams;
@@ -45,17 +45,13 @@ public class BrickServletFilter extends HttpFilter {
         resolvedView.paramsPath,
         HttpNamedParams.namedParamsFrom(httpReq)));
     String path2home = UrlPathStringToHome.from(servletPath);
-    ControllerRequest viewReq = createViewRequest(path2home, url);
+    ControllerRequest viewReq = new ServletControllerRequest(
+        path2home,
+        url,
+        new ServletControllerUrl4RequestResolver(path2home, views.controllerClass2UrlPathResolver()),
+        ServletFormFieldNameResolver.INSTANCE);
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);
-  }
-
-  private ControllerRequest createViewRequest(String path2home, ControllerUrl url) {
-    return new ControllerRequest(
-        url,
-        new ServletUrl4RequestResolver(path2home),
-        new ServletViewUrlStringResolver(path2home, views.controllerClass2UrlPathResolver()),
-        ServletFormFieldNameResolver.INSTANCE);
   }
 
   private void handle(ControllerRequest viewReq, ControllerResponse viewResp, HttpServletResponse httpResp)

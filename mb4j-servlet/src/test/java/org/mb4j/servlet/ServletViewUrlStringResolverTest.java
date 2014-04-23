@@ -23,7 +23,7 @@ public class ServletViewUrlStringResolverTest {
         .mount(urlPathOf("document/*"), TypicalViews.DOCUMENT)
         .mount(urlPathOf("document/new"), TypicalViews.DOCUMENT_NEW)
         .mount(urlPathOf("document/edit/*"), TypicalViews.DOCUMENT_EDIT);
-    ServletViewUrlStringResolver resolver = new ServletViewUrlStringResolver(
+    ServletControllerUrl4RequestResolver resolver = new ServletControllerUrl4RequestResolver(
         path2home,
         new ControllerMappings(mounter).controllerClass2UrlPathResolver());
     assertThat(resolver.resolve(ControllerUrl.of(Home.class)).toString(), is("../../"));

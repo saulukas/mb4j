@@ -5,17 +5,16 @@ import java.net.URI;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
-import javax.portlet.MimeResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
-import org.mb4j.controller.page.PageResponse;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
@@ -49,17 +48,13 @@ public class BrickPortlet extends GenericPortlet {
     ControllerUrl url = ControllerUrl.of(
         resolverResult.controller.getClass(),
         UrlParams.of(resolverResult.paramsPath, namedParams));
-    ControllerRequest viewReq = createViewRequest(url, path2home, response);
+    ControllerRequest viewReq = new PortletControllerRequest(
+        path2home,
+        url,
+        new PortletControllerUrl4RequestResolver(response, views.controllerClass2UrlPathResolver()),
+        new PortletFormFieldNameResolver());
     ControllerResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);
-  }
-
-  private ControllerRequest createViewRequest(ControllerUrl url, String path2home, MimeResponse response) {
-    return new ControllerRequest(
-        url,
-        new PortletUrl4RequestResolver(path2home),
-        new PortletViewUrlStringResolver(response, views.controllerClass2UrlPathResolver()),
-        new PortletFormFieldNameResolver());
   }
 
   private void handle(ControllerRequest viewReq, ControllerResponse viewResp, RenderResponse response)

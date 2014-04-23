@@ -9,11 +9,11 @@ import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.UrlPath;
 
-public class PortletViewUrlStringResolver implements ControllerUrl4RequestResolver {
+public class PortletControllerUrl4RequestResolver implements ControllerUrl4RequestResolver {
   private final MimeResponse portletResponse;
   private final ControllerClass2UrlPathResolver pathResolver;
 
-  public PortletViewUrlStringResolver(
+  public PortletControllerUrl4RequestResolver(
       MimeResponse portletResponse,
       ControllerClass2UrlPathResolver pathResolver) {
     this.portletResponse = portletResponse;

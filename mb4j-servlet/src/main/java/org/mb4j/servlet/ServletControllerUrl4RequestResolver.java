@@ -11,12 +11,12 @@ import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 
-public class ServletViewUrlStringResolver implements ControllerUrl4RequestResolver {
+public class ServletControllerUrl4RequestResolver implements ControllerUrl4RequestResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
   private final ControllerClass2UrlPathResolver pathResolver;
 
-  public ServletViewUrlStringResolver(String path2home, ControllerClass2UrlPathResolver pathResolver) {
+  public ServletControllerUrl4RequestResolver(String path2home, ControllerClass2UrlPathResolver pathResolver) {
     this.path2home = path2home;
     this.pathResolver = pathResolver;
   }
