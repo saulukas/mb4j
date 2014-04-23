@@ -1,5 +1,7 @@
 package org.mb4j.controller;
 
+import org.mb4j.controller.form.FormData;
+import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form1.Form;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
@@ -38,6 +40,10 @@ public class ControllerRequest {
 
   public Url4Request resolveUrl(String urlFromHome) {
     return staticResourceUrlResolver.resolveUrl(urlFromHome);
+  }
+
+  public FormData4Request resolve(FormData formData) {
+    return null; //TODO implement
   }
 
   public boolean hasMorePathSegments() {

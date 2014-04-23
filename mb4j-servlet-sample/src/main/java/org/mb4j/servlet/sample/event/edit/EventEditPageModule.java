@@ -7,7 +7,8 @@ public class EventEditPageModule extends AbstractModule {
   protected void configure() {
     bind(EventEditPanel.class);
     bind(EventEditPage.class);
-    bind(EventEditForm.Filler.class);
-    bind(EventEditForm.SaveAction.class);
+    bind(EventEditForm1.Filler.class);
+    bind(EventEditForm1.SaveAction.class);
+    bind(EventEditForm.class);
   }
 }

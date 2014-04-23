@@ -12,13 +12,16 @@ public class EventEditPanel {
   @Inject
   EventQuery eventQuery;
   @Inject
-  EventEditForm.Filler formFiller;
+  EventEditForm1.Filler formFiller;
+  @Inject
+  EventEditForm form;
 
   public EventEditPanelBrick bakeBrick(ControllerRequest request, int eventId) {
     Event event = eventQuery.eventOrNullFor(eventId);
     EventEditPanelBrick brick = new EventEditPanelBrick();
-    brick.actionSaveUrl = request.resolve(ControllerUrl.of(EventEditForm.SaveAction.class));
-    brick.form = formFiller.filledForm(request, new EventEditForm.Filler.Params(event));
+    brick.actionSaveUrl = request.resolve(ControllerUrl.of(EventEditForm1.SaveAction.class));
+    brick.form1 = formFiller.filledForm(request, new EventEditForm1.Filler.Params(event));
+    brick.fd = request.resolve(form.dataFrom(event));
     return brick;
   }
 }

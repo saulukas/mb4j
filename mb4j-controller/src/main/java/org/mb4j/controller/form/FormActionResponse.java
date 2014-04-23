@@ -1,5 +1,6 @@
-package org.mb4j.controller;
+package org.mb4j.controller.form;
 
+import org.mb4j.controller.ControllerResponse;
 import org.mb4j.controller.url.ControllerUrl;
 
 public class FormActionResponse implements ControllerResponse {

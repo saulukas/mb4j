@@ -2,7 +2,7 @@ package org.mb4j.servlet.sample.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.controller.BrickBaker;
+import org.mb4j.controller.page.BrickBaker;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.url.ControllerUrl;
 

@@ -1,10 +1,11 @@
-package org.mb4j.controller;
+package org.mb4j.controller.mapping;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.mb4j.controller.Controller;
 
 public class AAA_Concepts {
   void test1() {

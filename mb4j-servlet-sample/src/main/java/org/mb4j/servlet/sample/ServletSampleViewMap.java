@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.ControllerMounter;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
-import org.mb4j.servlet.sample.event.edit.EventEditForm;
+import org.mb4j.servlet.sample.event.edit.EventEditForm1;
 import org.mb4j.servlet.sample.event.edit.EventEditPage;
 import org.mb4j.servlet.sample.event.list.EventListPage;
 import org.mb4j.servlet.sample.home.HomePage;
@@ -17,7 +17,7 @@ public class ServletSampleViewMap extends ControllerMappings {
       HomePage home,
       EventListPage eventList,
       EventEditPage eventEdit,
-      EventEditForm.SaveAction eventSave) {
+      EventEditForm1.SaveAction eventSave) {
     super(ControllerMounter.withHomeController(home)
         .mount(urlPathOf("event/*"), eventList)
         .mount(urlPathOf("event/edit/*"), eventEdit)

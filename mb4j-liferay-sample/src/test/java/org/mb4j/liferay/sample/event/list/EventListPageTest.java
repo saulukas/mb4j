@@ -2,7 +2,7 @@ package org.mb4j.liferay.sample.event.list;
 
 import org.junit.Test;
 import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
-import org.mb4j.controller.PageResponse;
+import org.mb4j.controller.page.PageResponse;
 import static org.mb4j.controller.test.ControllerTesting.request4Tests;
 import static org.mb4j.liferay.sample.LiferaySampleTestApplication.inject;
 

@@ -2,7 +2,7 @@ package org.mb4j.liferay.sample.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.BrickBakerPage;
+import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.controller.url.UrlPathBuilder.urlPath;

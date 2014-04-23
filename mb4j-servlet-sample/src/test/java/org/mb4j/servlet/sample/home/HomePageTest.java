@@ -4,7 +4,7 @@ import org.junit.Test;
 import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
 import static org.mb4j.controller.test.ControllerTesting.request4Tests;
 import static org.mb4j.servlet.sample.ServletSampleTestApplication.inject;
-import org.mb4j.controller.PageResponse;
+import org.mb4j.controller.page.PageResponse;
 
 public class HomePageTest {
   private final HomePage page = inject(HomePage.class);

@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
-import org.mb4j.controller.BrickBakerPage;
+import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;

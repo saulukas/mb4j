@@ -1,6 +1,7 @@
-package org.mb4j.controller;
+package org.mb4j.controller.page;
 
 import org.mb4j.brick.Brick;
+import org.mb4j.controller.ControllerResponse;
 
 public class PageResponse implements ControllerResponse {
   public final Brick brick;

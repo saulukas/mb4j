@@ -12,7 +12,7 @@ import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
-import org.mb4j.controller.PageResponse;
+import org.mb4j.controller.page.PageResponse;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;

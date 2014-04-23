@@ -5,7 +5,7 @@ import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
 import static org.mb4j.controller.test.ControllerTesting.request4Tests;
 import static org.mb4j.servlet.sample.ServletSampleTestApplication.inject;
 import static org.mb4j.servlet.sample.event.TypicalEvents.fishingEventId;
-import org.mb4j.controller.PageResponse;
+import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
 
 public class EventEditPageTest {

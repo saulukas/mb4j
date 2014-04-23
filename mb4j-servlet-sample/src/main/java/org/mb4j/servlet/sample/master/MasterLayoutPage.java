@@ -3,7 +3,7 @@ package org.mb4j.servlet.sample.master;
 import com.google.inject.Singleton;
 import org.mb4j.brick.Brick;
 import org.mb4j.brick.RawBrick;
-import org.mb4j.controller.BrickBakerPage;
+import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.servlet.sample.offer.PersonalOfferPanel;
 
