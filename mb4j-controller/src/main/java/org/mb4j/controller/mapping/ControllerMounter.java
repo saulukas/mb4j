@@ -38,8 +38,8 @@ public class ControllerMounter {
     return pathMounter;
   }
 
-  Iterable<Controller> controllers() {
-    return pathMounter.controllers();
+  Iterable<Class<? extends Controller>> getControllerClasses() {
+    return pathMounter.getControllerClasses();
   }
 
   @Override

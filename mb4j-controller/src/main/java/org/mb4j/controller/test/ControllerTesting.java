@@ -11,6 +11,7 @@ import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form.FormField;
 import org.mb4j.controller.form.FormField4Request;
 import org.mb4j.controller.form1.Form;
+import org.mb4j.controller.mapping.InstanceProviderByClass;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.NamedParams;
@@ -57,6 +58,19 @@ public class ControllerTesting {
       @Override
       public String resolvedName(String fieldName) {
         return fieldName;
+      }
+    };
+  }
+
+  public static InstanceProviderByClass instanceProvider4Tests() {
+    return new InstanceProviderByClass() {
+      @Override
+      public <T> T instanceOf(Class<T> klass) {
+        try {
+          return klass.newInstance();
+        } catch (Exception ex) {
+          throw new RuntimeException(ex);
+        }
       }
     };
   }

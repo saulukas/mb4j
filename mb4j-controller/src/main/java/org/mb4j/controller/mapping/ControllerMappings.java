@@ -2,9 +2,11 @@ package org.mb4j.controller.mapping;
 
 public class ControllerMappings {
   private final ControllerMounter mounter;
+  private final FormActionMappings actions;
 
-  public ControllerMappings(ControllerMounter mounter) {
+  public ControllerMappings(InstanceProviderByClass instanceProvider, ControllerMounter mounter) {
     this.mounter = mounter;
+    this.actions = new FormActionMappings(mounter.getControllerClasses(), instanceProvider);
   }
 
   public UrlPath2ControllerResolver urlPath2ControllerResolver() {
@@ -17,6 +19,7 @@ public class ControllerMappings {
 
   @Override
   public String toString() {
-    return mounter.toString();
+    return mounter.toString()
+        + "\n" + actions;
   }
 }

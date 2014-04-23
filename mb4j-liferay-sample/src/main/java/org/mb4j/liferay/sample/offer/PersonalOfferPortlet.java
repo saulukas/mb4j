@@ -11,7 +11,7 @@ public class PersonalOfferPortlet extends SampleBasePortlet {
   public static class Views extends ControllerMappings {
     @Inject
     public Views(PersonalOfferPage offer) {
-      super(ControllerMounter.withDefaultHomeController(offer));
+      super(null, ControllerMounter.withDefaultHomeController(offer));
     }
   }
 

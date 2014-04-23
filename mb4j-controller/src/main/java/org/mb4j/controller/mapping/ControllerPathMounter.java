@@ -28,8 +28,7 @@ class ControllerPathMounter implements ControllerClass2UrlPathResolver {
     controllerClass2path.put(viewClass, path);
   }
 
-  Iterable<Controller> controllers() {
-    return
-    throw new UnsupportedOperationException("Not supported yet.");
+  Iterable<Class<? extends Controller>> getControllerClasses() {
+    return controllerClass2path.keySet();
   }
 }

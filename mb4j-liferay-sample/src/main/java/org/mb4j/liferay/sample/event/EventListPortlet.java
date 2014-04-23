@@ -18,7 +18,7 @@ public class EventListPortlet extends SampleBasePortlet {
         EventListPage eventList,
         EventEditPage eventEdit,
         EventEditForm.SaveAction eventSave) {
-      super(ControllerMounter.withDefaultHomeController(eventList)
+      super(null, ControllerMounter.withDefaultHomeController(eventList)
           .mount(urlPathOf("edit/*"), eventEdit)
           .mount(urlPathOf("save"), eventSave));
     }
