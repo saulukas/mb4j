@@ -10,7 +10,7 @@ public class TemplateProviderFromClasspath implements TemplateProvider {
   public BrickTemplate templateFor(Class<? extends Brick> brickClass) {
     TemplateTextSource source = templateTextSourceFor(brickClass);
     String templateText = templateTextFrom(source);
-    Template template = Mustache.compiler().nullValue("").compile(templateText);
+    Template template = Mustache.compiler().compile(templateText);
     return new BrickTemplate(source.name, template);
   }
 

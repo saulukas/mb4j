@@ -26,14 +26,6 @@ public abstract class ControllerRequest {
     return url;
   }
 
-  public abstract ControllerUrl4Request resolve(ControllerUrl url);
-
-  public abstract Url4Request resolveUrl(String urlFromHome);
-
-  public FormData4Request resolve(FormData formData) {
-    return null; //TODO implement
-  }
-
   public boolean hasMorePathSegments() {
     return urlPathReader.hasMoreSegments();
   }
@@ -41,6 +33,12 @@ public abstract class ControllerRequest {
   public String readPathSegment() {
     return urlPathReader.readSegment();
   }
+
+  public abstract ControllerUrl4Request resolve(ControllerUrl url);
+
+  public abstract Url4Request resolveUrl(String urlFromHome);
+
+  public abstract FormData4Request resolve(FormData formData);
 
   @Override
   public String toString() {

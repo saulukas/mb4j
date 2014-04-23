@@ -1,6 +1,8 @@
 package org.mb4j.servlet.sample.event.edit;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormField;
 import static org.mb4j.controller.form.FormField.createOptionalField;
@@ -9,11 +11,18 @@ import org.mb4j.servlet.sample.domain.Event;
 
 @Singleton
 public class EventEditForm {
+  @Inject
+  SaveAction saveAction;
+  @Inject
+  ResetAction resetAction;
+
   public static class Data extends FormData {
-    final FormField id = createRequiredField();
-    final FormField title = createRequiredField();
-    final FormField summary = createOptionalField();
-    final FormField imageUrl = createOptionalField();
+    FormField id = createRequiredField();
+    FormField title = createRequiredField();
+    FormField summary = createOptionalField();
+    FormField imageUrl = createOptionalField();
+    SaveAction save;
+    ResetAction reset;
   }
 
   public Data dataFrom(Event event) {
@@ -22,6 +31,14 @@ public class EventEditForm {
     data.title.value = event.title;
     data.summary.value = event.summary;
     data.imageUrl.value = event.imageUrl;
+    data.save = saveAction;
+    data.reset = resetAction;
     return data;
+  }
+
+  static class SaveAction extends FormAction {
+  }
+
+  static class ResetAction extends FormAction {
   }
 }

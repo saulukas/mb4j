@@ -21,7 +21,7 @@ public class EventEditPanel {
     EventEditPanelBrick brick = new EventEditPanelBrick();
     brick.actionSaveUrl = request.resolve(ControllerUrl.of(EventEditForm1.SaveAction.class));
     brick.form1 = formFiller.filledForm(request, new EventEditForm1.Filler.Params(event));
-    brick.fd = request.resolve(form.dataFrom(event));
+    brick.form = request.resolve(form.dataFrom(event));
     return brick;
   }
 }

@@ -1,6 +1,8 @@
 package org.mb4j.liferay;
 
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.form.FormData;
+import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form1.Form;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
@@ -32,5 +34,10 @@ class PortletControllerRequest extends ControllerRequest {
   @Override
   public ControllerUrl4Request resolve(ControllerUrl url) {
     return controllerUrlResolver.resolve(url);
+  }
+
+  @Override
+  public FormData4Request resolve(FormData formData) {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 }

@@ -1,24 +1,11 @@
 package org.mb4j.controller.http;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.mb4j.controller.url.NamedParams;
 
 public class HttpNamedParams {
-  public static NamedParams namedParamsFrom(HttpServletRequest req) {
-    Map<String, String> name2value = new HashMap<>();
-    Enumeration<String> names = req.getParameterNames();
-    while (names.hasMoreElements()) {
-      String name = names.nextElement();
-      String value = req.getParameter(name);
-      name2value.put(name, value);
-    }
-    return new NamedParams(name2value);
-  }
-
   public static NamedParams namedParametersFromRawQueryString(String rawQueryString) {
     UrlEncodedQueryString query = UrlEncodedQueryString.parse(rawQueryString);
     Map<String, String> name2value = new HashMap<>();

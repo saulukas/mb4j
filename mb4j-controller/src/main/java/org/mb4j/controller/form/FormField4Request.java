@@ -8,6 +8,10 @@ public class FormField4Request {
   public final String errorMessage;
   public final Integer maxSize;
 
+  public FormField4Request(String name, FormField field) {
+    this(name, field.value, field.required, field.hasError(), field.errorMessage, field.maxSize);
+  }
+
   public FormField4Request(String name, String value, boolean required, boolean hasError, String errorMessage, Integer maxSize) {
     this.name = name;
     this.value = value;
@@ -15,5 +19,11 @@ public class FormField4Request {
     this.hasError = hasError;
     this.errorMessage = errorMessage;
     this.maxSize = maxSize;
+  }
+
+  @Override
+  public String toString() {
+    throw new UnsupportedOperationException(getClass().getSimpleName() + ".toString() is not supported."
+        + " Access attribute 'name', 'value' or others instead. Name4Request='" + name + "'");
   }
 }

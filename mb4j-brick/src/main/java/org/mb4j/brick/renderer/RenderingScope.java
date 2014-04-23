@@ -60,8 +60,10 @@ public class RenderingScope extends FilterWriter {
     BrickTemplate brickTemplate = templateProvider.templateFor(brick.getClass());
     try {
       brickTemplate.template.execute(brick, this);
-    } catch (MustacheException ex) {
-      throw new RuntimeException(brickTemplate.name + ": " + ex.getMessage(), ex);
+    } catch (BrickRenderingException ex) {
+      throw ex;
+    } catch (Exception ex) {
+      throw new BrickRenderingException(brickTemplate.name + ": " + ex.getMessage(), ex);
     }
   }
 
