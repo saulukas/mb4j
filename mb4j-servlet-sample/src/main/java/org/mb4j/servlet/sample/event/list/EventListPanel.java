@@ -47,13 +47,13 @@ public class EventListPanel {
   private ControllerUrl initReverseOrderUrl(Params params, ControllerRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
-        ? request.url().withReplacedParam(Params.REVERSE_ORDER, "")
-        : request.url().withDeletedParam(Params.REVERSE_ORDER);
+        ? request.url().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
+        : request.url().withDeletedParam(Params.PARAM_REVERSE_ORDER);
   }
 
   public static class Params {
     public static final int SHOW_ALL = -1;
-    static final String REVERSE_ORDER = "reverseOrder";
+    static final String PARAM_REVERSE_ORDER = "reverseOrder";
     final int maxResultCount;
     final boolean reverseOrder;
 
@@ -83,7 +83,7 @@ public class EventListPanel {
     }
 
     private static boolean readReverseOrderFlag(ControllerRequest request) {
-      return request.url().params.named.valueOf(REVERSE_ORDER) != null;
+      return request.url().params.named.valueOf(PARAM_REVERSE_ORDER) != null;
     }
   }
 }

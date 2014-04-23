@@ -5,24 +5,24 @@ import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
-import org.mb4j.controller.url.StaticUrl4Request;
-import org.mb4j.controller.url.StaticUrl4RequestResolver;
+import org.mb4j.controller.url.Url4Request;
+import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlPathReader;
 
 public class ControllerRequest {
   private final ControllerUrl url;
-  private final UrlPathReader pathParamsReader;
-  private final StaticUrl4RequestResolver staticResourceUrlResolver;
+  private final UrlPathReader urlPathReader;
+  private final Url4RequestResolver staticResourceUrlResolver;
   private final ControllerUrl4RequestResolver controllerUrlResolver;
   public final Form.NameResolver actionParamNameResolver;
 
   public ControllerRequest(
       ControllerUrl url,
-      StaticUrl4RequestResolver staticUrlResolver,
+      Url4RequestResolver staticUrlResolver,
       ControllerUrl4RequestResolver controllerUrlResolver,
       Form.NameResolver actionParamNameResolver) {
     this.url = url;
-    this.pathParamsReader = bufferedReaderOf(url.params.path);
+    this.urlPathReader = bufferedReaderOf(url.params.path);
     this.staticResourceUrlResolver = staticUrlResolver;
     this.controllerUrlResolver = controllerUrlResolver;
     this.actionParamNameResolver = actionParamNameResolver;
@@ -36,20 +36,20 @@ public class ControllerRequest {
     return controllerUrlResolver.resolve(url);
   }
 
-  public StaticUrl4Request resolveStaticUrl(String urlFromHome) {
-    return staticResourceUrlResolver.resolveStaticUrl(urlFromHome);
+  public Url4Request resolveUrl(String urlFromHome) {
+    return staticResourceUrlResolver.resolveUrl(urlFromHome);
   }
 
   public boolean hasMorePathSegments() {
-    return pathParamsReader.hasMoreSegments();
+    return urlPathReader.hasMoreSegments();
   }
 
   public String readPathSegment() {
-    return pathParamsReader.readSegment();
+    return urlPathReader.readSegment();
   }
 
   @Override
   public String toString() {
-    return getClass().getSimpleName() + "[" + pathParamsReader + "]";
+    return getClass().getSimpleName() + "[" + urlPathReader + "]";
   }
 }

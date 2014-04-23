@@ -5,8 +5,8 @@ import org.mb4j.controller.form.Form;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
-import org.mb4j.controller.url.StaticUrl4Request;
-import org.mb4j.controller.url.StaticUrl4RequestResolver;
+import org.mb4j.controller.url.Url4Request;
+import org.mb4j.controller.url.Url4RequestResolver;
 
 public class ControllerTesting {
   public static ControllerRequest request4Tests(ControllerUrl url) {
@@ -18,11 +18,11 @@ public class ControllerTesting {
     );
   }
 
-  public static StaticUrl4RequestResolver staticUrlResolver4Tests(final String path2home) {
-    return new StaticUrl4RequestResolver() {
+  public static Url4RequestResolver staticUrlResolver4Tests(final String path2home) {
+    return new Url4RequestResolver() {
       @Override
-      public StaticUrl4Request resolveStaticUrl(String urlFromHome) {
-        return new StaticUrl4Request(path2home + urlFromHome);
+      public Url4Request resolveUrl(String urlFromHome) {
+        return new Url4Request(path2home + urlFromHome);
       }
     };
   }

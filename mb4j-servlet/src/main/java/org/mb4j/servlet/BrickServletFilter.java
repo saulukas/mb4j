@@ -53,7 +53,7 @@ public class BrickServletFilter extends HttpFilter {
   private ControllerRequest createViewRequest(String path2home, ControllerUrl url) {
     return new ControllerRequest(
         url,
-        new ServletStaticResourceUrlResolver(path2home),
+        new ServletUrl4RequestResolver(path2home),
         new ServletViewUrlStringResolver(path2home, views.controllerClass2UrlPathResolver()),
         ServletFormFieldNameResolver.INSTANCE);
   }

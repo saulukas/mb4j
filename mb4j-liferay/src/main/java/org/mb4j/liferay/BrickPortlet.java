@@ -57,7 +57,7 @@ public class BrickPortlet extends GenericPortlet {
   private ControllerRequest createViewRequest(ControllerUrl url, String path2home, MimeResponse response) {
     return new ControllerRequest(
         url,
-        new PortletStaticResourceUrlResolver(path2home),
+        new PortletUrl4RequestResolver(path2home),
         new PortletViewUrlStringResolver(response, views.controllerClass2UrlPathResolver()),
         new PortletFormFieldNameResolver());
   }
