@@ -4,7 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
 
-public abstract class FormAction<T extends FormData> implements Controller {
+public abstract class FormAction<T extends FormData> extends Controller {
   public final Class<T> formDataClass;
 
   public FormAction() {

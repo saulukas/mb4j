@@ -5,25 +5,29 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 
 public class TypicalViews {
-  public static class Home implements Controller {
+  public static class Home extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class Document implements Controller {
+  public static class Document extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class DocumentNew implements Controller {
+  public static class DocumentNew extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class DocumentEdit implements Controller {
+  public static class DocumentEdit extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }

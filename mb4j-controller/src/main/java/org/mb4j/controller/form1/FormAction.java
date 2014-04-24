@@ -5,7 +5,7 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 
-public abstract class FormAction<F extends Form> implements Controller {
+public abstract class FormAction<F extends Form> extends Controller {
   private final Class<F> formClass;
 
   public FormAction() {
