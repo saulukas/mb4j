@@ -3,12 +3,13 @@ package org.mb4j.servlet.sample.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventQuery;
 
 @Singleton
-public class EventEditPanel {
+public class EventEditPanel extends Panel {
   @Inject
   EventQuery eventQuery;
   @Inject

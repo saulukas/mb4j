@@ -3,6 +3,7 @@ package org.mb4j.servlet.sample.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormActionResponse;
 import org.mb4j.controller.form.FormData;
@@ -12,7 +13,7 @@ import static org.mb4j.controller.form.FormField.createRequiredField;
 import org.mb4j.servlet.sample.domain.Event;
 
 @Singleton
-public class EventEditForm {
+public class EventEditForm extends Form {
   @Inject
   SaveAction saveAction;
   @Inject

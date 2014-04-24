@@ -2,12 +2,13 @@ package org.mb4j.servlet.sample.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.controller.page.BrickBaker;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.page.BrickBaker;
+import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.url.ControllerUrl;
 
 @Singleton
-public class PersonalOfferPanel implements BrickBaker {
+public class PersonalOfferPanel extends Panel implements BrickBaker {
   @Override
   public PersonalOfferPanelBrick bakeBrickFrom(ControllerRequest request) {
     return brickFrom(request, Params.from(request));

@@ -17,10 +17,7 @@ public class EventEditPage extends MasterLayoutPage {
 
   @Override
   protected Brick bakeContentBrick(ControllerRequest request) {
-    return contentPanel.bakeBrick(request, readEventIdFrom(request));
-  }
-
-  private int readEventIdFrom(ControllerRequest request) {
-    return Integer.parseInt(request.readPathSegment());
+    int eventId = Integer.parseInt(request.readPathSegment());
+    return contentPanel.bakeBrick(request, eventId);
   }
 }
