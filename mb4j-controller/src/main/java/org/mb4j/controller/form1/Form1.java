@@ -3,14 +3,14 @@ package org.mb4j.controller.form1;
 import java.util.Collections;
 import java.util.Map;
 
-public class Form {
-  private Map<String, FormField> name2param = null;
+public class Form1 {
+  private Map<String, FormField1> name2param = null;
 
   public interface NameResolver {
     String resolvedName(String fieldName);
   }
 
-  public FormField fieldBy(String name) {
+  public FormField1 fieldBy(String name) {
     return name2param.get(name);
   }
 

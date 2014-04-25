@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import org.mb4j.brick.RawBrick;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormAction2;
 import org.mb4j.controller.form.FormAction4Request;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form.FormField;
 import org.mb4j.controller.form.FormField4Request;
-import org.mb4j.controller.form1.Form;
+import org.mb4j.controller.form1.Form1;
 import org.mb4j.controller.mapping.InstanceProviderByClass;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
@@ -39,9 +39,9 @@ public class ControllerTesting {
           String name = entry.getKey();
           fields4Request.put(name, new FormField4Request(name, entry.getValue()));
         }
-        Map<String, FormAction> actions = formData.getActions();
+        Map<String, FormAction2> actions = formData.getActions();
         Map<String, FormAction4Request> actions4Request = new HashMap<>();
-        for (Map.Entry<String, FormAction> entry : actions.entrySet()) {
+        for (Map.Entry<String, FormAction2> entry : actions.entrySet()) {
           String name = entry.getKey();
           actions4Request.put(name, new FormAction4Request("mb(test)" + name));
         }
@@ -53,8 +53,8 @@ public class ControllerTesting {
     };
   }
 
-  public static Form.NameResolver actionParamNameResolver4Tests() {
-    return new Form.NameResolver() {
+  public static Form1.NameResolver actionParamNameResolver4Tests() {
+    return new Form1.NameResolver() {
       @Override
       public String resolvedName(String fieldName) {
         return fieldName;

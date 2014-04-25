@@ -3,7 +3,7 @@ package org.mb4j.liferay;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
-import org.mb4j.controller.form1.Form;
+import org.mb4j.controller.form1.Form1;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.ControllerUrl4RequestResolver;
@@ -18,7 +18,7 @@ class PortletControllerRequest extends ControllerRequest {
       String path2home,
       ControllerUrl url,
       ControllerUrl4RequestResolver controllerUrlResolver,
-      Form.NameResolver actionParamNameResolver) {
+      Form1.NameResolver actionParamNameResolver) {
     super(url, NamedParams.empty(), actionParamNameResolver);
     this.path2home = path2home;
     this.controllerUrlResolver = controllerUrlResolver;

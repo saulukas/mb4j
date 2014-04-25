@@ -7,10 +7,10 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 
 public class FormActionTest {
-  static class SomeForm extends Form {
+  static class SomeForm extends Form1 {
   }
 
-  static class SomeAction extends FormAction<SomeForm> {
+  static class SomeAction extends FormAction1<SomeForm> {
     @Override
     protected ControllerResponse doHandle(ControllerRequest request, SomeForm form) {
       throw new UnsupportedOperationException("Not supported yet.");

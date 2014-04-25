@@ -17,6 +17,7 @@ public class EventEditPageTest {
     PageResponse response = page.handle(request4Tests(url));
     System.out.println(renderToString4Development(response.brick));
     System.out.println("children=" + page.getChildren());
+    System.out.println("Tree:\n" + page.componentTreeToString("    "));
 //    System.out.println("forms=" + page.getForms());
   }
 }

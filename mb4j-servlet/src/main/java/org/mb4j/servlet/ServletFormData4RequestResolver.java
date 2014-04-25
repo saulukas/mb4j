@@ -2,7 +2,7 @@ package org.mb4j.servlet;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormAction2;
 import org.mb4j.controller.form.FormAction4Request;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
@@ -20,9 +20,9 @@ public class ServletFormData4RequestResolver {
   }
 
   private static Map<String, FormAction4Request> actions4RequestFrom(FormData formData) {
-    Map<String, FormAction> actions = formData.getActions();
+    Map<String, FormAction2> actions = formData.getActions();
     Map<String, FormAction4Request> actions4Request = new HashMap<>();
-    for (Map.Entry<String, FormAction> entry : actions.entrySet()) {
+    for (Map.Entry<String, FormAction2> entry : actions.entrySet()) {
       String name = entry.getKey();
       actions4Request.put(name, new FormAction4Request(ACTION_NAME_PREFIX + name));
     }

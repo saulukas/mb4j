@@ -4,7 +4,7 @@ import java.util.Map;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form.FormField;
-import org.mb4j.controller.form1.Form;
+import org.mb4j.controller.form1.Form1;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
@@ -16,12 +16,12 @@ public abstract class ControllerRequest {
   private final ControllerUrl url;
   private final NamedParams postParams;
   private final UrlPathReader urlPathReader;
-  public final Form.NameResolver actionParamNameResolver;
+  public final Form1.NameResolver actionParamNameResolver;
 
   public ControllerRequest(
       ControllerUrl url,
       NamedParams postParams,
-      Form.NameResolver actionParamNameResolver) {
+      Form1.NameResolver actionParamNameResolver) {
     this.url = url;
     this.postParams = postParams;
     this.urlPathReader = bufferedReaderOf(url.params.path);

@@ -5,21 +5,21 @@ import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import static org.mb4j.controller.form.FormActionResponse.redirectTo;
-import org.mb4j.controller.form1.Form;
-import org.mb4j.controller.form1.FormAction;
-import org.mb4j.controller.form1.FormField;
-import org.mb4j.controller.form1.FormFiller;
+import org.mb4j.controller.form1.Form1;
+import org.mb4j.controller.form1.FormAction1;
+import org.mb4j.controller.form1.FormField1;
+import org.mb4j.controller.form1.FormFiller1;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventSaveCommand;
 
-public class EventEditForm extends Form {
-  final FormField id = FormField.requiredField();
-  final FormField title = FormField.requiredField();
-  final FormField summary = FormField.optionalField();
-  final FormField imageUrl = FormField.optionalField();
+public class EventEditForm extends Form1 {
+  final FormField1 id = FormField1.requiredField();
+  final FormField1 title = FormField1.requiredField();
+  final FormField1 summary = FormField1.optionalField();
+  final FormField1 imageUrl = FormField1.optionalField();
 
   @Singleton
-  public static class Filler extends FormFiller<Filler.Params, EventEditForm> {
+  public static class Filler extends FormFiller1<Filler.Params, EventEditForm> {
     public static class Params {
       final Event event;
 
@@ -40,7 +40,7 @@ public class EventEditForm extends Form {
   }
 
   @Singleton
-  public static class SaveAction extends FormAction<EventEditForm> {
+  public static class SaveAction extends FormAction1<EventEditForm> {
     @Inject
     EventSaveCommand saveCommand;
 

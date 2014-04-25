@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormAction2;
 import org.mb4j.controller.form.FormActionResponse;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormField;
@@ -39,14 +40,22 @@ public class EventEditForm extends Form {
     return data;
   }
 
-  static class SaveAction extends FormAction<Data> {
+  @FormAction
+  void save() {
+  }
+
+  @FormAction
+  void reset() {
+  }
+
+  static class SaveAction extends FormAction2<Data> {
     @Override
     protected FormActionResponse handle(ControllerRequest request, Data formData) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  static class ResetAction extends FormAction<Data> {
+  static class ResetAction extends FormAction2<Data> {
     @Override
     protected FormActionResponse handle(ControllerRequest request, Data formData) {
       throw new UnsupportedOperationException("Not supported yet.");

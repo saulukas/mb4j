@@ -4,12 +4,12 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.mb4j.controller.form1.FormField.optionalField;
+import static org.mb4j.controller.form1.FormField1.optionalField;
 
 public class FormFieldTest {
   @Test
   public void param_name_must_be_resolved_before_using_it() {
-    FormField param = optionalField("abc");
+    FormField1 param = optionalField("abc");
     try {
       param.name();
       fail();

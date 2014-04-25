@@ -5,22 +5,22 @@ import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import static org.mb4j.controller.form.FormActionResponse.redirectTo;
-import org.mb4j.controller.form1.Form;
-import org.mb4j.controller.form1.FormAction;
-import org.mb4j.controller.form1.FormField;
-import org.mb4j.controller.form1.FormFiller;
+import org.mb4j.controller.form1.Form1;
+import org.mb4j.controller.form1.FormAction1;
+import org.mb4j.controller.form1.FormField1;
+import org.mb4j.controller.form1.FormFiller1;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventSaveCommand;
 import org.mb4j.servlet.sample.event.list.EventListPage;
 
-public class EventEditForm1 extends Form {
-  final FormField id = FormField.requiredField();
-  final FormField title = FormField.requiredField();
-  final FormField summary = FormField.optionalField();
-  final FormField imageUrl = FormField.optionalField();
+public class EventEditForm1 extends Form1 {
+  final FormField1 id = FormField1.requiredField();
+  final FormField1 title = FormField1.requiredField();
+  final FormField1 summary = FormField1.optionalField();
+  final FormField1 imageUrl = FormField1.optionalField();
 
   @Singleton
-  public static class Filler extends FormFiller<Filler.Params, EventEditForm1> {
+  public static class Filler extends FormFiller1<Filler.Params, EventEditForm1> {
     public static class Params {
       final Event event;
 
@@ -41,7 +41,7 @@ public class EventEditForm1 extends Form {
   }
 
   @Singleton
-  public static class SaveAction extends FormAction<EventEditForm1> {
+  public static class SaveAction extends FormAction1<EventEditForm1> {
     @Inject
     EventSaveCommand saveCommand;
 

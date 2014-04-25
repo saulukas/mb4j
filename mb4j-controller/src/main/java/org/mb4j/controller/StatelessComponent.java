@@ -1,50 +1,41 @@
 package org.mb4j.controller;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
-import org.mb4j.controller.form1.Form;
+import java.util.Iterator;
+import java.util.Map;
+import org.mb4j.controller.form.Form;
+import org.mb4j.controller.utils.ReflectionUtils;
+import org.mb4j.controller.utils.SimpleClassName;
 
 public class StatelessComponent {
-  public Iterable<StatelessComponent> getChildren() {
-    return collectChildren(new ArrayList<StatelessComponent>());
+  public Map<String, StatelessComponent> getChildren() {
+    return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, StatelessComponent.class);
   }
 
-  public Iterable<Form> getForms() {
-    return collectForms(new ArrayList<Form>());
+  public Map<String, Form> getForms() {
+    return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, Form.class);
   }
 
-  Collection<StatelessComponent> collectChildren(Collection<StatelessComponent> result) {
-    collectChildren(this, result);
-    return result;
-  }
-
-  static void collectChildren(StatelessComponent component, Collection<StatelessComponent> result) {
-    Class klass = component.getClass();
-    while (klass != null && StatelessComponent.class.isAssignableFrom(klass)) {
-      Field[] declaredFields = klass.getDeclaredFields();
-      for (Field declaredField : declaredFields) {
-        Object fieldValue;
-        try {
-          declaredField.setAccessible(true);
-          fieldValue = declaredField.get(component);
-        } catch (Exception ex) {
-          throw new RuntimeException("Failed to access field: " + declaredField);
-        }
-        if (fieldValue instanceof StatelessComponent) {
-          result.add((StatelessComponent) fieldValue);
-        }
+  public String componentTreeToString(String margin) {
+    String result = SimpleClassName.of(getClass());
+    Map<String, StatelessComponent> children = getChildren();
+    for (Form form : getForms().values()) {
+      String formMargin = margin + (children.isEmpty() ? "    " : "|   ");
+      result += "\n" + formMargin + "  form: " + SimpleClassName.of(form.getClass());
+      for (String actionName : form.getActionNames()) {
+        result += "\n" + formMargin + "      action: " + actionName;
       }
-      klass = klass.getSuperclass();
     }
-  }
-
-  Collection<Form> collectForms(Collection<Form> result) {
-    collectForms(this, result);
+    if (children.isEmpty()) {
+      return result;
+    }
+    Iterator<String> namesIterator = children.keySet().iterator();
+    while (namesIterator.hasNext()) {
+      String childName = namesIterator.next();
+      StatelessComponent child = children.get(childName);
+      result += "\n" + margin + "|";
+      result += "\n" + margin + "+-- " + childName + " = "
+          + child.componentTreeToString(margin + (namesIterator.hasNext() ? "|   " : "    "));
+    }
     return result;
-  }
-
-  static void collectForms(StatelessComponent component, Collection<Form> result) {
-    throw new UnsupportedOperationException("Not supported yet.");
   }
 }

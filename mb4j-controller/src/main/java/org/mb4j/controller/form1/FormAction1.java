@@ -5,10 +5,10 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 
-public abstract class FormAction<F extends Form> extends Controller {
+public abstract class FormAction1<F extends Form1> extends Controller {
   private final Class<F> formClass;
 
-  public FormAction() {
+  public FormAction1() {
     ParameterizedType genericAction = (ParameterizedType) getClass().getGenericSuperclass();
     this.formClass = (Class<F>) genericAction.getActualTypeArguments()[0];
   }
@@ -25,7 +25,7 @@ public abstract class FormAction<F extends Form> extends Controller {
     F form = createEmptyForm();
     form.resolveFieldNames(request.actionParamNameResolver);
     for (String name : request.url().params.named.names()) {
-      FormField param = form.fieldBy(name);
+      FormField1 param = form.fieldBy(name);
       if (param != null) {
         param.setValue(request.url().params.named.valueOf(name));
       }

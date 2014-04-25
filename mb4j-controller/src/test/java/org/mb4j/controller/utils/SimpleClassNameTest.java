@@ -1,12 +1,12 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.utils;
 
-import org.mb4j.controller.mapping.SimpleClassName;
+import org.mb4j.controller.utils.SimpleClassName;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.controller.mapping.SimpleClassNameTest.Class_1.Class_1_1;
-import org.mb4j.controller.mapping.SimpleClassNameTest.Class_1.Class_1_2;
-import org.mb4j.controller.mapping.SimpleClassNameTest.Class_1.Class_1_2.Class_1_2_3;
+import org.mb4j.controller.utils.SimpleClassNameTest.Class_1.Class_1_1;
+import org.mb4j.controller.utils.SimpleClassNameTest.Class_1.Class_1_2;
+import org.mb4j.controller.utils.SimpleClassNameTest.Class_1.Class_1_2.Class_1_2_3;
 
 public class SimpleClassNameTest {
   static class Class_1 {

@@ -11,8 +11,8 @@ public class FormData {
     return formFields;
   }
 
-  public Map<String, FormAction> getActions() {
-    Map<String, FormAction> formActions = new HashMap<>();
+  public Map<String, FormAction2> getActions() {
+    Map<String, FormAction2> formActions = new HashMap<>();
     collectActionsFrom(this, "", formActions);
     return formActions;
   }
@@ -39,7 +39,7 @@ public class FormData {
     }
   }
 
-  public static void collectActionsFrom(Object data, String namePrefix, Map<String, FormAction> formActions) {
+  public static void collectActionsFrom(Object data, String namePrefix, Map<String, FormAction2> formActions) {
     Class dataClass = data.getClass();
     while (dataClass != null && FormData.class.isAssignableFrom(dataClass)) {
       Field[] declaredFields = dataClass.getDeclaredFields();
@@ -51,8 +51,8 @@ public class FormData {
         } catch (Exception ex) {
           throw new RuntimeException("Failed to access field: " + declaredField);
         }
-        if (fieldValue instanceof FormAction) {
-          formActions.put(namePrefix + declaredField.getName(), (FormAction) fieldValue);
+        if (fieldValue instanceof FormAction2) {
+          formActions.put(namePrefix + declaredField.getName(), (FormAction2) fieldValue);
         }
       }
       dataClass = dataClass.getSuperclass();

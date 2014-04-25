@@ -1,5 +1,6 @@
 package org.mb4j.controller.mapping;
 
+import org.mb4j.controller.utils.SimpleClassName;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import static com.google.common.collect.Lists.newArrayList;
