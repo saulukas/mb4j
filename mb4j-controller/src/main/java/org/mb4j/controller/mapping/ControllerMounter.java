@@ -1,5 +1,6 @@
 package org.mb4j.controller.mapping;
 
+import java.util.Collection;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.url.BufferedUrlPathReader;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
@@ -38,8 +39,8 @@ public class ControllerMounter {
     return pathMounter;
   }
 
-  Iterable<Class<? extends Controller>> getControllerClasses() {
-    return pathMounter.getControllerClasses();
+  public void collectControllers(Collection<Controller> result) {
+    rootNode.collectControllers(result);
   }
 
   @Override

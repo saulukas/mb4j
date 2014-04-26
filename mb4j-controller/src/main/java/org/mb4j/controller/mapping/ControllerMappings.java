@@ -1,12 +1,18 @@
 package org.mb4j.controller.mapping;
 
+import java.util.HashSet;
+import java.util.Set;
+import org.mb4j.controller.Controller;
+
 public class ControllerMappings {
   private final ControllerMounter mounter;
-  private final FormActionMappings actions;
+  private final FormMappings forms;
 
   public ControllerMappings(InstanceProviderByClass instanceProvider, ControllerMounter mounter) {
     this.mounter = mounter;
-    this.actions = new FormActionMappings(mounter.getControllerClasses(), instanceProvider);
+    Set<Controller> controllers = new HashSet<>();
+    mounter.collectControllers(controllers);
+    this.forms = new FormMappings(controllers);
   }
 
   public UrlPath2ControllerResolver urlPath2ControllerResolver() {
@@ -20,6 +26,6 @@ public class ControllerMappings {
   @Override
   public String toString() {
     return mounter.toString()
-        + "\n" + actions;
+        + "\n\n" + forms;
   }
 }

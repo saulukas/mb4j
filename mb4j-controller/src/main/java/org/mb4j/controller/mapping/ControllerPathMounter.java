@@ -27,8 +27,4 @@ class ControllerPathMounter implements ControllerClass2UrlPathResolver {
     }
     controllerClass2path.put(viewClass, path);
   }
-
-  Iterable<Class<? extends Controller>> getControllerClasses() {
-    return controllerClass2path.keySet();
-  }
 }

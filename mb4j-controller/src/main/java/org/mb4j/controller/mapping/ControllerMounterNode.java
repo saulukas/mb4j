@@ -1,9 +1,9 @@
 package org.mb4j.controller.mapping;
 
-import org.mb4j.controller.utils.SimpleClassName;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import static com.google.common.collect.Lists.newArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +16,7 @@ import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import org.mb4j.controller.utils.SimpleClassName;
 
 class ControllerMounterNode implements UrlPath2ControllerResolver {
   @Nullable
@@ -133,6 +134,17 @@ class ControllerMounterNode implements UrlPath2ControllerResolver {
       children = new HashMap<>();
     }
     return children;
+  }
+
+  public void collectControllers(Collection<Controller> result) {
+    if (controller != null) {
+      result.add(controller);
+    }
+    if (children != null) {
+      for (ControllerMounterNode child : children.values()) {
+        child.collectControllers(result);
+      }
+    }
   }
 
   @Override

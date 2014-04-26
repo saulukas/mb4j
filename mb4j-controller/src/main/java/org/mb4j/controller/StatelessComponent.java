@@ -1,7 +1,9 @@
 package org.mb4j.controller;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.utils.ReflectionUtils;
 import org.mb4j.controller.utils.SimpleClassName;
@@ -15,15 +17,19 @@ public class StatelessComponent {
     return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, Form.class);
   }
 
+  public Set<Form> getFormsRecursively() {
+    Set<Form> result = new HashSet<>();
+    ReflectionUtils.collectRecursivelyFieldsOf(this, StatelessComponent.class, Form.class, result);
+    return result;
+  }
+
   public String componentTreeToString(String margin) {
     String result = SimpleClassName.of(getClass());
     Map<String, StatelessComponent> children = getChildren();
     for (Form form : getForms().values()) {
       String formMargin = margin + (children.isEmpty() ? "    " : "|   ");
-      result += "\n" + formMargin + "  form: " + SimpleClassName.of(form.getClass());
-      for (String actionName : form.getActionNames()) {
-        result += "\n" + formMargin + "      action: " + actionName;
-      }
+      result += "\n" + formMargin + "form: " + SimpleClassName.of(form.getClass())
+          + " " + form.getActionNames();
     }
     if (children.isEmpty()) {
       return result;
