@@ -23,9 +23,12 @@ public class ControllerMappings {
     return mounter.controllerClass2UrlPathResolver();
   }
 
+  public FormClass2NameResolver formClass2NameResolver() {
+    return forms;
+  }
+
   @Override
   public String toString() {
-    return mounter.toString()
-        + "\n\n" + forms;
+    return mounter.toString() + "\n\n" + forms;
   }
 }

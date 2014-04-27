@@ -55,7 +55,8 @@ public class BrickServletFilter extends HttpFilter {
         path2home,
         url,
         postParams,
-        views.controllerClass2UrlPathResolver());
+        views.controllerClass2UrlPathResolver(),
+        views.formClass2NameResolver());
     if (postParams.names().contains(ServletFormHeaderBrick.FORM_MARKER_PARAM)) {
       String actionMappedName = null;
       for (String paramName : postParams.names()) {

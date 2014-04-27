@@ -1,18 +1,42 @@
 package org.mb4j.controller.form;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import org.mb4j.controller.utils.ReflectionUtils;
 
-public class Form {
+public class Form<T extends FormData> {
+  public final Class<T> dataClass;
+
+  public Form() {
+    this.dataClass = initFormDataClass();
+  }
+
+  private Class<T> initFormDataClass() {
+    ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+    return (Class<T>) type.getActualTypeArguments()[0];
+  }
+
   public Set<String> getActionNames() {
-    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(this, Form.class, FormAction.class);
+    return getActionNames(getClass());
+  }
+
+  static Set<String> getActionNames(Class klass) {
+    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(klass, Form.class, FormAction.class);
     Set<String> actions = new TreeSet<>();
     for (Method method : methods) {
       actions.add(method.getName());
     }
     return actions;
+  }
+
+  public T createEmptyData() {
+    try {
+      return dataClass.newInstance();
+    } catch (Exception ex) {
+      throw new RuntimeException("Failed to create empty data for " + dataClass + ": " + ex, ex);
+    }
   }
 }

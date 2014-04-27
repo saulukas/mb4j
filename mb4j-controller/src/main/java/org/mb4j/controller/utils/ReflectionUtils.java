@@ -54,9 +54,8 @@ public class ReflectionUtils {
     }
   }
 
-  public static List<Method> getAnnotatedMethodsOf(Object object, Class<?> baseClass, Class<? extends Annotation> anotation) {
+  public static List<Method> getAnnotatedMethodsOf(Class klass, Class<?> baseClass, Class<? extends Annotation> anotation) {
     List<Method> result = new ArrayList<>();
-    Class klass = object.getClass();
     while (klass != null && baseClass.isAssignableFrom(klass)) {
       Method[] declaredMethods = klass.getDeclaredMethods();
       for (Method declaredMethod : declaredMethods) {
