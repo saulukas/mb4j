@@ -27,6 +27,10 @@ public class ControllerMappings {
     return forms;
   }
 
+  public FormName2FormResolver formName2FormResolver() {
+    return forms;
+  }
+
   @Override
   public String toString() {
     return mounter.toString() + "\n\n" + forms;

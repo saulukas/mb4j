@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.utils.ReflectionUtils;
 
 public class Form<T extends FormData> {
@@ -17,6 +18,11 @@ public class Form<T extends FormData> {
   private Class<T> initFormDataClass() {
     ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
     return (Class<T>) type.getActualTypeArguments()[0];
+  }
+
+  public FormResponse handle(ControllerRequest request, String actionName, T data) {
+    System.out.println("action=" + actionName);
+    return null;
   }
 
   public Set<String> getActionNames() {

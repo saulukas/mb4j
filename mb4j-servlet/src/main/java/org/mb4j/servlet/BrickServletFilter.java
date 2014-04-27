@@ -12,6 +12,7 @@ import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
+import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormActionResponse;
 import org.mb4j.controller.http.HttpFilter;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
@@ -57,15 +58,18 @@ public class BrickServletFilter extends HttpFilter {
         postParams,
         views.controllerClass2UrlPathResolver(),
         views.formClass2NameResolver());
-    if (postParams.names().contains(ServletFormHeaderBrick.FORM_MARKER_PARAM)) {
-      String actionMappedName = null;
+    String formName = postParams.valueOf(ServletFormHeaderBrick.FORM_NAME_PARAM);
+    if (formName != null) {
+      Form form = views.formName2FormResolver().resolveFormName(formName);
+      String actionName = null;
       for (String paramName : postParams.names()) {
         if (paramName.startsWith(ServletFormData4RequestResolver.ACTION_NAME_PREFIX)) {
-          actionMappedName = paramName.substring(ServletFormData4RequestResolver.ACTION_NAME_PREFIX.length());
+          actionName = paramName.substring(ServletFormData4RequestResolver.ACTION_NAME_PREFIX.length());
           break;
         }
       }
-      System.out.println("Form action '" + actionMappedName + "' :" + postParams);
+      form.handle(viewReq, actionName, null);
+      System.out.println("Form action '" + actionName + "' :" + postParams);
     }
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
     handle(viewReq, viewResp, httpResp);

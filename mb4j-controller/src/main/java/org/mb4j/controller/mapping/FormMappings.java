@@ -9,7 +9,7 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.utils.SimpleClassName;
 
-public class FormMappings implements FormClass2NameResolver {
+public class FormMappings implements FormClass2NameResolver, FormName2FormResolver {
   private final Map<Class<? extends Form>, String> class2name = new HashMap<>();
   private final Map<String, Form> name2form = new TreeMap<>();
 
@@ -41,6 +41,15 @@ public class FormMappings implements FormClass2NameResolver {
       throw new RuntimeException("No mapping found for Form class: " + formClass);
     }
     return name;
+  }
+
+  @Override
+  public Form resolveFormName(String formName) {
+    Form form = name2form.get(formName);
+    if (form == null) {
+      throw new RuntimeException("No mapping found for Form name: " + formName);
+    }
+    return form;
   }
 
   @Override
