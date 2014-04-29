@@ -6,7 +6,6 @@ import com.google.inject.Injector;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.InstanceProviderByClass;
 import org.mb4j.servlet.sample.domain.EventModule;
 import org.mb4j.servlet.sample.event.edit.EventEditPageModule;
 import org.mb4j.servlet.sample.event.list.EventListPageModule;
@@ -33,12 +32,6 @@ public class ServletSampleModule extends AbstractModule {
     bindPages();
     bind(ControllerMappings.class).to(ServletSampleViewMap.class);
     bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
-    bind(InstanceProviderByClass.class).toInstance(new InstanceProviderByClass() {
-      @Override
-      public <T> T instanceOf(Class<T> klass) {
-        return injector().getInstance(klass);
-      }
-    });
   }
 
   private void bindPages() {

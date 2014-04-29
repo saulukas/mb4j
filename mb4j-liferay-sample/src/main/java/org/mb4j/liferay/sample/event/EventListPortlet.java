@@ -3,7 +3,7 @@ package org.mb4j.liferay.sample.event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.ControllerMounter;
+import static org.mb4j.controller.mapping.ControllerMounter.withDefaultHomeController;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 import org.mb4j.liferay.sample.SampleBasePortlet;
 import org.mb4j.liferay.sample.event.edit.EventEditForm;
@@ -18,7 +18,7 @@ public class EventListPortlet extends SampleBasePortlet {
         EventListPage eventList,
         EventEditPage eventEdit,
         EventEditForm.SaveAction eventSave) {
-      super(null, ControllerMounter.withDefaultHomeController(eventList)
+      super(withDefaultHomeController(eventList)
           .mount(urlPathOf("edit/*"), eventEdit)
           .mount(urlPathOf("save"), eventSave));
     }

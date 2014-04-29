@@ -8,7 +8,7 @@ public class ControllerMappings {
   private final ControllerMounter mounter;
   private final FormMappings forms;
 
-  public ControllerMappings(InstanceProviderByClass instanceProvider, ControllerMounter mounter) {
+  public ControllerMappings(ControllerMounter mounter) {
     this.mounter = mounter;
     Set<Controller> controllers = new HashSet<>();
     mounter.collectControllers(controllers);

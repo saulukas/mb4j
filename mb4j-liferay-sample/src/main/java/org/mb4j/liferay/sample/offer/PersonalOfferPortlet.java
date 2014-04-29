@@ -3,7 +3,7 @@ package org.mb4j.liferay.sample.offer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.ControllerMounter;
+import static org.mb4j.controller.mapping.ControllerMounter.withDefaultHomeController;
 import org.mb4j.liferay.sample.SampleBasePortlet;
 
 public class PersonalOfferPortlet extends SampleBasePortlet {
@@ -11,7 +11,7 @@ public class PersonalOfferPortlet extends SampleBasePortlet {
   public static class Views extends ControllerMappings {
     @Inject
     public Views(PersonalOfferPage offer) {
-      super(null, ControllerMounter.withDefaultHomeController(offer));
+      super(withDefaultHomeController(offer));
     }
   }
 

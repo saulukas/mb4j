@@ -35,9 +35,5 @@ public class FormFields {
   }
 
   public void setValuesFrom(NamedParams params) {
-    cia pasitvarkome
-
-
-...
   }
 }

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.ControllerMounter;
-import org.mb4j.controller.test.ControllerTesting;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
@@ -26,7 +25,7 @@ public class ServletViewUrlStringResolverTest {
         .mount(urlPathOf("document/edit/*"), TypicalViews.DOCUMENT_EDIT);
     ServletControllerUrl4RequestResolver resolver = new ServletControllerUrl4RequestResolver(
         path2home,
-        new ControllerMappings(ControllerTesting.instanceProvider4Tests(), mounter).controllerClass2UrlPathResolver());
+        new ControllerMappings(mounter).controllerClass2UrlPathResolver());
     assertThat(resolver.resolve(ControllerUrl.of(Home.class)).toString(), is("../../"));
     assertThat(resolver.resolve(ControllerUrl.of(DocumentNew.class)).toString(), is("../../document/new"));
     assertThat(resolver.resolve(ControllerUrl.of(DocumentEdit.class)).toString(), is("../../document/edit"));
