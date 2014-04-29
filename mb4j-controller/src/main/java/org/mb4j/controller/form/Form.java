@@ -8,7 +8,7 @@ import java.util.TreeSet;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.utils.ReflectionUtils;
 
-public class Form<T extends FormFields> {
+public class Form<T extends FormFieldGroup> {
   public final Class<T> fieldsClass;
 
   public Form() {

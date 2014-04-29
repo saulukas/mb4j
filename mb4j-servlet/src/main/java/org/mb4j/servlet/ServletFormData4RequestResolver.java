@@ -29,7 +29,7 @@ public class ServletFormData4RequestResolver {
   }
 
   private static Map<String, FormField4Request> fields4RequestFrom(FormData<?> formData) {
-    Map<String, FormField> fieldMap = formData.fields.asMap();
+    Map<String, FormField> fieldMap = formData.fieldGroup.asFieldMap();
     Map<String, FormField4Request> fields4Request = new HashMap<>();
     for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
       String name = entry.getKey();

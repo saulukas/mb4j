@@ -7,12 +7,12 @@ import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormField;
 import static org.mb4j.controller.form.FormField.createOptionalField;
 import static org.mb4j.controller.form.FormField.createRequiredField;
-import org.mb4j.controller.form.FormFields;
+import org.mb4j.controller.form.FormFieldGroup;
 import org.mb4j.servlet.sample.domain.Event;
 
 @Singleton
 public class EventEditForm extends Form<EventEditForm.Fields> {
-  public static class Fields extends FormFields {
+  public static class Fields extends FormFieldGroup {
     FormField id = createRequiredField();
     FormField title = createRequiredField();
     FormField summary = createOptionalField();

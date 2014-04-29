@@ -2,14 +2,14 @@ package org.mb4j.controller.form;
 
 import java.util.Set;
 
-public class FormData<T extends FormFields> {
+public class FormData<T extends FormFieldGroup> {
   public final Class<? extends Form> formClass;
-  public final T fields;
+  public final T fieldGroup;
   public final Set<String> actionNames;
 
-  public FormData(Class<? extends Form> formClass, T fields, Set<String> actionNames) {
+  public FormData(Class<? extends Form> formClass, T fieldGroup, Set<String> actionNames) {
     this.formClass = formClass;
-    this.fields = fields;
+    this.fieldGroup = fieldGroup;
     this.actionNames = actionNames;
   }
 }
