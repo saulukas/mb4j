@@ -4,10 +4,10 @@ import com.google.inject.Singleton;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormData;
-import org.mb4j.controller.form.FormField;
-import static org.mb4j.controller.form.FormField.createOptionalField;
-import static org.mb4j.controller.form.FormField.createRequiredField;
-import org.mb4j.controller.form.FormFieldRecord;
+import org.mb4j.controller.form.field.FormField;
+import static org.mb4j.controller.form.field.FormField.createOptionalField;
+import static org.mb4j.controller.form.field.FormField.createRequiredField;
+import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.servlet.sample.domain.Event;
 
 @Singleton

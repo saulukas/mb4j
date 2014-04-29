@@ -1,10 +1,11 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form.field;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.mb4j.controller.url.NamedParams;
+import org.mb4j.controller.utils.ReflectionUtils;
 import org.mb4j.controller.utils.SimpleClassName;
 
 public class FormFieldRecord extends FormFieldBase {
@@ -12,6 +13,10 @@ public class FormFieldRecord extends FormFieldBase {
     Map<String, FormField> formFields = new HashMap<>();
     collectFields("", formFields);
     return formFields;
+  }
+
+  public Map<String, FormFieldBase> getChildren() {
+    return ReflectionUtils.getFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
   }
 
   @Override

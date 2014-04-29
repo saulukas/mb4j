@@ -1,11 +1,11 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form.field;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.mb4j.controller.form.FormField.createOptionalField;
-import static org.mb4j.controller.form.FormField.createRequiredField;
+import static org.mb4j.controller.form.field.FormField.createOptionalField;
+import static org.mb4j.controller.form.field.FormField.createRequiredField;
 
 public class FormFieldRecordTest {
   private static class EmbeddedFields extends FormFieldRecord {

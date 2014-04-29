@@ -1,5 +1,6 @@
 package org.mb4j.controller.form;
 
+import org.mb4j.controller.form.field.FormFieldRecord;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;

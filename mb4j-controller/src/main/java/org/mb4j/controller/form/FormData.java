@@ -1,5 +1,6 @@
 package org.mb4j.controller.form;
 
+import org.mb4j.controller.form.field.FormFieldRecord;
 import java.util.Set;
 
 public class FormData<T extends FormFieldRecord> {

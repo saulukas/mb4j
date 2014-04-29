@@ -1,9 +1,7 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form.field;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.mb4j.controller.url.NamedParams;
-import org.mb4j.controller.utils.ReflectionUtils;
 
 public abstract class FormFieldBase {
   public Map<String, FormField> asFieldMap() {
@@ -12,13 +10,9 @@ public abstract class FormFieldBase {
     return formFields;
   }
 
-  public Map<String, FormFieldBase> getChildren() {
-    return ReflectionUtils.getFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
-  }
-
   abstract void collectFields(String nameInParent, Map<String, FormField> fieldMap);
 
-  public void setValuesFrom(NamedParams params) {
+  public void moveValuesFrom(Map<String, String> name2value) {
   }
 
   public abstract String toString(String margin);

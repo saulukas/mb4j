@@ -1,4 +1,4 @@
-package org.mb4j.controller.form;
+package org.mb4j.controller.form.field;
 
 import static java.util.Arrays.asList;
 import java.util.List;
