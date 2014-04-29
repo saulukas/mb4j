@@ -12,8 +12,7 @@ public abstract class FormFieldBase {
 
   abstract void collectFields(String nameInParent, Map<String, FormField> fieldMap);
 
-  public void moveValuesFrom(Map<String, String> name2value) {
-  }
+  abstract void setValuesFrom(FormFieldValueNode node);
 
   public abstract String toString(String margin);
 

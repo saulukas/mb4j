@@ -2,10 +2,14 @@ package org.mb4j.controller.form.field;
 
 import com.google.common.base.Splitter;
 import java.util.Map;
+import org.mb4j.controller.utils.SimpleClassName;
 
 public class FormFieldValueTree {
-  public final FormFieldValueNode root = null;
-  public final Map<String, FormFieldValueTree> children = null;
+  public final FormFieldValueNode root;
+
+  private FormFieldValueTree(FormFieldValueNode root) {
+    this.root = root;
+  }
 
   public static FormFieldValueTree buildTreeFrom(Map<String, String> name2value) {
     FormFieldValueNode root = new FormFieldValueNode();
@@ -18,7 +22,15 @@ public class FormFieldValueTree {
       }
       node.value = value;
     }
-    System.out.println("Rootas: " + root);
-    return new FormFieldValueTree();
+    return new FormFieldValueTree(root);
+  }
+
+  @Override
+  public String toString() {
+    return toString("");
+  }
+
+  public String toString(String margin) {
+    return SimpleClassName.of(getClass()) + root.toString(margin);
   }
 }

@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.utils.ReflectionUtils;
 import org.mb4j.controller.utils.SimpleClassName;
 
@@ -50,7 +49,14 @@ public class FormFieldRecord extends FormFieldBase {
     }
   }
 
-  public void setValuesFrom(NamedParams params) {
+  public void setValuesFrom(FormFieldValueTree valueTree) {
+    setValuesFrom(valueTree.root);
+  }
+
+  @Override
+  void setValuesFrom(FormFieldValueNode node) {
+    throw new UnsupportedOperationException("Not supported yet.");
+    123
   }
 
   @Override
