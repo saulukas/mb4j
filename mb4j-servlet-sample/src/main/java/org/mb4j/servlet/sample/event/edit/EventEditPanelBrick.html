@@ -1,4 +1,4 @@
-<h1>Edit Event - new style </h1>
+<h1>Edit Event</h1>
 <form method="post">
   {{#form.header}}
   {{/form.header}}
@@ -19,25 +19,6 @@
         <input name="{{form.actions.reset.name}}" type="submit" value="Reset"/>
         <input name="{{form.actions.save.name}}" type="submit" value="Save"/>
       </td>
-    </tr>
-  </table>
-</form>
-<h1>Edit Event - old style</h1>
-<form method="post" action="{{actionSaveUrl}}">
-  <input type="hidden" name="{{form1.id.name}}" value="{{form1.id.value}}"/>
-  <input type="hidden" name="{{form1.imageUrl.name}}" value="{{form1.imageUrl.value}}"/>
-  <table>
-    <tr>
-      <td style="text-align: right;">Title</td>
-      <td><input type="text" name="{{form1.title.name}}" value="{{form1.title.value}}"/></td>
-    </tr>
-    <tr>
-      <td style="text-align: right;">Summary</td>
-      <td><input type="text" name="{{form1.summary.name}}" value="{{form1.summary.value}}"/></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input type="submit" value="Save"/></td>
     </tr>
   </table>
 </form>
