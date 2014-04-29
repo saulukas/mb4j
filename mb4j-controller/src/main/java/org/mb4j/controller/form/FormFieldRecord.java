@@ -7,7 +7,7 @@ import java.util.Map;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.utils.SimpleClassName;
 
-public class FormFieldGroup extends FormFieldBase {
+public class FormFieldRecord extends FormFieldBase {
   public Map<String, FormField> asMap() {
     Map<String, FormField> formFields = new HashMap<>();
     collectFields("", formFields);
@@ -18,7 +18,7 @@ public class FormFieldGroup extends FormFieldBase {
   void collectFields(String nameInParent, Map<String, FormField> fieldMap) {
     String namePrefix = (nameInParent.isEmpty() ? "" : nameInParent + ".");
     Class superClass = getClass();
-    while (superClass != null && FormFieldGroup.class.isAssignableFrom(superClass)) {
+    while (superClass != null && FormFieldRecord.class.isAssignableFrom(superClass)) {
       Field[] declaredFields = superClass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
         Object fieldValue;
@@ -33,10 +33,11 @@ public class FormFieldGroup extends FormFieldBase {
           FormFieldBase member = (FormFieldBase) fieldValue;
           member.collectFields(namePrefix + fieldName, fieldMap);
         } else {
-          throw new RuntimeException("Illegal attribute '" + fieldName + "' found in " + getClass() + ".\n"
-              + FormFieldGroup.class.getSimpleName() + " must containt only non-null attributes of types: "
+          throw new RuntimeException("Illegal attribute '" + fieldName + "' of type "
+              + SimpleClassName.of(declaredField.getType()) + " found in " + getClass() + ".\n"
+              + FormFieldRecord.class.getSimpleName() + " must containt only non-null attributes of types: "
               + FormField.class.getSimpleName() + ", "
-              + FormFieldGroup.class.getSimpleName() + " or "
+              + FormFieldRecord.class.getSimpleName() + " or "
               + FormFieldList.class.getSimpleName() + ".");
         }
       }

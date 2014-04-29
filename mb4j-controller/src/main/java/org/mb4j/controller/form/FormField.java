@@ -52,8 +52,8 @@ public final class FormField extends FormFieldBase {
   public String toString(String margin) {
     return ""
         + (required ? "(!) " : "")
-        + (maxSize != null ? "[" + maxSize + "]" : "")
-        + value
+        + (maxSize != null ? "max" + maxSize + " " : "")
+        + (value == null ? "null" : "[" + value + "]")
         + (hasError() ? " Error: " + errorMessage : "");
   }
 }

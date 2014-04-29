@@ -4,7 +4,7 @@ import java.util.Map;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form.FormField;
-import org.mb4j.controller.form.FormFieldGroup;
+import org.mb4j.controller.form.FormFieldRecord;
 import org.mb4j.controller.form1.Form1;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
@@ -47,7 +47,7 @@ public abstract class ControllerRequest {
 
   public abstract FormData4Request resolve(FormData<?> formData);
 
-  public void fill(FormFieldGroup fields) {
+  public void fill(FormFieldRecord fields) {
     Map<String, FormField> fieldMap = fields.asFieldMap();
     for (String paramName : postParams.names()) {
       if (fieldMap.containsKey(paramName)) {

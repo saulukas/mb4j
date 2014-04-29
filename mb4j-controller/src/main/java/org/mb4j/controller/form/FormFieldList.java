@@ -1,18 +1,36 @@
 package org.mb4j.controller.form;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import org.mb4j.controller.utils.SimpleClassName;
 
-public final class FormFieldList extends FormFieldBase {
-  public final List<FormFieldBase> list = new ArrayList<>();
+public class FormFieldList<T extends FormFieldBase> extends FormFieldBase {
+  public final Class<T> itemClass;
+  private final List<T> list;
 
-  public FormFieldList() {
+  protected FormFieldList(Class<T> itemClass) {
+    this(itemClass, new ArrayList<T>());
   }
 
-  public FormFieldList(Collection<? extends FormFieldBase> items) {
-    list.addAll(items);
+  protected FormFieldList(Class<T> itemClass, List<T> list) {
+    if (!FormFieldRecord.class.isAssignableFrom(itemClass)
+        && !FormFieldList.class.isAssignableFrom(itemClass)) {
+      throw new RuntimeException("Items of " + SimpleClassName.of(FormFieldList.class)
+          + " may only be of class " + SimpleClassName.of(FormFieldRecord.class)
+          + " or " + SimpleClassName.of(FormFieldList.class) + " but found: " + itemClass);
+    }
+    this.itemClass = itemClass;
+    this.list = list;
+  }
+
+  public static <T extends FormFieldBase> FormFieldList<T> of(Class<T> itemClass, T... items) {
+    return new FormFieldList<>(itemClass, Arrays.asList(items));
+  }
+
+  public static <T extends FormFieldBase> FormFieldList<T> of(Class<T> itemClass, List<T> items) {
+    return new FormFieldList<>(itemClass, items);
   }
 
   @Override
