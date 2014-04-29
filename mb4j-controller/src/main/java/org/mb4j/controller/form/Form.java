@@ -42,7 +42,7 @@ public class Form<T extends FormFieldRecord> {
     try {
       return fieldsClass.newInstance();
     } catch (Exception ex) {
-      throw new RuntimeException("Failed to create empty data for " + fieldsClass + ": " + ex, ex);
+      throw new RuntimeException("Failed to create empty " + fieldsClass + ": " + ex, ex);
     }
   }
 
