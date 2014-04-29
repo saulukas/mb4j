@@ -1,9 +1,11 @@
 package org.mb4j.servlet.sample.event.edit;
 
 import com.google.inject.Singleton;
+import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormData;
+import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.field.FormField;
 import static org.mb4j.controller.form.field.FormField.createOptionalField;
 import static org.mb4j.controller.form.field.FormField.createRequiredField;
@@ -29,10 +31,14 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   }
 
   @FormAction
-  void save() {
+  FormResponse save(ControllerRequest request, Fields fields) {
+    System.out.println("save: " + fields);
+    return null;
   }
 
   @FormAction
-  void reset() {
+  FormResponse reset(ControllerRequest request, Fields fields) {
+    System.out.println("reset: " + fields);
+    return null;
   }
 }

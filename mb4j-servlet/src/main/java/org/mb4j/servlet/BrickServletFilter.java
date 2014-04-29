@@ -14,6 +14,8 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormActionResponse;
+import org.mb4j.controller.form.field.FormFieldRecord;
+import org.mb4j.controller.form.field.FormFieldValueTree;
 import org.mb4j.controller.http.HttpFilter;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.http.UrlPathStringToHome;
@@ -68,7 +70,9 @@ public class BrickServletFilter extends HttpFilter {
           break;
         }
       }
-      form.handle(viewReq, actionName, null);
+      FormFieldRecord fields = form.createEmptyFields();
+      fields.setValuesFrom(FormFieldValueTree.buildTreeFrom(postParams.asMap()));
+      form.handle(viewReq, actionName, fields);
       System.out.println("Form action '" + actionName + "' :" + postParams);
     }
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);

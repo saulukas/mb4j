@@ -1,5 +1,6 @@
 package org.mb4j.controller.form;
 
+import com.google.common.base.Objects;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -22,7 +23,22 @@ public class Form<T extends FormFieldRecord> {
   }
 
   public FormResponse handle(ControllerRequest request, String actionName, T fields) {
-    System.out.println("action=" + actionName);
+    Method method = getActionMethodByName(actionName);
+    try {
+      method.setAccessible(true);
+      return (FormResponse) method.invoke(this, request, fields);
+    } catch (Exception ex) {
+      throw new RuntimeException("Failed to invoke action method " + method + ": " + ex, ex);
+    }
+  }
+
+  private Method getActionMethodByName(String name) {
+    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(getClass(), Form.class, FormAction.class);
+    for (Method method : methods) {
+      if (Objects.equal(name, method.getName())) {
+        return method;
+      }
+    }
     return null;
   }
 

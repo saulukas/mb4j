@@ -51,6 +51,10 @@ public class NamedParams {
     return new TreeMap<>(original);
   }
 
+  public Map<String, String> asMap() {
+    return name2value;
+  }
+
   @Override
   public String toString() {
     return name2value.toString();
