@@ -8,14 +8,17 @@ import static org.mb4j.controller.form.field.FormField.createOptionalField;
 import static org.mb4j.controller.form.field.FormField.createRequiredField;
 
 public class FormFieldRecordTest {
-  private static class EmbeddedFields extends FormFieldRecord {
+  static class EmbeddedFields extends FormFieldRecord {
     FormField detailA = createOptionalField("Some details about something.");
     FormField detailB = createOptionalField();
   }
 
-  private static class PersonFields extends FormFieldRecord {
+  static class PersonFields extends FormFieldRecord {
     FormField name = createRequiredField().withMaxSize(75);
     FormField hobby = createOptionalField();
+
+    PersonFields() {
+    }
 
     PersonFields(String name, String hobby) {
       this.name.value = name;
@@ -23,7 +26,7 @@ public class FormFieldRecordTest {
     }
   }
 
-  private static class BaseFields extends FormFieldRecord {
+  static class BaseFields extends FormFieldRecord {
     FormField companyName = createRequiredField("Bricks Ltd.");
     FormField address = createOptionalField("River Street 25");
     FormField rating = createOptionalField("99").withErrorMessage("Rating must be between 0 and 5.");
@@ -34,7 +37,7 @@ public class FormFieldRecordTest {
     );
   }
 
-  private static class ExtendedFields extends BaseFields {
+  static class ExtendedFields extends BaseFields {
     FormField founder = createOptionalField("Jon Jonson");
     FormField country = createOptionalField("Rainland");
     EmbeddedFields embeddedInfo = new EmbeddedFields();

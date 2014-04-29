@@ -14,7 +14,7 @@ public class FormFieldRecord extends FormFieldBase {
     return formFields;
   }
 
-  public Map<String, FormFieldBase> getChildren() {
+  private Map<String, FormFieldBase> childrenMap() {
     return ReflectionUtils.getFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
   }
 
@@ -25,13 +25,7 @@ public class FormFieldRecord extends FormFieldBase {
     while (superClass != null && FormFieldRecord.class.isAssignableFrom(superClass)) {
       Field[] declaredFields = superClass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
-        Object fieldValue;
-        try {
-          declaredField.setAccessible(true);
-          fieldValue = declaredField.get(this);
-        } catch (Exception ex) {
-          throw new RuntimeException("Failed to access field: " + declaredField);
-        }
+        Object fieldValue = ReflectionUtils.valueOf(declaredField, this);
         String fieldName = declaredField.getName();
         if (fieldValue instanceof FormFieldBase) {
           FormFieldBase member = (FormFieldBase) fieldValue;
@@ -55,14 +49,21 @@ public class FormFieldRecord extends FormFieldBase {
 
   @Override
   void setValuesFrom(FormFieldValueNode node) {
-    throw new UnsupportedOperationException("Not supported yet.");
-    123
+    Map<String, FormFieldBase> childrenMap = childrenMap();
+    for (Map.Entry<String, FormFieldBase> entry : childrenMap.entrySet()) {
+      String name = entry.getKey();
+      FormFieldValueNode childNode = node.children.get(name);
+      if (childNode != null) {
+        FormFieldBase child = entry.getValue();
+        child.setValuesFrom(childNode);
+      }
+    }
   }
 
   @Override
   public String toString(String margin) {
     String result = SimpleClassName.of(getClass());
-    Map<String, FormFieldBase> children = getChildren();
+    Map<String, FormFieldBase> children = childrenMap();
     Iterator<String> namesIterator = children.keySet().iterator();
     while (namesIterator.hasNext()) {
       String childName = namesIterator.next();

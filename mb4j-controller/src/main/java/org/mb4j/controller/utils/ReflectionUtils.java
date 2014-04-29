@@ -1,6 +1,7 @@
 package org.mb4j.controller.utils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -66,5 +67,24 @@ public class ReflectionUtils {
       klass = klass.getSuperclass();
     }
     return result;
+  }
+
+  public static Object valueOf(Field field, Object instance) {
+    try {
+      field.setAccessible(true);
+      return field.get(instance);
+    } catch (Exception ex) {
+      throw new RuntimeException("Failed to access field: " + field);
+    }
+  }
+
+  public static <T> T createInstanceOf(Class<T> klass) {
+    try {
+      Constructor<T> constructor = klass.getDeclaredConstructor();
+      constructor.setAccessible(true);
+      return constructor.newInstance();
+    } catch (Exception ex) {
+      throw new RuntimeException("Failed to create instance of " + klass + ": " + ex, ex);
+    }
   }
 }

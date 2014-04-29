@@ -49,6 +49,11 @@ public final class FormField extends FormFieldBase {
   }
 
   @Override
+  void setValuesFrom(FormFieldValueNode node) {
+    value = node.value;
+  }
+
+  @Override
   public String toString(String margin) {
     return ""
         + (required ? "(!) " : "")

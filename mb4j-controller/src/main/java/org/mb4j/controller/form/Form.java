@@ -1,12 +1,12 @@
 package org.mb4j.controller.form;
 
-import org.mb4j.controller.form.field.FormFieldRecord;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.controller.utils.ReflectionUtils;
 
 public class Form<T extends FormFieldRecord> {
@@ -40,11 +40,7 @@ public class Form<T extends FormFieldRecord> {
   }
 
   public T createEmptyFields() {
-    try {
-      return fieldsClass.newInstance();
-    } catch (Exception ex) {
-      throw new RuntimeException("Failed to create empty " + fieldsClass + ": " + ex, ex);
-    }
+    return ReflectionUtils.createInstanceOf(fieldsClass);
   }
 
   public FormData<T> dataWith(T fields) {
