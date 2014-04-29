@@ -20,7 +20,7 @@ public class Form<T extends FormFields> {
     return (Class<T>) type.getActualTypeArguments()[0];
   }
 
-  public FormResponse handle(ControllerRequest request, String actionName, T data) {
+  public FormResponse handle(ControllerRequest request, String actionName, T fields) {
     System.out.println("action=" + actionName);
     return null;
   }

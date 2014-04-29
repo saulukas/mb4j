@@ -3,6 +3,7 @@ package org.mb4j.controller.form;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import org.mb4j.controller.url.NamedParams;
 
 public class FormFields {
   public Map<String, FormField> asMap() {
@@ -31,5 +32,12 @@ public class FormFields {
       }
       dataClass = dataClass.getSuperclass();
     }
+  }
+
+  public void setValuesFrom(NamedParams params) {
+    cia pasitvarkome
+
+
+...
   }
 }
