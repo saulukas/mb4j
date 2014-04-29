@@ -2,8 +2,8 @@ package org.mb4j.liferay.sample.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.controller.url.UrlPathBuilder.urlPath;
 import org.mb4j.liferay.sample.domain.Event;
@@ -14,7 +14,7 @@ public class EventEditPage extends BrickBakerPage {
   @Inject
   EventQuery eventQuery;
   @Inject
-  EventEditForm.Filler formFiller;
+  EventEditForm form;
 
   public static ControllerUrl url(int eventId) {
     return ControllerUrl.of(EventEditPage.class, urlPath().with(String.valueOf(eventId)));
@@ -25,8 +25,7 @@ public class EventEditPage extends BrickBakerPage {
     int eventId = readEventIdFrom(request);
     Event event = eventQuery.eventOrNullFor(eventId);
     EventEditPageBrick brick = new EventEditPageBrick();
-    brick.actionSaveUrl = request.resolve(ControllerUrl.of(EventEditForm.SaveAction.class));
-    brick.form = formFiller.filledForm(request, new EventEditForm.Filler.Params(event));
+    brick.form = request.resolve(form.dataFrom(event));
     return brick;
   }
 

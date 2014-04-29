@@ -3,61 +3,56 @@ package org.mb4j.liferay.sample.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ControllerResponse;
-import static org.mb4j.controller.form.FormActionResponse.redirectTo;
-import org.mb4j.controller.form1.Form1;
-import org.mb4j.controller.form1.FormAction1;
-import org.mb4j.controller.form1.FormField1;
-import org.mb4j.controller.form1.FormFiller1;
+import org.mb4j.controller.form.Form;
+import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormData;
+import org.mb4j.controller.form.FormResponse;
+import org.mb4j.controller.form.field.FormField;
+import static org.mb4j.controller.form.field.FormField.createOptionalField;
+import static org.mb4j.controller.form.field.FormField.createRequiredField;
+import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.liferay.sample.domain.Event;
 import org.mb4j.liferay.sample.domain.EventSaveCommand;
 
-public class EventEditForm extends Form1 {
-  final FormField1 id = FormField1.requiredField();
-  final FormField1 title = FormField1.requiredField();
-  final FormField1 summary = FormField1.optionalField();
-  final FormField1 imageUrl = FormField1.optionalField();
+@Singleton
+public class EventEditForm extends Form<EventEditForm.Fields> {
+  @Inject
+  EventSaveCommand saveCommand;
 
-  @Singleton
-  public static class Filler extends FormFiller1<Filler.Params, EventEditForm> {
-    public static class Params {
-      final Event event;
-
-      public Params(Event event) {
-        this.event = event;
-      }
-    }
-
-    @Override
-    protected EventEditForm createFormFrom(Params params) {
-      EventEditForm form = new EventEditForm();
-      form.id.setValue(Integer.toString(params.event.id));
-      form.title.setValue(params.event.title);
-      form.summary.setValue(params.event.summary);
-      form.imageUrl.setValue(params.event.imageUrl);
-      return form;
-    }
+  public static class Fields extends FormFieldRecord {
+    FormField id = createRequiredField();
+    FormField title = createRequiredField();
+    FormField summary = createOptionalField();
+    FormField imageUrl = createOptionalField();
   }
 
-  @Singleton
-  public static class SaveAction extends FormAction1<EventEditForm> {
-    @Inject
-    EventSaveCommand saveCommand;
+  public FormData<Fields> dataFrom(Event event) {
+    Fields data = createEmptyFields();
+    data.id.value = Integer.toString(event.id);
+    data.title.value = event.title;
+    data.summary.value = event.summary;
+    data.imageUrl.value = event.imageUrl;
+    return dataWith(data);
+  }
 
-    @Override
-    protected ControllerResponse doHandle(ControllerRequest request, EventEditForm form) {
-      Event event = createEventFrom(form);
-      saveCommand.save(event);
-      return redirectTo(null); // not implemented yet
-    }
+  @FormAction
+  FormResponse save(ControllerRequest request, Fields fields) {
+    System.out.println("save: " + fields);
+    saveCommand.save(createEventFrom(fields));
+    return null;
+  }
 
-    private Event createEventFrom(EventEditForm form) throws NumberFormatException {
-      Event event = new Event(
-          Integer.parseInt(form.id.value()),
-          form.imageUrl.value(),
-          form.title.value(),
-          form.summary.value());
-      return event;
-    }
+  @FormAction
+  FormResponse reset(ControllerRequest request, Fields fields) {
+    System.out.println("reset: " + fields);
+    return null;
+  }
+
+  private Event createEventFrom(Fields fields) {
+    return new Event(
+        Integer.parseInt(fields.id.value),
+        fields.imageUrl.value,
+        fields.title.value,
+        fields.summary.value);
   }
 }

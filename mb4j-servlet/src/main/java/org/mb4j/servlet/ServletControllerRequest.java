@@ -22,7 +22,7 @@ public class ServletControllerRequest extends ControllerRequest {
       NamedParams postParams,
       ControllerClass2UrlPathResolver controllerResolver,
       FormClass2NameResolver formResolver) {
-    super(url, postParams, ServletFormFieldNameResolver.INSTANCE);
+    super(url, postParams);
     this.path2home = path2home;
     this.controllerUrlResolver = new ServletControllerUrl4RequestResolver(path2home, controllerResolver);
     this.formResolver = formResolver;

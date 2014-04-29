@@ -6,7 +6,6 @@ public class EventEditPageModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(EventEditPage.class);
-    bind(EventEditForm.Filler.class);
-    bind(EventEditForm.SaveAction.class);
+    bind(EventEditForm.class);
   }
 }
