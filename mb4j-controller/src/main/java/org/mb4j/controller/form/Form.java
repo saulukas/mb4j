@@ -8,11 +8,11 @@ import java.util.TreeSet;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.utils.ReflectionUtils;
 
-public class Form<T extends FormData> {
-  public final Class<T> dataClass;
+public class Form<T extends FormFields> {
+  public final Class<T> fieldsClass;
 
   public Form() {
-    this.dataClass = initFormDataClass();
+    this.fieldsClass = initFormDataClass();
   }
 
   private Class<T> initFormDataClass() {
@@ -38,11 +38,15 @@ public class Form<T extends FormData> {
     return actions;
   }
 
-  public T createEmptyData() {
+  public T createEmptyFields() {
     try {
-      return dataClass.newInstance();
+      return fieldsClass.newInstance();
     } catch (Exception ex) {
-      throw new RuntimeException("Failed to create empty data for " + dataClass + ": " + ex, ex);
+      throw new RuntimeException("Failed to create empty data for " + fieldsClass + ": " + ex, ex);
     }
+  }
+
+  public FormData<T> dataWith(T fields) {
+    return new FormData(getClass(), fields, getActionNames());
   }
 }

@@ -6,13 +6,13 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import static org.mb4j.controller.form.FormField.createOptionalField;
 
-public class FormDataTest {
-  private static class EmbeddedFormData extends FormData {
+public class FormFieldsTest {
+  private static class EmbeddedFormData extends FormFields {
     final FormField detail1 = createOptionalField();
     final FormField detail2 = createOptionalField();
   }
 
-  private static class BaseFormData extends FormData {
+  private static class BaseFormData extends FormFields {
     final FormField companyName = createOptionalField();
     final FormField address = createOptionalField();
     final FormField rating = createOptionalField();
@@ -25,10 +25,10 @@ public class FormDataTest {
   }
 
   @Test
-  public void testSomeMethod() {
-    FormData formData = new ExtendedSomeFormData();
-    Map<String, FormField> fields = formData.getFields();
-    assertThat(fields.keySet(), containsInAnyOrder(
+  public void asMap_maps_field_names_to_FormFields_includind_inherited_and_nested_ones() {
+    FormFields fields = new ExtendedSomeFormData();
+    Map<String, FormField> fieldMap = fields.asMap();
+    assertThat(fieldMap.keySet(), containsInAnyOrder(
         "companyName",
         "address",
         "rating",

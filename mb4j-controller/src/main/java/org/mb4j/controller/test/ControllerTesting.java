@@ -2,7 +2,6 @@ package org.mb4j.controller.test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import org.mb4j.brick.RawBrick;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormAction4Request;
@@ -32,16 +31,15 @@ public class ControllerTesting {
       }
 
       @Override
-      public FormData4Request resolve(FormData formData) {
-        Map<String, FormField> fields = formData.getFields();
+      public FormData4Request resolve(FormData<?> formData) {
+        Map<String, FormField> fieldMap = formData.fields.asMap();
         Map<String, FormField4Request> fields4Request = new HashMap<>();
-        for (Map.Entry<String, FormField> entry : fields.entrySet()) {
+        for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
           String name = entry.getKey();
           fields4Request.put(name, new FormField4Request(name, entry.getValue()));
         }
-        Set<String> actionNames = formData.getActionNames();
         Map<String, FormAction4Request> actions4Request = new HashMap<>();
-        for (String name : actionNames) {
+        for (String name : formData.actionNames) {
           actions4Request.put(name, new FormAction4Request("mb(test)" + name));
         }
         return new FormData4Request(
