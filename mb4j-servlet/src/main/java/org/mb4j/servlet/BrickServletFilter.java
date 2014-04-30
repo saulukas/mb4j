@@ -13,7 +13,7 @@ import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 import org.mb4j.controller.form.Form;
-import org.mb4j.controller.form.FormActionResponse;
+import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.controller.form.field.FormFieldValueTree;
 import org.mb4j.controller.http.HttpFilter;
@@ -23,7 +23,6 @@ import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
@@ -50,10 +49,10 @@ public class BrickServletFilter extends HttpFilter {
     }
     String path2home = UrlPathStringToHome.from(servletPath);
     NamedParams queryParams = namedParametersFromRawQueryString(httpReq.getQueryString());
-    NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
     ControllerUrl url = ControllerUrl.of(
         resolvedView.controller.getClass(),
         UrlParams.of(resolvedView.paramsPath, queryParams));
+    NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
     ControllerRequest viewReq = new ServletControllerRequest(
         path2home,
         url,
@@ -72,7 +71,12 @@ public class BrickServletFilter extends HttpFilter {
       }
       FormFieldRecord fields = form.createEmptyFields();
       fields.setValuesFrom(FormFieldValueTree.buildTreeFrom(postParams.asMap()));
-      form.handle(viewReq, actionName, fields);
+      FormResponse formResponse = form.handle(viewReq, actionName, fields);
+      if (formResponse instanceof FormResponse.Redirect) {
+        String urlString = ((FormResponse.Redirect) formResponse).urlString;
+        httpResp.sendRedirect(urlString);
+        return;
+      }
       System.out.println("Form action '" + actionName + "' :" + postParams);
     }
     ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
@@ -96,12 +100,6 @@ public class BrickServletFilter extends HttpFilter {
       PageResponse pageResponse = (PageResponse) viewResp;
       httpResp.setCharacterEncoding(outputEncodingStringOf(pageResponse.brick.getClass()));
       renderer.render(pageResponse.brick, httpResp.getWriter());
-      return;
-    }
-    if (viewResp instanceof FormActionResponse) {
-      FormActionResponse formActionResponse = (FormActionResponse) viewResp;
-      ControllerUrl4Request location = viewReq.resolve(formActionResponse.redirectToControllerUrl);
-      httpResp.sendRedirect(location.toString());
       return;
     }
     throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()
