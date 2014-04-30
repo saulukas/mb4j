@@ -23,7 +23,7 @@ public class FormFieldValueTreeTest {
     name2value.put("employees.2.name", "Jon");
     name2value.put("founder", "Tom Tomson");
     name2value.put("rating", "3");
-    this.tree = FormFieldValueTree.buildTreeFrom(name2value);
+    this.tree = FormFieldValueTree.fieldValueTreeOf(name2value);
   }
 
   @Test

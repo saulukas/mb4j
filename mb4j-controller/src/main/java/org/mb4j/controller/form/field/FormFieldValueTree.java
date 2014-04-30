@@ -11,7 +11,7 @@ public class FormFieldValueTree {
     this.root = root;
   }
 
-  public static FormFieldValueTree buildTreeFrom(Map<String, String> name2value) {
+  public static FormFieldValueTree fieldValueTreeOf(Map<String, String> name2value) {
     FormFieldValueNode root = new FormFieldValueNode();
     for (Map.Entry<String, String> entry : name2value.entrySet()) {
       String name = entry.getKey();

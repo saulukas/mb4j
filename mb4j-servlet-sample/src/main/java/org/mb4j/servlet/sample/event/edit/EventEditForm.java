@@ -3,17 +3,17 @@ package org.mb4j.servlet.sample.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
-import static org.mb4j.controller.ControllerRequestAttribute.requestAttribute;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormResponse;
-import static org.mb4j.controller.form.FormResponse.Redirect.redirectTo;
-import static org.mb4j.controller.form.FormResponse.RepeatRerendering.repeatRendering;
+import static org.mb4j.controller.form.FormResponseRedirect.redirectTo;
+import static org.mb4j.controller.form.FormResponseRenderCurrentPage.renderCurrentPage;
 import org.mb4j.controller.form.field.FormField;
 import static org.mb4j.controller.form.field.FormField.createOptionalField;
 import static org.mb4j.controller.form.field.FormField.createRequiredField;
 import org.mb4j.controller.form.field.FormFieldRecord;
+import org.mb4j.controller.utils.AttributeKey;
 import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventByIdQuery;
 import org.mb4j.servlet.sample.domain.EventSaveCommand;
@@ -21,6 +21,8 @@ import org.mb4j.servlet.sample.event.list.EventListPage;
 
 @Singleton
 public class EventEditForm extends Form<EventEditForm.Fields> {
+  private static final AttributeKey<Fields> FIELDS_KEY = new AttributeKey<Fields>() {
+  };
   @Inject
   EventByIdQuery eventByIdQuery;
   @Inject
@@ -34,12 +36,15 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   }
 
   FormData<Fields> data(ControllerRequest request, int eventId) {
-    Event event = eventByIdQuery.result(eventId).get();
-    Fields fields = createEmptyFields();
-    fields.id.value = Integer.toString(event.id);
-    fields.title.value = event.title;
-    fields.summary.value = event.summary;
-    fields.imageUrl.value = event.imageUrl;
+    Fields fields = request.attributeFor(FIELDS_KEY).orNull();
+    if (fields == null) {
+      Event event = eventByIdQuery.result(eventId).get();
+      fields = createEmptyFields();
+      fields.id.value = Integer.toString(event.id);
+      fields.title.value = event.title;
+      fields.summary.value = event.summary;
+      fields.imageUrl.value = event.imageUrl;
+    }
     return dataWith(fields);
   }
 
@@ -47,14 +52,14 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   FormResponse save(ControllerRequest request, Fields fields) {
     System.out.println("save: " + fields);
     eventSaveCommand.execute(createEventFrom(fields));
-    return repeatRendering().with(requestAttribute(fields.id.value, fields));
+    return renderCurrentPage().with(FIELDS_KEY, fields);
   }
 
   @FormAction
   FormResponse reset(ControllerRequest request, Fields fields) {
     System.out.println("reset: " + fields);
-    fields.summary.value = null;
-    return repeatRendering().with(requestAttribute(fields.id.value, fields));
+    fields.summary.value = "";
+    return renderCurrentPage().with(FIELDS_KEY, fields);
   }
 
   @FormAction
