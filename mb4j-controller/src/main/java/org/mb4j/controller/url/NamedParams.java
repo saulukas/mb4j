@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.annotation.Nullable;
 
 public class NamedParams {
   private static final NamedParams EMPTY = new NamedParams(Collections.<String, String>emptyMap());
@@ -18,8 +17,7 @@ public class NamedParams {
     return EMPTY;
   }
 
-  @Nullable
-  public String valueOf(String paramName) {
+  public String valueOrNullOf(String paramName) {
     return name2value.get(paramName);
   }
 

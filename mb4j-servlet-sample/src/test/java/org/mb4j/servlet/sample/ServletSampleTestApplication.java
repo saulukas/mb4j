@@ -3,7 +3,6 @@ package org.mb4j.servlet.sample;
 import com.google.inject.Injector;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.NamedParams;
 import org.mb4j.servlet.ServletControllerRequest;
 
 public class ServletSampleTestApplication {
@@ -13,14 +12,8 @@ public class ServletSampleTestApplication {
     return injector.getInstance(klass);
   }
 
-  public static ServletControllerRequest requestFor(ControllerUrl controllerUrl) {
+  public static ServletControllerRequest requestFor(ControllerUrl url) {
     String path2home = "../../../";
-    ControllerMappings mappings = inject(ControllerMappings.class);
-    return new ServletControllerRequest(
-        path2home,
-        controllerUrl,
-        NamedParams.empty(),
-        mappings.controllerClass2UrlPathResolver(),
-        mappings.formClass2NameResolver());
+    return ServletControllerRequest.of(url, path2home, inject(ControllerMappings.class));
   }
 }

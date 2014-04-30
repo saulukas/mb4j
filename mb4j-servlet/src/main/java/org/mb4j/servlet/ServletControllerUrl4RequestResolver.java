@@ -43,7 +43,7 @@ public class ServletControllerUrl4RequestResolver implements ControllerUrl4Reque
     for (String name : names) {
       result.append(isFirst ? '?' : '&');
       appendEscapedName(result, name);
-      String value = params.valueOf(name);
+      String value = params.valueOrNullOf(name);
       if (value != null) {
         result.append('=');
         appendEscapedValue(result, value);

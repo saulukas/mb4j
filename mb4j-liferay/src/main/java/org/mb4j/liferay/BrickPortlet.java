@@ -41,7 +41,7 @@ public class BrickPortlet extends GenericPortlet {
     System.out.println("viewPath {" + pathStringOf(path) + "}");
     System.out.println("currentURI {" + currentURI + "}{" + path2home + "}");
     UrlPath2ControllerResolver.Result resolverResult = views.urlPath2ControllerResolver().resolve(path);
-    if (!resolverResult.hasController()) {
+    if (resolverResult.resultIsEmpty()) {
       throw new PortletException("No view found for path [" + pathStringOf(path) + "]");
     }
     NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
@@ -49,8 +49,8 @@ public class BrickPortlet extends GenericPortlet {
         resolverResult.controller.getClass(),
         UrlParams.of(resolverResult.paramsPath, namedParams));
     ControllerRequest viewReq = new PortletControllerRequest(
-        path2home,
         url,
+        path2home,
         new PortletControllerUrl4RequestResolver(response, views.controllerClass2UrlPathResolver()));
     ControllerResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);

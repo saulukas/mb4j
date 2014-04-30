@@ -25,7 +25,7 @@ public class HttpNamedParams {
   public static String queryStringFrom(NamedParams params) {
     UrlEncodedQueryString query = UrlEncodedQueryString.create();
     for (String name : params.names()) {
-      query.append(name, params.valueOf(name));
+      query.append(name, params.valueOrNullOf(name));
     }
     return query.toString();
   }

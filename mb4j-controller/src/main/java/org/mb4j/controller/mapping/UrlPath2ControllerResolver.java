@@ -17,8 +17,8 @@ public interface UrlPath2ControllerResolver {
       this.paramsPath = paramsPath;
     }
 
-    public boolean hasController() {
-      return controller != null;
+    public boolean resultIsEmpty() {
+      return controller == null;
     }
   }
 }

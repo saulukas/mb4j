@@ -1,9 +1,6 @@
 package org.mb4j.servlet;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +18,7 @@ import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQue
 import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.mapping.UrlPath2ControllerResolver.Result;
 import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
@@ -30,38 +28,36 @@ import org.mb4j.controller.url.UrlPathString;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
-  private final ControllerMappings views;
+  private final ControllerMappings mappings;
 
-  public BrickServletFilter(BrickRenderer renderer, ControllerMappings viewMap) {
+  public BrickServletFilter(BrickRenderer renderer, ControllerMappings mappings) {
     this.renderer = renderer;
-    this.views = viewMap;
+    this.mappings = mappings;
   }
 
   @Override
   protected void filter(HttpServletRequest httpReq, HttpServletResponse httpResp, FilterChain chain)
       throws IOException, ServletException {
+    //
+    //   find mapped controller if any
+    //   -----------------------------
+    //
     String servletPath = httpReq.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
-    UrlPath2ControllerResolver.Result resolvedView = views.urlPath2ControllerResolver().resolve(path);
-    if (!resolvedView.hasController()) {
+    UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
+    if (resolved.resultIsEmpty()) {
       chain.doFilter(httpReq, httpResp);
       return;
     }
-    String path2home = UrlPathStringToHome.from(servletPath);
-    NamedParams queryParams = namedParametersFromRawQueryString(httpReq.getQueryString());
-    ControllerUrl url = ControllerUrl.of(
-        resolvedView.controller.getClass(),
-        UrlParams.of(resolvedView.paramsPath, queryParams));
+    //
+    //   handle FormAction if any
+    //   ------------------------
+    //
+    ControllerRequest request = createRequest(servletPath, resolved, httpReq.getQueryString());
     NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
-    ControllerRequest viewReq = new ServletControllerRequest(
-        path2home,
-        url,
-        postParams,
-        views.controllerClass2UrlPathResolver(),
-        views.formClass2NameResolver());
-    String formName = postParams.valueOf(ServletFormHeaderBrick.FORM_NAME_PARAM);
+    String formName = postParams.valueOrNullOf(ServletFormHeaderBrick.FORM_NAME_PARAM);
     if (formName != null) {
-      Form form = views.formName2FormResolver().resolveFormName(formName);
+      Form form = mappings.formName2FormResolver().resolveFormName(formName);
       String actionName = null;
       for (String paramName : postParams.names()) {
         if (paramName.startsWith(ServletFormData4RequestResolver.ACTION_NAME_PREFIX)) {
@@ -71,7 +67,7 @@ public class BrickServletFilter extends HttpFilter {
       }
       FormFieldRecord fields = form.createEmptyFields();
       fields.setValuesFrom(FormFieldValueTree.buildTreeFrom(postParams.asMap()));
-      FormResponse formResponse = form.handle(viewReq, actionName, fields);
+      FormResponse formResponse = form.handle(request, actionName, fields);
       if (formResponse instanceof FormResponse.Redirect) {
         String urlString = ((FormResponse.Redirect) formResponse).urlString;
         httpResp.sendRedirect(urlString);
@@ -79,30 +75,27 @@ public class BrickServletFilter extends HttpFilter {
       }
       System.out.println("Form action '" + actionName + "' :" + postParams);
     }
-    ControllerResponse viewResp = resolvedView.controller.handle(viewReq);
-    handle(viewReq, viewResp, httpResp);
-  }
-
-  public static NamedParams namedParamsFrom(HttpServletRequest req) {
-    Map<String, String> name2value = new HashMap<>();
-    Enumeration<String> names = req.getParameterNames();
-    while (names.hasMoreElements()) {
-      String name = names.nextElement();
-      String value = req.getParameter(name);
-      name2value.put(name, value);
-    }
-    return new NamedParams(name2value);
-  }
-
-  private void handle(ControllerRequest viewReq, ControllerResponse viewResp, HttpServletResponse httpResp)
-      throws IOException {
-    if (viewResp instanceof PageResponse) {
-      PageResponse pageResponse = (PageResponse) viewResp;
+    //
+    //   handle mapped controller
+    //   ------------------------
+    //
+    ControllerResponse response = resolved.controller.handle(request);
+    if (response instanceof PageResponse) {
+      PageResponse pageResponse = (PageResponse) response;
       httpResp.setCharacterEncoding(outputEncodingStringOf(pageResponse.brick.getClass()));
       renderer.render(pageResponse.brick, httpResp.getWriter());
       return;
     }
-    throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()
-        + ": " + viewResp);
+    throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName() + ": " + response);
+  }
+
+  private ControllerRequest createRequest(String servletPath, Result resolved, String rawQueryString) {
+    String path2home = UrlPathStringToHome.from(servletPath);
+    NamedParams queryParams = namedParametersFromRawQueryString(rawQueryString);
+    ControllerUrl controllerUrl = ControllerUrl.of(
+        resolved.controller.getClass(),
+        UrlParams.of(resolved.paramsPath, queryParams));
+    ControllerRequest request = ServletControllerRequest.of(controllerUrl, path2home, mappings);
+    return request;
   }
 }

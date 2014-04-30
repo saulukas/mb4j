@@ -19,7 +19,7 @@ public class PersonalOfferPage extends BrickBakerPage {
 
     public static Params from(ControllerRequest request) {
       Params params = new Params();
-      params.offerText = request.url().params.named.valueOf(OFFER_TEXT);
+      params.offerText = request.url().params.named.valueOrNullOf(OFFER_TEXT);
       return params;
     }
 
