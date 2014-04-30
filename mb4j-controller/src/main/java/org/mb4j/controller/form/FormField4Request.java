@@ -1,4 +1,6 @@
-package org.mb4j.controller.form.field;
+package org.mb4j.controller.form;
+
+import org.mb4j.controller.form.field.FormField;
 
 public class FormField4Request {
   public final String name;

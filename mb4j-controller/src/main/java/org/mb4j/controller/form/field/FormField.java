@@ -34,11 +34,6 @@ public final class FormField extends FormFieldBase {
     return this;
   }
 
-  public FormField withErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-    return this;
-  }
-
   public boolean hasError() {
     return errorMessage != null;
   }

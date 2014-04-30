@@ -1,6 +1,5 @@
 package org.mb4j.controller.form;
 
-import org.mb4j.controller.form.field.FormField4Request;
 import java.util.Map;
 import org.mb4j.brick.Brick;
 

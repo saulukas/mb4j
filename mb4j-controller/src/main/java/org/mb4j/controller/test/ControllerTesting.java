@@ -8,7 +8,7 @@ import org.mb4j.controller.form.FormAction4Request;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form.field.FormField;
-import org.mb4j.controller.form.field.FormField4Request;
+import org.mb4j.controller.form.FormField4Request;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.NamedParams;

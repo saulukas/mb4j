@@ -6,7 +6,7 @@ public class EventModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(EventListQuery.class);
-    bind(EventQuery.class);
+    bind(EventByIdQuery.class);
     bind(EventSaveCommand.class);
   }
 }
