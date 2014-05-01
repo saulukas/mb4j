@@ -2,7 +2,7 @@ package org.mb4j.sample.liferay.event.list;
 
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.sample.liferay.domain.Event;
+import org.mb4j.sample.domain.data.Event;
 import org.mb4j.sample.liferay.event.edit.EventEditPage;
 
 @Singleton

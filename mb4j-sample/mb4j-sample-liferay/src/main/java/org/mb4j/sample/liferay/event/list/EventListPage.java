@@ -4,13 +4,13 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
-import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
-import org.mb4j.sample.liferay.domain.Event;
-import org.mb4j.sample.liferay.domain.EventListQuery;
+import org.mb4j.sample.domain.data.Event;
+import org.mb4j.sample.domain.queries.EventListQuery;
 import org.mb4j.sample.liferay.event.list.EventListPageBrick.DecoratedListItem;
 
 @Singleton

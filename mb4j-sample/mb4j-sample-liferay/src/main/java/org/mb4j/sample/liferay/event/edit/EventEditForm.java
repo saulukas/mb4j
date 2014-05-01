@@ -11,8 +11,8 @@ import org.mb4j.controller.form.field.FormField;
 import static org.mb4j.controller.form.field.FormField.createOptionalField;
 import static org.mb4j.controller.form.field.FormField.createRequiredField;
 import org.mb4j.controller.form.field.FormFieldRecord;
-import org.mb4j.sample.liferay.domain.Event;
-import org.mb4j.sample.liferay.domain.EventSaveCommand;
+import org.mb4j.sample.domain.commands.EventSaveCommand;
+import org.mb4j.sample.domain.data.Event;
 
 @Singleton
 public class EventEditForm extends Form<EventEditForm.Fields> {
@@ -38,7 +38,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   @FormAction
   FormResponse save(ControllerRequest request, Fields fields) {
     System.out.println("save: " + fields);
-    saveCommand.save(createEventFrom(fields));
+    saveCommand.execute(createEventFrom(fields));
     return null;
   }
 
