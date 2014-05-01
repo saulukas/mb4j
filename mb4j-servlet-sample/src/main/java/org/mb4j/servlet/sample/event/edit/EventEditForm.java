@@ -67,28 +67,26 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
 
   @FormAction
   FormResponse save(ControllerRequest request, Fields fields) {
-    System.out.println("save: " + fields);
-    if (validate(fields)) {
-      eventSaveCommand.execute(createEventFrom(fields));
+    if (errorsFoundIn(fields)) {
+      return renderCurrentPage().with(FIELDS_KEY, fields);
     }
-    return renderCurrentPage().with(FIELDS_KEY, fields);
+    eventSaveCommand.execute(createEventFrom(fields));
+    return redirectTo(request.resolve(EventListPage.url()));
   }
 
   @FormAction
   FormResponse reset(ControllerRequest request, Fields fields) {
-    System.out.println("reset: " + fields);
     fields.summary.value = "";
     return renderCurrentPage().with(FIELDS_KEY, fields);
   }
 
   @FormAction
   FormResponse goToEventList(ControllerRequest request, Fields fields) {
-    System.out.println("goToEventList: " + fields);
     return redirectTo(request.resolve(EventListPage.url()));
   }
 
-  private boolean validate(Fields fields) {
+  private boolean errorsFoundIn(Fields fields) {
     fields.title.setErrorIf(isNullOrEmpty(fields.title.value), "Title may not be empty.");
-    return !fields.hasErrors();
+    return fields.hasErrors();
   }
 }
