@@ -1,12 +1,13 @@
 package org.mb4j.controller.form.field;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import java.util.Map;
 
 public class FormField extends FormFieldBase {
-  public String value;
+  public String value = "";
   public boolean required;
   public Integer maxSize;
-  public String errorMessage;
+  public String error = "";
 
   protected FormField() {
     this(false, "");
@@ -38,8 +39,16 @@ public class FormField extends FormFieldBase {
     return this;
   }
 
-  public boolean hasError() {
-    return errorMessage != null;
+  @Override
+  public boolean hasErrors() {
+    return !isNullOrEmpty(error);
+  }
+
+  public FormField setErrorIf(boolean isError, String error) {
+    if (isError) {
+      this.error = error;
+    }
+    return this;
   }
 
   @Override
@@ -58,6 +67,6 @@ public class FormField extends FormFieldBase {
         + (required ? "(!) " : "")
         + (maxSize != null ? "max" + maxSize + " " : "")
         + (value == null ? "null" : "[" + value + "]")
-        + (hasError() ? " Error: " + errorMessage : "");
+        + (hasErrors() ? " Error: " + error : "");
   }
 }

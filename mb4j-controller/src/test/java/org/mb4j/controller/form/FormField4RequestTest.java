@@ -8,14 +8,14 @@ public class FormField4RequestTest {
   @Test
   public void creates_map_of_attributes_of_FormField() {
     FormField field = FormField.createOptionalField("value123").withMaxSize(120);
-    field.errorMessage = "Some easy to fix error.";
+    field.error = "Some easy to fix error.";
     FormField4Request field4request = new FormField4Request("name7", field);
     assertEquals(field4request.size(), 6);
     assertEquals(field4request.get("name"), "name7");
     assertEquals(field4request.get("value"), "value123");
     assertEquals(field4request.get("required"), false);
     assertEquals(field4request.get("hasError"), true);
-    assertEquals(field4request.get("errorMessage"), "Some easy to fix error.");
+    assertEquals(field4request.get("error"), "Some easy to fix error.");
     assertEquals(field4request.get("maxSize"), 120);
   }
 

@@ -40,6 +40,16 @@ public class FormFieldList<T extends FormFieldBase> extends FormFieldBase {
   }
 
   @Override
+  public boolean hasErrors() {
+    for (FormFieldBase member : list) {
+      if (member.hasErrors()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
   void collectFields(String nameInParent, Map<String, FormField> fieldMap) {
     int index = 0;
     for (FormFieldBase member : list) {

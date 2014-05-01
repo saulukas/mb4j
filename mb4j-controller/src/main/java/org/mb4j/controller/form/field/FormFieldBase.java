@@ -16,6 +16,8 @@ public abstract class FormFieldBase {
 
   public abstract String toString(String margin);
 
+  public abstract boolean hasErrors();
+
   @Override
   public String toString() {
     return toString("");

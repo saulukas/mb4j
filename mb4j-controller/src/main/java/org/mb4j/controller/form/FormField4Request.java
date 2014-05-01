@@ -10,8 +10,8 @@ public class FormField4Request extends HashMap<String, Object> {
     put("name", name);
     put("value", field.value);
     put("required", field.required);
-    put("hasError", field.hasError());
-    put("errorMessage", field.errorMessage);
+    put("hasError", field.hasErrors());
+    put("error", field.error);
     put("maxSize", field.maxSize);
     initAddPropertiesFromSubclass(field);
   }

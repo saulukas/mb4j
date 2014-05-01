@@ -14,6 +14,16 @@ public class FormFieldRecord extends FormFieldBase {
     return formFields;
   }
 
+  @Override
+  public boolean hasErrors() {
+    for (FormFieldBase child : childrenMap().values()) {
+      if (child.hasErrors()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private Map<String, FormFieldBase> childrenMap() {
     return ReflectionUtils.getFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
   }

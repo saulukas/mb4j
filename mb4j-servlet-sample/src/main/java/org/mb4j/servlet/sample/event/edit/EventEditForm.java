@@ -1,5 +1,6 @@
 package org.mb4j.servlet.sample.event.edit;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
@@ -67,7 +68,9 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   @FormAction
   FormResponse save(ControllerRequest request, Fields fields) {
     System.out.println("save: " + fields);
-    eventSaveCommand.execute(createEventFrom(fields));
+    if (validate(fields)) {
+      eventSaveCommand.execute(createEventFrom(fields));
+    }
     return renderCurrentPage().with(FIELDS_KEY, fields);
   }
 
@@ -82,5 +85,10 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   FormResponse goToEventList(ControllerRequest request, Fields fields) {
     System.out.println("goToEventList: " + fields);
     return redirectTo(request.resolve(EventListPage.url()));
+  }
+
+  private boolean validate(Fields fields) {
+    fields.title.setErrorIf(isNullOrEmpty(fields.title.value), "Title may not be empty.");
+    return !fields.hasErrors();
   }
 }
