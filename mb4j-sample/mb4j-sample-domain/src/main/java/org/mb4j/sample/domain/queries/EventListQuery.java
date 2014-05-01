@@ -1,8 +1,9 @@
-package org.mb4j.sample.servlet.domain;
+package org.mb4j.sample.domain.queries;
 
+import org.mb4j.sample.domain.data.Event;
 import com.google.inject.Singleton;
 import java.util.List;
-import static org.mb4j.sample.servlet.domain.EventDatabase.EVENT_LIST;
+import static org.mb4j.sample.domain.EventDatabase.EVENT_LIST;
 
 @Singleton
 public class EventListQuery {

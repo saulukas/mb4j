@@ -1,4 +1,4 @@
-package org.mb4j.sample.servlet.domain;
+package org.mb4j.sample.domain.data;
 
 public class Event {
   public final int id;

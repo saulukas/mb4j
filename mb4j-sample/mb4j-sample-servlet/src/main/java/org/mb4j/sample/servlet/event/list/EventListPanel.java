@@ -8,8 +8,8 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
-import org.mb4j.sample.servlet.domain.Event;
-import org.mb4j.sample.servlet.domain.EventListQuery;
+import org.mb4j.sample.domain.data.Event;
+import org.mb4j.sample.domain.queries.EventListQuery;
 import org.mb4j.sample.servlet.event.list.EventListPanelBrick.DecoratedListItem;
 
 @Singleton

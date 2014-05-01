@@ -6,7 +6,7 @@ import com.google.inject.Injector;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.sample.servlet.domain.EventModule;
+import org.mb4j.sample.domain.EventDomainModule;
 import org.mb4j.sample.servlet.event.edit.EventEditPageModule;
 import org.mb4j.sample.servlet.event.list.EventListPageModule;
 import org.mb4j.sample.servlet.home.HomePageModule;
@@ -27,7 +27,7 @@ public class ServletSampleModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    install(new EventModule());
+    install(new EventDomainModule());
     install(new SampleServletHttpModule());
     bindPages();
     bind(ControllerMappings.class).to(ServletSampleViewMap.class);
