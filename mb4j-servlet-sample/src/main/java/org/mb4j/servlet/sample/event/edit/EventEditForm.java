@@ -18,6 +18,9 @@ import org.mb4j.servlet.sample.domain.Event;
 import org.mb4j.servlet.sample.domain.EventByIdQuery;
 import org.mb4j.servlet.sample.domain.EventSaveCommand;
 import org.mb4j.servlet.sample.event.list.EventListPage;
+import org.mb4j.servlet.sample.util.FormFieldWithLabel;
+import static org.mb4j.servlet.sample.util.FormFieldWithLabel.optionalFieldWithLabel;
+import static org.mb4j.servlet.sample.util.FormFieldWithLabel.requiredFieldWithLabel;
 
 @Singleton
 public class EventEditForm extends Form<EventEditForm.Fields> {
@@ -30,20 +33,33 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
 
   static class Fields extends FormFieldRecord {
     FormField id = createRequiredField();
-    FormField title = createRequiredField();
-    FormField summary = createOptionalField();
+    FormFieldWithLabel title = requiredFieldWithLabel("Title:");
+    FormFieldWithLabel summary = optionalFieldWithLabel("Summary:");
     FormField imageUrl = createOptionalField();
+  }
+
+  private Fields createFieldsFrom(Event event) {
+    Fields fields = createEmptyFields();
+    fields.id.value = Integer.toString(event.id);
+    fields.title.value = event.title;
+    fields.summary.value = event.summary;
+    fields.imageUrl.value = event.imageUrl;
+    return fields;
+  }
+
+  private Event createEventFrom(Fields fields) {
+    return new Event(
+        Integer.parseInt(fields.id.value),
+        fields.imageUrl.value,
+        fields.title.value,
+        fields.summary.value);
   }
 
   FormData<Fields> data(ControllerRequest request, int eventId) {
     Fields fields = request.attributeFor(FIELDS_KEY).orNull();
     if (fields == null) {
       Event event = eventByIdQuery.result(eventId).get();
-      fields = createEmptyFields();
-      fields.id.value = Integer.toString(event.id);
-      fields.title.value = event.title;
-      fields.summary.value = event.summary;
-      fields.imageUrl.value = event.imageUrl;
+      fields = createFieldsFrom(event);
     }
     return dataWith(fields);
   }
@@ -66,13 +82,5 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   FormResponse goToEventList(ControllerRequest request, Fields fields) {
     System.out.println("goToEventList: " + fields);
     return redirectTo(request.resolve(EventListPage.url()));
-  }
-
-  private Event createEventFrom(Fields fields) {
-    return new Event(
-        Integer.parseInt(fields.id.value),
-        fields.imageUrl.value,
-        fields.title.value,
-        fields.summary.value);
   }
 }

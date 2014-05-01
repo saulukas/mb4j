@@ -52,7 +52,7 @@ public class FormFieldRecordTest {
     assertEquals(fieldMap.get("companyName").value, "Bricks Ltd.");
     assertEquals(fieldMap.get("country").value, "Rainland");
     assertEquals(fieldMap.get("embeddedInfo.detailA").value, "Some details about something.");
-    assertEquals(fieldMap.get("embeddedInfo.detailB").value, null);
+    assertEquals(fieldMap.get("embeddedInfo.detailB").value, "");
     assertEquals(fieldMap.get("employees.0.hobby").value, "music");
     assertEquals(fieldMap.get("employees.0.name").value, "Tom");
     assertEquals(fieldMap.get("employees.1.hobby").value, "dancing");

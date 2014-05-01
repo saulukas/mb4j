@@ -2,27 +2,31 @@ package org.mb4j.controller.form.field;
 
 import java.util.Map;
 
-public final class FormField extends FormFieldBase {
+public class FormField extends FormFieldBase {
   public String value;
   public boolean required;
-  public String errorMessage;
   public Integer maxSize;
+  public String errorMessage;
 
-  private FormField(boolean required, String value) {
+  protected FormField() {
+    this(false, "");
+  }
+
+  protected FormField(boolean required, String value) {
     this.required = required;
     this.value = value;
   }
 
   public static FormField createRequiredField() {
-    return createRequiredField(null);
+    return createRequiredField("");
+  }
+
+  public static FormField createOptionalField() {
+    return createOptionalField("");
   }
 
   public static FormField createRequiredField(String value) {
     return new FormField(true, value);
-  }
-
-  public static FormField createOptionalField() {
-    return createOptionalField(null);
   }
 
   public static FormField createOptionalField(String value) {

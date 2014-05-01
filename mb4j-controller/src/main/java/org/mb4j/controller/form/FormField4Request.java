@@ -1,31 +1,38 @@
 package org.mb4j.controller.form;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import org.mb4j.controller.form.field.FormField;
+import org.mb4j.controller.utils.ReflectionUtils;
 
-public class FormField4Request {
-  public final String name;
-  public final String value;
-  public final boolean required;
-  public final boolean hasError;
-  public final String errorMessage;
-  public final Integer maxSize;
-
+public class FormField4Request extends HashMap<String, Object> {
   public FormField4Request(String name, FormField field) {
-    this(name, field.value, field.required, field.hasError(), field.errorMessage, field.maxSize);
+    put("name", name);
+    put("value", field.value);
+    put("required", field.required);
+    put("hasError", field.hasError());
+    put("errorMessage", field.errorMessage);
+    put("maxSize", field.maxSize);
+    initAddPropertiesFromSubclass(field);
   }
 
-  public FormField4Request(String name, String value, boolean required, boolean hasError, String errorMessage, Integer maxSize) {
-    this.name = name;
-    this.value = value;
-    this.required = required;
-    this.hasError = hasError;
-    this.errorMessage = errorMessage;
-    this.maxSize = maxSize;
+  private void initAddPropertiesFromSubclass(FormField formField) {
+    Class subclass = formField.getClass();
+    while (!FormField.class.equals(subclass)) {
+      for (Field field : subclass.getDeclaredFields()) {
+        put(field.getName(), ReflectionUtils.valueOf(field, formField));
+      }
+      subclass = subclass.getSuperclass();
+    }
+  }
+
+  public String name() {
+    return (String) get("name");
   }
 
   @Override
   public String toString() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + ".toString() is not supported."
-        + " Access attribute 'name', 'value' or others instead. Name4Request='" + name + "'");
+        + " Access attribute 'name', 'value' or others instead. Name4Request='" + name() + "'");
   }
 }
