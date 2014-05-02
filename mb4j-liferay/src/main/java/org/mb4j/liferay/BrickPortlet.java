@@ -5,7 +5,9 @@ import java.net.URI;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
@@ -34,10 +36,13 @@ public class BrickPortlet extends GenericPortlet {
 
   @Override
   protected void doView(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-    //
-    //   find mapped controller if any
-    //   -----------------------------
-    //
+    UrlPath2ControllerResolver.Result resolved = resolvePage(request);
+    Page page = (Page) resolved.controller;
+    PageResponse pageResponse = page.handle(createRequest(resolved, request, response));
+    renderer.render(pageResponse.brick, response.getWriter());
+  }
+
+  private UrlPath2ControllerResolver.Result resolvePage(PortletRequest request) throws PortletException {
     UrlPath path = PortletUrlPathUtils.urlPathFrom(request);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
     UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
@@ -48,19 +53,13 @@ public class BrickPortlet extends GenericPortlet {
       throw new PortletException("Expected " + SimpleClassName.of(Page.class) + " but found "
           + resolved.controller + " at for URL path [" + pathStringOf(path) + "].");
     }
-    //
-    //   handle Page response
-    //   --------------------
-    //
-    Page page = (Page) resolved.controller;
-    PageResponse pageResponse = page.handle(createRequest(resolved, request, response));
-    renderer.render(pageResponse.brick, response.getWriter());
+    return resolved;
   }
 
   private ControllerRequest createRequest(
       UrlPath2ControllerResolver.Result resolved,
-      RenderRequest request,
-      RenderResponse response) {
+      PortletRequest request,
+      MimeResponse response) {
     URI currentURI = LiferayUtils.currentURI(request);
     NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
     String path2home = PortletPathToHome.from(request, currentURI.getRawPath());
@@ -83,6 +82,26 @@ public class BrickPortlet extends GenericPortlet {
 
   @Override
   public void processAction(ActionRequest request, ActionResponse response) throws PortletException, IOException {
-    super.processAction(request, response);
+//    UrlPath2ControllerResolver.Result resolved = resolvePage(request);
+//    ControllerRequest request = createRequest(resolved, request, response);
+//    NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
+//    Optional<FormResponse> formResponse = FormSubmitHandler.formResponseFor(request, postParams, mappings);
+//    if (formResponse.isPresent()) {
+//      FormResponse presentResponse = formResponse.get();
+//      if (presentResponse instanceof FormResponseRedirect) {
+//        String urlString = ((FormResponseRedirect) presentResponse).urlString;
+//        httpResp.sendRedirect(urlString);
+//        return;
+//      }
+//      if (presentResponse instanceof FormResponseRenderCurrentPage) {
+//        if (!(resolved.controller instanceof Page)) {
+//          throw new RuntimeException("Received " + FormResponseRenderCurrentPage.class.getSimpleName()
+//              + " and current controller must be " + Page.class.getSimpleName() + " but found "
+//              + resolved.controller + ".");
+//        }
+//        FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) presentResponse;
+//        request.putAttributes(responseWithAttributes.attributes);
+//      }
+//    }
   }
 }
