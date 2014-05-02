@@ -47,6 +47,6 @@ public class ServletControllerRequest extends ControllerRequest {
 
   @Override
   public FormData4Request resolve(FormData formData) {
-    return ServletFormData4RequestResolver.resolve(formResolver, formData);
+    return ServletFormData4RequestResolver.INSTANCE.resolve(formResolver, formData);
   }
 }

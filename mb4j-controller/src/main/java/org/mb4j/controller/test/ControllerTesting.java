@@ -1,14 +1,8 @@
 package org.mb4j.controller.test;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.mb4j.brick.RawBrick;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.form.FormAction4Request;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
-import org.mb4j.controller.form.field.FormField;
-import org.mb4j.controller.form.FormField4Request;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Request;
 import org.mb4j.controller.url.Url4Request;
@@ -28,20 +22,7 @@ public class ControllerTesting {
 
       @Override
       public FormData4Request resolve(FormData<?> formData) {
-        Map<String, FormField> fieldMap = formData.fieldGroup.asFieldMap();
-        Map<String, FormField4Request> fields4Request = new HashMap<>();
-        for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
-          String name = entry.getKey();
-          fields4Request.put(name, new FormField4Request(name, entry.getValue()));
-        }
-        Map<String, FormAction4Request> actions4Request = new HashMap<>();
-        for (String name : formData.actionNames) {
-          actions4Request.put(name, new FormAction4Request("mb(test)" + name));
-        }
-        return new FormData4Request(
-            new RawBrick("<p>Some form header for testing...</p>"),
-            fields4Request,
-            actions4Request);
+        return FormData4RequestResolver4Tests.INSTANCE.resolve(FormClass2NameResolver4Tests.INSTANCE, formData);
       }
     };
   }

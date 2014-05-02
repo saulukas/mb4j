@@ -3,11 +3,11 @@ package org.mb4j.servlet;
 import org.mb4j.brick.Brick;
 
 public class ServletFormHeaderBrick extends Brick {
-  public static final String FORM_NAME_PARAM = "mb(f)";
-  final String formParamName = FORM_NAME_PARAM;
+  final String formParamName;
   final String formParamValue;
 
-  public ServletFormHeaderBrick(String formParamValue) {
+  public ServletFormHeaderBrick(String formParamName, String formParamValue) {
+    this.formParamName = formParamName;
     this.formParamValue = formParamValue;
   }
 }

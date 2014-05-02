@@ -36,7 +36,7 @@ public class PortletDebugFilter implements RenderFilter, ActionFilter, ResourceF
   public void doFilter(RenderRequest request, RenderResponse response, FilterChain chain) throws IOException, PortletException {
     long startNanos = System.nanoTime();
     System.out.println("-------------------------------------------------------------------");
-    String currentUrl = LiferayUtils.currentURL(request);
+    String currentUrl = LiferayUtils.currentUrlString(request);
     String path = null;
     String query = null;
     try {

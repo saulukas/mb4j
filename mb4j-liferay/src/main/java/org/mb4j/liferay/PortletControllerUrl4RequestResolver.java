@@ -11,22 +11,22 @@ import org.mb4j.controller.url.UrlPath;
 
 public class PortletControllerUrl4RequestResolver implements ControllerUrl4RequestResolver {
   private final MimeResponse portletResponse;
-  private final ControllerClass2UrlPathResolver pathResolver;
+  private final ControllerClass2UrlPathResolver class2urlPath;
 
   public PortletControllerUrl4RequestResolver(
       MimeResponse portletResponse,
-      ControllerClass2UrlPathResolver pathResolver) {
+      ControllerClass2UrlPathResolver class2urlPath) {
     this.portletResponse = portletResponse;
-    this.pathResolver = pathResolver;
+    this.class2urlPath = class2urlPath;
   }
 
   @Override
   public ControllerUrl4Request resolve(ControllerUrl url) {
-    UrlPath viewPath = pathResolver.urlPathFor(url.controllerClass);
-    UrlPath fullPath = viewPath.add(url.params.path);
-    String mvcPath = PortletViewPathUtils.mvcPathParamValueFrom(fullPath);
+    UrlPath controllerPath = class2urlPath.urlPathFor(url.controllerClass);
+    UrlPath fullPath = controllerPath.add(url.params.path);
+    String mvcPath = PortletUrlPathUtils.mvcPathParamValueFrom(fullPath);
     PortletURL renderURL = portletResponse.createRenderURL();
-    renderURL.setParameter(PortletViewPathUtils.MVC_PATH_PARAM_NAME, mvcPath);
+    renderURL.setParameter(PortletUrlPathUtils.MVC_PATH_PARAM_NAME, mvcPath);
     String urlString = renderURL.toString();
     if (!url.params.named.isEmpty()) {
       urlString += "?" + queryStringFrom(url.params.named);

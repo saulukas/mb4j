@@ -1,5 +1,6 @@
 package org.mb4j.servlet;
 
+import com.google.common.base.Optional;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -8,12 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirect;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
-import org.mb4j.controller.form.field.FormFieldRecord;
-import static org.mb4j.controller.form.field.FormFieldValueTree.fieldValueTreeOf;
+import org.mb4j.controller.form.FormSubmitHandler;
 import org.mb4j.controller.http.HttpFilter;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.http.UrlPathStringToHome;
@@ -57,25 +56,21 @@ public class BrickServletFilter extends HttpFilter {
     //
     ControllerRequest request = createRequest(servletPath, resolved, httpReq.getQueryString());
     NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
-    String formName = postParams.valueOrNullOf(ServletFormHeaderBrick.FORM_NAME_PARAM);
-    if (formName != null) {
-      Form form = mappings.formName2FormResolver().resolveFormName(formName);
-      String actionName = getActionNameFrom(postParams, form);
-      FormFieldRecord fields = form.createEmptyFields();
-      fields.setValuesFrom(fieldValueTreeOf(postParams.asMap()));
-      FormResponse formResponse = form.handle(request, actionName, fields);
-      if (formResponse instanceof FormResponseRedirect) {
-        String urlString = ((FormResponseRedirect) formResponse).urlString;
+    Optional<FormResponse> formResponse = FormSubmitHandler.formResponseFor(request, postParams, mappings);
+    if (formResponse.isPresent()) {
+      FormResponse presentResponse = formResponse.get();
+      if (presentResponse instanceof FormResponseRedirect) {
+        String urlString = ((FormResponseRedirect) presentResponse).urlString;
         httpResp.sendRedirect(urlString);
         return;
       }
-      if (formResponse instanceof FormResponseRenderCurrentPage) {
+      if (presentResponse instanceof FormResponseRenderCurrentPage) {
         if (!(resolved.controller instanceof Page)) {
           throw new RuntimeException("Received " + FormResponseRenderCurrentPage.class.getSimpleName()
               + " and current controller must be " + Page.class.getSimpleName() + " but found "
               + resolved.controller + ".");
         }
-        FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) formResponse;
+        FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) presentResponse;
         request.putAttributes(responseWithAttributes.attributes);
       }
     }
@@ -88,15 +83,6 @@ public class BrickServletFilter extends HttpFilter {
     PageResponse pageResponse = (PageResponse) response;
     httpResp.setCharacterEncoding(outputEncodingStringOf(pageResponse.brick.getClass()));
     renderer.render(pageResponse.brick, httpResp.getWriter());
-  }
-
-  private String getActionNameFrom(NamedParams postParams, Form form) {
-    for (String paramName : postParams.names()) {
-      if (paramName.startsWith(ServletFormData4RequestResolver.ACTION_NAME_PREFIX)) {
-        return paramName.substring(ServletFormData4RequestResolver.ACTION_NAME_PREFIX.length());
-      }
-    }
-    throw new RuntimeException("No action name found for form " + form + " in postParams: " + postParams);
   }
 
   private ControllerRequest createRequest(String servletPath, Result resolved, String rawQueryString) {
