@@ -1,37 +1,43 @@
 package org.mb4j.controller;
 
-public class TypicalViews {
+public class TypicalControllers {
   public static class Home extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class Tutorial extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOnEvents extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOnSockets extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialTopic extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOtherStuff extends Controller {
+    @Override
     public ControllerResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }

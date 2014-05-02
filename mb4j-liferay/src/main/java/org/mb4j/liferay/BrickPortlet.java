@@ -26,11 +26,11 @@ import static org.mb4j.liferay.PortletViewPathUtils.viewPathFrom;
 
 public class BrickPortlet extends GenericPortlet {
   private final BrickRenderer renderer;
-  private final ControllerMappings views;
+  private final ControllerMappings mappings;
 
-  public BrickPortlet(BrickRenderer renderer, ControllerMappings views) {
+  public BrickPortlet(BrickRenderer renderer, ControllerMappings mappings) {
     this.renderer = renderer;
-    this.views = views;
+    this.mappings = mappings;
   }
 
   @Override
@@ -40,7 +40,7 @@ public class BrickPortlet extends GenericPortlet {
     String path2home = pathStringToHomeFrom(request, currentURI.getRawPath());
     System.out.println("viewPath {" + pathStringOf(path) + "}");
     System.out.println("currentURI {" + currentURI + "}{" + path2home + "}");
-    UrlPath2ControllerResolver.Result resolverResult = views.urlPath2ControllerResolver().resolve(path);
+    UrlPath2ControllerResolver.Result resolverResult = mappings.urlPath2ControllerResolver().resolve(path);
     if (resolverResult.resultIsEmpty()) {
       throw new PortletException("No view found for path [" + pathStringOf(path) + "]");
     }
@@ -51,7 +51,7 @@ public class BrickPortlet extends GenericPortlet {
     ControllerRequest viewReq = new PortletControllerRequest(
         url,
         path2home,
-        new PortletControllerUrl4RequestResolver(response, views.controllerClass2UrlPathResolver()));
+        new PortletControllerUrl4RequestResolver(response, mappings.controllerClass2UrlPathResolver()));
     ControllerResponse viewResp = resolverResult.controller.handle(viewReq);
     handle(viewReq, viewResp, response);
   }

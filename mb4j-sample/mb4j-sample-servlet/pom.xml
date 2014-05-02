@@ -15,8 +15,11 @@
   <artifactId>mb4j-sample-servlet</artifactId>
   <packaging>war</packaging>
 
+  <build>
+    <finalName>${artifactId}</finalName>
+  </build>
+  
   <dependencies>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>mb4j-servlet</artifactId>
@@ -53,7 +56,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
     </dependency>
-
   </dependencies>
 
 </project>

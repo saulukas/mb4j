@@ -1,7 +1,6 @@
 package org.mb4j.liferay;
 
 import com.google.common.base.Strings;
-import com.liferay.portal.util.PortalUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -16,7 +15,7 @@ public class PortletViewPathUtils {
   private static final String VALUE_PREFIX = "viewPath_";
 
   public static URI currentURI(PortletRequest request) {
-    String currentUrl = PortalUtil.getCurrentURL(request);
+    String currentUrl = LiferayUtils.currentURL(request);
     try {
       return new URI(currentUrl);
     } catch (URISyntaxException ex) {

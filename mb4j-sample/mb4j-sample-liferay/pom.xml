@@ -15,8 +15,11 @@
   <artifactId>mb4j-sample-liferay</artifactId>
   <packaging>war</packaging>
 
+  <build>
+    <finalName>${artifactId}</finalName>
+  </build>
+  
   <dependencies>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>mb4j-liferay</artifactId>

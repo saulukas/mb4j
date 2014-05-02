@@ -4,7 +4,7 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.ControllerResponse;
 
-public class TypicalViews {
+public class TypicalControllers {
   public static class Home extends Controller {
     @Override
     public ControllerResponse handle(ControllerRequest request) {

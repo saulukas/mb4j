@@ -1,7 +1,6 @@
 package org.mb4j.brick.renderer;
 
 import com.google.common.escape.Escaper;
-import com.google.common.html.HtmlEscapers;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Mustache.Lambda;
 import com.samskivert.mustache.Template;
@@ -117,7 +116,7 @@ public class BrickRendererTest {
       output = RendererUtils.renderToString4Development(brick);
     }
     long deltaNanos = System.nanoTime() - startNanos;
-    System.out.println(output);
+//    System.out.println(output);
     System.out.println("deltaMillis = " + deltaNanos / 1000000.0);
     //
     //      2
@@ -125,13 +124,13 @@ public class BrickRendererTest {
     //
     long startNanos2 = System.nanoTime();
     Escaper htmlEscaper
-        //        = new Escaper() {
-        //          @Override
-        //          public String escape(String string) {
-        //            return string;
-        //          }
-        //        };
-        = HtmlEscapers.htmlEscaper();
+        = new Escaper() {
+          @Override
+          public String escape(String string) {
+            return string;
+          }
+        };
+//        = HtmlEscapers.htmlEscaper();
     for (int i = 0; i < 10 * 1000; i++) {
       StringWriter writer = new StringWriter();
       writer.write(htmlEscaper.escape(""
@@ -176,11 +175,11 @@ public class BrickRendererTest {
     String templateString3 = "\n"
         + "    More composite brick wants to say More Composite Hello :)\n"
         + "    --------------------------------------------------------------------\n"
-        + "    composite1:{{{composite1}}}"
+        + "    composite1:{{composite1}}"
         + "    --------------------------------------------------------------------\n"
-        + "    composite2:{{{composite2}}}"
+        + "    composite2:{{composite2}}"
         + "    --------------------------------------------------------------------\n"
-        + "    simple:{{{simple}}}"
+        + "    simple:{{simple}}"
         + "\n"
         + "";
     Object context3 = new Object() {
@@ -209,7 +208,7 @@ public class BrickRendererTest {
       actual3 = template3.execute(context3);
     }
     long deltaNanos3 = System.nanoTime() - startNanos3;
-    System.out.println(actual3);
+//    System.out.println(actual3);
     System.out.println("deltaMillis3 = " + deltaNanos3 / 1000000.0);
     //
     //      4
@@ -272,7 +271,7 @@ public class BrickRendererTest {
       actual4 = template4.execute(context4);
     }
     long deltaNanos4 = System.nanoTime() - startNanos4;
-    System.out.println(actual4);
+//    System.out.println(actual4);
     System.out.println("deltaMillis4 = " + deltaNanos4 / 1000000.0);
   }
 }

@@ -10,21 +10,21 @@ class ControllerPathMounter implements ControllerClass2UrlPathResolver {
   Map<Class<? extends Controller>, UrlPath> controllerClass2path = new HashMap<>();
 
   @Override
-  public UrlPath urlPathFor(Class<? extends Controller> viewClass) {
-    UrlPath path = controllerClass2path.get(viewClass);
+  public UrlPath urlPathFor(Class<? extends Controller> controllerClass) {
+    UrlPath path = controllerClass2path.get(controllerClass);
     if (path == null) {
-      throw new RuntimeException("View was not mounted: " + viewClass);
+      throw new RuntimeException("Controller was not mounted: " + controllerClass);
     }
     return path;
   }
 
-  void mount(UrlPath path, Class<? extends Controller> viewClass) {
-    UrlPath mountedPath = controllerClass2path.get(viewClass);
+  void mount(UrlPath path, Class<? extends Controller> controllerClass) {
+    UrlPath mountedPath = controllerClass2path.get(controllerClass);
     if (mountedPath != null) {
-      throw new RuntimeException("Attept to mount view class " + viewClass
+      throw new RuntimeException("Attept to mount controller class " + controllerClass
           + "\n    at path \"" + pathStringOf(path) + "\""
           + "\n    which is already mounded at \"" + pathStringOf(mountedPath) + "\".");
     }
-    controllerClass2path.put(viewClass, path);
+    controllerClass2path.put(controllerClass, path);
   }
 }

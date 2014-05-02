@@ -68,13 +68,13 @@ class ControllerMounterNode implements UrlPath2ControllerResolver {
         reader.remainingPath());
   }
 
-  void mount(UrlPath path, Controller view) {
-    mount(bufferedReaderOf(path), view);
+  void mount(UrlPath path, Controller controller) {
+    mount(bufferedReaderOf(path), controller);
   }
 
-  void mount(BufferedUrlPathReader reader, Controller view) {
+  void mount(BufferedUrlPathReader reader, Controller controller) {
     if (!reader.hasMoreSegments()) {
-      setController(reader, view);
+      setController(reader, controller);
       return;
     }
     String segment = reader.readSegment();
@@ -85,7 +85,7 @@ class ControllerMounterNode implements UrlPath2ControllerResolver {
       }
       reader.revertLastRead();
       isAsterisk = true;
-      setController(reader, view);
+      setController(reader, controller);
       return;
     }
     ControllerMounterNode child = findChildOrNull(segment);
@@ -93,19 +93,19 @@ class ControllerMounterNode implements UrlPath2ControllerResolver {
       child = new ControllerMounterNode(this, segment);
       addChild(child);
     }
-    child.mount(reader, view);
+    child.mount(reader, controller);
   }
 
-  private void setController(BufferedUrlPathReader reader, Controller view) {
-    if (hasView()) {
-      throw new RuntimeException("Can not mount view " + debugNameOf(view)
+  private void setController(BufferedUrlPathReader reader, Controller controller) {
+    if (hasController()) {
+      throw new RuntimeException("Can not mount controller " + debugNameOf(controller)
           + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
           + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.controller) + ".");
     }
-    this.controller = view;
+    this.controller = controller;
   }
 
-  private boolean hasView() {
+  private boolean hasController() {
     return controller != null;
   }
 
@@ -117,8 +117,8 @@ class ControllerMounterNode implements UrlPath2ControllerResolver {
     return children != null && !children.isEmpty();
   }
 
-  private String debugNameOf(Controller view) {
-    return view == null ? "null" : view.getClass().getName();
+  private String debugNameOf(Controller controller) {
+    return controller == null ? "null" : controller.getClass().getName();
   }
 
   private void addChild(ControllerMounterNode child) {
@@ -154,7 +154,7 @@ class ControllerMounterNode implements UrlPath2ControllerResolver {
 
   public String toString(String margin) {
     String result = "\"" + Strings.nullToEmpty(pathSegment) + (isAsterisk ? "/*" : "") + "\"";
-    if (hasView()) {
+    if (hasController()) {
       result += "   ....";
       result = Strings.padEnd(result, 62 - margin.length(), '.');
       result += " " + SimpleClassName.of(controller.getClass());

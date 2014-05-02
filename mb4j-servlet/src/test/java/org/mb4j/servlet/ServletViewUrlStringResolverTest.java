@@ -10,19 +10,19 @@ import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
-import org.mb4j.servlet.TypicalViews.DocumentEdit;
-import org.mb4j.servlet.TypicalViews.DocumentNew;
-import org.mb4j.servlet.TypicalViews.Home;
+import org.mb4j.servlet.TypicalControllers.DocumentEdit;
+import org.mb4j.servlet.TypicalControllers.DocumentNew;
+import org.mb4j.servlet.TypicalControllers.Home;
 
 public class ServletViewUrlStringResolverTest {
   @Test
   public void resolves_url_string_for_a_ViewUrl_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
     ControllerMounter mounter = ControllerMounter
-        .withHomeController(TypicalViews.HOME)
-        .mount(urlPathOf("document/*"), TypicalViews.DOCUMENT)
-        .mount(urlPathOf("document/new"), TypicalViews.DOCUMENT_NEW)
-        .mount(urlPathOf("document/edit/*"), TypicalViews.DOCUMENT_EDIT);
+        .withHomeController(TypicalControllers.HOME)
+        .mount(urlPathOf("document/*"), TypicalControllers.DOCUMENT)
+        .mount(urlPathOf("document/new"), TypicalControllers.DOCUMENT_NEW)
+        .mount(urlPathOf("document/edit/*"), TypicalControllers.DOCUMENT_EDIT);
     ServletControllerUrl4RequestResolver resolver = new ServletControllerUrl4RequestResolver(
         path2home,
         new ControllerMappings(mounter).controllerClass2UrlPathResolver());
