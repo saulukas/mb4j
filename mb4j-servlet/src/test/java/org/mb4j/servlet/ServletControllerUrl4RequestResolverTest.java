@@ -14,9 +14,9 @@ import org.mb4j.servlet.TypicalControllers.DocumentEdit;
 import org.mb4j.servlet.TypicalControllers.DocumentNew;
 import org.mb4j.servlet.TypicalControllers.Home;
 
-public class ServletViewUrlStringResolverTest {
+public class ServletControllerUrl4RequestResolverTest {
   @Test
-  public void resolves_url_string_for_a_ViewUrl_taking_into_account_current_path2home() {
+  public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
     ControllerMounter mounter = ControllerMounter
         .withHomeController(TypicalControllers.HOME)

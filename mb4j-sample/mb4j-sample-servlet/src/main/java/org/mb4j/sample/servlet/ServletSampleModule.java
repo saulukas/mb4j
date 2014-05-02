@@ -30,7 +30,7 @@ public class ServletSampleModule extends AbstractModule {
     install(new EventDomainModule());
     install(new SampleServletHttpModule());
     bindPages();
-    bind(ControllerMappings.class).to(ServletSampleViewMap.class);
+    bind(ControllerMappings.class).to(ServletSampleMappings.class);
     bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
   }
 

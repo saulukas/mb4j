@@ -25,7 +25,7 @@ public class EventListPage extends BrickBakerPage {
   }
 
   public static ControllerUrl url(int maxEventCount) {
-    return ControllerUrl.of(EventListPage.class, new Params(maxEventCount, false).toViewParams());
+    return ControllerUrl.of(EventListPage.class, new Params(maxEventCount, false).toUrlParams());
   }
 
   @Override
@@ -76,7 +76,7 @@ public class EventListPage extends BrickBakerPage {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
-    public UrlParams toViewParams() {
+    public UrlParams toUrlParams() {
       UrlPathBuilder pathBuilder = UrlPathBuilder.urlPath();
       if (maxResultCount != SHOW_ALL) {
         pathBuilder = pathBuilder.with(String.valueOf(maxResultCount));

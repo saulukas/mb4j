@@ -10,9 +10,9 @@ import org.mb4j.sample.servlet.event.list.EventListPage;
 import org.mb4j.sample.servlet.home.HomePage;
 
 @Singleton
-public class ServletSampleViewMap extends ControllerMappings {
+public class ServletSampleMappings extends ControllerMappings {
   @Inject
-  public ServletSampleViewMap(
+  public ServletSampleMappings(
       HomePage home,
       EventListPage eventList,
       EventEditPage eventEdit) {

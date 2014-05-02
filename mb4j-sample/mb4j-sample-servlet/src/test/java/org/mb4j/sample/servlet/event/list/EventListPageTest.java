@@ -6,7 +6,7 @@ import static org.mb4j.controller.test.ControllerTesting.request4Tests;
 import static org.mb4j.sample.servlet.ServletSampleTestApplication.inject;
 import org.mb4j.controller.page.PageResponse;
 
-public class EventListPageViewTest {
+public class EventListPageTest {
   private final EventListPage page = inject(EventListPage.class);
 
   @Test

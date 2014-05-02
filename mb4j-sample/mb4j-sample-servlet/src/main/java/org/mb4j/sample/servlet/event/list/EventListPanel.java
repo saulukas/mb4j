@@ -66,7 +66,7 @@ public class EventListPanel {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
-    public UrlParams toViewParams() {
+    public UrlParams toUrlParams() {
       UrlPathBuilder pathBuilder = UrlPathBuilder.urlPath();
       if (maxResultCount != SHOW_ALL) {
         pathBuilder = pathBuilder.with(String.valueOf(maxResultCount));

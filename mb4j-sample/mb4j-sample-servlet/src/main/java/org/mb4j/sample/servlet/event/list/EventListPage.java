@@ -17,7 +17,7 @@ public class EventListPage extends MasterLayoutPage {
 
   public static ControllerUrl url(int maxEventCount) {
     return ControllerUrl.of(EventListPage.class,
-        new EventListPanel.Params(maxEventCount, false).toViewParams());
+        new EventListPanel.Params(maxEventCount, false).toUrlParams());
   }
 
   @Override
