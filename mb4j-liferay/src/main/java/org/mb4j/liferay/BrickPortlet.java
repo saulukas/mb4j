@@ -10,60 +10,70 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ControllerResponse;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
+import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
-import static org.mb4j.liferay.PortletPathToHome.pathStringToHomeFrom;
-import static org.mb4j.liferay.PortletUrlPathUtils.urlPathFrom;
+import org.mb4j.controller.utils.SimpleClassName;
 
 public class BrickPortlet extends GenericPortlet {
   private final BrickRenderer renderer;
   private final ControllerMappings mappings;
 
-  public BrickPortlet(BrickRenderer renderer, ControllerMappings mappings) {
+  protected BrickPortlet(BrickRenderer renderer, ControllerMappings mappings) {
     this.renderer = renderer;
     this.mappings = mappings;
   }
 
   @Override
   protected void doView(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-    URI currentURI = LiferayUtils.currentURI(request);
-    UrlPath path = urlPathFrom(request);
-    String path2home = pathStringToHomeFrom(request, currentURI.getRawPath());
-    System.out.println("viewPath {" + pathStringOf(path) + "}");
-    System.out.println("currentURI {" + currentURI + "}{" + path2home + "}");
-    UrlPath2ControllerResolver.Result resolverResult = mappings.urlPath2ControllerResolver().resolve(path);
-    if (resolverResult.resultIsEmpty()) {
+    //
+    //   find mapped controller if any
+    //   -----------------------------
+    //
+    UrlPath path = PortletUrlPathUtils.urlPathFrom(request);
+    System.out.println("urlPath {" + pathStringOf(path) + "}");
+    UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
+    if (resolved.resultIsEmpty()) {
       throw new PortletException("No view found for path [" + pathStringOf(path) + "]");
     }
-    NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
-    ControllerUrl url = ControllerUrl.of(
-        resolverResult.controller.getClass(),
-        UrlParams.of(resolverResult.paramsPath, namedParams));
-    ControllerRequest viewReq = new PortletControllerRequest(
-        url,
-        path2home,
-        new PortletControllerUrl4RequestResolver(response, mappings.controllerClass2UrlPathResolver()));
-    ControllerResponse viewResp = resolverResult.controller.handle(viewReq);
-    handle(viewReq, viewResp, response);
+    if (!(resolved.controller instanceof Page)) {
+      throw new PortletException("Expected " + SimpleClassName.of(Page.class) + " but found "
+          + resolved.controller + " at for URL path [" + pathStringOf(path) + "].");
+    }
+    //
+    //   handle Page response
+    //   --------------------
+    //
+    Page page = (Page) resolved.controller;
+    PageResponse pageResponse = page.handle(createRequest(resolved, request, response));
+    renderer.render(pageResponse.brick, response.getWriter());
   }
 
-  private void handle(ControllerRequest viewReq, ControllerResponse viewResp, RenderResponse response)
-      throws IOException {
-    if (viewResp instanceof PageResponse) {
-      PageResponse pageResponse = (PageResponse) viewResp;
-      renderer.render(pageResponse.brick, response.getWriter());
-      return;
-    }
-    throw new RuntimeException("Unsupported " + ControllerResponse.class.getSimpleName()
-        + " type: " + viewResp);
+  private ControllerRequest createRequest(
+      UrlPath2ControllerResolver.Result resolved,
+      RenderRequest request,
+      RenderResponse response) {
+    URI currentURI = LiferayUtils.currentURI(request);
+    NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
+    String path2home = PortletPathToHome.from(request, currentURI.getRawPath());
+    ControllerUrl url = ControllerUrl.of(
+        resolved.controller.getClass(),
+        UrlParams.of(resolved.paramsPath, namedParams)
+    );
+    return new ControllerRequest(
+        url,
+        new Url4RequestResolver(path2home),
+        new PortletControllerUrl4RequestResolver(response, mappings.controllerClass2UrlPathResolver()),
+        new PortletFormData4RequestResolver(response.getNamespace(), "pauth123", mappings.formClass2NameResolver())
+    );
   }
 
   @Override

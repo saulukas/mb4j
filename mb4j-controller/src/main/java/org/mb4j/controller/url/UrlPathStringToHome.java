@@ -1,4 +1,4 @@
-package org.mb4j.controller.http;
+package org.mb4j.controller.url;
 
 public class UrlPathStringToHome {
   public static String from(String pathString) {

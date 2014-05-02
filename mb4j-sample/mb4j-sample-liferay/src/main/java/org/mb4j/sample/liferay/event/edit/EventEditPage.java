@@ -22,14 +22,10 @@ public class EventEditPage extends BrickBakerPage {
 
   @Override
   public EventEditPageBrick bakeBrickFrom(ControllerRequest request) {
-    int eventId = readEventIdFrom(request);
+    int eventId = Integer.parseInt(request.readPathSegment());
     Event event = eventQuery.result(eventId).orNull();
     EventEditPageBrick brick = new EventEditPageBrick();
     brick.form = request.resolve(form.dataFrom(event));
     return brick;
-  }
-
-  private int readEventIdFrom(ControllerRequest request) {
-    return Integer.parseInt(request.readPathSegment());
   }
 }

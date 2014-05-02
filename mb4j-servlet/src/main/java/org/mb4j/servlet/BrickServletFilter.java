@@ -15,7 +15,6 @@ import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import org.mb4j.controller.form.FormSubmitHandler;
 import org.mb4j.controller.http.HttpFilter;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
-import org.mb4j.controller.http.UrlPathStringToHome;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver.Result;
@@ -26,6 +25,7 @@ import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
+import org.mb4j.controller.url.UrlPathStringToHome;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
@@ -79,8 +79,7 @@ public class BrickServletFilter extends HttpFilter {
     //   --------------------
     //
     Page page = (Page) resolved.controller;
-    PageResponse response = page.handle(request);
-    PageResponse pageResponse = (PageResponse) response;
+    PageResponse pageResponse = page.handle(request);
     httpResp.setCharacterEncoding(outputEncodingStringOf(pageResponse.brick.getClass()));
     renderer.render(pageResponse.brick, httpResp.getWriter());
   }

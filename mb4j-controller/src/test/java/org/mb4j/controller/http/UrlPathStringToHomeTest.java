@@ -1,5 +1,6 @@
 package org.mb4j.controller.http;
 
+import org.mb4j.controller.url.UrlPathStringToHome;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;

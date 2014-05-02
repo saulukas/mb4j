@@ -16,9 +16,9 @@
   <packaging>war</packaging>
 
   <build>
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}</finalName>
   </build>
-  
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
