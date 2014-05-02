@@ -42,7 +42,7 @@ public class BrickPortlet extends GenericPortlet {
     System.out.println("urlPath {" + pathStringOf(path) + "}");
     UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
     if (resolved.resultIsEmpty()) {
-      throw new PortletException("No view found for path [" + pathStringOf(path) + "]");
+      throw new PortletException("No portlet Page found for path [" + pathStringOf(path) + "]");
     }
     if (!(resolved.controller instanceof Page)) {
       throw new PortletException("Expected " + SimpleClassName.of(Page.class) + " but found "
@@ -68,11 +68,16 @@ public class BrickPortlet extends GenericPortlet {
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)
     );
+    String liferayAuthTokenOrNull = LiferayUtils.authTokenOrNullFrom(response);
     return new ControllerRequest(
         url,
         new Url4RequestResolver(path2home),
         new PortletControllerUrl4RequestResolver(response, mappings.controllerClass2UrlPathResolver()),
-        new PortletFormData4RequestResolver(response.getNamespace(), "pauth123", mappings.formClass2NameResolver())
+        new PortletFormData4RequestResolver(
+            response.getNamespace(),
+            liferayAuthTokenOrNull,
+            mappings.formClass2NameResolver()
+        )
     );
   }
 

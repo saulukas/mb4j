@@ -9,6 +9,6 @@ public class EventPortletModule extends AbstractModule {
     protected void configure() {
         install(new EventListPageModule());
         install(new EventEditPageModule());
-        bind(EventListPortlet.Views.class);
+        bind(EventListPortlet.Mappings.class);
     }
 }

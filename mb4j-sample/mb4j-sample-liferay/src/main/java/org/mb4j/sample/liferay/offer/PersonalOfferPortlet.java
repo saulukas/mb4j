@@ -8,14 +8,14 @@ import org.mb4j.sample.liferay.SampleBasePortlet;
 
 public class PersonalOfferPortlet extends SampleBasePortlet {
   @Singleton
-  public static class Views extends ControllerMappings {
+  public static class Mappings extends ControllerMappings {
     @Inject
-    public Views(PersonalOfferPage offer) {
+    public Mappings(PersonalOfferPage offer) {
       super(withDefaultHomeController(offer));
     }
   }
 
   public PersonalOfferPortlet() {
-    super(Views.class);
+    super(Mappings.class);
   }
 }

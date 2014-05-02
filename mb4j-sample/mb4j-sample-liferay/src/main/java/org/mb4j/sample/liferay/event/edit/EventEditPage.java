@@ -6,13 +6,9 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.controller.url.UrlPathBuilder.urlPath;
-import org.mb4j.sample.domain.data.Event;
-import org.mb4j.sample.domain.queries.EventByIdQuery;
 
 @Singleton
 public class EventEditPage extends BrickBakerPage {
-  @Inject
-  EventByIdQuery eventQuery;
   @Inject
   EventEditForm form;
 
@@ -23,9 +19,8 @@ public class EventEditPage extends BrickBakerPage {
   @Override
   public EventEditPageBrick bakeBrickFrom(ControllerRequest request) {
     int eventId = Integer.parseInt(request.readPathSegment());
-    Event event = eventQuery.result(eventId).orNull();
     EventEditPageBrick brick = new EventEditPageBrick();
-    brick.form = request.resolve(form.dataFrom(event));
+    brick.form = request.resolve(form.data(request, eventId));
     return brick;
   }
 }

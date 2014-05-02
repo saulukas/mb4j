@@ -10,7 +10,7 @@ import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 public class PortletUrlPathUtils {
   public static final String MVC_PATH_PARAM_NAME = "mvcPath";
   public static final int MAX_PATH_SEGMENT_COUNT = 9;
-  private static final String VALUE_PREFIX = "urlPath_";
+  private static final String VALUE_PREFIX = "urlPath_"; // same as in nice-urls.xml
 
   public static UrlPath urlPathFrom(PortletRequest request) {
     return urlPathFrom(request.getParameter(MVC_PATH_PARAM_NAME));

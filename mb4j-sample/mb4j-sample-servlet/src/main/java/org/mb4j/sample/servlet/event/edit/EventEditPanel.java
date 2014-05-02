@@ -10,7 +10,7 @@ public class EventEditPanel extends Panel {
   @Inject
   EventEditForm form;
 
-  public EventEditPanelBrick bakeBrick(ControllerRequest request, final int eventId) {
+  public EventEditPanelBrick bakeBrick(ControllerRequest request, int eventId) {
     EventEditPanelBrick brick = new EventEditPanelBrick();
     brick.form = request.resolve(form.data(request, eventId));
     return brick;

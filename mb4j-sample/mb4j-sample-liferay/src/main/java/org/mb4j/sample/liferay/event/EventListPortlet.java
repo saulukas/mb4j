@@ -11,9 +11,9 @@ import org.mb4j.sample.liferay.event.list.EventListPage;
 
 public class EventListPortlet extends SampleBasePortlet {
   @Singleton
-  public static class Views extends ControllerMappings {
+  public static class Mappings extends ControllerMappings {
     @Inject
-    public Views(
+    public Mappings(
         EventListPage eventList,
         EventEditPage eventEdit) {
       super(withDefaultHomeController(eventList)
@@ -23,6 +23,6 @@ public class EventListPortlet extends SampleBasePortlet {
   }
 
   public EventListPortlet() {
-    super(Views.class);
+    super(Mappings.class);
   }
 }
