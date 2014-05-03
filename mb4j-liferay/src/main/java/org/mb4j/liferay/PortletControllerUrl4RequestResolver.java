@@ -10,23 +10,26 @@ import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.UrlPath;
 
 public class PortletControllerUrl4RequestResolver implements ControllerUrl4RequestResolver {
-  private final MimeResponse portletResponse;
+  private final MimeResponse mimeResponseOrNull;
   private final ControllerClass2UrlPathResolver class2urlPath;
 
   public PortletControllerUrl4RequestResolver(
-      MimeResponse portletResponse,
+      MimeResponse mimeResponseOrNull,
       ControllerClass2UrlPathResolver class2urlPath) {
-    this.portletResponse = portletResponse;
+    this.mimeResponseOrNull = mimeResponseOrNull;
     this.class2urlPath = class2urlPath;
   }
 
   @Override
   public ControllerUrl4Request resolve(ControllerUrl url) {
+    if (mimeResponseOrNull == null) {
+      throw new RuntimeException("Controller URLs are resolved only in Rendering and Resource phase");
+    }
     UrlPath controllerPath = class2urlPath.urlPathFor(url.controllerClass);
     UrlPath fullPath = controllerPath.add(url.params.path);
-    String mvcPath = PortletUrlPathUtils.mvcPathParamValueFrom(fullPath);
-    PortletURL renderURL = portletResponse.createRenderURL();
-    renderURL.setParameter(PortletUrlPathUtils.MVC_PATH_PARAM_NAME, mvcPath);
+    String mvcPath = PortletUrlUtils.mvcPathParamValueFrom(fullPath);
+    PortletURL renderURL = mimeResponseOrNull.createRenderURL();
+    renderURL.setParameter(PortletUrlUtils.MVC_PATH_PARAM_NAME, mvcPath);
     String urlString = renderURL.toString();
     if (!url.params.named.isEmpty()) {
       urlString += "?" + queryStringFrom(url.params.named);

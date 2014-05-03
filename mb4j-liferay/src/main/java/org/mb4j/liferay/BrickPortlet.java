@@ -1,17 +1,26 @@
 package org.mb4j.liferay;
 
+import com.google.common.base.Optional;
+import static com.google.common.collect.Iterators.forEnumeration;
+import static com.google.common.collect.Lists.newArrayList;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Map;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.form.FormResponse;
+import org.mb4j.controller.form.FormResponseRedirect;
+import org.mb4j.controller.form.FormResponseRenderCurrentPage;
+import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
@@ -23,7 +32,9 @@ import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import org.mb4j.controller.utils.AttributeKey;
 import org.mb4j.controller.utils.SimpleClassName;
+import static org.mb4j.liferay.LiferayUtils.authTokenOrNullFrom;
 
 public class BrickPortlet extends GenericPortlet {
   private final BrickRenderer renderer;
@@ -35,15 +46,41 @@ public class BrickPortlet extends GenericPortlet {
   }
 
   @Override
-  protected void doView(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-    UrlPath2ControllerResolver.Result resolved = resolvePage(request);
+  protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
+    System.out.println("Render attributes: " + newArrayList(forEnumeration(renderRequest.getAttributeNames())));
+    UrlPath2ControllerResolver.Result resolved = resolvePage(renderRequest);
     Page page = (Page) resolved.controller;
-    PageResponse pageResponse = page.handle(createRequest(resolved, request, response));
-    renderer.render(pageResponse.brick, response.getWriter());
+    ControllerRequest request = createRequest(resolved, renderRequest, renderResponse);
+    PageResponse response = page.handle(request);
+    renderer.render(response.brick, renderResponse.getWriter());
+  }
+
+  @Override
+  public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException, IOException {
+    UrlPath2ControllerResolver.Result resolved = resolvePage(actionRequest);
+    ControllerRequest request = createRequest(resolved, actionRequest, actionResponse);
+    NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
+    Optional<FormResponse> optionalResponse = formResponseFor(request, postParams, mappings);
+    if (!optionalResponse.isPresent()) {
+      throw new RuntimeException("Unknown portlet action called:"
+          + "\n   " + postParams
+          + "\n   " + request);
+    }
+    FormResponse response = optionalResponse.get();
+    if (response instanceof FormResponseRedirect) {
+      String urlString = ((FormResponseRedirect) response).urlString;
+      actionResponse.sendRedirect(urlString);
+      return;
+    }
+    FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) response;
+    for (Map.Entry<AttributeKey, Object> entry : responseWithAttributes.attributes.entrySet()) {
+      actionRequest.setAttribute(entry.getKey().toString(), entry.getValue());
+    }
+    System.out.println("Action attributes: " + newArrayList(forEnumeration(actionRequest.getAttributeNames())));
   }
 
   private UrlPath2ControllerResolver.Result resolvePage(PortletRequest request) throws PortletException {
-    UrlPath path = PortletUrlPathUtils.urlPathFrom(request);
+    UrlPath path = PortletUrlUtils.urlPathFrom(request);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
     UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
     if (resolved.resultIsEmpty()) {
@@ -59,7 +96,7 @@ public class BrickPortlet extends GenericPortlet {
   private ControllerRequest createRequest(
       UrlPath2ControllerResolver.Result resolved,
       PortletRequest request,
-      MimeResponse response) {
+      PortletResponse response) {
     URI currentURI = LiferayUtils.currentURI(request);
     NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
     String path2home = PortletPathToHome.from(request, currentURI.getRawPath());
@@ -67,41 +104,17 @@ public class BrickPortlet extends GenericPortlet {
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)
     );
-    String liferayAuthTokenOrNull = LiferayUtils.authTokenOrNullFrom(response);
+    MimeResponse mimeResponse = (response instanceof MimeResponse) ? (MimeResponse) response : null;
+    String liferayAuthTokenOrNull = (mimeResponse == null) ? null : authTokenOrNullFrom(mimeResponse);
     return new ControllerRequest(
         url,
         new Url4RequestResolver(path2home),
-        new PortletControllerUrl4RequestResolver(response, mappings.controllerClass2UrlPathResolver()),
+        new PortletControllerUrl4RequestResolver(mimeResponse, mappings.controllerClass2UrlPathResolver()),
         new PortletFormData4RequestResolver(
             response.getNamespace(),
             liferayAuthTokenOrNull,
             mappings.formClass2NameResolver()
         )
     );
-  }
-
-  @Override
-  public void processAction(ActionRequest request, ActionResponse response) throws PortletException, IOException {
-//    UrlPath2ControllerResolver.Result resolved = resolvePage(request);
-//    ControllerRequest request = createRequest(resolved, request, response);
-//    NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
-//    Optional<FormResponse> formResponse = FormSubmitHandler.formResponseFor(request, postParams, mappings);
-//    if (formResponse.isPresent()) {
-//      FormResponse presentResponse = formResponse.get();
-//      if (presentResponse instanceof FormResponseRedirect) {
-//        String urlString = ((FormResponseRedirect) presentResponse).urlString;
-//        httpResp.sendRedirect(urlString);
-//        return;
-//      }
-//      if (presentResponse instanceof FormResponseRenderCurrentPage) {
-//        if (!(resolved.controller instanceof Page)) {
-//          throw new RuntimeException("Received " + FormResponseRenderCurrentPage.class.getSimpleName()
-//              + " and current controller must be " + Page.class.getSimpleName() + " but found "
-//              + resolved.controller + ".");
-//        }
-//        FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) presentResponse;
-//        request.putAttributes(responseWithAttributes.attributes);
-//      }
-//    }
   }
 }

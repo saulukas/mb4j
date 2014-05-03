@@ -1,13 +1,16 @@
 package org.mb4j.liferay;
 
 import com.google.common.base.Strings;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.portlet.PortletRequest;
+import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
-public class PortletUrlPathUtils {
+public class PortletUrlUtils {
   public static final String MVC_PATH_PARAM_NAME = "mvcPath";
   public static final int MAX_PATH_SEGMENT_COUNT = 9;
   private static final String VALUE_PREFIX = "urlPath_"; // same as in nice-urls.xml
@@ -35,5 +38,18 @@ public class PortletUrlPathUtils {
       result += "/" + pathStringOf(path);
     }
     return result;
+  }
+
+  public static NamedParams namedParamsFrom(PortletRequest request) {
+    Map<String, String> name2value = new HashMap<>();
+    for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+      String name = entry.getKey();
+      String[] values = entry.getValue();
+      String value = (values != null && values.length > 0) ? values[0] : null;
+      if (value != null) {
+        name2value.put(name, value);
+      }
+    }
+    return new NamedParams(name2value);
   }
 }
