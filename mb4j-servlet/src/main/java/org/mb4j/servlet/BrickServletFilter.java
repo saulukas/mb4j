@@ -54,7 +54,7 @@ public class BrickServletFilter extends HttpFilter {
     //   handle FormAction if any
     //   ------------------------
     //
-    ControllerRequest request = createRequest(servletPath, resolved, httpReq.getQueryString());
+    ControllerRequest request = createRequest(servletPath, resolved, httpReq);
     NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
     Optional<FormResponse> formResponse = FormSubmitHandler.formResponseFor(request, postParams, mappings);
     if (formResponse.isPresent()) {
@@ -71,7 +71,7 @@ public class BrickServletFilter extends HttpFilter {
               + resolved.controller + ".");
         }
         FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) presentResponse;
-        request.putAttributes(responseWithAttributes.attributes);
+        request.attributes().putAll(responseWithAttributes.attributes.asMap());
       }
     }
     //
@@ -84,13 +84,18 @@ public class BrickServletFilter extends HttpFilter {
     renderer.render(pageResponse.brick, httpResp.getWriter());
   }
 
-  private ControllerRequest createRequest(String servletPath, Result resolved, String rawQueryString) {
+  private ControllerRequest createRequest(String servletPath, Result resolved, HttpServletRequest httpReq) {
+    String rawQueryString = httpReq.getQueryString();
     String path2home = UrlPathStringToHome.from(servletPath);
     NamedParams queryParams = namedParametersFromRawQueryString(rawQueryString);
     ControllerUrl controllerUrl = ControllerUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, queryParams));
-    ControllerRequest request = ServletControllerRequest.of(controllerUrl, path2home, mappings);
+    ControllerRequest request = ServletControllerRequest.of(
+        controllerUrl,
+        path2home,
+        new ServletRequestAttributes(httpReq),
+        mappings);
     return request;
   }
 }

@@ -1,8 +1,5 @@
 package org.mb4j.controller;
 
-import com.google.common.base.Optional;
-import java.util.HashMap;
-import java.util.Map;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Request;
 import org.mb4j.controller.form.FormData4RequestResolver;
@@ -13,23 +10,25 @@ import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.Url4Request;
 import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlPathReader;
-import org.mb4j.controller.utils.AttributeKey;
+import org.mb4j.controller.utils.Attributes;
 
 public class ControllerRequest {
   private final ControllerUrl url;
   private final UrlPathReader urlPathReader;
-  private final Map<AttributeKey, Object> attributes = new HashMap<>();
+  private final Attributes attributes;
   private final Url4RequestResolver urlResolver;
   private final ControllerUrl4RequestResolver controllerUrlResolver;
   private final FormData4RequestResolver formDataResolver;
 
   public ControllerRequest(
       ControllerUrl url,
+      Attributes attributes,
       Url4RequestResolver urlResolver,
       ControllerUrl4RequestResolver controllerUrlResolver,
       FormData4RequestResolver formDataResolver) {
     this.url = url;
     this.urlPathReader = bufferedReaderOf(url.params.path);
+    this.attributes = attributes;
     this.urlResolver = urlResolver;
     this.controllerUrlResolver = controllerUrlResolver;
     this.formDataResolver = formDataResolver;
@@ -59,16 +58,8 @@ public class ControllerRequest {
     return formDataResolver.resolve(formData);
   }
 
-  public void putAttributes(Map<AttributeKey, Object> attributes) {
-    this.attributes.putAll(attributes);
-  }
-
-  public <T> void putAttribute(AttributeKey<? super T> key, T value) {
-    this.attributes.put(key, value);
-  }
-
-  public <T> Optional<T> attributeFor(AttributeKey<T> key) {
-    return Optional.fromNullable((T) attributes.get(key));
+  public Attributes attributes() {
+    return attributes;
   }
 
   @Override

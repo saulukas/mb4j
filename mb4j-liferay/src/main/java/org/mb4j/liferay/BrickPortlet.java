@@ -5,7 +5,6 @@ import static com.google.common.collect.Iterators.forEnumeration;
 import static com.google.common.collect.Lists.newArrayList;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Map;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
@@ -32,7 +31,6 @@ import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
-import org.mb4j.controller.utils.AttributeKey;
 import org.mb4j.controller.utils.SimpleClassName;
 import static org.mb4j.liferay.LiferayUtils.authTokenOrNullFrom;
 
@@ -73,9 +71,8 @@ public class BrickPortlet extends GenericPortlet {
       return;
     }
     FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) response;
-    for (Map.Entry<AttributeKey, Object> entry : responseWithAttributes.attributes.entrySet()) {
-      actionRequest.setAttribute(entry.getKey().toString(), entry.getValue());
-    }
+    request.attributes().putAll(responseWithAttributes.attributes.asMap());
+    PortletUrlUtils.copyUrlPathFromParameterToAttribute(actionRequest);
     System.out.println("Action attributes: " + newArrayList(forEnumeration(actionRequest.getAttributeNames())));
   }
 
@@ -108,6 +105,7 @@ public class BrickPortlet extends GenericPortlet {
     String liferayAuthTokenOrNull = (mimeResponse == null) ? null : authTokenOrNullFrom(mimeResponse);
     return new ControllerRequest(
         url,
+        new PortletRequestAttributes(request),
         new Url4RequestResolver(path2home),
         new PortletControllerUrl4RequestResolver(mimeResponse, mappings.controllerClass2UrlPathResolver()),
         new PortletFormData4RequestResolver(

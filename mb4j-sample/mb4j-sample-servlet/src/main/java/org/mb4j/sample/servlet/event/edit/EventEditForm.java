@@ -57,7 +57,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   }
 
   FormData<Fields> data(ControllerRequest request, int eventId) {
-    Fields fields = request.attributeFor(FIELDS_KEY).orNull();
+    Fields fields = request.attributes().valueOf(FIELDS_KEY).orNull();
     if (fields == null) {
       Event event = eventByIdQuery.result(eventId).get();
       fields = createFieldsFrom(event);

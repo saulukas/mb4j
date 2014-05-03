@@ -9,17 +9,29 @@ import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import org.mb4j.controller.utils.AttributeKey;
 
 public class PortletUrlUtils {
   public static final String MVC_PATH_PARAM_NAME = "mvcPath";
   public static final int MAX_PATH_SEGMENT_COUNT = 9;
   private static final String VALUE_PREFIX = "urlPath_"; // same as in nice-urls.xml
+  private static final AttributeKey<String> MVC_PATH_ATTR = new AttributeKey<String>() {
+  };
 
   public static UrlPath urlPathFrom(PortletRequest request) {
-    return urlPathFrom(request.getParameter(MVC_PATH_PARAM_NAME));
+    String urlPathString = request.getParameter(MVC_PATH_PARAM_NAME);
+    if (Strings.isNullOrEmpty(urlPathString)) {
+      urlPathString = PortletRequestAttributes.getAttribute(request, MVC_PATH_ATTR).orNull();
+    }
+    return urlPathFrom(urlPathString);
   }
 
-  public static UrlPath urlPathFrom(String mvcPath) {
+  public static void copyUrlPathFromParameterToAttribute(PortletRequest request) {
+    String urlPathString = request.getParameter(MVC_PATH_PARAM_NAME);
+    PortletRequestAttributes.setAttribute(request, MVC_PATH_ATTR, urlPathString);
+  }
+
+  private static UrlPath urlPathFrom(String mvcPath) {
     if (Strings.isNullOrEmpty(mvcPath) || !mvcPath.startsWith(VALUE_PREFIX)) {
       return UrlPath.empty();
     }

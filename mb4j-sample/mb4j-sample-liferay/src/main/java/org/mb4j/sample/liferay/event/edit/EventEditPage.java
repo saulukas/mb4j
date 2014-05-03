@@ -20,7 +20,7 @@ public class EventEditPage extends BrickBakerPage {
   public EventEditPageBrick bakeBrickFrom(ControllerRequest request) {
     int eventId = Integer.parseInt(request.readPathSegment());
     EventEditPageBrick brick = new EventEditPageBrick();
-    brick.form = request.resolve(form.data(request, eventId));
+    brick.form = request.resolve(form.dataFor(request, eventId));
     return brick;
   }
 }
