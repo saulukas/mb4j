@@ -10,7 +10,9 @@ import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormResponse;
-import org.mb4j.controller.form.FormResponseRedirect;
+import org.mb4j.controller.form.FormResponseRedirectToController;
+import org.mb4j.controller.form.FormResponseRedirectToUrlString;
+import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import org.mb4j.controller.form.FormSubmitHandler;
 import org.mb4j.controller.http.HttpFilter;
@@ -56,21 +58,26 @@ public class BrickServletFilter extends HttpFilter {
     //
     ControllerRequest request = createRequest(servletPath, resolved, httpReq);
     NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
-    Optional<FormResponse> formResponse = FormSubmitHandler.formResponseFor(request, postParams, mappings);
-    if (formResponse.isPresent()) {
-      FormResponse presentResponse = formResponse.get();
-      if (presentResponse instanceof FormResponseRedirect) {
-        String urlString = ((FormResponseRedirect) presentResponse).urlString;
+    Optional<FormResponse> optionalFormResponse = FormSubmitHandler.formResponseFor(
+        request, postParams, mappings);
+    if (optionalFormResponse.isPresent()) {
+      FormResponse formResponse = optionalFormResponse.get();
+      if (formResponse instanceof FormResponseRedirectToController) {
+        ControllerUrl controllerUrl = ((FormResponseRedirectToController) formResponse).controllerUrl;
+        formResponse = redirectTo(request.resolve(controllerUrl));
+      }
+      if (formResponse instanceof FormResponseRedirectToUrlString) {
+        String urlString = ((FormResponseRedirectToUrlString) formResponse).urlString;
         httpResp.sendRedirect(urlString);
         return;
       }
-      if (presentResponse instanceof FormResponseRenderCurrentPage) {
+      if (formResponse instanceof FormResponseRenderCurrentPage) {
         if (!(resolved.controller instanceof Page)) {
           throw new RuntimeException("Received " + FormResponseRenderCurrentPage.class.getSimpleName()
               + " and current controller must be " + Page.class.getSimpleName() + " but found "
               + resolved.controller + ".");
         }
-        FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) presentResponse;
+        FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) formResponse;
         request.attributes().putAll(responseWithAttributes.attributes.asMap());
       }
     }

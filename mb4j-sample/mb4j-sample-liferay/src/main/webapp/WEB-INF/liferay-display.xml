@@ -5,4 +5,7 @@
     <portlet id="event-list"></portlet>
     <portlet id="personal-offer"></portlet>
   </category>
+  <category name="mb4j testing">
+    <portlet id="testbench"></portlet>
+  </category>
 </display>

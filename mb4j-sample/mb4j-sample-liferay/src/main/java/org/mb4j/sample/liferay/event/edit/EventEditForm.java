@@ -8,7 +8,7 @@ import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormResponse;
-import static org.mb4j.controller.form.FormResponseRedirect.redirectTo;
+import static org.mb4j.controller.form.FormResponseRedirectToController.redirectTo;
 import static org.mb4j.controller.form.FormResponseRenderCurrentPage.renderCurrentPage;
 import org.mb4j.controller.form.field.FormField;
 import static org.mb4j.controller.form.field.FormField.createOptionalField;
@@ -71,7 +71,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
       return renderCurrentPage().with(FIELDS_KEY, fields);
     }
     eventSaveCommand.execute(createEventFrom(fields));
-    return redirectTo(request.resolve(EventListPage.url()));
+    return redirectTo(EventListPage.url());
   }
 
   @FormAction
@@ -82,7 +82,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
 
   @FormAction
   FormResponse goToEventList(ControllerRequest request, Fields fields) {
-    return redirectTo(request.resolve(EventListPage.url()));
+    return redirectTo(EventListPage.url());
   }
 
   private boolean errorsFoundIn(Fields fields) {
