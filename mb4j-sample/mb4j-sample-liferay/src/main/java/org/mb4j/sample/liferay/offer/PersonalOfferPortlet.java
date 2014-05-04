@@ -16,6 +16,6 @@ public class PersonalOfferPortlet extends SampleBasePortlet {
   }
 
   public PersonalOfferPortlet() {
-    super(Mappings.class);
+    super("offer", Mappings.class);
   }
 }

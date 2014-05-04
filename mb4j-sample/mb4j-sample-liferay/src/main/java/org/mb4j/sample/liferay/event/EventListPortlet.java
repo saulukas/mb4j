@@ -23,6 +23,6 @@ public class EventListPortlet extends SampleBasePortlet {
   }
 
   public EventListPortlet() {
-    super(Mappings.class);
+    super("events", Mappings.class);
   }
 }

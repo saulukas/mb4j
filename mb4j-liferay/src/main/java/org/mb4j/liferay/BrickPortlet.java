@@ -37,10 +37,12 @@ import static org.mb4j.liferay.LiferayUtils.authTokenOrNullFrom;
 import static org.mb4j.liferay.PortletPathToHome.pathToStaticResources;
 
 public class BrickPortlet extends GenericPortlet {
+  private final String friendlyUrlMapping;
   private final BrickRenderer renderer;
   private final ControllerMappings mappings;
 
-  protected BrickPortlet(BrickRenderer renderer, ControllerMappings mappings) {
+  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, ControllerMappings mappings) {
+    this.friendlyUrlMapping = friendlyUrlMapping;
     this.renderer = renderer;
     this.mappings = mappings;
   }
@@ -86,7 +88,7 @@ public class BrickPortlet extends GenericPortlet {
   }
 
   private UrlPath2ControllerResolver.Result resolvePage(PortletRequest request) throws PortletException {
-    UrlPath path = PortletUrlUtils.urlPathFrom(request);
+    UrlPath path = PortletUrlUtils.urlPathFor(request, friendlyUrlMapping);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
     UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
     if (resolved.resultIsEmpty()) {

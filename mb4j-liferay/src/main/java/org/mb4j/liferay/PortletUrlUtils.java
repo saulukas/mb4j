@@ -1,6 +1,7 @@
 package org.mb4j.liferay;
 
 import com.google.common.base.Strings;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,18 @@ public class PortletUrlUtils {
   public static final String MVC_PATH_PARAM_NAME = "mvcPath";
   public static final int MAX_PATH_SEGMENT_COUNT = 9;
   private static final String VALUE_PREFIX = "urlPath_"; // same as in nice-urls.xml
+
+  public static UrlPath urlPathFor(PortletRequest request, String friendlyUrlMapping) {
+    URI uri = LiferayUtils.currentURI(request);
+    String path = uri.getPath();
+    String prefix = "/-/" + friendlyUrlMapping + "/";
+    int index = path.indexOf(prefix);
+    if (index < 0) {
+      return UrlPath.empty();
+    }
+    String postfix = path.substring(index + prefix.length());
+    return UrlPathString.urlPathOf(postfix);
+  }
 
   public static UrlPath urlPathFrom(PortletRequest request) {
     return urlPathFrom(request.getParameter(MVC_PATH_PARAM_NAME));
