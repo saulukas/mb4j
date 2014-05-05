@@ -6,7 +6,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.Form;
-import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormActionMethod;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormResponse;
@@ -93,11 +92,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   }
 
   @Override
-  public FormAction actionForName(String name) {
-    FormAction action = super.actionForName(name);
-    if (Objects.equal(name, "save")) {
-      action.enabled = false;
-    }
-    return action;
+  protected boolean isActionEnabled(String name) {
+    return !Objects.equal(name, "save");
   }
 }

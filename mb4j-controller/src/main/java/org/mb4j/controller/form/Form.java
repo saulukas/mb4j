@@ -53,8 +53,19 @@ public class Form<T extends FormFieldRecord> {
     return actions;
   }
 
-  public FormAction actionForName(String name) {
-    return new FormAction(name);
+  protected FormAction actionForName(String name) {
+    FormAction action = new FormAction(name);
+    action.enabled = isActionEnabled(name);
+    action.visible = isActionVisible(name);
+    return action;
+  }
+
+  protected boolean isActionEnabled(String name) {
+    return true;
+  }
+
+  protected boolean isActionVisible(String name) {
+    return true;
   }
 
   public Set<String> getActionNames() {
