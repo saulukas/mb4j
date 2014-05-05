@@ -1,15 +1,36 @@
 package org.mb4j.controller.form;
 
-public class FormAction4Request {
-  public final String name;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import org.mb4j.controller.utils.ReflectionUtils;
 
-  public FormAction4Request(String name) {
-    this.name = name;
+public class FormAction4Request extends HashMap<String, Object> {
+  private static final long serialVersionUID = 1L;
+
+  public FormAction4Request(String name, FormAction action) {
+    put("name", name);
+    put("enabled", action.enabled);
+    put("visible", action.visible);
+    initAddPropertiesFromSubclass(action);
+  }
+
+  private void initAddPropertiesFromSubclass(FormAction action) {
+    Class subclass = action.getClass();
+    while (!FormAction.class.equals(subclass)) {
+      for (Field field : subclass.getDeclaredFields()) {
+        put(field.getName(), ReflectionUtils.valueOf(field, action));
+      }
+      subclass = subclass.getSuperclass();
+    }
+  }
+
+  public String name() {
+    return (String) get("name");
   }
 
   @Override
   public String toString() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + ".toString() is not supported."
-        + " Access attribute 'name' instead. Name4Request='" + name + "'");
+        + " Access attribute 'name' instead. Name='" + name() + "'");
   }
 }

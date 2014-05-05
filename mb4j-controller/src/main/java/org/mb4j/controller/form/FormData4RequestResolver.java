@@ -30,7 +30,7 @@ public abstract class FormData4RequestResolver {
   }
 
   private Map<String, FormField4Request> fields4RequestFrom(FormData<?> formData) {
-    Map<String, FormField> fieldMap = formData.fieldGroup.asFieldMap();
+    Map<String, FormField> fieldMap = formData.fields.asFieldMap();
     Map<String, FormField4Request> fields4Request = new HashMap<>();
     for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
       String name = entry.getKey();
@@ -41,8 +41,10 @@ public abstract class FormData4RequestResolver {
 
   private Map<String, FormAction4Request> actions4RequestFrom(FormData<?> formData) {
     Map<String, FormAction4Request> actions4Request = new TreeMap<>();
-    for (String name : formData.actionNames) {
-      actions4Request.put(name, new FormAction4Request(resolveFieldName(ACTION_PARAM_PREFIX + name)));
+    for (FormAction action : formData.actions) {
+      actions4Request.put(
+          action.name,
+          new FormAction4Request(resolveFieldName(ACTION_PARAM_PREFIX + action.name), action));
     }
     return actions4Request;
   }

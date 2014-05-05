@@ -1,16 +1,16 @@
 package org.mb4j.controller.form;
 
+import java.util.Collection;
 import org.mb4j.controller.form.field.FormFieldRecord;
-import java.util.Set;
 
 public class FormData<T extends FormFieldRecord> {
   public final Class<? extends Form> formClass;
-  public final T fieldGroup;
-  public final Set<String> actionNames;
+  public final T fields;
+  public final Collection<FormAction> actions;
 
-  public FormData(Class<? extends Form> formClass, T fieldGroup, Set<String> actionNames) {
+  public FormData(Class<? extends Form> formClass, T fields, Collection<FormAction> actions) {
     this.formClass = formClass;
-    this.fieldGroup = fieldGroup;
-    this.actionNames = actionNames;
+    this.fields = fields;
+    this.actions = actions;
   }
 }

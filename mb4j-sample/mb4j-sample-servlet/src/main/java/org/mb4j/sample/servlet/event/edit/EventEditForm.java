@@ -1,10 +1,12 @@
 package org.mb4j.sample.servlet.event.edit;
 
+import com.google.common.base.Objects;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.Form;
+import org.mb4j.controller.form.FormAction;
 import org.mb4j.controller.form.FormActionMethod;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormResponse;
@@ -88,5 +90,14 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   private boolean errorsFoundIn(Fields fields) {
     fields.title.setErrorIf(isNullOrEmpty(fields.title.value), "Title may not be empty.");
     return fields.hasErrors();
+  }
+
+  @Override
+  public FormAction actionForName(String name) {
+    FormAction action = super.actionForName(name);
+    if (Objects.equal(name, "save")) {
+      action.enabled = false;
+    }
+    return action;
   }
 }

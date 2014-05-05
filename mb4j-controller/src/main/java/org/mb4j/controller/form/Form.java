@@ -3,6 +3,8 @@ package org.mb4j.controller.form;
 import com.google.common.base.Objects;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -42,11 +44,24 @@ public class Form<T extends FormFieldRecord> {
     return null;
   }
 
-  public Set<String> getActionNames() {
-    return getActionNames(getClass());
+  public Collection<FormAction> getActions() {
+    Set<String> actionNames = getActionNames();
+    Collection<FormAction> actions = new ArrayList<>(actionNames.size());
+    for (String actionName : getActionNames()) {
+      actions.add(actionForName(actionName));
+    }
+    return actions;
   }
 
-  static Set<String> getActionNames(Class klass) {
+  public FormAction actionForName(String name) {
+    return new FormAction(name);
+  }
+
+  public Set<String> getActionNames() {
+    return getActionMethodNames(getClass());
+  }
+
+  static Set<String> getActionMethodNames(Class klass) {
     List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(klass, Form.class, FormActionMethod.class);
     Set<String> actions = new TreeSet<>();
     for (Method method : methods) {
@@ -60,6 +75,6 @@ public class Form<T extends FormFieldRecord> {
   }
 
   public FormData<T> dataWith(T fields) {
-    return new FormData(getClass(), fields, getActionNames());
+    return new FormData(getClass(), fields, getActions());
   }
 }
