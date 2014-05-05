@@ -33,7 +33,7 @@ public class Form<T extends FormFieldRecord> {
   }
 
   private Method getActionMethodByName(String name) {
-    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(getClass(), Form.class, FormAction.class);
+    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(getClass(), Form.class, FormActionMethod.class);
     for (Method method : methods) {
       if (Objects.equal(name, method.getName())) {
         return method;
@@ -47,7 +47,7 @@ public class Form<T extends FormFieldRecord> {
   }
 
   static Set<String> getActionNames(Class klass) {
-    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(klass, Form.class, FormAction.class);
+    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(klass, Form.class, FormActionMethod.class);
     Set<String> actions = new TreeSet<>();
     for (Method method : methods) {
       actions.add(method.getName());

@@ -6,10 +6,14 @@ import org.mb4j.controller.form.field.FormField;
 import org.mb4j.controller.utils.ReflectionUtils;
 
 public class FormField4Request extends HashMap<String, Object> {
+  private static final long serialVersionUID = 1L;
+
   public FormField4Request(String name, FormField field) {
     put("name", name);
     put("value", field.value);
     put("required", field.required);
+    put("enabled", field.enabled);
+    put("visible", field.visible);
     put("hasError", field.hasErrors());
     put("error", field.error);
     put("maxSize", field.maxSize);

@@ -6,6 +6,8 @@ import java.util.Map;
 public class FormField extends FormFieldBase {
   public String value = "";
   public boolean required;
+  public boolean enabled = true;
+  public boolean visible = true;
   public Integer maxSize;
   public String error = "";
 

@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.Form;
-import org.mb4j.controller.form.FormAction;
+import org.mb4j.controller.form.FormActionMethod;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormResponse;
 import static org.mb4j.controller.form.FormResponseRedirectToController.redirectTo;
@@ -65,7 +65,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
     return dataWith(fields);
   }
 
-  @FormAction
+  @FormActionMethod
   FormResponse save(ControllerRequest request, Fields fields) {
     if (errorsFoundIn(fields)) {
       return renderCurrentPage().with(FIELDS_KEY, fields);
@@ -74,13 +74,13 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
     return redirectTo(EventListPage.url());
   }
 
-  @FormAction
+  @FormActionMethod
   FormResponse reset(ControllerRequest request, Fields fields) {
     fields.summary.value = "";
     return renderCurrentPage().with(FIELDS_KEY, fields);
   }
 
-  @FormAction
+  @FormActionMethod
   FormResponse goToEventList(ControllerRequest request, Fields fields) {
     return redirectTo(EventListPage.url());
   }
