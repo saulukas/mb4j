@@ -4,43 +4,6 @@
 
 <routes>
   <route>
-    <pattern>/</pattern>
-    <generated-parameter name="mvcPath">urlPath_0</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_1/{seg0}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_2/{seg0}/{seg1}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_3/{seg0}/{seg1}/{seg2}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_4/{seg0}/{seg1}/{seg2}/{seg3}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_5/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_6/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}/{seg6:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_7/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}/{seg6}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}/{seg6:[^/]*}/{seg7:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_8/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}/{seg6}/{seg7}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{seg2:[^/]*}/{seg3:[^/]*}/{seg4:[^/]*}/{seg5:[^/]*}/{seg6:[^/]*}/{seg7:[^/]*}/{seg8:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_9/{seg0}/{seg1}/{seg2}/{seg3}/{seg4}/{seg5}/{seg6}/{seg7}/{seg8}</generated-parameter>
+    <pattern>/{urlPath:.*}</pattern>
   </route>
 </routes>

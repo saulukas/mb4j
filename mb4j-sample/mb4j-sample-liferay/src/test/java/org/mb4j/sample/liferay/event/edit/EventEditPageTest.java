@@ -3,9 +3,10 @@ package org.mb4j.sample.liferay.event.edit;
 import org.junit.Test;
 import org.mb4j.brick.Brick;
 import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
-import static org.mb4j.controller.test.ControllerTesting.request4Tests;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.sample.liferay.LiferaySampleTestApplication.inject;
+import static org.mb4j.sample.liferay.LiferaySampleTestApplication.requestFor;
+import org.mb4j.sample.liferay.event.EventListPortlet.Mappings;
 import static org.mb4j.sample.liferay.event.TypicalEvents.fishingEventId;
 
 public class EventEditPageTest {
@@ -14,7 +15,7 @@ public class EventEditPageTest {
   @Test
   public void renders_fishing_event() {
     ControllerUrl url = EventEditPage.url(fishingEventId());
-    Brick brick = panel.bakeBrickFrom(request4Tests(url));
+    Brick brick = panel.bakeBrickFrom(requestFor(Mappings.class, url));
     System.out.println(renderToString4Development(brick));
   }
 }

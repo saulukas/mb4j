@@ -19,6 +19,7 @@ import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToController;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
+import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
@@ -27,6 +28,7 @@ import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
+import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlParams;
@@ -69,21 +71,19 @@ public class BrickPortlet extends GenericPortlet {
           + "\n   " + request);
     }
     FormResponse response = optionalResponse.get();
+    if (response instanceof FormResponseRedirectToController) {
+      ControllerUrl controllerUrl = ((FormResponseRedirectToController) response).controllerUrl;
+      response = redirectTo(request.resolve(controllerUrl));
+    }
     if (response instanceof FormResponseRedirectToUrlString) {
       String urlString = ((FormResponseRedirectToUrlString) response).urlString;
       actionResponse.sendRedirect(urlString);
       return;
     }
-    if (response instanceof FormResponseRedirectToController) {
-      ControllerUrl controllerUrl = ((FormResponseRedirectToController) response).controllerUrl;
-      actionResponse.setRenderParameter("mvcPath", "urlPath_0");
-    }
     if (response instanceof FormResponseRenderCurrentPage) {
       FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) response;
       request.attributes().putAll(responseWithAttributes.attributes.asMap());
     }
-    actionResponse.setRenderParameter(PortletUrlUtils.MVC_PATH_PARAM_NAME,
-        actionRequest.getParameter(PortletUrlUtils.MVC_PATH_PARAM_NAME));
     System.out.println("Action attributes: " + newArrayList(forEnumeration(actionRequest.getAttributeNames())));
   }
 
@@ -111,13 +111,14 @@ public class BrickPortlet extends GenericPortlet {
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)
     );
+    String path2home = PortletUrlUtils.path2homeFor(response);
     MimeResponse mimeResponse = (response instanceof MimeResponse) ? (MimeResponse) response : null;
     String liferayAuthTokenOrNull = (mimeResponse == null) ? null : authTokenOrNullFrom(mimeResponse);
     return new ControllerRequest(
         url,
         new PortletRequestAttributes(request),
         new Url4RequestResolver(pathToStaticResources(request, currentURI.getRawPath())),
-        new PortletControllerUrl4RequestResolver(mimeResponse, mappings.controllerClass2UrlPathResolver()),
+        new ControllerUrl4RequestResolver(path2home, mappings.controllerClass2UrlPathResolver()),
         new PortletFormData4RequestResolver(
             response.getNamespace(),
             liferayAuthTokenOrNull,

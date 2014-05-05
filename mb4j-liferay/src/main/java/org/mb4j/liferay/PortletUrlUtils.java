@@ -1,21 +1,17 @@
 package org.mb4j.liferay;
 
-import com.google.common.base.Strings;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
-import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
 public class PortletUrlUtils {
-  public static final String MVC_PATH_PARAM_NAME = "mvcPath";
-  public static final int MAX_PATH_SEGMENT_COUNT = 9;
-  private static final String VALUE_PREFIX = "urlPath_"; // same as in nice-urls.xml
-
   public static UrlPath urlPathFor(PortletRequest request, String friendlyUrlMapping) {
     URI uri = LiferayUtils.currentURI(request);
     String path = uri.getPath();
@@ -28,29 +24,13 @@ public class PortletUrlUtils {
     return UrlPathString.urlPathOf(postfix);
   }
 
-  public static UrlPath urlPathFrom(PortletRequest request) {
-    return urlPathFrom(request.getParameter(MVC_PATH_PARAM_NAME));
-  }
-
-  private static UrlPath urlPathFrom(String mvcPath) {
-    if (Strings.isNullOrEmpty(mvcPath) || !mvcPath.startsWith(VALUE_PREFIX)) {
-      return UrlPath.empty();
-    }
-    return UrlPathString.urlPathOf(mvcPath).tail();
-  }
-
-  public static String mvcPathParamValueFrom(UrlPath path) {
-    List<String> segments = path.segments();
-    if (segments.size() > MAX_PATH_SEGMENT_COUNT) {
-      throw new RuntimeException("URL path [" + pathStringOf(path) + "]"
-          + " contains too many segments (" + segments.size() + ")."
-          + " Max segment count is " + MAX_PATH_SEGMENT_COUNT + ".");
-    }
-    String result = VALUE_PREFIX + segments.size();
-    if (segments.size() > 0) {
-      result += "/" + pathStringOf(path);
-    }
-    return result;
+  public static String path2homeFor(PortletResponse response) {
+    LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
+    PortletURL renderURL = liferayResponse.createRenderURL();
+    renderURL.setParameter("urlPath", "");
+    String path2home = renderURL.toString();
+    System.out.println("path2home=[" + path2home + "]");
+    return path2home;
   }
 
   public static NamedParams namedParamsFrom(PortletRequest request) {

@@ -3,9 +3,6 @@
     "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_1_0.dtd">
 <routes>
   <route>
-    <pattern>/{urlPath:.*}</pattern>
-  </route>
-  <!--  <route>
     <pattern>/</pattern>
     <generated-parameter name="mvcPath">urlPath_0</generated-parameter>
   </route>
@@ -20,5 +17,5 @@
   <route>
     <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{segZ:.*}</pattern>
     <generated-parameter name="mvcPath">urlPath_3/{seg0}/{seg1}/{segZ}</generated-parameter>
-  </route>-->
+  </route>
 </routes>
