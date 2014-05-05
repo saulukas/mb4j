@@ -6,6 +6,8 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import org.mb4j.sample.liferay.util.PortletDebugUtils;
 
 public class TestbenchPortlet extends GenericPortlet {
@@ -36,4 +38,11 @@ public class TestbenchPortlet extends GenericPortlet {
         + "    <a href=\"" + url3 + "\">Long URL</a>"
         + "</p>");
   }
+
+  @Override
+  public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    response.setContentType(null);
+    super.serveResource(request, response);
+  }
+
 }
