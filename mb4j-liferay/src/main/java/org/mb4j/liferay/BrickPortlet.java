@@ -35,8 +35,8 @@ import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.SimpleClassName;
-import static org.mb4j.liferay.LiferayUtils.authTokenOrNullFrom;
 import static org.mb4j.liferay.PortletPathToHome.pathToStaticResources;
+import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
 public class BrickPortlet extends GenericPortlet {
   private final String friendlyUrlMapping;
@@ -105,7 +105,7 @@ public class BrickPortlet extends GenericPortlet {
       UrlPath2ControllerResolver.Result resolved,
       PortletRequest request,
       PortletResponse response) {
-    URI currentURI = LiferayUtils.currentURI(request);
+    URI currentURI = PortletUrlUtils.currentURI(request);
     NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
     ControllerUrl url = ControllerUrl.of(
         resolved.controller.getClass(),

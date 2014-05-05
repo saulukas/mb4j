@@ -18,7 +18,7 @@ import javax.portlet.filter.FilterChain;
 import javax.portlet.filter.FilterConfig;
 import javax.portlet.filter.RenderFilter;
 import javax.portlet.filter.ResourceFilter;
-import org.mb4j.liferay.LiferayUtils;
+import org.mb4j.liferay.PortletUrlUtils;
 import static org.mb4j.sample.liferay.util.PortletDebugUtils.deltaNanosString;
 
 public class PortletDebugFilter implements RenderFilter, ActionFilter, ResourceFilter, EventFilter {
@@ -36,7 +36,7 @@ public class PortletDebugFilter implements RenderFilter, ActionFilter, ResourceF
   public void doFilter(RenderRequest request, RenderResponse response, FilterChain chain) throws IOException, PortletException {
     long startNanos = System.nanoTime();
     System.out.println("-------------------------------------------------------------------");
-    String currentUrl = LiferayUtils.currentUrlString(request);
+    String currentUrl = PortletUrlUtils.currentUrlString(request);
     String path = null;
     String query = null;
     try {

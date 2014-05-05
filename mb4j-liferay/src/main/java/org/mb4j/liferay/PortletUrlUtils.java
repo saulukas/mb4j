@@ -1,19 +1,23 @@
 package org.mb4j.liferay;
 
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.util.PortalUtil;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
+import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 
 public class PortletUrlUtils {
   public static UrlPath urlPathFor(PortletRequest request, String friendlyUrlMapping) {
-    URI uri = LiferayUtils.currentURI(request);
+    URI uri = currentURI(request);
     String path = uri.getPath();
     String prefix = "/-/" + friendlyUrlMapping + "/";
     int index = path.indexOf(prefix);
@@ -44,5 +48,27 @@ public class PortletUrlUtils {
       }
     }
     return new NamedParams(name2value);
+  }
+
+  public static String currentUrlString(PortletRequest request) {
+    return PortalUtil.getCurrentURL(request);
+  }
+
+  public static URI currentURI(PortletRequest request) {
+    return uriOf(currentUrlString(request));
+  }
+
+  public static URI uriOf(String url) {
+    try {
+      return new URI(url);
+    } catch (URISyntaxException ex) {
+      throw new RuntimeException("Invalid URL (" + url + "): " + ex, ex);
+    }
+  }
+
+  public static String authTokenOrNullFrom(MimeResponse response) {
+    URI uri = uriOf(response.createActionURL().toString());
+    NamedParams namedParams = namedParametersFromRawQueryString(uri.getRawQuery());
+    return namedParams.valueOrNullOf("p_auth");
   }
 }
