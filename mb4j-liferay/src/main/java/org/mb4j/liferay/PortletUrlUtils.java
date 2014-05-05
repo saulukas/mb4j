@@ -6,7 +6,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.portlet.MimeResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
@@ -66,8 +65,9 @@ public class PortletUrlUtils {
     }
   }
 
-  public static String authTokenOrNullFrom(MimeResponse response) {
-    URI uri = uriOf(response.createActionURL().toString());
+  public static String authTokenOrNullFrom(PortletResponse response) {
+    LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
+    URI uri = uriOf(liferayResponse.createActionURL().toString());
     NamedParams namedParams = namedParametersFromRawQueryString(uri.getRawQuery());
     return namedParams.valueOrNullOf("p_auth");
   }

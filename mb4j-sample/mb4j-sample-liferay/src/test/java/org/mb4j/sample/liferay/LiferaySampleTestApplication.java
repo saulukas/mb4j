@@ -4,10 +4,8 @@ import com.google.inject.Injector;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl4RequestResolver;
-import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.utils.AttributesMap;
-import org.mb4j.liferay.PortletFormData4RequestResolver;
+import org.mb4j.liferay.PortletControllerRequest;
 
 public class LiferaySampleTestApplication {
   static Injector injector = LiferaySampleModule.injector();
@@ -18,19 +16,18 @@ public class LiferaySampleTestApplication {
 
   public static ControllerRequest requestFor(Class<? extends ControllerMappings> mappingsClass, ControllerUrl url) {
     String path2home = "../path2home/../";
+    String path2staticResources = "../path2staticResources/../";
     String authToken = "12auth34";
-    String portletNamespace = "_namespace_";
+    String namespace = "_namespace_";
     ControllerMappings mappings = inject(mappingsClass);
-    return new ControllerRequest(
+    return PortletControllerRequest.of(
         url,
+        path2home,
+        path2staticResources,
         new AttributesMap(),
-        new Url4RequestResolver("../path2staticResources/../"),
-        new ControllerUrl4RequestResolver(path2home, mappings.controllerClass2UrlPathResolver()),
-        new PortletFormData4RequestResolver(
-            portletNamespace,
-            authToken,
-            mappings.formClass2NameResolver()
-        )
+        namespace,
+        authToken,
+        mappings
     );
   }
 }

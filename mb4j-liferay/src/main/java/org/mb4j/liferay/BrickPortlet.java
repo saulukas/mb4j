@@ -8,7 +8,6 @@ import java.net.URI;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
-import javax.portlet.MimeResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -28,12 +27,11 @@ import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
 import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl4RequestResolver;
 import org.mb4j.controller.url.NamedParams;
-import org.mb4j.controller.url.Url4RequestResolver;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
+import org.mb4j.controller.utils.Attributes;
 import org.mb4j.controller.utils.SimpleClassName;
 import static org.mb4j.liferay.PortletPathToHome.pathToStaticResources;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
@@ -112,18 +110,18 @@ public class BrickPortlet extends GenericPortlet {
         UrlParams.of(resolved.paramsPath, namedParams)
     );
     String path2home = PortletUrlUtils.path2homeFor(response);
-    MimeResponse mimeResponse = (response instanceof MimeResponse) ? (MimeResponse) response : null;
-    String liferayAuthTokenOrNull = (mimeResponse == null) ? null : authTokenOrNullFrom(mimeResponse);
-    return new ControllerRequest(
+    String path2staticResources = pathToStaticResources(request, currentURI.getRawPath());
+    Attributes attributes = new PortletRequestAttributes(request);
+    String authTokenOrNull = authTokenOrNullFrom(response);
+    String namespace = response.getNamespace();
+    return PortletControllerRequest.of(
         url,
-        new PortletRequestAttributes(request),
-        new Url4RequestResolver(pathToStaticResources(request, currentURI.getRawPath())),
-        new ControllerUrl4RequestResolver(path2home, mappings.controllerClass2UrlPathResolver()),
-        new PortletFormData4RequestResolver(
-            response.getNamespace(),
-            liferayAuthTokenOrNull,
-            mappings.formClass2NameResolver()
-        )
+        path2home,
+        path2staticResources,
+        attributes,
+        namespace,
+        authTokenOrNull,
+        mappings
     );
   }
 }
