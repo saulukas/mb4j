@@ -45,6 +45,7 @@ public class BrickServletFilter extends HttpFilter {
     //   find mapped controller if any
     //   -----------------------------
     //
+    System.out.println("HTTP method: " + httpReq.getMethod());
     String servletPath = httpReq.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
     UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
