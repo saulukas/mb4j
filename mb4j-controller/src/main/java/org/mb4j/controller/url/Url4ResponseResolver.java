@@ -9,10 +9,10 @@ public class Url4ResponseResolver {
         : path2staticResources + "/";
   }
 
-  public Url4Response resolveUrl(String urlFromStaticResources) {
-    if (urlFromStaticResources.startsWith("/")) {
-      urlFromStaticResources = urlFromStaticResources.substring(1);
+  public Url4Response resolveUrl(String staticResourceUrl) {
+    if (staticResourceUrl.startsWith("/")) {
+      staticResourceUrl = staticResourceUrl.substring(1);
     }
-    return new Url4Response(path2staticResources + urlFromStaticResources);
+    return new Url4Response(path2staticResources + staticResourceUrl);
   }
 }

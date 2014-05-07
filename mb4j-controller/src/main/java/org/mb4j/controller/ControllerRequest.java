@@ -52,8 +52,8 @@ public abstract class ControllerRequest {
     return controllerUrlResolver.resolve(url);
   }
 
-  public Url4Response resolveUrl(String urlFromHome) {
-    return urlResolver.resolveUrl(urlFromHome);
+  public Url4Response resolveUrl(String staticResourceUrl) {
+    return urlResolver.resolveUrl(staticResourceUrl);
   }
 
   public FormData4Response resolve(FormData<?> formData) {

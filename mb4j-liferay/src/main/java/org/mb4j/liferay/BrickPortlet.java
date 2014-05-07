@@ -13,6 +13,8 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.FormResponse;
@@ -83,6 +85,11 @@ public class BrickPortlet extends GenericPortlet {
       request.attributes().putAll(responseWithAttributes.attributes.asMap());
     }
     System.out.println("Action attributes: " + newArrayList(forEnumeration(actionRequest.getAttributeNames())));
+  }
+
+  @Override
+  public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    super.serveResource(request, response);
   }
 
   private UrlPath2ControllerResolver.Result resolvePage(PortletRequest request) throws PortletException {
