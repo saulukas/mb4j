@@ -18,7 +18,7 @@ public class PortletFormData4ResponseResolver extends FormData4ResponseResolver 
   }
 
   @Override
-  protected String resolveFieldName(String name) {
+  protected String fieldName4Response(String name) {
     return portletNamespace + name;
   }
 

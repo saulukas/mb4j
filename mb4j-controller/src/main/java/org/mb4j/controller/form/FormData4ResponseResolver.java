@@ -18,7 +18,7 @@ public abstract class FormData4ResponseResolver {
 
   protected abstract Brick createHeaderBrick(String formName);
 
-  protected String resolveFieldName(String name) {
+  protected String fieldName4Response(String name) {
     return name;
   }
 
@@ -34,7 +34,7 @@ public abstract class FormData4ResponseResolver {
     Map<String, FormField4Response> fields4Response = new HashMap<>();
     for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
       String name = entry.getKey();
-      fields4Response.put(name, new FormField4Response(resolveFieldName(name), entry.getValue()));
+      fields4Response.put(name, new FormField4Response(fieldName4Response(name), entry.getValue()));
     }
     return fields4Response;
   }
@@ -44,7 +44,7 @@ public abstract class FormData4ResponseResolver {
     for (FormAction action : formData.actions) {
       actions4Response.put(
           action.name,
-          new FormAction4Response(resolveFieldName(ACTION_PARAM_PREFIX + action.name), action));
+          new FormAction4Response(fieldName4Response(ACTION_PARAM_PREFIX + action.name), action));
     }
     return actions4Response;
   }
