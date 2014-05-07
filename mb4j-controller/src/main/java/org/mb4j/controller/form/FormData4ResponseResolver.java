@@ -7,12 +7,12 @@ import org.mb4j.brick.Brick;
 import org.mb4j.controller.form.field.FormField;
 import org.mb4j.controller.mapping.FormClass2NameResolver;
 
-public abstract class FormData4RequestResolver {
+public abstract class FormData4ResponseResolver {
   protected static final String FORM_PARAM = "mb(f)";
   protected static final String ACTION_PARAM_PREFIX = "mb(a)";
   private final FormClass2NameResolver formClass2name;
 
-  protected FormData4RequestResolver(FormClass2NameResolver formClass2name) {
+  protected FormData4ResponseResolver(FormClass2NameResolver formClass2name) {
     this.formClass2name = formClass2name;
   }
 
@@ -22,30 +22,30 @@ public abstract class FormData4RequestResolver {
     return name;
   }
 
-  public FormData4Request resolve(FormData<?> formData) {
-    return new FormData4Request(
+  public FormData4Response resolve(FormData<?> formData) {
+    return new FormData4Response(
         createHeaderBrick(formClass2name.formNameOf(formData.formClass)),
-        fields4RequestFrom(formData),
-        actions4RequestFrom(formData));
+        fields4ResponseFrom(formData),
+        actions4ResponseFrom(formData));
   }
 
-  private Map<String, FormField4Request> fields4RequestFrom(FormData<?> formData) {
+  private Map<String, FormField4Response> fields4ResponseFrom(FormData<?> formData) {
     Map<String, FormField> fieldMap = formData.fields.asFieldMap();
-    Map<String, FormField4Request> fields4Request = new HashMap<>();
+    Map<String, FormField4Response> fields4Response = new HashMap<>();
     for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
       String name = entry.getKey();
-      fields4Request.put(name, new FormField4Request(resolveFieldName(name), entry.getValue()));
+      fields4Response.put(name, new FormField4Response(resolveFieldName(name), entry.getValue()));
     }
-    return fields4Request;
+    return fields4Response;
   }
 
-  private Map<String, FormAction4Request> actions4RequestFrom(FormData<?> formData) {
-    Map<String, FormAction4Request> actions4Request = new TreeMap<>();
+  private Map<String, FormAction4Response> actions4ResponseFrom(FormData<?> formData) {
+    Map<String, FormAction4Response> actions4Response = new TreeMap<>();
     for (FormAction action : formData.actions) {
-      actions4Request.put(
+      actions4Response.put(
           action.name,
-          new FormAction4Request(resolveFieldName(ACTION_PARAM_PREFIX + action.name), action));
+          new FormAction4Response(resolveFieldName(ACTION_PARAM_PREFIX + action.name), action));
     }
-    return actions4Request;
+    return actions4Response;
   }
 }

@@ -4,10 +4,10 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import org.mb4j.controller.utils.ReflectionUtils;
 
-public class FormAction4Request extends HashMap<String, Object> {
+public class FormAction4Response extends HashMap<String, Object> {
   private static final long serialVersionUID = 1L;
 
-  public FormAction4Request(String name, FormAction action) {
+  public FormAction4Response(String name, FormAction action) {
     put("name", name);
     put("enabled", action.enabled);
     put("visible", action.visible);

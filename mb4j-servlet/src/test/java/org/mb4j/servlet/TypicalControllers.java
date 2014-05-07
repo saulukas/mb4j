@@ -2,33 +2,34 @@ package org.mb4j.servlet;
 
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.ControllerResponse;
+import org.mb4j.controller.page.Page;
+import org.mb4j.controller.page.PageResponse;
 
 public class TypicalControllers {
-  public static class Home extends Controller {
+  public static class Home extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class Document extends Controller {
+  public static class Document extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class DocumentNew extends Controller {
+  public static class DocumentNew extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class DocumentEdit extends Controller {
+  public static class DocumentEdit extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }

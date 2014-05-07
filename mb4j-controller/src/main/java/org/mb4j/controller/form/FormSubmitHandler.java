@@ -12,7 +12,7 @@ public class FormSubmitHandler {
       ControllerRequest request,
       NamedParams postParams,
       ControllerMappings mappings) {
-    String formName = postParams.valueOrNullOf(FormData4RequestResolver.FORM_PARAM);
+    String formName = postParams.valueOrNullOf(FormData4ResponseResolver.FORM_PARAM);
     if (formName == null) {
       return Optional.absent();
     }
@@ -25,8 +25,8 @@ public class FormSubmitHandler {
 
   private static String getActionNameFrom(NamedParams postParams, Form form) {
     for (String paramName : postParams.names()) {
-      if (paramName.startsWith(FormData4RequestResolver.ACTION_PARAM_PREFIX)) {
-        return paramName.substring(FormData4RequestResolver.ACTION_PARAM_PREFIX.length());
+      if (paramName.startsWith(FormData4ResponseResolver.ACTION_PARAM_PREFIX)) {
+        return paramName.substring(FormData4ResponseResolver.ACTION_PARAM_PREFIX.length());
       }
     }
     throw new RuntimeException("No action name found for form " + form + " in postParams: " + postParams);

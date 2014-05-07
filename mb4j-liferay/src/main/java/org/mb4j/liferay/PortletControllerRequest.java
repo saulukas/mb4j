@@ -5,8 +5,8 @@ import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.resource.BinaryResource;
 import org.mb4j.controller.resource.TextResource;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl4RequestResolver;
-import org.mb4j.controller.url.Url4RequestResolver;
+import org.mb4j.controller.url.ControllerUrl4ResponseResolver;
+import org.mb4j.controller.url.Url4ResponseResolver;
 import org.mb4j.controller.utils.Attributes;
 
 public class PortletControllerRequest {
@@ -22,9 +22,9 @@ public class PortletControllerRequest {
     return new ControllerRequest(
         url,
         attributes,
-        new Url4RequestResolver(pathToStaticResources),
-        new ControllerUrl4RequestResolver(path2home, mappings.controllerClass2UrlPathResolver()),
-        new PortletFormData4RequestResolver(namespace, authTokenOrNull, mappings.formClass2NameResolver())
+        new Url4ResponseResolver(pathToStaticResources),
+        new ControllerUrl4ResponseResolver(path2home, mappings.controllerClass2UrlPathResolver()),
+        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, mappings.formClass2NameResolver())
     ) {
       @Override
       public BinaryResource.Output binaryOutput() {

@@ -1,14 +1,14 @@
 package org.mb4j.liferay;
 
 import org.mb4j.brick.Brick;
-import org.mb4j.controller.form.FormData4RequestResolver;
+import org.mb4j.controller.form.FormData4ResponseResolver;
 import org.mb4j.controller.mapping.FormClass2NameResolver;
 
-public class PortletFormData4RequestResolver extends FormData4RequestResolver {
+public class PortletFormData4ResponseResolver extends FormData4ResponseResolver {
   private final String portletNamespace;
   private final String pauthParamOrNull;
 
-  public PortletFormData4RequestResolver(
+  public PortletFormData4ResponseResolver(
       String portletNamespace,
       String pauthParamOrNull,
       FormClass2NameResolver formClass2name) {

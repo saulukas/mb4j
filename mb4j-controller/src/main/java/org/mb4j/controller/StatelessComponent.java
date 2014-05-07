@@ -9,14 +9,6 @@ import org.mb4j.controller.utils.ReflectionUtils;
 import org.mb4j.controller.utils.SimpleClassName;
 
 public class StatelessComponent {
-  public Map<String, StatelessComponent> getChildren() {
-    return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, StatelessComponent.class);
-  }
-
-  public Map<String, Form> getForms() {
-    return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, Form.class);
-  }
-
   public Set<Form> getFormsRecursively() {
     Set<Form> result = new HashSet<>();
     ReflectionUtils.collectRecursivelyFieldsOf(this, StatelessComponent.class, Form.class, result);
@@ -43,5 +35,13 @@ public class StatelessComponent {
           + child.componentTreeToString(margin + (namesIterator.hasNext() ? "|   " : "    "));
     }
     return result;
+  }
+
+  private Map<String, Form> getForms() {
+    return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, Form.class);
+  }
+
+  private Map<String, StatelessComponent> getChildren() {
+    return ReflectionUtils.getFieldsOf(this, StatelessComponent.class, StatelessComponent.class);
   }
 }

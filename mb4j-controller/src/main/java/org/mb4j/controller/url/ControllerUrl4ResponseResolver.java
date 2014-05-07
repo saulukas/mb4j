@@ -6,17 +6,17 @@ import com.google.common.net.UrlEscapers;
 import java.util.Collection;
 import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
 
-public class ControllerUrl4RequestResolver {
+public class ControllerUrl4ResponseResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
   private final ControllerClass2UrlPathResolver pathResolver;
 
-  public ControllerUrl4RequestResolver(String path2home, ControllerClass2UrlPathResolver controllerClassResolver) {
+  public ControllerUrl4ResponseResolver(String path2home, ControllerClass2UrlPathResolver controllerClassResolver) {
     this.path2home = path2home;
     this.pathResolver = controllerClassResolver;
   }
 
-  public ControllerUrl4Request resolve(ControllerUrl url) {
+  public ControllerUrl4Response resolve(ControllerUrl url) {
     StringBuilder result = new StringBuilder(path2home);
     appendEscapedPath(result, pathResolver.urlPathFor(url.controllerClass));
     if (!url.params.path.isEmpty()) {
@@ -28,7 +28,7 @@ public class ControllerUrl4RequestResolver {
     if (Strings.isNullOrEmpty(urlString)) {
       urlString = "./";
     }
-    return new ControllerUrl4Request(urlString);
+    return new ControllerUrl4Response(urlString);
   }
 
   private void appendNamedParamsString(StringBuilder result, NamedParams params) {

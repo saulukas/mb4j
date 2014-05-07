@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.mb4j.controller.form.field.FormField;
 import org.mb4j.controller.utils.ReflectionUtils;
 
-public class FormField4Request extends HashMap<String, Object> {
+public class FormField4Response extends HashMap<String, Object> {
   private static final long serialVersionUID = 1L;
 
-  public FormField4Request(String name, FormField field) {
+  public FormField4Response(String name, FormField field) {
     put("name", name);
     put("value", field.value);
     put("required", field.required);
@@ -37,6 +37,6 @@ public class FormField4Request extends HashMap<String, Object> {
   @Override
   public String toString() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + ".toString() is not supported."
-        + " Access attribute 'name', 'value' or others instead. Name4Request='" + name() + "'");
+        + " Access attribute 'name', 'value' or others instead. Resolved name='" + name() + "'");
   }
 }

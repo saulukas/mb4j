@@ -1,44 +1,47 @@
 package org.mb4j.controller;
 
+import org.mb4j.controller.page.Page;
+import org.mb4j.controller.page.PageResponse;
+
 public class TypicalControllers {
-  public static class Home extends Controller {
+  public static class Home extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class Tutorial extends Controller {
+  public static class Tutorial extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class TutorialOnEvents extends Controller {
+  public static class TutorialOnEvents extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class TutorialOnSockets extends Controller {
+  public static class TutorialOnSockets extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class TutorialTopic extends Controller {
+  public static class TutorialTopic extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
-  public static class TutorialOtherStuff extends Controller {
+  public static class TutorialOtherStuff extends Page {
     @Override
-    public ControllerResponse handle(ControllerRequest request) {
+    public PageResponse handle(ControllerRequest request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }

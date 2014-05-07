@@ -18,7 +18,7 @@ import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.ControllerMounter;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 
-public class ControllerUrl4RequestResolverTest {
+public class ControllerUrl4ResponseResolverTest {
   @Test
   public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
@@ -29,7 +29,7 @@ public class ControllerUrl4RequestResolverTest {
         .mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)
         .mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC)
         .mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
-    ControllerUrl4RequestResolver resolver = new ControllerUrl4RequestResolver(
+    ControllerUrl4ResponseResolver resolver = new ControllerUrl4ResponseResolver(
         path2home,
         new ControllerMappings(mounter).controllerClass2UrlPathResolver());
     assertThat(resolver.resolve(ControllerUrl.of(Home.class)).toString(),
