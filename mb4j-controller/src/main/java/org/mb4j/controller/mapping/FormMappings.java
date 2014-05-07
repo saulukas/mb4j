@@ -9,7 +9,7 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.utils.SimpleClassName;
 
-public class FormMappings implements FormClass2NameResolver, FormName2FormResolver {
+public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   private final Map<Class<? extends Form>, String> class2name = new HashMap<>();
   private final Map<String, Form> name2form = new TreeMap<>();
 

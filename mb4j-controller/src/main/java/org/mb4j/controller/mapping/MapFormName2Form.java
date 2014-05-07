@@ -2,6 +2,6 @@ package org.mb4j.controller.mapping;
 
 import org.mb4j.controller.form.Form;
 
-public interface FormName2FormResolver {
+public interface MapFormName2Form {
   Form resolveFormName(String formName);
 }

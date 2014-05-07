@@ -18,7 +18,7 @@ import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.SimpleClassName;
 
-class ControllerMounterNode implements UrlPath2ControllerResolver {
+class ControllerMounterNode implements MapUrlPath2Controller {
   @Nullable
   private final ControllerMounterNode parent;
   @Nullable

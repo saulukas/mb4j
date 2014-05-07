@@ -31,11 +31,11 @@ public class ControllerMounter {
     return this;
   }
 
-  UrlPath2ControllerResolver urlPath2ControllerResolver() {
+  MapUrlPath2Controller urlPath2ControllerResolver() {
     return rootNode;
   }
 
-  ControllerClass2UrlPathResolver controllerClass2UrlPathResolver() {
+  MapControllerClass2UrlPath controllerClass2UrlPathResolver() {
     return pathMounter;
   }
 

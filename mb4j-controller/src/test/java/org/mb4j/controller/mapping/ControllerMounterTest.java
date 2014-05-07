@@ -27,14 +27,14 @@ public class ControllerMounterTest {
     System.out.println("");
     System.out.println(margin + mounter.toString(margin));
     System.out.println("");
-    ControllerClass2UrlPathResolver pathResolver = mounter.controllerClass2UrlPathResolver();
+    MapControllerClass2UrlPath pathResolver = mounter.controllerClass2UrlPathResolver();
     assertThat(resolvedPathString(pathResolver, HOME), is(""));
     assertThat(resolvedPathString(pathResolver, TUTORIAL), is("tutorial"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_EVENTS), is("tutorial/events"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_SOCKETS), is("tutorial/sockets"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_TOPIC), is("tutorial/topic"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_OTHER_STUFF), is("tutorial/other/stuff"));
-    UrlPath2ControllerResolver resolver = mounter.urlPath2ControllerResolver();
+    MapUrlPath2Controller resolver = mounter.urlPath2ControllerResolver();
     assertThat(resolvedControllerBy(resolver, ""), sameInstance(HOME));
     assertThat(resolvedControllerBy(resolver, "tutorial"), sameInstance(TUTORIAL));
     assertThat(resolvedControllerBy(resolver, "tutorial/"), sameInstance(TUTORIAL));
@@ -49,11 +49,11 @@ public class ControllerMounterTest {
     assertThat(resolvedControllerBy(resolver, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
-  private String resolvedPathString(ControllerClass2UrlPathResolver resolver, Controller controller) {
+  private String resolvedPathString(MapControllerClass2UrlPath resolver, Controller controller) {
     return pathStringOf(resolver.urlPathFor(controller.getClass()));
   }
 
-  private Controller resolvedControllerBy(UrlPath2ControllerResolver resolver, String pathString) {
+  private Controller resolvedControllerBy(MapUrlPath2Controller resolver, String pathString) {
     return resolver.resolve(urlPathOf(pathString)).controller;
   }
 }

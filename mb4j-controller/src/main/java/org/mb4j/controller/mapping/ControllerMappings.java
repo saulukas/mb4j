@@ -15,19 +15,19 @@ public class ControllerMappings {
     this.forms = new FormMappings(controllers);
   }
 
-  public UrlPath2ControllerResolver urlPath2ControllerResolver() {
+  public MapUrlPath2Controller urlPath2ControllerResolver() {
     return mounter.urlPath2ControllerResolver();
   }
 
-  public ControllerClass2UrlPathResolver controllerClass2UrlPathResolver() {
+  public MapControllerClass2UrlPath controllerClass2UrlPathResolver() {
     return mounter.controllerClass2UrlPathResolver();
   }
 
-  public FormClass2NameResolver formClass2NameResolver() {
+  public MapFormClass2Name formClass2NameResolver() {
     return forms;
   }
 
-  public FormName2FormResolver formName2FormResolver() {
+  public MapFormName2Form formName2FormResolver() {
     return forms;
   }
 

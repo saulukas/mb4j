@@ -6,7 +6,7 @@ import org.mb4j.controller.Controller;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 
-class ControllerPathMounter implements ControllerClass2UrlPathResolver {
+class ControllerPathMounter implements MapControllerClass2UrlPath {
   Map<Class<? extends Controller>, UrlPath> controllerClass2path = new HashMap<>();
 
   @Override

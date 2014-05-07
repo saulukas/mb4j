@@ -25,7 +25,7 @@ import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
 import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.UrlPath2ControllerResolver;
+import org.mb4j.controller.mapping.MapUrlPath2Controller;
 import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.url.ControllerUrl;
@@ -52,7 +52,7 @@ public class BrickPortlet extends GenericPortlet {
   @Override
   protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
     System.out.println("Render attributes: " + newArrayList(forEnumeration(renderRequest.getAttributeNames())));
-    UrlPath2ControllerResolver.Result resolved = resolvePage(renderRequest);
+    MapUrlPath2Controller.Result resolved = resolvePage(renderRequest);
     Page page = (Page) resolved.controller;
     ControllerRequest request = createRequest(resolved, renderRequest, renderResponse);
     PageResponse response = page.handle(request);
@@ -61,7 +61,7 @@ public class BrickPortlet extends GenericPortlet {
 
   @Override
   public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException, IOException {
-    UrlPath2ControllerResolver.Result resolved = resolvePage(actionRequest);
+    MapUrlPath2Controller.Result resolved = resolvePage(actionRequest);
     ControllerRequest request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
     Optional<FormResponse> optionalResponse = formResponseFor(request, postParams, mappings);
@@ -92,10 +92,10 @@ public class BrickPortlet extends GenericPortlet {
     super.serveResource(request, response);
   }
 
-  private UrlPath2ControllerResolver.Result resolvePage(PortletRequest request) throws PortletException {
+  private MapUrlPath2Controller.Result resolvePage(PortletRequest request) throws PortletException {
     UrlPath path = PortletUrlUtils.urlPathFor(request, friendlyUrlMapping);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
-    UrlPath2ControllerResolver.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
+    MapUrlPath2Controller.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
     if (resolved.resultIsEmpty()) {
       throw new PortletException("No portlet Page found for path [" + pathStringOf(path) + "]");
     }
@@ -107,7 +107,7 @@ public class BrickPortlet extends GenericPortlet {
   }
 
   private ControllerRequest createRequest(
-      UrlPath2ControllerResolver.Result resolved,
+      MapUrlPath2Controller.Result resolved,
       PortletRequest request,
       PortletResponse response) {
     URI currentURI = PortletUrlUtils.currentURI(request);

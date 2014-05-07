@@ -3,7 +3,7 @@ package org.mb4j.controller.mapping;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.url.UrlPath;
 
-public interface UrlPath2ControllerResolver {
+public interface MapUrlPath2Controller {
   Result resolve(UrlPath path);
 
   class Result {

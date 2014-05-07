@@ -4,14 +4,14 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.controller.mapping.ControllerClass2UrlPathResolver;
+import org.mb4j.controller.mapping.MapControllerClass2UrlPath;
 
 public class ControllerUrl4ResponseResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
-  private final ControllerClass2UrlPathResolver pathResolver;
+  private final MapControllerClass2UrlPath pathResolver;
 
-  public ControllerUrl4ResponseResolver(String path2home, ControllerClass2UrlPathResolver controllerClassResolver) {
+  public ControllerUrl4ResponseResolver(String path2home, MapControllerClass2UrlPath controllerClassResolver) {
     this.path2home = path2home;
     this.pathResolver = controllerClassResolver;
   }

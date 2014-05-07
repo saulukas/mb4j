@@ -2,7 +2,7 @@ package org.mb4j.liferay;
 
 import org.mb4j.brick.Brick;
 import org.mb4j.controller.form.FormData4ResponseResolver;
-import org.mb4j.controller.mapping.FormClass2NameResolver;
+import org.mb4j.controller.mapping.MapFormClass2Name;
 
 public class PortletFormData4ResponseResolver extends FormData4ResponseResolver {
   private final String portletNamespace;
@@ -11,7 +11,7 @@ public class PortletFormData4ResponseResolver extends FormData4ResponseResolver 
   public PortletFormData4ResponseResolver(
       String portletNamespace,
       String pauthParamOrNull,
-      FormClass2NameResolver formClass2name) {
+      MapFormClass2Name formClass2name) {
     super(formClass2name);
     this.portletNamespace = portletNamespace;
     this.pauthParamOrNull = pauthParamOrNull;

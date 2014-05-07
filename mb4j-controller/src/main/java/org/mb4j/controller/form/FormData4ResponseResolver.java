@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.TreeMap;
 import org.mb4j.brick.Brick;
 import org.mb4j.controller.form.field.FormField;
-import org.mb4j.controller.mapping.FormClass2NameResolver;
+import org.mb4j.controller.mapping.MapFormClass2Name;
 
 public abstract class FormData4ResponseResolver {
   protected static final String FORM_PARAM = "mb(f)";
   protected static final String ACTION_PARAM_PREFIX = "mb(a)";
-  private final FormClass2NameResolver formClass2name;
+  private final MapFormClass2Name formClass2name;
 
-  protected FormData4ResponseResolver(FormClass2NameResolver formClass2name) {
+  protected FormData4ResponseResolver(MapFormClass2Name formClass2name) {
     this.formClass2name = formClass2name;
   }
 
