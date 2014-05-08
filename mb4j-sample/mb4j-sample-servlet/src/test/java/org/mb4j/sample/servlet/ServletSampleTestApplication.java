@@ -1,10 +1,13 @@
 package org.mb4j.sample.servlet;
 
 import com.google.inject.Injector;
+import java.io.Writer;
+import static org.mb4j.brick.renderer.RendererUtils.renderer4Development;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.utils.AttributesMap;
+import org.mb4j.controller.utils.ResponseOnWriter;
 import org.mb4j.servlet.ServletControllerRequest;
 
 public class ServletSampleTestApplication {
@@ -21,5 +24,9 @@ public class ServletSampleTestApplication {
         path2home,
         new AttributesMap(),
         inject(SiteMap.class));
+  }
+
+  public static ResponseOnWriter responseOn(Writer writer) {
+    return new ResponseOnWriter(renderer4Development(), writer);
   }
 }

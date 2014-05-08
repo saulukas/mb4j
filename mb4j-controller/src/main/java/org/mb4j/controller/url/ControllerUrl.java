@@ -33,10 +33,10 @@ public class ControllerUrl {
   }
 
   public ControllerUrl withReplacedParam(String name, String value) {
-    return new ControllerUrl(controllerClass, params.withReplacedParam(name, value));
+    return new ControllerUrl(controllerClass, params.withReplaced(name, value));
   }
 
   public ControllerUrl withDeletedParam(String name) {
-    return new ControllerUrl(controllerClass, params.withDeletedParam(name));
+    return new ControllerUrl(controllerClass, params.withDeleted(name));
   }
 }

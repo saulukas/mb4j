@@ -1,8 +1,9 @@
-package org.mb4j.brick.samples;
+package org.mb4j.brick.samples.lists;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.mb4j.brick.Brick;
+import org.mb4j.brick.samples.SimpleBrick;
 import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")

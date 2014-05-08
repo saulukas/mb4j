@@ -66,7 +66,6 @@ public class TestbenchPortlet extends GenericPortlet {
 
   @Override
   public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    response.setContentType(null);
     super.serveResource(request, response);
   }
 

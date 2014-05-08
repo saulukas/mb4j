@@ -69,7 +69,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   @FormActionMethod
   FormResponse save(Request request, Fields fields) {
     if (errorsFoundIn(fields)) {
-      return renderCurrentPage().with(FIELDS_KEY, fields);
+      return renderCurrentPage(request).with(FIELDS_KEY, fields);
     }
     eventSaveCommand.execute(createEventFrom(fields));
     return redirectTo(EventListPage.url());
@@ -78,7 +78,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   @FormActionMethod
   FormResponse reset(Request request, Fields fields) {
     fields.summary.value = "";
-    return renderCurrentPage().with(FIELDS_KEY, fields);
+    return renderCurrentPage(request).with(FIELDS_KEY, fields);
   }
 
   @FormActionMethod

@@ -5,19 +5,19 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.mb4j.brick.Brick;
 import org.mb4j.brick.TestingUtils;
-import org.mb4j.brick.samples.CompositeBrick;
-import org.mb4j.brick.samples.CompositeWithUnindentedBrick;
-import org.mb4j.brick.samples.ListOfBrickItems;
-import org.mb4j.brick.samples.ListOfCustomItems;
-import org.mb4j.brick.samples.MoreCompositeBrick;
-import org.mb4j.brick.samples.RecursiveBrick;
+import org.mb4j.brick.samples.composition.CompositeBrick;
+import org.mb4j.brick.samples.composition.CompositeWithUnindentedBrick;
+import org.mb4j.brick.samples.lists.ListOfBrickItems;
+import org.mb4j.brick.samples.lists.ListOfCustomItems;
+import org.mb4j.brick.samples.composition.MoreCompositeBrick;
+import org.mb4j.brick.samples.recursion.RecursiveBrick;
 import org.mb4j.brick.samples.SimpleBrick;
 import org.mb4j.brick.samples.SimpleUnindentedBrick;
-import org.mb4j.brick.samples.TemplateBrick;
-import org.mb4j.brick.samples.TemplateExtensionBrick;
-import org.mb4j.brick.samples.TemplateExtensionExtensionBrick;
+import org.mb4j.brick.samples.layout.LayoutBrick;
+import org.mb4j.brick.samples.layout.LayoutExtensionBrick;
+import org.mb4j.brick.samples.layout.LayoutExtensionExtensionBrick;
 import org.mb4j.brick.samples.Utf8Brick;
-import org.mb4j.brick.samples.VeryCompositeBrick;
+import org.mb4j.brick.samples.composition.VeryCompositeBrick;
 
 public class BrickRendererTest {
   @Test
@@ -63,17 +63,17 @@ public class BrickRendererTest {
 
   @Test
   public void renders_template_brick() {
-    assertRendererOutputFor(new TemplateBrick());
+    assertRendererOutputFor(new LayoutBrick());
   }
 
   @Test
   public void renders_template_extension_brick() {
-    assertRendererOutputFor(new TemplateExtensionBrick());
+    assertRendererOutputFor(new LayoutExtensionBrick());
   }
 
   @Test
   public void renders_template_extension_extension_brick() {
-    assertRendererOutputFor(new TemplateExtensionExtensionBrick());
+    assertRendererOutputFor(new LayoutExtensionExtensionBrick());
   }
 
   @Test

@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.controller.Request;
+import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
@@ -13,11 +14,11 @@ import org.mb4j.sample.domain.queries.EventListQuery;
 import org.mb4j.sample.servlet.event.list.EventListPanelBrick.DecoratedListItem;
 
 @Singleton
-public class EventListPanel {
+public class EventListPanel extends Panel {
   @Inject
   EventListQuery eventListQuery;
   @Inject
-  EventListItemPanel itemBaker;
+  EventListItemPanel itemPanel;
 
   public EventListPanelBrick bakeBrick(Request request) {
     return bakeBrick(request, Params.from(request));
@@ -34,7 +35,7 @@ public class EventListPanel {
     LinkedList<DecoratedListItem> list = new LinkedList<>();
     List<Event> events = eventListQuery.resultFor(params.maxResultCount);
     for (Event event : events) {
-      DecoratedListItem item = new DecoratedListItem(itemBaker.bakeBrick(request, event));
+      DecoratedListItem item = new DecoratedListItem(itemPanel.bakeBrick(request, event));
       if (params.reverseOrder) {
         list.addFirst(item);
       } else {

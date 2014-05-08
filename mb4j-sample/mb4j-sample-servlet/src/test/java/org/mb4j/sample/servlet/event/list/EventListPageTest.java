@@ -1,10 +1,11 @@
 package org.mb4j.sample.servlet.event.list;
 
+import java.io.StringWriter;
+import java.io.Writer;
 import org.junit.Test;
-import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
-import org.mb4j.controller.page.PageResponse;
 import static org.mb4j.sample.servlet.ServletSampleTestApplication.inject;
 import static org.mb4j.sample.servlet.ServletSampleTestApplication.requestFor;
+import static org.mb4j.sample.servlet.ServletSampleTestApplication.responseOn;
 
 public class EventListPageTest {
   private final EventListPage page = inject(EventListPage.class);
@@ -12,20 +13,24 @@ public class EventListPageTest {
   @Test
   public void renders_with_zero_events() {
     int eventCount = 0;
-    PageResponse response = page.handle(requestFor(EventListPage.url(eventCount)));
-    System.out.println(renderToString4Development(response.brick));
+    Writer writer = new StringWriter();
+    page.handle(requestFor(EventListPage.url(eventCount)), responseOn(writer));
+    System.out.println(writer.toString());
   }
 
   @Test
   public void renders_with_one_event() {
     int eventCount = 1;
-    PageResponse response = page.handle(requestFor(EventListPage.url(eventCount)));
-    System.out.println(renderToString4Development(response.brick));
+    Writer writer = new StringWriter();
+    page.handle(requestFor(EventListPage.url(eventCount)), responseOn(writer));
+    System.out.println(writer.toString());
   }
 
   @Test
   public void renders_with_all_events() {
-    PageResponse response = page.handle(requestFor(EventListPage.url()));
-    System.out.println(renderToString4Development(response.brick));
+    Writer writer = new StringWriter();
+    page.handle(requestFor(EventListPage.url()), responseOn(writer));
+    System.out.println(writer.toString());
+    System.out.println("\n\n" + page.componentTreeToString("    ") + "\n");
   }
 }

@@ -14,10 +14,6 @@ public class RendererUtils {
     return new BrickRenderer(new TemplateProviderFromClasspath());
   }
 
-  public static String renderToString4Production(Brick brick) {
-    return renderToString(brick, renderer4Production());
-  }
-
   public static BrickRenderer renderer4Production() {
     return new BrickRenderer(new CachedTemplateProvider(new TemplateProviderFromClasspath()));
   }

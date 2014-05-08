@@ -29,13 +29,13 @@ public class NamedParams {
     return name2value.isEmpty();
   }
 
-  public NamedParams withReplacedParam(String name, String value) {
+  public NamedParams withReplaced(String name, String value) {
     Map<String, String> map = createMap();
     map.put(name, value);
     return new NamedParams(map);
   }
 
-  public NamedParams withDeletedParam(String name) {
+  public NamedParams withDeleted(String name) {
     Map<String, String> map = createMap();
     map.remove(name);
     return new NamedParams(map);

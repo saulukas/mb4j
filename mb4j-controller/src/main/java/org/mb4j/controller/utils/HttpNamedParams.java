@@ -7,7 +7,7 @@ import java.util.Map;
 import org.mb4j.controller.url.NamedParams;
 
 public class HttpNamedParams {
-  public static NamedParams namedParametersFromRawQueryString(String rawQueryString) {
+  public static NamedParams namedParamsFromRawQuery(String rawQueryString) {
     if (Strings.isNullOrEmpty(rawQueryString)) {
       return NamedParams.empty();
     }

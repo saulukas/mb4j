@@ -43,10 +43,10 @@ public class ControllerUrl4ResponseResolverTest {
     assertThat(resolver.resolve(ControllerUrl.of(TutorialOtherStuff.class)).toString(),
         is("../../tutorial/other/stuff"));
     NamedParams namedParams = NamedParams.empty()
-        .withReplacedParam("order", "ascending")
-        .withReplacedParam("removeDuplicates", "")
-        .withReplacedParam("lt_message", "vidur prūdo bliūdas plūdo")
-        .withReplacedParam("name with spaces", "someValue");
+        .withReplaced("order", "ascending")
+        .withReplaced("removeDuplicates", "")
+        .withReplaced("lt_message", "vidur prūdo bliūdas plūdo")
+        .withReplaced("name with spaces", "someValue");
     System.out.println("" + namedParams);
     ControllerUrl url = ControllerUrl.of(TutorialTopic.class, UrlParams.of(urlPathOf("127"), namedParams));
     assertThat(resolver.resolve(url).toString(), is("../../tutorial/topic"

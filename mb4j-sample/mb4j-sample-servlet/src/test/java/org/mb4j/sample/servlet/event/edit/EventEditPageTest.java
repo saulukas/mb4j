@@ -1,11 +1,11 @@
 package org.mb4j.sample.servlet.event.edit;
 
+import java.io.StringWriter;
+import java.io.Writer;
 import org.junit.Test;
-import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
-import org.mb4j.controller.page.PageResponse;
-import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.sample.servlet.ServletSampleTestApplication.inject;
 import static org.mb4j.sample.servlet.ServletSampleTestApplication.requestFor;
+import static org.mb4j.sample.servlet.ServletSampleTestApplication.responseOn;
 import static org.mb4j.sample.servlet.event.TypicalEvents.fishingEventId;
 
 public class EventEditPageTest {
@@ -13,9 +13,9 @@ public class EventEditPageTest {
 
   @Test
   public void renders_fishing_event() {
-    ControllerUrl url = EventEditPage.url(fishingEventId());
-    PageResponse response = page.handle(requestFor(url));
-    System.out.println(renderToString4Development(response.brick));
+    Writer writer = new StringWriter();
+    page.handle(requestFor(EventEditPage.url(fishingEventId())), responseOn(writer));
+    System.out.println(writer.toString());
     System.out.println("\n\n" + page.componentTreeToString("    ") + "\n");
   }
 }

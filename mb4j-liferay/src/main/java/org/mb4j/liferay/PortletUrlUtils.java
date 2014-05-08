@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
@@ -68,7 +68,7 @@ public class PortletUrlUtils {
   public static String authTokenOrNullFrom(PortletResponse response) {
     LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
     URI uri = uriOf(liferayResponse.createActionURL().toString());
-    NamedParams namedParams = namedParametersFromRawQueryString(uri.getRawQuery());
+    NamedParams namedParams = namedParamsFromRawQuery(uri.getRawQuery());
     return namedParams.valueOrNullOf("p_auth");
   }
 }

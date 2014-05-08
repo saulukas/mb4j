@@ -1,8 +1,6 @@
 package org.mb4j.liferay;
 
 import com.google.common.base.Optional;
-import static com.google.common.collect.Iterators.forEnumeration;
-import static com.google.common.collect.Lists.newArrayList;
 import java.io.IOException;
 import java.net.URI;
 import javax.portlet.ActionRequest;
@@ -18,13 +16,10 @@ import javax.portlet.ResourceResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.form.FormResponse;
-import org.mb4j.controller.form.FormResponseRedirectToController;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
-import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.controller.page.Page;
-import org.mb4j.controller.page.PageResponse;
 import org.mb4j.controller.sitemap.MapUrlPath2Controller;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
@@ -33,7 +28,7 @@ import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.Attributes;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
 import org.mb4j.controller.utils.SimpleClassName;
 import static org.mb4j.liferay.PortletPathToHome.pathToStaticResources;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
@@ -51,12 +46,9 @@ public class BrickPortlet extends GenericPortlet {
 
   @Override
   protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
-    System.out.println("Render attributes: " + newArrayList(forEnumeration(renderRequest.getAttributeNames())));
     MapUrlPath2Controller.Result resolved = resolvePage(renderRequest);
-    Page page = (Page) resolved.controller;
     Request request = createRequest(resolved, renderRequest, renderResponse);
-    PageResponse response = page.handle(request);
-    renderer.render(response.brick, renderResponse.getWriter());
+    resolved.controller.handle(request, new PortletControllerResponse(renderer, renderResponse));
   }
 
   @Override
@@ -64,27 +56,21 @@ public class BrickPortlet extends GenericPortlet {
     MapUrlPath2Controller.Result resolved = resolvePage(actionRequest);
     Request request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
-    Optional<FormResponse> optionalResponse = formResponseFor(request, postParams, siteMap);
-    if (!optionalResponse.isPresent()) {
+    Optional<FormResponse> formRC = formResponseFor(request, postParams, siteMap.formName2Form());
+    if (!formRC.isPresent()) {
       throw new RuntimeException("Unknown portlet action called:"
           + "\n   " + postParams
           + "\n   " + request);
     }
-    FormResponse response = optionalResponse.get();
-    if (response instanceof FormResponseRedirectToController) {
-      ControllerUrl controllerUrl = ((FormResponseRedirectToController) response).controllerUrl;
-      response = redirectTo(request.resolve(controllerUrl));
-    }
+    FormResponse response = formRC.get();
     if (response instanceof FormResponseRedirectToUrlString) {
       String urlString = ((FormResponseRedirectToUrlString) response).urlString;
       actionResponse.sendRedirect(urlString);
       return;
     }
-    if (response instanceof FormResponseRenderCurrentPage) {
-      FormResponseRenderCurrentPage responseWithAttributes = (FormResponseRenderCurrentPage) response;
-      request.attributes().putAll(responseWithAttributes.attributes.asMap());
+    if (!(response instanceof FormResponseRenderCurrentPage)) {
+      throw new RuntimeException("Unsupported Form response: " + response);
     }
-    System.out.println("Action attributes: " + newArrayList(forEnumeration(actionRequest.getAttributeNames())));
   }
 
   @Override
@@ -111,7 +97,7 @@ public class BrickPortlet extends GenericPortlet {
       PortletRequest request,
       PortletResponse response) {
     URI currentURI = PortletUrlUtils.currentURI(request);
-    NamedParams namedParams = namedParametersFromRawQueryString(currentURI.getRawQuery());
+    NamedParams namedParams = namedParamsFromRawQuery(currentURI.getRawQuery());
     ControllerUrl url = ControllerUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)

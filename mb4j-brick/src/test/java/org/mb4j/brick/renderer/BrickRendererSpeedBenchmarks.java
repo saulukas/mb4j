@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import org.mb4j.brick.Brick;
-import org.mb4j.brick.samples.MoreCompositeBrick;
+import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
 public class BrickRendererSpeedBenchmarks {
   public static void main(String[] args) {

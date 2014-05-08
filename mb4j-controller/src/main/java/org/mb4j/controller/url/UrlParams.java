@@ -24,16 +24,16 @@ public class UrlParams {
     return new UrlParams(path, named);
   }
 
+  public UrlParams withReplaced(String name, String value) {
+    return new UrlParams(path, named.withReplaced(name, value));
+  }
+
+  public UrlParams withDeleted(String name) {
+    return new UrlParams(path, named.withDeleted(name));
+  }
+
   @Override
   public String toString() {
     return pathStringOf(path) + "?" + named;
-  }
-
-  public UrlParams withReplacedParam(String name, String value) {
-    return new UrlParams(path, named.withReplacedParam(name, value));
-  }
-
-  public UrlParams withDeletedParam(String name) {
-    return new UrlParams(path, named.withDeletedParam(name));
   }
 }

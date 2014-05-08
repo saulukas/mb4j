@@ -1,4 +1,4 @@
-package org.mb4j.brick.samples;
+package org.mb4j.brick.samples.recursion;
 
 import org.mb4j.brick.Brick;
 import org.mb4j.brick.template.TemplateType;

@@ -1,6 +1,11 @@
-package org.mb4j.brick.samples;
+package org.mb4j.brick.samples.composition;
 
+import org.mb4j.brick.samples.composition.MoreCompositeBrick;
+import org.mb4j.brick.samples.composition.CompositeBrick;
+import org.mb4j.brick.samples.lists.ListOfBrickItems;
+import org.mb4j.brick.samples.lists.ListOfCustomItems;
 import org.mb4j.brick.Brick;
+import org.mb4j.brick.samples.SimpleBrick;
 import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
