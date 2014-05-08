@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.controller.mapping.MapControllerClass2UrlPath;
+import org.mb4j.controller.sitemap.MapControllerClass2UrlPath;
 
 public class ControllerUrl4ResponseResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();

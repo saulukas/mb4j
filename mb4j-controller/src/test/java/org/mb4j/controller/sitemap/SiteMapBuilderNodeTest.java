@@ -1,4 +1,4 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.sitemap;
 
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -12,10 +12,10 @@ import static org.mb4j.controller.TypicalControllers.TUTORIAL_OTHER_STUFF;
 import static org.mb4j.controller.TypicalControllers.TUTORIAL_TOPIC;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 
-public class ControllerMounterNodeTest {
+public class SiteMapBuilderNodeTest {
   @Test
   public void prints_controller_tree_as_string() {
-    ControllerMounterNode root = ControllerMounterNode.createRoot();
+    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
     root.mount(urlPathOf(""), HOME);
     root.mount(urlPathOf("tutorial/*"), TUTORIAL);
     root.mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS);
@@ -29,7 +29,7 @@ public class ControllerMounterNodeTest {
 
   @Test
   public void mounts_controllers_at_urlPaths() {
-    ControllerMounterNode root = ControllerMounterNode.createRoot();
+    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
     root.mount(urlPathOf(""), HOME);
     root.mount(urlPathOf("tutorial/*"), TUTORIAL);
     root.mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS);
@@ -52,7 +52,7 @@ public class ControllerMounterNodeTest {
 
   @Test
   public void does_not_allow_several_controllers_on_same_urlPath() {
-    ControllerMounterNode root = ControllerMounterNode.createRoot();
+    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
     root.mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC);
     try {
       root.mount(urlPathOf("tutorial/topic"), TUTORIAL_OTHER_STUFF);
@@ -64,7 +64,7 @@ public class ControllerMounterNodeTest {
 
   @Test
   public void allows_asterist_only_at_path_end() {
-    ControllerMounterNode root = ControllerMounterNode.createRoot();
+    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
     root.mount(urlPathOf("*"), TUTORIAL);
     root.mount(urlPathOf("other/*"), TUTORIAL_OTHER_STUFF);
     try {

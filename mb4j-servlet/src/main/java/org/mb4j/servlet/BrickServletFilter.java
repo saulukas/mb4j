@@ -15,27 +15,27 @@ import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import org.mb4j.controller.form.FormSubmitHandler;
-import org.mb4j.controller.utils.HttpFilter;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
-import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.MapUrlPath2Controller;
-import org.mb4j.controller.mapping.MapUrlPath2Controller.Result;
 import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
+import org.mb4j.controller.sitemap.MapUrlPath2Controller;
+import org.mb4j.controller.sitemap.MapUrlPath2Controller.Result;
+import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 import org.mb4j.controller.url.UrlPathStringToHome;
+import org.mb4j.controller.utils.HttpFilter;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
-  private final ControllerMappings mappings;
+  private final SiteMap siteMap;
 
-  public BrickServletFilter(BrickRenderer renderer, ControllerMappings mappings) {
+  public BrickServletFilter(BrickRenderer renderer, SiteMap siteMap) {
     this.renderer = renderer;
-    this.mappings = mappings;
+    this.siteMap = siteMap;
   }
 
   @Override
@@ -48,7 +48,7 @@ public class BrickServletFilter extends HttpFilter {
     System.out.println("HTTP method: " + httpReq.getMethod());
     String servletPath = httpReq.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
-    MapUrlPath2Controller.Result resolved = mappings.urlPath2Controller().controllerFor(path);
+    MapUrlPath2Controller.Result resolved = siteMap.urlPath2Controller().controllerFor(path);
     if (resolved.resultIsEmpty()) {
       chain.doFilter(httpReq, httpResp);
       return;
@@ -60,7 +60,7 @@ public class BrickServletFilter extends HttpFilter {
     ControllerRequest request = createRequest(servletPath, resolved, httpReq);
     NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
     Optional<FormResponse> optionalFormResponse = FormSubmitHandler.formResponseFor(
-        request, postParams, mappings);
+        request, postParams, siteMap);
     if (optionalFormResponse.isPresent()) {
       FormResponse formResponse = optionalFormResponse.get();
       if (formResponse instanceof FormResponseRedirectToController) {
@@ -103,7 +103,7 @@ public class BrickServletFilter extends HttpFilter {
         controllerUrl,
         path2home,
         new ServletRequestAttributes(httpReq),
-        mappings);
+        siteMap);
     return request;
   }
 }

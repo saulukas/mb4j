@@ -14,15 +14,15 @@ import org.mb4j.controller.TypicalControllers.TutorialOnEvents;
 import org.mb4j.controller.TypicalControllers.TutorialOnSockets;
 import org.mb4j.controller.TypicalControllers.TutorialOtherStuff;
 import org.mb4j.controller.TypicalControllers.TutorialTopic;
-import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.ControllerMounter;
+import org.mb4j.controller.sitemap.SiteMap;
+import org.mb4j.controller.sitemap.SiteMapBuilder;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 
 public class ControllerUrl4ResponseResolverTest {
   @Test
   public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
-    ControllerMounter mounter = ControllerMounter
+    SiteMapBuilder builder = SiteMapBuilder
         .withHomeController(TypicalControllers.HOME)
         .mount(urlPathOf("tutorial/*"), TUTORIAL)
         .mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
@@ -31,7 +31,7 @@ public class ControllerUrl4ResponseResolverTest {
         .mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     ControllerUrl4ResponseResolver resolver = new ControllerUrl4ResponseResolver(
         path2home,
-        new ControllerMappings(mounter).controllerClass2UrlPath());
+        new SiteMap(builder).controllerClass2UrlPath());
     assertThat(resolver.resolve(ControllerUrl.of(Home.class)).toString(),
         is("../../"));
     assertThat(resolver.resolve(ControllerUrl.of(TutorialOnEvents.class)).toString(),

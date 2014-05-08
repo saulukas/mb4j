@@ -1,9 +1,9 @@
 package org.mb4j.liferay;
 
 import org.mb4j.controller.ControllerRequest;
-import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.resource.BinaryResource;
 import org.mb4j.controller.resource.TextResource;
+import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4ResponseResolver;
 import org.mb4j.controller.url.Url4ResponseResolver;
@@ -17,14 +17,14 @@ public class PortletControllerRequest {
       Attributes attributes,
       String namespace,
       String authTokenOrNull,
-      ControllerMappings mappings
+      SiteMap siteMap
   ) {
     return new ControllerRequest(
         url,
         attributes,
         new Url4ResponseResolver(pathToStaticResources),
-        new ControllerUrl4ResponseResolver(path2home, mappings.controllerClass2UrlPath()),
-        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, mappings.formClass2Name())
+        new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
+        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, siteMap.formClass2Name())
     ) {
       @Override
       public BinaryResource.Output binaryOutput() {

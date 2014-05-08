@@ -1,26 +1,26 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.sitemap;
 
 import java.util.HashSet;
 import java.util.Set;
 import org.mb4j.controller.Controller;
 
-public class ControllerMappings {
-  private final ControllerMounter mounter;
+public class SiteMap {
+  private final SiteMapBuilder builder;
   private final FormMappings formMappings;
 
-  public ControllerMappings(ControllerMounter mounter) {
-    this.mounter = mounter;
+  public SiteMap(SiteMapBuilder builder) {
+    this.builder = builder;
     Set<Controller> controllers = new HashSet<>();
-    mounter.collectControllers(controllers);
+    builder.collectControllers(controllers);
     this.formMappings = new FormMappings(controllers);
   }
 
   public MapUrlPath2Controller urlPath2Controller() {
-    return mounter.urlPath2Controller();
+    return builder.urlPath2Controller();
   }
 
   public MapControllerClass2UrlPath controllerClass2UrlPath() {
-    return mounter.controllerClass2UrlPath();
+    return builder.controllerClass2UrlPath();
   }
 
   public MapFormClass2Name formClass2Name() {
@@ -33,6 +33,6 @@ public class ControllerMappings {
 
   @Override
   public String toString() {
-    return mounter.toString() + "\n\n" + formMappings;
+    return builder.toString() + "\n\n" + formMappings;
   }
 }

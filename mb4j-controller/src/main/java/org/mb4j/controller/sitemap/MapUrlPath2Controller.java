@@ -1,4 +1,4 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.sitemap;
 
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.url.UrlPath;

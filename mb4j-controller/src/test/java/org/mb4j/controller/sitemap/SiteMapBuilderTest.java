@@ -1,4 +1,4 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.sitemap;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
@@ -14,27 +14,27 @@ import static org.mb4j.controller.TypicalControllers.TUTORIAL_TOPIC;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 
-public class ControllerMounterTest {
+public class SiteMapBuilderTest {
   @Test
   public void mounts_controllers_at_given_paths() {
-    ControllerMounter mounter = ControllerMounter.withHomeController(HOME);
-    mounter.mount(urlPathOf("/tutorial/*"), TUTORIAL);
-    mounter.mount(urlPathOf("/tutorial/events"), TUTORIAL_ON_EVENTS);
-    mounter.mount(urlPathOf("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
-    mounter.mount(urlPathOf("/tutorial/topic/*"), TUTORIAL_TOPIC);
-    mounter.mount(urlPathOf("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
+    SiteMapBuilder builder = SiteMapBuilder.withHomeController(HOME);
+    builder.mount(urlPathOf("/tutorial/*"), TUTORIAL);
+    builder.mount(urlPathOf("/tutorial/events"), TUTORIAL_ON_EVENTS);
+    builder.mount(urlPathOf("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
+    builder.mount(urlPathOf("/tutorial/topic/*"), TUTORIAL_TOPIC);
+    builder.mount(urlPathOf("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     String margin = "   ";
     System.out.println("");
-    System.out.println(margin + mounter.toString(margin));
+    System.out.println(margin + builder.toString(margin));
     System.out.println("");
-    MapControllerClass2UrlPath pathResolver = mounter.controllerClass2UrlPath();
+    MapControllerClass2UrlPath pathResolver = builder.controllerClass2UrlPath();
     assertThat(resolvedPathString(pathResolver, HOME), is(""));
     assertThat(resolvedPathString(pathResolver, TUTORIAL), is("tutorial"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_EVENTS), is("tutorial/events"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_SOCKETS), is("tutorial/sockets"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_TOPIC), is("tutorial/topic"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_OTHER_STUFF), is("tutorial/other/stuff"));
-    MapUrlPath2Controller map = mounter.urlPath2Controller();
+    MapUrlPath2Controller map = builder.urlPath2Controller();
     assertThat(controllerFor(map, ""), sameInstance(HOME));
     assertThat(controllerFor(map, "tutorial"), sameInstance(TUTORIAL));
     assertThat(controllerFor(map, "tutorial/"), sameInstance(TUTORIAL));

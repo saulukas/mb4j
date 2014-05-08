@@ -6,6 +6,6 @@ public class PersonalOfferPortletModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(PersonalOfferPage.class);
-    bind(PersonalOfferPortlet.Mappings.class);
+    bind(PersonalOfferPortlet.Pages.class);
   }
 }

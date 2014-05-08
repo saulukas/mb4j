@@ -23,17 +23,17 @@ import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
-import org.mb4j.controller.mapping.ControllerMappings;
-import org.mb4j.controller.mapping.MapUrlPath2Controller;
 import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
+import org.mb4j.controller.sitemap.MapUrlPath2Controller;
+import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.Attributes;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.utils.SimpleClassName;
 import static org.mb4j.liferay.PortletPathToHome.pathToStaticResources;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
@@ -41,12 +41,12 @@ import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 public class BrickPortlet extends GenericPortlet {
   private final String friendlyUrlMapping;
   private final BrickRenderer renderer;
-  private final ControllerMappings mappings;
+  private final SiteMap siteMap;
 
-  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, ControllerMappings mappings) {
+  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, SiteMap siteMap) {
     this.friendlyUrlMapping = friendlyUrlMapping;
     this.renderer = renderer;
-    this.mappings = mappings;
+    this.siteMap = siteMap;
   }
 
   @Override
@@ -64,7 +64,7 @@ public class BrickPortlet extends GenericPortlet {
     MapUrlPath2Controller.Result resolved = resolvePage(actionRequest);
     ControllerRequest request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
-    Optional<FormResponse> optionalResponse = formResponseFor(request, postParams, mappings);
+    Optional<FormResponse> optionalResponse = formResponseFor(request, postParams, siteMap);
     if (!optionalResponse.isPresent()) {
       throw new RuntimeException("Unknown portlet action called:"
           + "\n   " + postParams
@@ -95,7 +95,7 @@ public class BrickPortlet extends GenericPortlet {
   private MapUrlPath2Controller.Result resolvePage(PortletRequest request) throws PortletException {
     UrlPath path = PortletUrlUtils.urlPathFor(request, friendlyUrlMapping);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
-    MapUrlPath2Controller.Result resolved = mappings.urlPath2Controller().controllerFor(path);
+    MapUrlPath2Controller.Result resolved = siteMap.urlPath2Controller().controllerFor(path);
     if (resolved.resultIsEmpty()) {
       throw new PortletException("No portlet Page found for path [" + pathStringOf(path) + "]");
     }
@@ -128,7 +128,7 @@ public class BrickPortlet extends GenericPortlet {
         attributes,
         namespace,
         authTokenOrNull,
-        mappings
+        siteMap
     );
   }
 }

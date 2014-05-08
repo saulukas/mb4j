@@ -1,4 +1,4 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.sitemap;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -18,18 +18,18 @@ import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.SimpleClassName;
 
-class ControllerMounterNode implements MapUrlPath2Controller {
+class SiteMapBuilderNode implements MapUrlPath2Controller {
   @Nullable
-  private final ControllerMounterNode parent;
+  private final SiteMapBuilderNode parent;
   @Nullable
   private final String pathSegment;
   private boolean isAsterisk = false;
   @Nullable
   private Controller controller = null;
   @Nullable
-  private Map<String, ControllerMounterNode> children = null;
+  private Map<String, SiteMapBuilderNode> children = null;
 
-  private ControllerMounterNode(ControllerMounterNode parent, String pathSegment) {
+  private SiteMapBuilderNode(SiteMapBuilderNode parent, String pathSegment) {
     this.parent = parent;
     this.pathSegment = pathSegment;
     if (isRoot() && pathSegment != null) {
@@ -40,8 +40,8 @@ class ControllerMounterNode implements MapUrlPath2Controller {
     }
   }
 
-  static ControllerMounterNode createRoot() {
-    return new ControllerMounterNode(null, null);
+  static SiteMapBuilderNode createRoot() {
+    return new SiteMapBuilderNode(null, null);
   }
 
   @Override
@@ -57,7 +57,7 @@ class ControllerMounterNode implements MapUrlPath2Controller {
           reader.remainingPath());
     }
     String segment = reader.readSegment();
-    ControllerMounterNode child = findChildOrNull(segment);
+    SiteMapBuilderNode child = findChildOrNull(segment);
     if (child != null) {
       return child.resolve(reader);
     }
@@ -88,9 +88,9 @@ class ControllerMounterNode implements MapUrlPath2Controller {
       setController(reader, controller);
       return;
     }
-    ControllerMounterNode child = findChildOrNull(segment);
+    SiteMapBuilderNode child = findChildOrNull(segment);
     if (child == null) {
-      child = new ControllerMounterNode(this, segment);
+      child = new SiteMapBuilderNode(this, segment);
       addChild(child);
     }
     child.mount(reader, controller);
@@ -121,15 +121,15 @@ class ControllerMounterNode implements MapUrlPath2Controller {
     return controller == null ? "null" : controller.getClass().getName();
   }
 
-  private void addChild(ControllerMounterNode child) {
+  private void addChild(SiteMapBuilderNode child) {
     nonNullChildren().put(child.pathSegment, child);
   }
 
-  private ControllerMounterNode findChildOrNull(String segment) {
+  private SiteMapBuilderNode findChildOrNull(String segment) {
     return children == null ? null : children.get(segment);
   }
 
-  private Map<String, ControllerMounterNode> nonNullChildren() {
+  private Map<String, SiteMapBuilderNode> nonNullChildren() {
     if (children == null) {
       children = new HashMap<>();
     }
@@ -141,7 +141,7 @@ class ControllerMounterNode implements MapUrlPath2Controller {
       result.add(controller);
     }
     if (children != null) {
-      for (ControllerMounterNode child : children.values()) {
+      for (SiteMapBuilderNode child : children.values()) {
         child.collectControllers(result);
       }
     }
@@ -165,7 +165,7 @@ class ControllerMounterNode implements MapUrlPath2Controller {
       Iterator<String> namesIterator = childNames.iterator();
       while (namesIterator.hasNext()) {
         String childName = namesIterator.next();
-        ControllerMounterNode child = children.get(childName);
+        SiteMapBuilderNode child = children.get(childName);
         result += "\n" + margin + "|";
         result += "\n" + margin + "+-- "
             + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));

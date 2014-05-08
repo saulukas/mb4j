@@ -4,19 +4,19 @@ import com.google.common.base.Optional;
 import org.mb4j.controller.ControllerRequest;
 import org.mb4j.controller.form.field.FormFieldRecord;
 import static org.mb4j.controller.form.field.FormFieldValueTree.fieldValueTreeOf;
-import org.mb4j.controller.mapping.ControllerMappings;
+import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.NamedParams;
 
 public class FormSubmitHandler {
   public static Optional<FormResponse> formResponseFor(
       ControllerRequest request,
       NamedParams postParams,
-      ControllerMappings mappings) {
+      SiteMap siteMap) {
     String formName = postParams.valueOrNullOf(FormData4ResponseResolver.FORM_PARAM);
     if (formName == null) {
       return Optional.absent();
     }
-    Form form = mappings.formName2Form().formFor(formName);
+    Form form = siteMap.formName2Form().formFor(formName);
     String actionName = getActionNameFrom(postParams, form);
     FormFieldRecord fields = form.createEmptyFields();
     fields.setValuesFrom(fieldValueTreeOf(postParams.asMap()));

@@ -5,7 +5,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
-import org.mb4j.controller.mapping.ControllerMappings;
+import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.sample.domain.EventDomainModule;
 import org.mb4j.sample.servlet.event.edit.EventEditPageModule;
 import org.mb4j.sample.servlet.event.list.EventListPageModule;
@@ -30,7 +30,7 @@ public class ServletSampleModule extends AbstractModule {
     install(new EventDomainModule());
     install(new SampleServletHttpModule());
     bindPages();
-    bind(ControllerMappings.class).to(ServletSampleMappings.class);
+    bind(SiteMap.class).to(ServletSampleSiteMap.class);
     bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
   }
 

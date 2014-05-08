@@ -1,4 +1,4 @@
-package org.mb4j.controller.mapping;
+package org.mb4j.controller.sitemap;
 
 import java.util.HashMap;
 import java.util.HashSet;
