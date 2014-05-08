@@ -1,0 +1,16 @@
+<script>
+  $(document).ready(function() {
+    $('#timeButton').on('click', function(event) {
+      $.ajax({
+        url: '{{timeUrl}}',
+        success: function(data) {
+          $("#timeLabel").html(data);
+        }
+      });
+    });
+  });
+</script>
+<p>
+  <input id="timeButton" type="button" value="Get time"> 
+  <span id="timeLabel"></span>
+</p>

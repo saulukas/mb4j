@@ -8,6 +8,7 @@ import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 import org.mb4j.sample.servlet.event.edit.EventEditPage;
 import org.mb4j.sample.servlet.event.list.EventListPage;
 import org.mb4j.sample.servlet.home.HomePage;
+import org.mb4j.sample.servlet.master.TimeResource;
 
 @Singleton
 public class ServletSampleSiteMap extends SiteMap {
@@ -18,6 +19,8 @@ public class ServletSampleSiteMap extends SiteMap {
       EventEditPage eventEdit) {
     super(withHomeController(home)
         .mount(urlPathOf("event/*"), eventList)
-        .mount(urlPathOf("event/edit/*"), eventEdit));
+        .mount(urlPathOf("event/edit/*"), eventEdit)
+        .mount(urlPathOf("time/*"), new TimeResource())
+    );
   }
 }

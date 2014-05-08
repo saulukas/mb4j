@@ -8,5 +8,5 @@ public class MasterLayoutPageBrick extends Brick {
   Brick content;
   Brick footer;
   String title = "Events";
-  Url4Response dummy_js;
+  Url4Response jquery_js;
 }
