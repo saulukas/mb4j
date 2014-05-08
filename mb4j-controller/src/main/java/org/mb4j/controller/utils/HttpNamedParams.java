@@ -1,4 +1,4 @@
-package org.mb4j.controller.http;
+package org.mb4j.controller.utils;
 
 import com.google.common.base.Strings;
 import java.util.HashMap;

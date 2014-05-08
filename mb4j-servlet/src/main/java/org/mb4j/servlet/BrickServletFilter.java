@@ -15,8 +15,8 @@ import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import org.mb4j.controller.form.FormSubmitHandler;
-import org.mb4j.controller.http.HttpFilter;
-import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
+import org.mb4j.controller.utils.HttpFilter;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.MapUrlPath2Controller;
 import org.mb4j.controller.mapping.MapUrlPath2Controller.Result;
@@ -48,7 +48,7 @@ public class BrickServletFilter extends HttpFilter {
     System.out.println("HTTP method: " + httpReq.getMethod());
     String servletPath = httpReq.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
-    MapUrlPath2Controller.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
+    MapUrlPath2Controller.Result resolved = mappings.urlPath2Controller().controllerFor(path);
     if (resolved.resultIsEmpty()) {
       chain.doFilter(httpReq, httpResp);
       return;

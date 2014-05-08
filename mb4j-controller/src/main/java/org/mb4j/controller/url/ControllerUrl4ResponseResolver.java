@@ -9,16 +9,16 @@ import org.mb4j.controller.mapping.MapControllerClass2UrlPath;
 public class ControllerUrl4ResponseResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
-  private final MapControllerClass2UrlPath pathResolver;
+  private final MapControllerClass2UrlPath controllerClass2UrlPath;
 
-  public ControllerUrl4ResponseResolver(String path2home, MapControllerClass2UrlPath controllerClassResolver) {
+  public ControllerUrl4ResponseResolver(String path2home, MapControllerClass2UrlPath controllerClass2UrlPath) {
     this.path2home = path2home;
-    this.pathResolver = controllerClassResolver;
+    this.controllerClass2UrlPath = controllerClass2UrlPath;
   }
 
   public ControllerUrl4Response resolve(ControllerUrl url) {
     StringBuilder result = new StringBuilder(path2home);
-    appendEscapedPath(result, pathResolver.urlPathFor(url.controllerClass));
+    appendEscapedPath(result, controllerClass2UrlPath.urlPathFor(url.controllerClass));
     if (!url.params.path.isEmpty()) {
       result.append('/');
       appendEscapedPath(result, url.params.path);

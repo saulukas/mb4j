@@ -1,4 +1,4 @@
-package org.mb4j.controller.http;
+package org.mb4j.controller.utils;
 
 import java.io.IOException;
 import javax.servlet.Filter;

@@ -23,7 +23,7 @@ import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import static org.mb4j.controller.form.FormResponseRedirectToUrlString.redirectTo;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
-import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.mapping.ControllerMappings;
 import org.mb4j.controller.mapping.MapUrlPath2Controller;
 import org.mb4j.controller.page.Page;
@@ -95,7 +95,7 @@ public class BrickPortlet extends GenericPortlet {
   private MapUrlPath2Controller.Result resolvePage(PortletRequest request) throws PortletException {
     UrlPath path = PortletUrlUtils.urlPathFor(request, friendlyUrlMapping);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
-    MapUrlPath2Controller.Result resolved = mappings.urlPath2ControllerResolver().resolve(path);
+    MapUrlPath2Controller.Result resolved = mappings.urlPath2Controller().controllerFor(path);
     if (resolved.resultIsEmpty()) {
       throw new PortletException("No portlet Page found for path [" + pathStringOf(path) + "]");
     }

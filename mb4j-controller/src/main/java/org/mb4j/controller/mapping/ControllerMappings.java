@@ -6,33 +6,33 @@ import org.mb4j.controller.Controller;
 
 public class ControllerMappings {
   private final ControllerMounter mounter;
-  private final FormMappings forms;
+  private final FormMappings formMappings;
 
   public ControllerMappings(ControllerMounter mounter) {
     this.mounter = mounter;
     Set<Controller> controllers = new HashSet<>();
     mounter.collectControllers(controllers);
-    this.forms = new FormMappings(controllers);
+    this.formMappings = new FormMappings(controllers);
   }
 
-  public MapUrlPath2Controller urlPath2ControllerResolver() {
-    return mounter.urlPath2ControllerResolver();
+  public MapUrlPath2Controller urlPath2Controller() {
+    return mounter.urlPath2Controller();
   }
 
-  public MapControllerClass2UrlPath controllerClass2UrlPathResolver() {
-    return mounter.controllerClass2UrlPathResolver();
+  public MapControllerClass2UrlPath controllerClass2UrlPath() {
+    return mounter.controllerClass2UrlPath();
   }
 
-  public MapFormClass2Name formClass2NameResolver() {
-    return forms;
+  public MapFormClass2Name formClass2Name() {
+    return formMappings;
   }
 
-  public MapFormName2Form formName2FormResolver() {
-    return forms;
+  public MapFormName2Form formName2Form() {
+    return formMappings;
   }
 
   @Override
   public String toString() {
-    return mounter.toString() + "\n\n" + forms;
+    return mounter.toString() + "\n\n" + formMappings;
   }
 }

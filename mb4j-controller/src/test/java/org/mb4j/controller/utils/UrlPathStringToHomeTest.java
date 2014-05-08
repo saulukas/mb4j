@@ -1,4 +1,4 @@
-package org.mb4j.controller.http;
+package org.mb4j.controller.utils;
 
 import org.mb4j.controller.url.UrlPathStringToHome;
 import static org.hamcrest.Matchers.is;

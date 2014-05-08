@@ -31,7 +31,7 @@ public class ControllerUrl4ResponseResolverTest {
         .mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     ControllerUrl4ResponseResolver resolver = new ControllerUrl4ResponseResolver(
         path2home,
-        new ControllerMappings(mounter).controllerClass2UrlPathResolver());
+        new ControllerMappings(mounter).controllerClass2UrlPath());
     assertThat(resolver.resolve(ControllerUrl.of(Home.class)).toString(),
         is("../../"));
     assertThat(resolver.resolve(ControllerUrl.of(TutorialOnEvents.class)).toString(),

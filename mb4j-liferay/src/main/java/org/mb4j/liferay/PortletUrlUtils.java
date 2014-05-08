@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
-import static org.mb4j.controller.http.HttpNamedParams.namedParametersFromRawQueryString;
+import static org.mb4j.controller.utils.HttpNamedParams.namedParametersFromRawQueryString;
 import org.mb4j.controller.url.NamedParams;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;

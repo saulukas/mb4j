@@ -36,18 +36,18 @@ public class ControllerMounterNodeTest {
     root.mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS);
     root.mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC);
     root.mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
-    assertThat(root.resolve(urlPathOf("")).controller, sameInstance(HOME));
-    assertThat(root.resolve(urlPathOf("tutorial")).controller, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPathOf("tutorial/")).controller, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPathOf("tutorial/1")).controller, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPathOf("tutorial/2/3")).controller, sameInstance(TUTORIAL));
-    assertThat(root.resolve(urlPathOf("tutorial/events")).controller, sameInstance(TUTORIAL_ON_EVENTS));
-    assertThat(root.resolve(urlPathOf("tutorial/sockets")).controller, sameInstance(TUTORIAL_ON_SOCKETS));
-    assertThat(root.resolve(urlPathOf("tutorial/topic")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPathOf("tutorial/topic/")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPathOf("tutorial/topic/7")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPathOf("tutorial/topic/8/9")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.resolve(urlPathOf("tutorial/other/stuff")).controller, sameInstance(TUTORIAL_OTHER_STUFF));
+    assertThat(root.controllerFor(urlPathOf("")).controller, sameInstance(HOME));
+    assertThat(root.controllerFor(urlPathOf("tutorial")).controller, sameInstance(TUTORIAL));
+    assertThat(root.controllerFor(urlPathOf("tutorial/")).controller, sameInstance(TUTORIAL));
+    assertThat(root.controllerFor(urlPathOf("tutorial/1")).controller, sameInstance(TUTORIAL));
+    assertThat(root.controllerFor(urlPathOf("tutorial/2/3")).controller, sameInstance(TUTORIAL));
+    assertThat(root.controllerFor(urlPathOf("tutorial/events")).controller, sameInstance(TUTORIAL_ON_EVENTS));
+    assertThat(root.controllerFor(urlPathOf("tutorial/sockets")).controller, sameInstance(TUTORIAL_ON_SOCKETS));
+    assertThat(root.controllerFor(urlPathOf("tutorial/topic")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.controllerFor(urlPathOf("tutorial/topic/")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.controllerFor(urlPathOf("tutorial/topic/7")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.controllerFor(urlPathOf("tutorial/topic/8/9")).controller, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.controllerFor(urlPathOf("tutorial/other/stuff")).controller, sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
   @Test

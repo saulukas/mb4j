@@ -19,8 +19,8 @@ public class ServletControllerRequest {
         url,
         attributes,
         new Url4ResponseResolver(path2home),
-        new ControllerUrl4ResponseResolver(path2home, mappings.controllerClass2UrlPathResolver()),
-        new ServletFormData4ResponseResolver(mappings.formClass2NameResolver())) {
+        new ControllerUrl4ResponseResolver(path2home, mappings.controllerClass2UrlPath()),
+        new ServletFormData4ResponseResolver(mappings.formClass2Name())) {
           @Override
           public BinaryResource.Output binaryOutput() {
             throw new UnsupportedOperationException("Not supported yet.");

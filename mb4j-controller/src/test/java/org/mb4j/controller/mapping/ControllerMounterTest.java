@@ -27,33 +27,33 @@ public class ControllerMounterTest {
     System.out.println("");
     System.out.println(margin + mounter.toString(margin));
     System.out.println("");
-    MapControllerClass2UrlPath pathResolver = mounter.controllerClass2UrlPathResolver();
+    MapControllerClass2UrlPath pathResolver = mounter.controllerClass2UrlPath();
     assertThat(resolvedPathString(pathResolver, HOME), is(""));
     assertThat(resolvedPathString(pathResolver, TUTORIAL), is("tutorial"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_EVENTS), is("tutorial/events"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_SOCKETS), is("tutorial/sockets"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_TOPIC), is("tutorial/topic"));
     assertThat(resolvedPathString(pathResolver, TUTORIAL_OTHER_STUFF), is("tutorial/other/stuff"));
-    MapUrlPath2Controller resolver = mounter.urlPath2ControllerResolver();
-    assertThat(resolvedControllerBy(resolver, ""), sameInstance(HOME));
-    assertThat(resolvedControllerBy(resolver, "tutorial"), sameInstance(TUTORIAL));
-    assertThat(resolvedControllerBy(resolver, "tutorial/"), sameInstance(TUTORIAL));
-    assertThat(resolvedControllerBy(resolver, "tutorial/1"), sameInstance(TUTORIAL));
-    assertThat(resolvedControllerBy(resolver, "tutorial/2/3"), sameInstance(TUTORIAL));
-    assertThat(resolvedControllerBy(resolver, "tutorial/events"), sameInstance(TUTORIAL_ON_EVENTS));
-    assertThat(resolvedControllerBy(resolver, "tutorial/sockets"), sameInstance(TUTORIAL_ON_SOCKETS));
-    assertThat(resolvedControllerBy(resolver, "tutorial/topic"), sameInstance(TUTORIAL_TOPIC));
-    assertThat(resolvedControllerBy(resolver, "tutorial/topic/"), sameInstance(TUTORIAL_TOPIC));
-    assertThat(resolvedControllerBy(resolver, "tutorial/topic/7"), sameInstance(TUTORIAL_TOPIC));
-    assertThat(resolvedControllerBy(resolver, "tutorial/topic/8/9"), sameInstance(TUTORIAL_TOPIC));
-    assertThat(resolvedControllerBy(resolver, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
+    MapUrlPath2Controller map = mounter.urlPath2Controller();
+    assertThat(controllerFor(map, ""), sameInstance(HOME));
+    assertThat(controllerFor(map, "tutorial"), sameInstance(TUTORIAL));
+    assertThat(controllerFor(map, "tutorial/"), sameInstance(TUTORIAL));
+    assertThat(controllerFor(map, "tutorial/1"), sameInstance(TUTORIAL));
+    assertThat(controllerFor(map, "tutorial/2/3"), sameInstance(TUTORIAL));
+    assertThat(controllerFor(map, "tutorial/events"), sameInstance(TUTORIAL_ON_EVENTS));
+    assertThat(controllerFor(map, "tutorial/sockets"), sameInstance(TUTORIAL_ON_SOCKETS));
+    assertThat(controllerFor(map, "tutorial/topic"), sameInstance(TUTORIAL_TOPIC));
+    assertThat(controllerFor(map, "tutorial/topic/"), sameInstance(TUTORIAL_TOPIC));
+    assertThat(controllerFor(map, "tutorial/topic/7"), sameInstance(TUTORIAL_TOPIC));
+    assertThat(controllerFor(map, "tutorial/topic/8/9"), sameInstance(TUTORIAL_TOPIC));
+    assertThat(controllerFor(map, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
-  private String resolvedPathString(MapControllerClass2UrlPath resolver, Controller controller) {
-    return pathStringOf(resolver.urlPathFor(controller.getClass()));
+  private String resolvedPathString(MapControllerClass2UrlPath map, Controller controller) {
+    return pathStringOf(map.urlPathFor(controller.getClass()));
   }
 
-  private Controller resolvedControllerBy(MapUrlPath2Controller resolver, String pathString) {
-    return resolver.resolve(urlPathOf(pathString)).controller;
+  private Controller controllerFor(MapUrlPath2Controller map, String pathString) {
+    return map.controllerFor(urlPathOf(pathString)).controller;
   }
 }

@@ -23,8 +23,8 @@ public class PortletControllerRequest {
         url,
         attributes,
         new Url4ResponseResolver(pathToStaticResources),
-        new ControllerUrl4ResponseResolver(path2home, mappings.controllerClass2UrlPathResolver()),
-        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, mappings.formClass2NameResolver())
+        new ControllerUrl4ResponseResolver(path2home, mappings.controllerClass2UrlPath()),
+        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, mappings.formClass2Name())
     ) {
       @Override
       public BinaryResource.Output binaryOutput() {

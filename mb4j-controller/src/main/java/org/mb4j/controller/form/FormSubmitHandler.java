@@ -16,7 +16,7 @@ public class FormSubmitHandler {
     if (formName == null) {
       return Optional.absent();
     }
-    Form form = mappings.formName2FormResolver().resolveFormName(formName);
+    Form form = mappings.formName2Form().formFor(formName);
     String actionName = getActionNameFrom(postParams, form);
     FormFieldRecord fields = form.createEmptyFields();
     fields.setValuesFrom(fieldValueTreeOf(postParams.asMap()));

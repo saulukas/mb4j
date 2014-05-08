@@ -44,7 +44,7 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   }
 
   @Override
-  public Form resolveFormName(String formName) {
+  public Form formFor(String formName) {
     Form form = name2form.get(formName);
     if (form == null) {
       throw new RuntimeException("No mapping found for Form name: " + formName);

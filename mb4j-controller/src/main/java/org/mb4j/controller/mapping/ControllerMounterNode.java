@@ -45,7 +45,7 @@ class ControllerMounterNode implements MapUrlPath2Controller {
   }
 
   @Override
-  public Result resolve(UrlPath path) {
+  public Result controllerFor(UrlPath path) {
     return resolve(bufferedReaderOf(path));
   }
 
