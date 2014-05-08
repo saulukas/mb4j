@@ -4,12 +4,12 @@ import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.mb4j.controller.TypicalControllers.HOME;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_ON_EVENTS;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_ON_SOCKETS;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_OTHER_STUFF;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_TOPIC;
+import static org.mb4j.controller.TypicalPages.HOME;
+import static org.mb4j.controller.TypicalPages.TUTORIAL;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_ON_EVENTS;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_ON_SOCKETS;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_OTHER_STUFF;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_TOPIC;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
 
 public class SiteMapBuilderNodeTest {

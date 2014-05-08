@@ -3,8 +3,6 @@ package org.mb4j.controller;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Response;
 import org.mb4j.controller.form.FormData4ResponseResolver;
-import org.mb4j.controller.resource.BinaryResource;
-import org.mb4j.controller.resource.TextResource;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Response;
@@ -14,7 +12,7 @@ import org.mb4j.controller.url.Url4ResponseResolver;
 import org.mb4j.controller.url.UrlPathReader;
 import org.mb4j.controller.utils.Attributes;
 
-public abstract class ControllerRequest {
+public class Request {
   private final ControllerUrl url;
   private final UrlPathReader urlPathReader;
   private final Attributes attributes;
@@ -22,7 +20,7 @@ public abstract class ControllerRequest {
   private final ControllerUrl4ResponseResolver controllerUrlResolver;
   private final FormData4ResponseResolver formDataResolver;
 
-  public ControllerRequest(
+  public Request(
       ControllerUrl url,
       Attributes attributes,
       Url4ResponseResolver urlResolver,
@@ -63,10 +61,6 @@ public abstract class ControllerRequest {
   public Attributes attributes() {
     return attributes;
   }
-
-  public abstract BinaryResource.Output binaryOutput();
-
-  public abstract TextResource.Output textOutput();
 
   @Override
   public String toString() {

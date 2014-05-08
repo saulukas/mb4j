@@ -16,7 +16,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToController;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
@@ -54,7 +54,7 @@ public class BrickPortlet extends GenericPortlet {
     System.out.println("Render attributes: " + newArrayList(forEnumeration(renderRequest.getAttributeNames())));
     MapUrlPath2Controller.Result resolved = resolvePage(renderRequest);
     Page page = (Page) resolved.controller;
-    ControllerRequest request = createRequest(resolved, renderRequest, renderResponse);
+    Request request = createRequest(resolved, renderRequest, renderResponse);
     PageResponse response = page.handle(request);
     renderer.render(response.brick, renderResponse.getWriter());
   }
@@ -62,7 +62,7 @@ public class BrickPortlet extends GenericPortlet {
   @Override
   public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException, IOException {
     MapUrlPath2Controller.Result resolved = resolvePage(actionRequest);
-    ControllerRequest request = createRequest(resolved, actionRequest, actionResponse);
+    Request request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
     Optional<FormResponse> optionalResponse = formResponseFor(request, postParams, siteMap);
     if (!optionalResponse.isPresent()) {
@@ -106,7 +106,7 @@ public class BrickPortlet extends GenericPortlet {
     return resolved;
   }
 
-  private ControllerRequest createRequest(
+  private Request createRequest(
       MapUrlPath2Controller.Result resolved,
       PortletRequest request,
       PortletResponse response) {

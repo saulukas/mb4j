@@ -1,7 +1,7 @@
 package org.mb4j.sample.servlet;
 
 import com.google.inject.Injector;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.utils.AttributesMap;
@@ -14,7 +14,7 @@ public class ServletSampleTestApplication {
     return injector.getInstance(klass);
   }
 
-  public static ControllerRequest requestFor(ControllerUrl url) {
+  public static Request requestFor(ControllerUrl url) {
     String path2home = "../../../";
     return ServletControllerRequest.of(
         url,

@@ -1,7 +1,7 @@
 package org.mb4j.sample.liferay;
 
 import com.google.inject.Injector;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.utils.AttributesMap;
@@ -14,7 +14,7 @@ public class LiferaySampleTestApplication {
     return injector.getInstance(klass);
   }
 
-  public static ControllerRequest requestFor(Class<? extends SiteMap> siteMapClass, ControllerUrl url) {
+  public static Request requestFor(Class<? extends SiteMap> siteMapClass, ControllerUrl url) {
     String path2home = "../path2home/../";
     String path2staticResources = "../path2staticResources/../";
     String authToken = "12auth34";

@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
@@ -19,18 +19,18 @@ public class EventListPanel {
   @Inject
   EventListItemPanel itemBaker;
 
-  public EventListPanelBrick bakeBrick(ControllerRequest request) {
+  public EventListPanelBrick bakeBrick(Request request) {
     return bakeBrick(request, Params.from(request));
   }
 
-  EventListPanelBrick bakeBrick(ControllerRequest request, Params params) {
+  EventListPanelBrick bakeBrick(Request request, Params params) {
     EventListPanelBrick brick = new EventListPanelBrick();
     brick.list = initDecoratedList(params, request);
     brick.reverseOrderUrl = request.resolve(initReverseOrderUrl(params, request));
     return brick;
   }
 
-  private List<DecoratedListItem> initDecoratedList(Params params, ControllerRequest request) {
+  private List<DecoratedListItem> initDecoratedList(Params params, Request request) {
     LinkedList<DecoratedListItem> list = new LinkedList<>();
     List<Event> events = eventListQuery.resultFor(params.maxResultCount);
     for (Event event : events) {
@@ -44,7 +44,7 @@ public class EventListPanel {
     return list;
   }
 
-  private ControllerUrl initReverseOrderUrl(Params params, ControllerRequest request) {
+  private ControllerUrl initReverseOrderUrl(Params params, Request request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.url().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
@@ -62,7 +62,7 @@ public class EventListPanel {
       this.reverseOrder = reverseOrder;
     }
 
-    public static Params from(ControllerRequest request) {
+    public static Params from(Request request) {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
@@ -74,7 +74,7 @@ public class EventListPanel {
       return UrlParams.of(pathBuilder.instance());
     }
 
-    private static int readMaxEventCount(ControllerRequest request) {
+    private static int readMaxEventCount(Request request) {
       int maxEventCount = SHOW_ALL;
       if (request.hasMorePathSegments()) {
         maxEventCount = Integer.parseInt(request.readPathSegment());
@@ -82,7 +82,7 @@ public class EventListPanel {
       return maxEventCount;
     }
 
-    private static boolean readReverseOrderFlag(ControllerRequest request) {
+    private static boolean readReverseOrderFlag(Request request) {
       return request.url().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
     }
   }

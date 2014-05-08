@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToController;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
@@ -57,7 +57,7 @@ public class BrickServletFilter extends HttpFilter {
     //   handle FormAction if any
     //   ------------------------
     //
-    ControllerRequest request = createRequest(servletPath, resolved, httpReq);
+    Request request = createRequest(servletPath, resolved, httpReq);
     NamedParams postParams = namedParametersFromRawQueryString(httpReq.getReader().readLine());
     Optional<FormResponse> optionalFormResponse = FormSubmitHandler.formResponseFor(
         request, postParams, siteMap);
@@ -92,14 +92,14 @@ public class BrickServletFilter extends HttpFilter {
     renderer.render(pageResponse.brick, httpResp.getWriter());
   }
 
-  private ControllerRequest createRequest(String servletPath, Result resolved, HttpServletRequest httpReq) {
+  private Request createRequest(String servletPath, Result resolved, HttpServletRequest httpReq) {
     String rawQueryString = httpReq.getQueryString();
     String path2home = UrlPathStringToHome.from(servletPath);
     NamedParams queryParams = namedParametersFromRawQueryString(rawQueryString);
     ControllerUrl controllerUrl = ControllerUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, queryParams));
-    ControllerRequest request = ServletControllerRequest.of(
+    Request request = ServletControllerRequest.of(
         controllerUrl,
         path2home,
         new ServletRequestAttributes(httpReq),

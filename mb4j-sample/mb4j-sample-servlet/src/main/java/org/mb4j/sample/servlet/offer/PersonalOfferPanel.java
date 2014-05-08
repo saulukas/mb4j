@@ -2,7 +2,7 @@ package org.mb4j.sample.servlet.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.page.BrickBaker;
 import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.url.ControllerUrl;
@@ -10,7 +10,7 @@ import org.mb4j.controller.url.ControllerUrl;
 @Singleton
 public class PersonalOfferPanel extends Panel implements BrickBaker {
   @Override
-  public PersonalOfferPanelBrick bakeBrickFrom(ControllerRequest request) {
+  public PersonalOfferPanelBrick bakeBrickFrom(Request request) {
     return brickFrom(request, Params.from(request));
   }
 
@@ -18,7 +18,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     static String OFFER_TEXT = "personalOffer";
     String offerText;
 
-    public static Params from(ControllerRequest request) {
+    public static Params from(Request request) {
       Params params = new Params();
       params.offerText = request.url().params.named.valueOrNullOf(OFFER_TEXT);
       return params;
@@ -29,7 +29,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     }
   }
 
-  private PersonalOfferPanelBrick brickFrom(ControllerRequest request, Params params) {
+  private PersonalOfferPanelBrick brickFrom(Request request, Params params) {
     PersonalOfferPanelBrick brick = new PersonalOfferPanelBrick();
     brick.offerVisible = !params.isOfferTextEmpty();
     brick.offerText = params.offerText;
@@ -39,7 +39,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     return brick;
   }
 
-  private ControllerUrl initTogglePersonalOfferUrl(ControllerRequest request, String newOffer) {
+  private ControllerUrl initTogglePersonalOfferUrl(Request request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
         ? request.url().withDeletedParam(Params.OFFER_TEXT)
         : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);

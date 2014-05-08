@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import org.mb4j.controller.Component;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.utils.SimpleClassName;
@@ -16,7 +17,10 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   public FormMappings(Set<Controller> controllers) {
     Set<Form> forms = new HashSet<>();
     for (Controller controller : controllers) {
-      forms.addAll(controller.getFormsRecursively());
+      if (controller instanceof Component) {
+        Component component = (Component) controller;
+        forms.addAll(component.getFormsRecursively());
+      }
     }
     for (Form form : forms) {
       if (!class2name.containsKey(form.getClass())) {

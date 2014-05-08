@@ -1,10 +1,10 @@
 package org.mb4j.controller.page;
 
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 
 public abstract class BrickBakerPage extends Page implements BrickBaker {
   @Override
-  public PageResponse handle(ControllerRequest request) {
+  public PageResponse handle(Request request) {
     return PageResponse.pageResponseWith(bakeBrickFrom(request));
   }
 }

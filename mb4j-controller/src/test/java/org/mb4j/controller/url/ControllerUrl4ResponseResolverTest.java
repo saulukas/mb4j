@@ -3,17 +3,17 @@ package org.mb4j.controller.url;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.controller.TypicalControllers;
-import org.mb4j.controller.TypicalControllers.Home;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_ON_EVENTS;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_ON_SOCKETS;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_OTHER_STUFF;
-import static org.mb4j.controller.TypicalControllers.TUTORIAL_TOPIC;
-import org.mb4j.controller.TypicalControllers.TutorialOnEvents;
-import org.mb4j.controller.TypicalControllers.TutorialOnSockets;
-import org.mb4j.controller.TypicalControllers.TutorialOtherStuff;
-import org.mb4j.controller.TypicalControllers.TutorialTopic;
+import org.mb4j.controller.TypicalPages;
+import org.mb4j.controller.TypicalPages.Home;
+import static org.mb4j.controller.TypicalPages.TUTORIAL;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_ON_EVENTS;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_ON_SOCKETS;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_OTHER_STUFF;
+import static org.mb4j.controller.TypicalPages.TUTORIAL_TOPIC;
+import org.mb4j.controller.TypicalPages.TutorialOnEvents;
+import org.mb4j.controller.TypicalPages.TutorialOnSockets;
+import org.mb4j.controller.TypicalPages.TutorialOtherStuff;
+import org.mb4j.controller.TypicalPages.TutorialTopic;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.sitemap.SiteMapBuilder;
 import static org.mb4j.controller.url.UrlPathString.urlPathOf;
@@ -23,7 +23,7 @@ public class ControllerUrl4ResponseResolverTest {
   public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
     SiteMapBuilder builder = SiteMapBuilder
-        .withHomeController(TypicalControllers.HOME)
+        .withHomeController(TypicalPages.HOME)
         .mount(urlPathOf("tutorial/*"), TUTORIAL)
         .mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
         .mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)

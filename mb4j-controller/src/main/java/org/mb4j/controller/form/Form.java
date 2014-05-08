@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.controller.utils.ReflectionUtils;
 
@@ -24,7 +24,7 @@ public class Form<T extends FormFieldRecord> {
     return (Class<T>) type.getActualTypeArguments()[0];
   }
 
-  public FormResponse handle(ControllerRequest request, String actionName, T fields) {
+  public FormResponse handle(Request request, String actionName, T fields) {
     Method method = getActionMethodByName(actionName);
     try {
       method.setAccessible(true);

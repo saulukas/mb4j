@@ -1,7 +1,7 @@
 package org.mb4j.controller.form;
 
 import com.google.common.base.Optional;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.form.field.FormFieldRecord;
 import static org.mb4j.controller.form.field.FormFieldValueTree.fieldValueTreeOf;
 import org.mb4j.controller.sitemap.SiteMap;
@@ -9,7 +9,7 @@ import org.mb4j.controller.url.NamedParams;
 
 public class FormSubmitHandler {
   public static Optional<FormResponse> formResponseFor(
-      ControllerRequest request,
+      Request request,
       NamedParams postParams,
       SiteMap siteMap) {
     String formName = postParams.valueOrNullOf(FormData4ResponseResolver.FORM_PARAM);

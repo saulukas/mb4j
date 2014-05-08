@@ -3,13 +3,13 @@ package org.mb4j.sample.liferay.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.controller.page.BrickBakerPage;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl;
 
 @Singleton
 public class PersonalOfferPage extends BrickBakerPage {
   @Override
-  public PersonalOfferPageBrick bakeBrickFrom(ControllerRequest request) {
+  public PersonalOfferPageBrick bakeBrickFrom(Request request) {
     return brickFrom(request, Params.from(request));
   }
 
@@ -17,7 +17,7 @@ public class PersonalOfferPage extends BrickBakerPage {
     static String OFFER_TEXT = "personalOffer";
     String offerText;
 
-    public static Params from(ControllerRequest request) {
+    public static Params from(Request request) {
       Params params = new Params();
       params.offerText = request.url().params.named.valueOrNullOf(OFFER_TEXT);
       return params;
@@ -28,7 +28,7 @@ public class PersonalOfferPage extends BrickBakerPage {
     }
   }
 
-  private PersonalOfferPageBrick brickFrom(ControllerRequest request, Params params) {
+  private PersonalOfferPageBrick brickFrom(Request request, Params params) {
     PersonalOfferPageBrick brick = new PersonalOfferPageBrick();
     brick.offerVisible = !params.isOfferTextEmpty();
     brick.offerText = params.offerText;
@@ -38,7 +38,7 @@ public class PersonalOfferPage extends BrickBakerPage {
     return brick;
   }
 
-  private ControllerUrl initTogglePersonalOfferUrl(ControllerRequest request, String newOffer) {
+  private ControllerUrl initTogglePersonalOfferUrl(Request request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
         ? request.url().withDeletedParam(Params.OFFER_TEXT)
         : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);

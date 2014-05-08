@@ -4,7 +4,7 @@ import com.google.common.base.Objects;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.form.Form;
 import org.mb4j.controller.form.FormActionMethod;
 import org.mb4j.controller.form.FormData;
@@ -57,7 +57,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
         fields.summary.value);
   }
 
-  FormData<Fields> data(ControllerRequest request, int eventId) {
+  FormData<Fields> data(Request request, int eventId) {
     Fields fields = request.attributes().valueOf(FIELDS_KEY).orNull();
     if (fields == null) {
       Event event = eventByIdQuery.result(eventId).get();
@@ -67,7 +67,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   }
 
   @FormActionMethod
-  FormResponse save(ControllerRequest request, Fields fields) {
+  FormResponse save(Request request, Fields fields) {
     if (errorsFoundIn(fields)) {
       return renderCurrentPage().with(FIELDS_KEY, fields);
     }
@@ -76,13 +76,13 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
   }
 
   @FormActionMethod
-  FormResponse reset(ControllerRequest request, Fields fields) {
+  FormResponse reset(Request request, Fields fields) {
     fields.summary.value = "";
     return renderCurrentPage().with(FIELDS_KEY, fields);
   }
 
   @FormActionMethod
-  FormResponse goToEventList(ControllerRequest request, Fields fields) {
+  FormResponse goToEventList(Request request, Fields fields) {
     return redirectTo(EventListPage.url());
   }
 

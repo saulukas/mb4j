@@ -2,7 +2,7 @@ package org.mb4j.sample.liferay.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.controller.url.UrlPathBuilder.urlPath;
@@ -17,7 +17,7 @@ public class EventEditPage extends BrickBakerPage {
   }
 
   @Override
-  public EventEditPageBrick bakeBrickFrom(ControllerRequest request) {
+  public EventEditPageBrick bakeBrickFrom(Request request) {
     int eventId = Integer.parseInt(request.readPathSegment());
     EventEditPageBrick brick = new EventEditPageBrick();
     brick.form = request.resolve(form.dataFor(request, eventId));

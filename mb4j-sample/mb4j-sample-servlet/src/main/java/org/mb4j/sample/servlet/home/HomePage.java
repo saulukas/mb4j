@@ -3,7 +3,7 @@ package org.mb4j.sample.servlet.home;
 import com.google.inject.Inject;
 import org.mb4j.brick.Brick;
 import org.mb4j.sample.servlet.master.MasterLayoutPage;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl;
 
 public class HomePage extends MasterLayoutPage {
@@ -15,7 +15,7 @@ public class HomePage extends MasterLayoutPage {
   }
 
   @Override
-  protected Brick bakeContentBrick(ControllerRequest request) {
+  protected Brick bakeContentBrick(Request request) {
     return contentPanel.bakeBrick(request);
   }
 }

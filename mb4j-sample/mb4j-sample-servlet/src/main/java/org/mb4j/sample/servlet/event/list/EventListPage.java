@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.mb4j.brick.Brick;
 import org.mb4j.sample.servlet.master.MasterLayoutPage;
 import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 
 public class EventListPage extends MasterLayoutPage {
   public static final int SHOW_ALL = EventListPanel.Params.SHOW_ALL;
@@ -21,7 +21,7 @@ public class EventListPage extends MasterLayoutPage {
   }
 
   @Override
-  protected Brick bakeContentBrick(ControllerRequest request) {
+  protected Brick bakeContentBrick(Request request) {
     return contentPanel.bakeBrick(request);
   }
 }

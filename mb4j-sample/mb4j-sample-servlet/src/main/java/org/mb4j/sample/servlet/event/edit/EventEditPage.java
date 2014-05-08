@@ -2,7 +2,7 @@ package org.mb4j.sample.servlet.event.edit;
 
 import com.google.inject.Inject;
 import org.mb4j.brick.Brick;
-import org.mb4j.controller.ControllerRequest;
+import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.controller.url.UrlPathBuilder.urlPath;
 import org.mb4j.sample.servlet.master.MasterLayoutPage;
@@ -16,7 +16,7 @@ public class EventEditPage extends MasterLayoutPage {
   }
 
   @Override
-  protected Brick bakeContentBrick(ControllerRequest request) {
+  protected Brick bakeContentBrick(Request request) {
     int eventId = Integer.parseInt(request.readPathSegment());
     return contentPanel.bakeBrick(request, eventId);
   }

@@ -1,6 +1,6 @@
 package org.mb4j.controller.page;
 
-import org.mb4j.controller.StatelessComponent;
+import org.mb4j.controller.Component;
 
-public class Panel extends StatelessComponent {
+public class Panel extends Component {
 }

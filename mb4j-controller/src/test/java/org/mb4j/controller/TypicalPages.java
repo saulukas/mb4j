@@ -3,45 +3,45 @@ package org.mb4j.controller;
 import org.mb4j.controller.page.Page;
 import org.mb4j.controller.page.PageResponse;
 
-public class TypicalControllers {
+public class TypicalPages {
   public static class Home extends Page {
     @Override
-    public PageResponse handle(ControllerRequest request) {
+    public PageResponse handle(Request request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class Tutorial extends Page {
     @Override
-    public PageResponse handle(ControllerRequest request) {
+    public PageResponse handle(Request request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOnEvents extends Page {
     @Override
-    public PageResponse handle(ControllerRequest request) {
+    public PageResponse handle(Request request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOnSockets extends Page {
     @Override
-    public PageResponse handle(ControllerRequest request) {
+    public PageResponse handle(Request request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialTopic extends Page {
     @Override
-    public PageResponse handle(ControllerRequest request) {
+    public PageResponse handle(Request request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
 
   public static class TutorialOtherStuff extends Page {
     @Override
-    public PageResponse handle(ControllerRequest request) {
+    public PageResponse handle(Request request) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }
