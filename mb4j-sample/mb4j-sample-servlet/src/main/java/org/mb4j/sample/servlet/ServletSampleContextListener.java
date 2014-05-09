@@ -2,6 +2,8 @@ package org.mb4j.sample.servlet;
 
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import org.mb4j.controller.sitemap.SiteMap;
 
 public class ServletSampleContextListener extends GuiceServletContextListener {
@@ -10,8 +12,15 @@ public class ServletSampleContextListener extends GuiceServletContextListener {
     Injector injector = ServletSampleModule.injector();
     System.out.println(""
         + "\n"
-        + "" + injector.getInstance(SiteMap.class)
+        + "" + injector.getInstance(SiteMap.class).toString()
         + "\n");
     return injector;
+  }
+
+  @Override
+  public void contextInitialized(ServletContextEvent contextEvent) {
+    super.contextInitialized(contextEvent);
+    ServletContext context = contextEvent.getServletContext();
+    System.out.println("\n  contextPath=[" + context.getContextPath() + "]\n");
   }
 }

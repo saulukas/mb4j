@@ -21,6 +21,10 @@
     <module>mb4j-sample-servlet</module>
   </modules>
 
+  <properties>
+    <jetty.version>9.1.4.v20140401</jetty.version>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -32,7 +36,7 @@
       <dependency>
         <groupId>org.eclipse.jetty.aggregate</groupId>
         <artifactId>jetty-all</artifactId>
-        <version>9.1.0.v20131115</version>
+        <version>${jetty.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
