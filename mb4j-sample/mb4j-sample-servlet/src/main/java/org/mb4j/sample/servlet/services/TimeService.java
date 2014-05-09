@@ -15,6 +15,7 @@ public class TimeService extends Service {
 
   @Override
   protected void serve(Request request, Response response) throws Exception {
-    response.getWriter().write("Laikas būtų: " + new Date());
+    response.setCharacterEncoding("utf-8");
+    response.getWriter().write("" + new Date());
   }
 }
