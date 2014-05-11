@@ -1,6 +1,7 @@
 package org.mb4j.controller.form;
 
 import com.google.common.base.Objects;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -15,13 +16,13 @@ import org.mb4j.controller.utils.ReflectionUtils;
 public class Form<T extends FormFieldRecord> {
   public final Class<T> fieldsClass;
 
-  public Form() {
-    this.fieldsClass = initFormDataClass();
+  protected Form() {
+    ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+    this.fieldsClass = (Class<T>) type.getActualTypeArguments()[0];
   }
 
-  private Class<T> initFormDataClass() {
-    ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-    return (Class<T>) type.getActualTypeArguments()[0];
+  protected Form(Class<T> fieldsClass) {
+    this.fieldsClass = fieldsClass;
   }
 
   public FormResponse handle(Request request, String actionName, T fields) {
@@ -29,7 +30,7 @@ public class Form<T extends FormFieldRecord> {
     try {
       method.setAccessible(true);
       return (FormResponse) method.invoke(this, request, fields);
-    } catch (Exception ex) {
+    } catch (IllegalAccessException | IllegalArgumentException | SecurityException | InvocationTargetException ex) {
       throw new RuntimeException("Failed to invoke action method " + method + ": " + ex, ex);
     }
   }

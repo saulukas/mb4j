@@ -3,6 +3,7 @@ package org.mb4j.controller;
 import org.mb4j.controller.form.FormData;
 import org.mb4j.controller.form.FormData4Response;
 import org.mb4j.controller.form.FormData4ResponseResolver;
+import org.mb4j.controller.resource.Resources4Response;
 import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Response;
@@ -56,6 +57,10 @@ public class Request {
 
   public FormData4Response resolve(FormData<?> formData) {
     return formDataResolver.resolve(formData);
+  }
+
+  public Resources4Response resolveResourcesOf(Component component) {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   public Attributes attributes() {

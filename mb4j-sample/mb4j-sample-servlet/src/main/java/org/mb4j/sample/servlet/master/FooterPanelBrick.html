@@ -1,16 +1,24 @@
 <script>
-  $(document).ready(function() {
-    $('#timeButton').on('click', function(event) {
-      $.ajax({
-        url: '{{timeUrl}}',
-        success: function(data) {
-          $("#timeLabel").html(data);
-        }
-      });
+//  $(document).ready(function() {
+//    $('#timeButton').on('click', function(event) {
+//      $.ajax({
+//        url: '{{timeUrl}}',
+//        success: function(data) {
+//          $("#timeLabel").html(data);
+//        }
+//      });
+//    });
+//  });
+  updateTimeLabel = function(labelId, timeUrl) {
+    $.ajax({
+      url: timeUrl,
+      success: function(data) {
+        $(labelId).html(data);
+      }
     });
-  });
+  }
 </script>
 <p>
-  <input id="timeButton" type="button" value="Get time"> 
+  <input id="timeButton" onclick="updateTimeLabel('#timeLabel', '{{timeUrl}}')" type="button" value="Get time using service"> 
   <span id="timeLabel"></span>
 </p>
