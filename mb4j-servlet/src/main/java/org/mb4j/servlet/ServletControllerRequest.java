@@ -18,6 +18,8 @@ public class ServletControllerRequest {
         attributes,
         new Url4ResponseResolver(path2home),
         new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
-        new ServletFormData4ResponseResolver(siteMap.formClass2Name()));
+        new ServletFormData4ResponseResolver(siteMap.formClass2Name()),
+        null
+    );
   }
 }

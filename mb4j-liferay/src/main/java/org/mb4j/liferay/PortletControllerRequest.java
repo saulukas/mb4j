@@ -22,7 +22,8 @@ public class PortletControllerRequest {
         attributes,
         new Url4ResponseResolver(pathToStaticResources),
         new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
-        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, siteMap.formClass2Name())
+        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, siteMap.formClass2Name()),
+        null
     );
   }
 }

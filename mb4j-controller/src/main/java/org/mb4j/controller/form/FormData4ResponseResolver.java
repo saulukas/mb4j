@@ -16,17 +16,17 @@ public abstract class FormData4ResponseResolver {
     this.formClass2name = formClass2name;
   }
 
-  protected abstract Brick createHeaderBrick(String formName);
-
-  protected String fieldName4Response(String name) {
-    return name;
-  }
-
   public FormData4Response resolve(FormData<?> formData) {
     return new FormData4Response(
         createHeaderBrick(formClass2name.formNameOf(formData.formClass)),
         fields4ResponseFrom(formData),
         actions4ResponseFrom(formData));
+  }
+
+  protected abstract Brick createHeaderBrick(String formName);
+
+  protected String fieldName4Response(String name) {
+    return name;
   }
 
   private Map<String, FormField4Response> fields4ResponseFrom(FormData<?> formData) {

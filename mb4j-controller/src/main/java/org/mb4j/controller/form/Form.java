@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.controller.utils.ReflectionUtils;
+import static org.mb4j.controller.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
 
 public class Form<T extends FormFieldRecord> {
   public final Class<T> fieldsClass;
@@ -35,23 +35,24 @@ public class Form<T extends FormFieldRecord> {
     }
   }
 
-  private Method getActionMethodByName(String name) {
-    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(getClass(), Form.class, FormActionMethod.class);
-    for (Method method : methods) {
-      if (Objects.equal(name, method.getName())) {
-        return method;
-      }
-    }
-    return null;
+  public Set<String> getActionNames() {
+    return getAnnotatedMethodNamesOf(getClass(), Form.class, FormActionMethod.class);
   }
 
   public Collection<FormAction> getActions() {
-    Set<String> actionNames = getActionNames();
-    Collection<FormAction> actions = new ArrayList<>(actionNames.size());
+    Collection<FormAction> actions = new ArrayList<>();
     for (String actionName : getActionNames()) {
       actions.add(actionForName(actionName));
     }
     return actions;
+  }
+
+  public T createEmptyFields() {
+    return ReflectionUtils.createInstanceOf(fieldsClass);
+  }
+
+  public FormData<T> dataWith(T fields) {
+    return new FormData(getClass(), fields, getActions());
   }
 
   protected FormAction actionForName(String name) {
@@ -69,24 +70,13 @@ public class Form<T extends FormFieldRecord> {
     return true;
   }
 
-  public Set<String> getActionNames() {
-    return getActionMethodNames(getClass());
-  }
-
-  static Set<String> getActionMethodNames(Class klass) {
-    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(klass, Form.class, FormActionMethod.class);
-    Set<String> actions = new TreeSet<>();
+  private Method getActionMethodByName(String name) {
+    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(getClass(), Form.class, FormActionMethod.class);
     for (Method method : methods) {
-      actions.add(method.getName());
+      if (Objects.equal(name, method.getName())) {
+        return method;
+      }
     }
-    return actions;
-  }
-
-  public T createEmptyFields() {
-    return ReflectionUtils.createInstanceOf(fieldsClass);
-  }
-
-  public FormData<T> dataWith(T fields) {
-    return new FormData(getClass(), fields, getActions());
+    return null;
   }
 }

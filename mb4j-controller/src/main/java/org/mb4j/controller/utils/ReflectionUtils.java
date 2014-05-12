@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class ReflectionUtils {
   public static <T> Map<String, T> getFieldsOf(Object object, Class<?> baseClass, Class<T> type) {
@@ -67,6 +69,19 @@ public class ReflectionUtils {
       klass = klass.getSuperclass();
     }
     return result;
+  }
+
+  public static Set<String> getAnnotatedMethodNamesOf(
+      Class klass,
+      Class<?> baseClass,
+      Class<? extends Annotation> anotation
+  ) {
+    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(klass, baseClass, anotation);
+    Set<String> orderedMethodNames = new TreeSet<>();
+    for (Method method : methods) {
+      orderedMethodNames.add(method.getName());
+    }
+    return orderedMethodNames;
   }
 
   public static Object valueOf(Field field, Object instance) {
