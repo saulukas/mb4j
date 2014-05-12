@@ -10,15 +10,15 @@
 //    });
 //  });
   updateTimeLabel = function(labelId, timeUrl) {
-    $.ajax({
-      url: timeUrl,
-      success: function(data) {
-        $(labelId).html(data);
-      }
-    });
+  $.ajax({
+  url: timeUrl,
+          success: function(data) {
+          $(labelId).html(data);
+          }
+  });
   }
 </script>
 <p>
-  <input id="timeButton" onclick="updateTimeLabel('#timeLabel', '{{timeUrl}}')" type="button" value="Get time using service"> 
+  <input id="timeButton" onclick="updateTimeLabel('#timeLabel', '{{timeServiceUrl}}')" type="button" value="Get time using service">
   <span id="timeLabel"></span>
 </p>

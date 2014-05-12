@@ -5,6 +5,6 @@ import org.mb4j.controller.resource.Resources4Response;
 import org.mb4j.controller.url.ControllerUrl4Response;
 
 public class FooterPanelBrick extends Brick {
-  ControllerUrl4Response timeUrl;
+  ControllerUrl4Response timeServiceUrl;
   Resources4Response resources;
 }

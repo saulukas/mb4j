@@ -7,7 +7,7 @@ import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 
 public abstract class Response {
-  private BrickRenderer renderer;
+  private final BrickRenderer renderer;
 
   protected Response(BrickRenderer renderer) {
     this.renderer = renderer;

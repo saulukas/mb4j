@@ -1,4 +1,7 @@
 package org.mb4j.controller.resource;
 
-public class Resources4Response {
+import java.util.HashMap;
+
+public class Resources4Response extends HashMap<String, Resource4Response> {
+  private static final long serialVersionUID = 1L;
 }

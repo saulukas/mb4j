@@ -1,10 +1,12 @@
 package org.mb4j.controller;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import org.mb4j.controller.form.Form;
+import org.mb4j.controller.resource.Resource;
 import org.mb4j.controller.utils.ReflectionUtils;
 import org.mb4j.controller.utils.SimpleClassName;
 
@@ -13,6 +15,9 @@ public class Component {
     Set<Form> result = new HashSet<>();
     ReflectionUtils.collectRecursivelyFieldsOf(this, Component.class, Form.class, result);
     return result;
+  }
+
+  public Collection<Resource> getResources() {
   }
 
   public String componentTreeToString(String margin) {
