@@ -39,7 +39,7 @@ public class ReflectionUtils {
   public static <T> void collectRecursivelyNonStaticFieldsOf(
       Object object,
       Class<?> baseClass,
-      Class<T> type,
+      Class<T> fieldType,
       Collection<T> result
   ) {
     Class klass = object.getClass();
@@ -56,17 +56,21 @@ public class ReflectionUtils {
         } catch (Exception ex) {
           throw new RuntimeException("Failed to access field: " + declaredField);
         }
-        if (type.isInstance(fieldValue)) {
+        if (fieldType.isInstance(fieldValue)) {
           result.add((T) fieldValue);
         } else if (baseClass.isInstance(fieldValue)) {
-          collectRecursivelyNonStaticFieldsOf(fieldValue, baseClass, type, result);
+          collectRecursivelyNonStaticFieldsOf(fieldValue, baseClass, fieldType, result);
         }
       }
       klass = klass.getSuperclass();
     }
   }
 
-  public static List<Method> getAnnotatedMethodsOf(Class klass, Class<?> baseClass, Class<? extends Annotation> anotation) {
+  public static List<Method> getAnnotatedMethodsOf(
+      Class klass,
+      Class<?> baseClass,
+      Class<? extends Annotation> anotation
+  ) {
     List<Method> result = new ArrayList<>();
     while (klass != null && baseClass.isAssignableFrom(klass)) {
       Method[] declaredMethods = klass.getDeclaredMethods();

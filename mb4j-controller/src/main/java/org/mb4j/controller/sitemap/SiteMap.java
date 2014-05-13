@@ -3,6 +3,7 @@ package org.mb4j.controller.sitemap;
 import java.util.HashSet;
 import java.util.Set;
 import org.mb4j.controller.Controller;
+import org.mb4j.controller.utils.SimpleClassName;
 
 public class SiteMap {
   private final SiteMapBuilder builder;
@@ -39,6 +40,9 @@ public class SiteMap {
 
   @Override
   public String toString() {
-    return builder.toString() + "\n\n" + formMappings + "\n" + resourceMappings;
+    return SimpleClassName.of(getClass()) + ":"
+        + "\n    " + builder.toString("    ")
+        + "\n" + formMappings
+        + "\n" + resourceMappings;
   }
 }
