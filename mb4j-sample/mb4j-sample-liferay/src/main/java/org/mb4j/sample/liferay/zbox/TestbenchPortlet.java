@@ -74,6 +74,7 @@ public class TestbenchPortlet extends GenericPortlet {
   @Override
   public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     System.out.println("Resource request arrived...");
+    response.getWriter().write("resourceId=" + request.getResourceID());
     super.serveResource(request, response);
   }
 
