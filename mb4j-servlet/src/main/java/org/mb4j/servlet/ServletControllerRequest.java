@@ -19,7 +19,7 @@ public class ServletControllerRequest {
         new AssetUrl4ResponseResolver(path2home),
         new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
         new ServletFormData4ResponseResolver(siteMap.formClass2Name()),
-        new ServletResources4ResponseResolver(siteMap.componentClass2Name())
+        new ServletResources4ResponseResolver(siteMap.componentWithResourcesClass2Name())
     );
   }
 }

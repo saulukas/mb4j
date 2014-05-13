@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -35,11 +36,19 @@ public class ReflectionUtils {
     return result;
   }
 
-  public static <T> void collectRecursivelyFieldsOf(Object object, Class<?> baseClass, Class<T> type, Collection<T> result) {
+  public static <T> void collectRecursivelyNonStaticFieldsOf(
+      Object object,
+      Class<?> baseClass,
+      Class<T> type,
+      Collection<T> result
+  ) {
     Class klass = object.getClass();
     while (klass != null && baseClass.isAssignableFrom(klass)) {
       Field[] declaredFields = klass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
+        if (Modifier.isStatic(declaredField.getModifiers())) {
+          continue;
+        }
         Object fieldValue;
         try {
           declaredField.setAccessible(true);
@@ -50,7 +59,7 @@ public class ReflectionUtils {
         if (type.isInstance(fieldValue)) {
           result.add((T) fieldValue);
         } else if (baseClass.isInstance(fieldValue)) {
-          collectRecursivelyFieldsOf(fieldValue, baseClass, type, result);
+          collectRecursivelyNonStaticFieldsOf(fieldValue, baseClass, type, result);
         }
       }
       klass = klass.getSuperclass();

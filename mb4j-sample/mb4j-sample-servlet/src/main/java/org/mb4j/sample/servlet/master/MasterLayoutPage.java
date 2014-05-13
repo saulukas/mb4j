@@ -9,7 +9,7 @@ import org.mb4j.sample.servlet.offer.PersonalOfferPanel;
 @Singleton
 public abstract class MasterLayoutPage extends BrickBakerPage {
   final PersonalOfferPanel headerPanel = new PersonalOfferPanel();
-  final FooterPanel footerPanel = new FooterPanel();
+  final FooterPanel footerPanel = FooterPanel.INSTANCE;
 
   @Override
   public Brick bakeBrickFrom(Request request) {

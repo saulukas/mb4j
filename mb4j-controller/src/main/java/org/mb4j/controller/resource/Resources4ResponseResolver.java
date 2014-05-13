@@ -7,10 +7,10 @@ import org.mb4j.controller.sitemap.MapComponentClass2Name;
 
 public abstract class Resources4ResponseResolver {
   private static final String RESOURCE_PARAM_NAME = "mb(r)";
-  private final MapComponentClass2Name componentClass2Name;
+  private final MapComponentClass2Name componentWithResourcesClass2Name;
 
-  public Resources4ResponseResolver(MapComponentClass2Name componentClass2Name) {
-    this.componentClass2Name = componentClass2Name;
+  public Resources4ResponseResolver(MapComponentClass2Name componentWithResourcesClass2Name) {
+    this.componentWithResourcesClass2Name = componentWithResourcesClass2Name;
   }
 
   public Resources4Response resolveResourcesFor(Component component) {
@@ -26,7 +26,7 @@ public abstract class Resources4ResponseResolver {
   }
 
   private String resourceParamValueFor(Component component, Resource resource) {
-    String componentName = componentClass2Name.componentNameOf(component.getClass());
+    String componentName = componentWithResourcesClass2Name.componentNameOf(component.getClass());
     return componentName + "#" + resource.name;
   }
 

@@ -7,12 +7,14 @@ import org.mb4j.controller.Controller;
 public class SiteMap {
   private final SiteMapBuilder builder;
   private final FormMappings formMappings;
+  private final ResourceMappings resourceMappings;
 
   public SiteMap(SiteMapBuilder builder) {
     this.builder = builder;
     Set<Controller> controllers = new HashSet<>();
     builder.collectControllers(controllers);
     this.formMappings = new FormMappings(controllers);
+    this.resourceMappings = new ResourceMappings(controllers);
   }
 
   public MapUrlPath2Controller urlPath2Controller() {
@@ -31,12 +33,12 @@ public class SiteMap {
     return formMappings;
   }
 
-  public MapComponentClass2Name componentClass2Name() {
-    return null;
+  public MapComponentClass2Name componentWithResourcesClass2Name() {
+    return resourceMappings;
   }
 
   @Override
   public String toString() {
-    return builder.toString() + "\n\n" + formMappings;
+    return builder.toString() + "\n\n" + formMappings + "\n" + resourceMappings;
   }
 }

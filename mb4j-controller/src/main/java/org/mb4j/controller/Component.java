@@ -2,7 +2,6 @@ package org.mb4j.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -14,10 +13,16 @@ import static org.mb4j.controller.utils.ReflectionUtils.getAnnotatedMethodNamesO
 import org.mb4j.controller.utils.SimpleClassName;
 
 public class Component {
-  public Set<Form> getFormsRecursively() {
-    Set<Form> result = new HashSet<>();
-    ReflectionUtils.collectRecursivelyFieldsOf(this, Component.class, Form.class, result);
-    return result;
+  public void addFormsRecursively(Collection<Form> result) {
+    ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, Form.class, result);
+  }
+
+  public void addChildrenRecursively(Collection<Component> result) {
+    ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, Component.class, result);
+  }
+
+  public boolean hasResources() {
+    return !getResourceNames().isEmpty();
   }
 
   public Set<String> getResourceNames() {

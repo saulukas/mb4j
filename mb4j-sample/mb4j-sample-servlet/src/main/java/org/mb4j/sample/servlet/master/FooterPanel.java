@@ -12,6 +12,11 @@ import org.mb4j.sample.servlet.services.TimeService;
 
 @Singleton
 public class FooterPanel extends Panel {
+  public static final FooterPanel INSTANCE = new FooterPanel();
+
+  private FooterPanel() {
+  }
+
   Brick bakeBrickFrom(Request request) {
     FooterPanelBrick brick = new FooterPanelBrick();
     brick.timeServiceUrl = request.resolve(TimeService.url());

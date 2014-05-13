@@ -19,7 +19,7 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
     for (Controller controller : controllers) {
       if (controller instanceof Component) {
         Component component = (Component) controller;
-        forms.addAll(component.getFormsRecursively());
+        component.addFormsRecursively(forms);
       }
     }
     for (Form form : forms) {
@@ -31,7 +31,7 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
           counter += 1;
           postfix = "" + counter;
         }
-        name = name + postfix;
+        name += postfix;
         name2form.put(name, form);
         class2name.put(form.getClass(), name);
       }
