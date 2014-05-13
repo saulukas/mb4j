@@ -1,14 +1,4 @@
 <script>
-//  $(document).ready(function() {
-//    $('#timeButton').on('click', function(event) {
-//      $.ajax({
-//        url: '{{timeServiceUrl}}',
-//        success: function(data) {
-//          $("#timeLabel").html(data);
-//        }
-//      });
-//    });
-//  });
   updateTimeLabel = function(labelId, timeUrl) {
   $.ajax({
   url: timeUrl,
@@ -19,6 +9,12 @@
   }
 </script>
 <p>
-  <input id="timeButton" onclick="updateTimeLabel('#timeLabel', '{{timeServiceUrl}}')" type="button" value="Get time using service">
+  <input id="timeButton" type="button" value="Get time using service"
+         onclick="updateTimeLabel('#timeLabel', '{{timeServiceUrl}}')" >
   <span id="timeLabel"></span>
+</p>
+<p>
+  <input id="timeButton" type="button" value="Get time using resource"
+         onclick="updateTimeLabel('#timeLabel2', '{{resources.time.url}}')" >
+  <span id="timeLabel2"></span>
 </p>

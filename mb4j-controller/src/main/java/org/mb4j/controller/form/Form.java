@@ -12,6 +12,7 @@ import org.mb4j.controller.Request;
 import org.mb4j.controller.form.field.FormFieldRecord;
 import org.mb4j.controller.utils.ReflectionUtils;
 import static org.mb4j.controller.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
+import static org.mb4j.controller.utils.ReflectionUtils.getAnnotatedMethodsOf;
 
 public class Form<T extends FormFieldRecord> {
   public final Class<T> fieldsClass;
@@ -25,7 +26,7 @@ public class Form<T extends FormFieldRecord> {
     this.fieldsClass = fieldsClass;
   }
 
-  public FormResponse handle(Request request, String actionName, T fields) {
+  public FormResponse handle(String actionName, Request request, T fields) {
     Method method = getActionMethodByName(actionName);
     try {
       method.setAccessible(true);
@@ -71,7 +72,7 @@ public class Form<T extends FormFieldRecord> {
   }
 
   private Method getActionMethodByName(String name) {
-    List<Method> methods = ReflectionUtils.getAnnotatedMethodsOf(getClass(), Form.class, FormActionMethod.class);
+    List<Method> methods = getAnnotatedMethodsOf(getClass(), Form.class, FormActionMethod.class);
     for (Method method : methods) {
       if (Objects.equal(name, method.getName())) {
         return method;

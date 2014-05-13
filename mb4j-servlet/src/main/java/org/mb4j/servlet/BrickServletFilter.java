@@ -8,11 +8,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
+import org.mb4j.controller.Component;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
+import org.mb4j.controller.resource.Resources4ResponseResolver;
+import org.mb4j.controller.resource.Resources4ResponseResolver.ParamValue;
 import org.mb4j.controller.sitemap.MapUrlPath2Controller;
 import org.mb4j.controller.sitemap.MapUrlPath2Controller.Result;
 import org.mb4j.controller.sitemap.SiteMap;
@@ -52,11 +55,29 @@ public class BrickServletFilter extends HttpFilter {
       return;
     }
     //
+    //   handle component resource if any
+    //   --------------------------------
+    //
+    NamedParams queryParams = namedParamsFromRawQuery(httpRequest.getQueryString());
+    String resourceParam = queryParams.valueOrNullOf(Resources4ResponseResolver.RESOURCE_PARAM_NAME);
+    if (resourceParam != null) {
+      Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
+      Component componentWithResources
+          = siteMap.componentWithResourcesName2Component().componentFor(value.componentName);
+      Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
+      componentWithResources.serveResource(
+          value.resourceName,
+          request,
+          new ServletControllerResponse(renderer, httpResponse)
+      );
+      return;
+    }
+    //
     //   handle FormAction if any
     //   ------------------------
     //
     if (Objects.equal(httpRequest.getMethod(), "POST")) {
-      Request request = createRequest(servletPath, resolved, httpRequest);
+      Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
       NamedParams postParams = namedParamsFromRawQuery(httpRequest.getReader().readLine());
       Optional<FormResponse> formRC = formResponseFor(request, postParams, siteMap.formName2Form());
       if (formRC.isPresent()) {
@@ -74,14 +95,17 @@ public class BrickServletFilter extends HttpFilter {
     //   handle Controller response
     //   --------------------------
     //
-    Request request = createRequest(servletPath, resolved, httpRequest);
+    Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
     resolved.controller.handle(request, new ServletControllerResponse(renderer, httpResponse));
   }
 
-  private Request createRequest(String servletPath, Result resolved, HttpServletRequest httpRequest) {
-    String rawQueryString = httpRequest.getQueryString();
+  private Request createRequest(
+      String servletPath,
+      NamedParams queryParams,
+      Result resolved,
+      HttpServletRequest httpRequest
+  ) {
     String path2home = UrlPathStringToHome.from(servletPath);
-    NamedParams queryParams = namedParamsFromRawQuery(rawQueryString);
     ControllerUrl controllerUrl = ControllerUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, queryParams));

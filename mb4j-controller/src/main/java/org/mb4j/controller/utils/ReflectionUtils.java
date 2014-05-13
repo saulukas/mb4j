@@ -14,12 +14,15 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ReflectionUtils {
-  public static <T> Map<String, T> getFieldsOf(Object object, Class<?> baseClass, Class<T> type) {
+  public static <T> Map<String, T> getNonStaticFieldsOf(Object object, Class<?> baseClass, Class<T> type) {
     TreeMap<String, T> result = new TreeMap<>();
     Class klass = object.getClass();
     while (klass != null && baseClass.isAssignableFrom(klass)) {
       Field[] declaredFields = klass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
+        if (Modifier.isStatic(declaredField.getModifiers())) {
+          continue;
+        }
         Object fieldValue;
         try {
           declaredField.setAccessible(true);

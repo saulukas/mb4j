@@ -38,6 +38,10 @@ public class SiteMap {
     return resourceMappings;
   }
 
+  public MapComponentName2Component componentWithResourcesName2Component() {
+    return resourceMappings;
+  }
+
   @Override
   public String toString() {
     return SimpleClassName.of(getClass()) + ":"

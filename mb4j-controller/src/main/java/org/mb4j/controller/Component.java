@@ -1,8 +1,13 @@
 package org.mb4j.controller;
 
+import com.google.common.base.Objects;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.mb4j.controller.form.Form;
@@ -10,6 +15,7 @@ import org.mb4j.controller.resource.Resource;
 import org.mb4j.controller.resource.ResourceMethod;
 import org.mb4j.controller.utils.ReflectionUtils;
 import static org.mb4j.controller.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
+import static org.mb4j.controller.utils.ReflectionUtils.getAnnotatedMethodsOf;
 import org.mb4j.controller.utils.SimpleClassName;
 
 public class Component {
@@ -35,6 +41,16 @@ public class Component {
       resources.add(resourceForName(name));
     }
     return resources;
+  }
+
+  public void serveResource(String resourceName, Request request, Response response) throws IOException {
+    Method method = getResourceMethodByName(resourceName);
+    try {
+      method.setAccessible(true);
+      method.invoke(this, request, response);
+    } catch (IllegalAccessException | IllegalArgumentException | SecurityException | InvocationTargetException ex) {
+      throw new RuntimeException("Failed to invoke resource method " + method + ": " + ex, ex);
+    }
   }
 
   protected Resource resourceForName(String name) {
@@ -80,10 +96,20 @@ public class Component {
   }
 
   private Map<String, Form> getForms() {
-    return ReflectionUtils.getFieldsOf(this, Component.class, Form.class);
+    return ReflectionUtils.getNonStaticFieldsOf(this, Component.class, Form.class);
   }
 
   private Map<String, Component> getChildren() {
-    return ReflectionUtils.getFieldsOf(this, Component.class, Component.class);
+    return ReflectionUtils.getNonStaticFieldsOf(this, Component.class, Component.class);
+  }
+
+  private Method getResourceMethodByName(String name) {
+    List<Method> methods = getAnnotatedMethodsOf(getClass(), Component.class, ResourceMethod.class);
+    for (Method method : methods) {
+      if (Objects.equal(name, method.getName())) {
+        return method;
+      }
+    }
+    return null;
   }
 }

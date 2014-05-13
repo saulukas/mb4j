@@ -25,7 +25,7 @@ public class FormFieldRecord extends FormFieldBase {
   }
 
   private Map<String, FormFieldBase> childrenMap() {
-    return ReflectionUtils.getFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
+    return ReflectionUtils.getNonStaticFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
   }
 
   @Override

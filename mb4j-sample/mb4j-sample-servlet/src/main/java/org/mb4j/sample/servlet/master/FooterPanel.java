@@ -20,7 +20,7 @@ public class FooterPanel extends Panel {
   Brick bakeBrickFrom(Request request) {
     FooterPanelBrick brick = new FooterPanelBrick();
     brick.timeServiceUrl = request.resolve(TimeService.url());
-//    brick.resources = request.resolveResourcesOf(this);
+    brick.resources = request.resolveResourcesOf(this);
     return brick;
   }
 
