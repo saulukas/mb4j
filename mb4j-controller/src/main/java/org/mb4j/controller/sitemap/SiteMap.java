@@ -32,7 +32,7 @@ public class SiteMap {
   }
 
   public MapComponentClass2Name componentClass2Name() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return null;
   }
 
   @Override

@@ -4,7 +4,7 @@ import org.mb4j.controller.Request;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4ResponseResolver;
-import org.mb4j.controller.url.Url4ResponseResolver;
+import org.mb4j.controller.url.AssetUrl4ResponseResolver;
 import org.mb4j.controller.utils.Attributes;
 
 public class ServletControllerRequest {
@@ -16,7 +16,7 @@ public class ServletControllerRequest {
     return new Request(
         url,
         attributes,
-        new Url4ResponseResolver(path2home),
+        new AssetUrl4ResponseResolver(path2home),
         new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
         new ServletFormData4ResponseResolver(siteMap.formClass2Name()),
         new ServletResources4ResponseResolver(siteMap.componentClass2Name())
