@@ -1,10 +1,11 @@
 package org.mb4j.liferay;
 
 import org.mb4j.controller.Request;
+import org.mb4j.controller.resource.Resources4ResponseResolver;
 import org.mb4j.controller.sitemap.SiteMap;
+import org.mb4j.controller.url.AssetUrl4ResponseResolver;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4ResponseResolver;
-import org.mb4j.controller.url.AssetUrl4ResponseResolver;
 import org.mb4j.controller.utils.Attributes;
 
 public class PortletControllerRequest {
@@ -15,6 +16,7 @@ public class PortletControllerRequest {
       Attributes attributes,
       String namespace,
       String authTokenOrNull,
+      Resources4ResponseResolver resourcesResolver,
       SiteMap siteMap
   ) {
     return new Request(
@@ -23,7 +25,7 @@ public class PortletControllerRequest {
         new AssetUrl4ResponseResolver(path2assets),
         new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
         new PortletFormData4ResponseResolver(namespace, authTokenOrNull, siteMap.formClass2Name()),
-        null
+        resourcesResolver
     );
   }
 }

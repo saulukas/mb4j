@@ -11,6 +11,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.ResourceURL;
 import org.mb4j.sample.liferay.util.PortletDebugUtils;
 
 public class TestbenchPortlet extends GenericPortlet {
@@ -45,6 +46,12 @@ public class TestbenchPortlet extends GenericPortlet {
         + "<p>"
         + "    <a href=\"" + url3 + "\">Long URL</a>"
         + "</p>");
+    ResourceURL resourceURL = response.createResourceURL();
+    resourceURL.setResourceID("myResourceID");
+    response.getWriter().println(""
+        + "<p>"
+        + "    <a href=\"" + resourceURL + "\">Resource URL</a>"
+        + "</p>");
     //
     //   session attributes
     //
@@ -66,6 +73,7 @@ public class TestbenchPortlet extends GenericPortlet {
 
   @Override
   public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    System.out.println("Resource request arrived...");
     super.serveResource(request, response);
   }
 

@@ -14,12 +14,15 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
+import org.mb4j.controller.Component;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.controller.page.Page;
+import org.mb4j.controller.resource.Resources4ResponseResolver;
+import org.mb4j.controller.resource.Resources4ResponseResolver.ParamValue;
 import org.mb4j.controller.sitemap.MapUrlPath2Controller;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.controller.url.ControllerUrl;
@@ -74,8 +77,22 @@ public class BrickPortlet extends GenericPortlet {
   }
 
   @Override
-  public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    super.serveResource(request, response);
+  public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException, IOException {
+    String resourceParam = resourceRequest.getParameter(Resources4ResponseResolver.RESOURCE_PARAM_NAME);
+    if (resourceParam == null) {
+      super.serveResource(resourceRequest, resourceResponse);
+      return;
+    }
+    Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
+    Component componentWithResources
+        = siteMap.componentWithResourcesName2Component().componentFor(value.componentName);
+    MapUrlPath2Controller.Result resolved = resolvePage(resourceRequest);
+    Request request = createRequest(resolved, resourceRequest, resourceResponse);
+    componentWithResources.serveResource(
+        value.resourceName,
+        request,
+        new PortletControllerResponse(renderer, resourceResponse)
+    );
   }
 
   private MapUrlPath2Controller.Result resolvePage(PortletRequest request) throws PortletException {
@@ -114,6 +131,7 @@ public class BrickPortlet extends GenericPortlet {
         attributes,
         namespace,
         authTokenOrNull,
+        new PortletResources4ResponseResolver(response, siteMap.componentWithResourcesClass2Name()),
         siteMap
     );
   }
