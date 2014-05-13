@@ -39,6 +39,14 @@ public class Component {
     return resource;
   }
 
+  protected boolean isResourceEnabled(String name) {
+    return true;
+  }
+
+  protected boolean isResourceVisible(String name) {
+    return true;
+  }
+
   public String componentTreeToString(String margin) {
     String result = SimpleClassName.of(getClass());
     Map<String, Component> children = getChildren();
@@ -72,13 +80,5 @@ public class Component {
 
   private Map<String, Component> getChildren() {
     return ReflectionUtils.getFieldsOf(this, Component.class, Component.class);
-  }
-
-  protected boolean isResourceEnabled(String name) {
-    return true;
-  }
-
-  protected boolean isResourceVisible(String name) {
-    return true;
   }
 }

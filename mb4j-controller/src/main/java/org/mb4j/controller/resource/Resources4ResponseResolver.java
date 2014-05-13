@@ -3,15 +3,32 @@ package org.mb4j.controller.resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.mb4j.controller.Component;
+import org.mb4j.controller.sitemap.MapComponentClass2Name;
 
 public abstract class Resources4ResponseResolver {
+  private static final String RESOURCE_PARAM_NAME = "mb(r)";
+  private final MapComponentClass2Name componentClass2Name;
+
+  public Resources4ResponseResolver(MapComponentClass2Name componentClass2Name) {
+    this.componentClass2Name = componentClass2Name;
+  }
+
   public Resources4Response resolveResourcesFor(Component component) {
     Collection<Resource4Response> resources = new ArrayList<>();
     for (Resource resource : component.getResources()) {
-      resources.add(new Resource4Response(resolveResourceUrl(component, resource), resource));
+      String resourceParamValue = resourceParamValueFor(component, resource);
+      resources.add(new Resource4Response(
+          resolveResourceUrl(RESOURCE_PARAM_NAME, resourceParamValue),
+          resource
+      ));
     }
     return new Resources4Response(resources);
   }
 
-  protected abstract String resolveResourceUrl(Component component, Resource resource);
+  private String resourceParamValueFor(Component component, Resource resource) {
+    String componentName = componentClass2Name.componentNameOf(component.getClass());
+    return componentName + "#" + resource.name;
+  }
+
+  protected abstract String resolveResourceUrl(String resourceParamName, String resourceParamValue);
 }

@@ -31,6 +31,10 @@ public class SiteMap {
     return formMappings;
   }
 
+  public MapComponentClass2Name componentClass2Name() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
   @Override
   public String toString() {
     return builder.toString() + "\n\n" + formMappings;
