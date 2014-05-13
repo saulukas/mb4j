@@ -16,14 +16,14 @@ public class LiferaySampleTestApplication {
 
   public static Request requestFor(Class<? extends SiteMap> siteMapClass, ControllerUrl url) {
     String path2home = "../path2home/../";
-    String path2staticResources = "../path2staticResources/../";
+    String path2staticAssets = "../path2staticAssets/../";
     String authToken = "12auth34";
     String namespace = "_namespace_";
     SiteMap siteMap = inject(siteMapClass);
     return PortletControllerRequest.of(
         url,
         path2home,
-        path2staticResources,
+        path2staticAssets,
         new AttributesMap(),
         namespace,
         authToken,

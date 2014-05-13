@@ -30,7 +30,7 @@ import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.Attributes;
 import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
 import org.mb4j.controller.utils.SimpleClassName;
-import static org.mb4j.liferay.PortletPathToHome.pathToStaticResources;
+import static org.mb4j.liferay.PortletPathToHome.pathToStaticAssets;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
 public class BrickPortlet extends GenericPortlet {
@@ -103,14 +103,14 @@ public class BrickPortlet extends GenericPortlet {
         UrlParams.of(resolved.paramsPath, namedParams)
     );
     String path2home = PortletUrlUtils.path2homeFor(response);
-    String path2staticResources = pathToStaticResources(request, currentURI.getRawPath());
+    String path2staticAssets = pathToStaticAssets(request, currentURI.getRawPath());
     Attributes attributes = new PortletRequestAttributes(request);
     String authTokenOrNull = authTokenOrNullFrom(response);
     String namespace = response.getNamespace();
     return PortletControllerRequest.of(
         url,
         path2home,
-        path2staticResources,
+        path2staticAssets,
         attributes,
         namespace,
         authTokenOrNull,

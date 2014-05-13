@@ -55,8 +55,8 @@ public class Request {
     return controllerUrlResolver.resolve(url);
   }
 
-  public Url4Response resolveUrl(String staticResourceUrl) {
-    return urlResolver.resolveUrl(staticResourceUrl);
+  public Url4Response resolveUrl(String staticAssetUrl) {
+    return urlResolver.resolveUrl(staticAssetUrl);
   }
 
   public FormData4Response resolve(FormData<?> formData) {

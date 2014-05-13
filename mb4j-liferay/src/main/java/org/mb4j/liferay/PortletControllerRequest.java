@@ -11,7 +11,7 @@ public class PortletControllerRequest {
   public static Request of(
       ControllerUrl url,
       String path2home,
-      String pathToStaticResources,
+      String pathToStaticAssets,
       Attributes attributes,
       String namespace,
       String authTokenOrNull,
@@ -20,7 +20,7 @@ public class PortletControllerRequest {
     return new Request(
         url,
         attributes,
-        new Url4ResponseResolver(pathToStaticResources),
+        new Url4ResponseResolver(pathToStaticAssets),
         new ControllerUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
         new PortletFormData4ResponseResolver(namespace, authTokenOrNull, siteMap.formClass2Name()),
         null
