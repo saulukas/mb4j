@@ -20,7 +20,6 @@ import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
 import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
-import org.mb4j.controller.page.Page;
 import org.mb4j.controller.resource.Resources4ResponseResolver;
 import org.mb4j.controller.resource.Resources4ResponseResolver.ParamValue;
 import org.mb4j.controller.sitemap.MapUrlPath2Controller;
@@ -32,34 +31,33 @@ import org.mb4j.controller.url.UrlPath;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
 import org.mb4j.controller.utils.Attributes;
 import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
-import org.mb4j.controller.utils.SimpleClassName;
 import static org.mb4j.liferay.PortletPathToHome.pathToAssets;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
 public class BrickPortlet extends GenericPortlet {
   private final String friendlyUrlMapping;
   private final BrickRenderer renderer;
-  private final SiteMap siteMap;
+  private final SiteMap viewMap;
 
-  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, SiteMap siteMap) {
+  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, SiteMap viewMap) {
     this.friendlyUrlMapping = friendlyUrlMapping;
     this.renderer = renderer;
-    this.siteMap = siteMap;
+    this.viewMap = viewMap;
   }
 
   @Override
   protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
-    MapUrlPath2Controller.Result resolved = resolvePage(renderRequest);
+    MapUrlPath2Controller.Result resolved = resolveView(renderRequest);
     Request request = createRequest(resolved, renderRequest, renderResponse);
     resolved.controller.handle(request, new PortletControllerResponse(renderer, renderResponse));
   }
 
   @Override
   public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException, IOException {
-    MapUrlPath2Controller.Result resolved = resolvePage(actionRequest);
+    MapUrlPath2Controller.Result resolved = resolveView(actionRequest);
     Request request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
-    Optional<FormResponse> formRC = formResponseFor(request, postParams, siteMap.formName2Form());
+    Optional<FormResponse> formRC = formResponseFor(request, postParams, viewMap.formName2Form());
     if (!formRC.isPresent()) {
       throw new RuntimeException("Unknown portlet action called:"
           + "\n   " + postParams
@@ -85,8 +83,8 @@ public class BrickPortlet extends GenericPortlet {
     }
     Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
     Component componentWithResources
-        = siteMap.componentWithResourcesName2Component().componentFor(value.componentName);
-    MapUrlPath2Controller.Result resolved = resolvePage(resourceRequest);
+        = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
+    MapUrlPath2Controller.Result resolved = resolveView(resourceRequest);
     Request request = createRequest(resolved, resourceRequest, resourceResponse);
     componentWithResources.serveResource(
         value.resourceName,
@@ -95,16 +93,12 @@ public class BrickPortlet extends GenericPortlet {
     );
   }
 
-  private MapUrlPath2Controller.Result resolvePage(PortletRequest request) throws PortletException {
+  private MapUrlPath2Controller.Result resolveView(PortletRequest request) throws PortletException {
     UrlPath path = PortletUrlUtils.urlPathFor(request, friendlyUrlMapping);
     System.out.println("urlPath {" + pathStringOf(path) + "}");
-    MapUrlPath2Controller.Result resolved = siteMap.urlPath2Controller().controllerFor(path);
+    MapUrlPath2Controller.Result resolved = viewMap.urlPath2Controller().controllerFor(path);
     if (resolved.resultIsEmpty()) {
-      throw new PortletException("No portlet Page found for path [" + pathStringOf(path) + "]");
-    }
-    if (!(resolved.controller instanceof Page)) {
-      throw new PortletException("Expected " + SimpleClassName.of(Page.class) + " but found "
-          + resolved.controller + " at for URL path [" + pathStringOf(path) + "].");
+      throw new PortletException("No portlet view found for path [" + pathStringOf(path) + "]");
     }
     return resolved;
   }
@@ -131,8 +125,8 @@ public class BrickPortlet extends GenericPortlet {
         attributes,
         namespace,
         authTokenOrNull,
-        new PortletResources4ResponseResolver(response, siteMap.componentWithResourcesClass2Name()),
-        siteMap
+        new PortletResources4ResponseResolver(response, viewMap.componentWithResourcesClass2Name()),
+        viewMap
     );
   }
 }

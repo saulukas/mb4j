@@ -4,10 +4,10 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
 @Singleton
-public class EventListPageModule extends AbstractModule {
+public class EventListViewModule extends AbstractModule {
   @Override
   protected void configure() {
-    bind(EventListPage.class);
+    bind(EventListView.class);
     bind(EventListItemPanel.class);
   }
 }

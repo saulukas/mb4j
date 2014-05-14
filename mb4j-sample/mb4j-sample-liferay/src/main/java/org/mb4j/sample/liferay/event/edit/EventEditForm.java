@@ -18,7 +18,7 @@ import org.mb4j.controller.utils.AttributeKey;
 import org.mb4j.sample.domain.commands.EventSaveCommand;
 import org.mb4j.sample.domain.data.Event;
 import org.mb4j.sample.domain.queries.EventByIdQuery;
-import org.mb4j.sample.liferay.event.list.EventListPage;
+import org.mb4j.sample.liferay.event.list.EventListView;
 import org.mb4j.sample.liferay.util.FormFieldWithLabel;
 import static org.mb4j.sample.liferay.util.FormFieldWithLabel.optionalFieldWithLabel;
 import static org.mb4j.sample.liferay.util.FormFieldWithLabel.requiredFieldWithLabel;
@@ -71,7 +71,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
       return renderCurrentPage(request).with(FIELDS_KEY, fields);
     }
     eventSaveCommand.execute(createEventFrom(fields));
-    return redirectTo(EventListPage.url());
+    return redirectTo(EventListView.url());
   }
 
   @FormActionMethod
@@ -82,7 +82,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
 
   @FormActionMethod
   FormResponse goToEventList(Request request, Fields fields) {
-    return redirectTo(EventListPage.url());
+    return redirectTo(EventListView.url());
   }
 
   private boolean errorsFoundIn(Fields fields) {

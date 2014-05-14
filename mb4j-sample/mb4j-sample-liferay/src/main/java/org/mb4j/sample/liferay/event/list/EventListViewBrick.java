@@ -4,7 +4,7 @@ import java.util.List;
 import org.mb4j.brick.Brick;
 import org.mb4j.controller.url.ControllerUrl4Response;
 
-public class EventListPageBrick extends Brick {
+public class EventListViewBrick extends Brick {
   List<DecoratedListItem> list;
   ControllerUrl4Response reverseOrderUrl;
 

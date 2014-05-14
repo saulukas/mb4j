@@ -2,10 +2,10 @@ package org.mb4j.sample.liferay.event.edit;
 
 import com.google.inject.AbstractModule;
 
-public class EventEditPageModule extends AbstractModule {
+public class EventEditViewModule extends AbstractModule {
   @Override
   protected void configure() {
-    bind(EventEditPage.class);
+    bind(EventEditView.class);
     bind(EventEditForm.class);
   }
 }

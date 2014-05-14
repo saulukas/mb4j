@@ -5,16 +5,16 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.controller.Request;
-import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
+import org.mb4j.liferay.PortletView;
 import org.mb4j.sample.domain.data.Event;
 import org.mb4j.sample.domain.queries.EventListQuery;
-import org.mb4j.sample.liferay.event.list.EventListPageBrick.DecoratedListItem;
+import org.mb4j.sample.liferay.event.list.EventListViewBrick.DecoratedListItem;
 
 @Singleton
-public class EventListPage extends BrickBakerPage {
+public class EventListView extends PortletView {
   @Inject
   EventListQuery eventListQuery;
   @Inject
@@ -25,16 +25,16 @@ public class EventListPage extends BrickBakerPage {
   }
 
   public static ControllerUrl url(int maxEventCount) {
-    return ControllerUrl.of(EventListPage.class, new Params(maxEventCount, false).toUrlParams());
+    return ControllerUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
   }
 
   @Override
-  public EventListPageBrick bakeBrickFrom(Request request) {
+  public EventListViewBrick bakeBrickFrom(Request request) {
     return bakeBrick(request, Params.from(request));
   }
 
-  EventListPageBrick bakeBrick(Request request, Params params) {
-    EventListPageBrick brick = new EventListPageBrick();
+  EventListViewBrick bakeBrick(Request request, Params params) {
+    EventListViewBrick brick = new EventListViewBrick();
     brick.list = initDecoratedList(params, request);
     brick.reverseOrderUrl = request.resolve(initReverseOrderUrl(params, request));
     return brick;

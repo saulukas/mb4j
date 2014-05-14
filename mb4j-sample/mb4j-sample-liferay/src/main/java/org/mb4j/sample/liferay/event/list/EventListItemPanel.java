@@ -3,7 +3,7 @@ package org.mb4j.sample.liferay.event.list;
 import com.google.inject.Singleton;
 import org.mb4j.controller.Request;
 import org.mb4j.sample.domain.data.Event;
-import org.mb4j.sample.liferay.event.edit.EventEditPage;
+import org.mb4j.sample.liferay.event.edit.EventEditView;
 
 @Singleton
 public class EventListItemPanel {
@@ -11,7 +11,7 @@ public class EventListItemPanel {
     EventListItemPanelBrick brick = new EventListItemPanelBrick();
     brick.event = event;
     brick.eventImageUrl = request.resolveUrl(event.imageUrl);
-    brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));
+    brick.eventEditUrl = request.resolve(EventEditView.url(event.id));
     return brick;
   }
 }

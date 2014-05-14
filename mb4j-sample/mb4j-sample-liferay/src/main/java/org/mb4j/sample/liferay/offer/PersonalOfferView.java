@@ -2,14 +2,14 @@ package org.mb4j.sample.liferay.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.controller.page.BrickBakerPage;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl;
+import org.mb4j.liferay.PortletView;
 
 @Singleton
-public class PersonalOfferPage extends BrickBakerPage {
+public class PersonalOfferView extends PortletView {
   @Override
-  public PersonalOfferPageBrick bakeBrickFrom(Request request) {
+  public PersonalOfferViewBrick bakeBrickFrom(Request request) {
     return brickFrom(request, Params.from(request));
   }
 
@@ -28,8 +28,8 @@ public class PersonalOfferPage extends BrickBakerPage {
     }
   }
 
-  private PersonalOfferPageBrick brickFrom(Request request, Params params) {
-    PersonalOfferPageBrick brick = new PersonalOfferPageBrick();
+  private PersonalOfferViewBrick brickFrom(Request request, Params params) {
+    PersonalOfferViewBrick brick = new PersonalOfferViewBrick();
     brick.offerVisible = !params.isOfferTextEmpty();
     brick.offerText = params.offerText;
     brick.offerLinkText = (brick.offerVisible ? "Hide personal offer" : "Show personal offer");

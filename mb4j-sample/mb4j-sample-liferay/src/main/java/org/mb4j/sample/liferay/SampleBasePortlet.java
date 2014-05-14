@@ -5,11 +5,15 @@ import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.liferay.BrickPortlet;
 
 public class SampleBasePortlet extends BrickPortlet {
-  protected SampleBasePortlet(String friendlyUrlMapping, Class<? extends SiteMap> siteMapClass) {
+  protected SampleBasePortlet(String friendlyUrlMapping, Class<? extends SiteMap> viewMapClass) {
+    this(friendlyUrlMapping, LiferaySampleModule.injector().getInstance(viewMapClass));
+  }
+
+  protected SampleBasePortlet(String friendlyUrlMapping, SiteMap viewMap) {
     super(
         friendlyUrlMapping,
         LiferaySampleModule.injector().getInstance(BrickRenderer.class),
-        LiferaySampleModule.injector().getInstance(siteMapClass)
+        viewMap
     );
   }
 }

@@ -3,11 +3,11 @@ package org.mb4j.sample.servlet.master;
 import com.google.inject.Singleton;
 import org.mb4j.brick.Brick;
 import org.mb4j.controller.Request;
-import org.mb4j.controller.page.BrickBakerPage;
+import org.mb4j.controller.page.Page;
 import org.mb4j.sample.servlet.offer.PersonalOfferPanel;
 
 @Singleton
-public abstract class MasterLayoutPage extends BrickBakerPage {
+public abstract class MasterLayoutPage extends Page {
   final PersonalOfferPanel headerPanel = new PersonalOfferPanel();
   final FooterPanel footerPanel = FooterPanel.INSTANCE;
 
