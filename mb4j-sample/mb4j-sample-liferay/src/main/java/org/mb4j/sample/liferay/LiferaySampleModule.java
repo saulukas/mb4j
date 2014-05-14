@@ -8,6 +8,7 @@ import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.sample.domain.EventDomainModule;
 import org.mb4j.sample.liferay.event.EventListPortlet;
 import org.mb4j.sample.liferay.offer.PersonalOfferPortlet;
+import org.mb4j.sample.liferay.time.TimePortlet;
 import org.mb4j.sample.liferay.util.ModuleWithExplicitBindings;
 
 public class LiferaySampleModule extends AbstractModule {
@@ -28,6 +29,7 @@ public class LiferaySampleModule extends AbstractModule {
     install(new EventDomainModule());
     install(new EventListPortlet.Module());
     install(new PersonalOfferPortlet.Module());
+    install(new TimePortlet.Module());
     bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
   }
 }

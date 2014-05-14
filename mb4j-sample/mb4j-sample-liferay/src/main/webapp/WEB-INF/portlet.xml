@@ -51,6 +51,28 @@
   </portlet>
 
   <portlet>
+    <portlet-name>time</portlet-name>
+    <portlet-class>org.mb4j.sample.liferay.time.TimePortlet</portlet-class>
+    <expiration-cache>0</expiration-cache>
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>view</portlet-mode>
+    </supports>
+    <portlet-info>
+      <title>Server time</title>
+    </portlet-info>
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
+  </portlet>
+
+  <portlet>
     <portlet-name>testbench</portlet-name>
     <portlet-class>org.mb4j.sample.liferay.zbox.TestbenchPortlet</portlet-class>
     <expiration-cache>0</expiration-cache>

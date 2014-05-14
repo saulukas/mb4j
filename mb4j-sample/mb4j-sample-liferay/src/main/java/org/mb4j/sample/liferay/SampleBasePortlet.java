@@ -15,5 +15,7 @@ public class SampleBasePortlet extends BrickPortlet {
         LiferaySampleModule.injector().getInstance(BrickRenderer.class),
         viewMap
     );
+    System.out.println("Created portlet with friendly URL: " + friendlyUrlMapping
+        + "\n" + viewMap);
   }
 }

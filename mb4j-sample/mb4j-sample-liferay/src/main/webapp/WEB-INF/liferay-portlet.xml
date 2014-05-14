@@ -19,6 +19,15 @@
   </portlet>
 
   <portlet>
+    <portlet-name>time</portlet-name>
+    <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
+    <friendly-url-mapping>time</friendly-url-mapping>
+    <friendly-url-routes>org/mb4j/liferay/nice-urls.xml</friendly-url-routes>
+    <instanceable>false</instanceable>
+    <footer-portlet-javascript>/js/jquery.js</footer-portlet-javascript>
+  </portlet>
+
+  <portlet>
     <portlet-name>testbench</portlet-name>
     <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
     <friendly-url-mapping>testbench</friendly-url-mapping>

@@ -23,7 +23,8 @@ public class Component {
     ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, Form.class, result);
   }
 
-  public void addChildrenRecursively(Collection<Component> result) {
+  public void addSubtree(Collection<Component> result) {
+    result.add(this);
     ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, Component.class, result);
   }
 

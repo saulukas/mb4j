@@ -34,7 +34,7 @@ public class EventListPortlet extends SampleBasePortlet {
     protected void configure() {
       install(new EventListViewModule());
       install(new EventEditViewModule());
-      bind(EventListPortlet.Views.class);
+      bind(Views.class);
     }
   }
 }

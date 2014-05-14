@@ -4,6 +4,7 @@
   <category name="mb4j sample portlets">
     <portlet id="event-list"></portlet>
     <portlet id="personal-offer"></portlet>
+    <portlet id="time"></portlet>
   </category>
   <category name="mb4j testing">
     <portlet id="testbench"></portlet>

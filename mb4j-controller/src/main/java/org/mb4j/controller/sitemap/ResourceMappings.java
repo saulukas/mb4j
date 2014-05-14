@@ -18,7 +18,7 @@ public class ResourceMappings implements MapComponentClass2Name, MapComponentNam
     for (Controller controller : controllers) {
       if (controller instanceof Component) {
         Component component = (Component) controller;
-        component.addChildrenRecursively(components);
+        component.addSubtree(components);
       }
     }
     Set<Component> processedComponents = new HashSet<>();
