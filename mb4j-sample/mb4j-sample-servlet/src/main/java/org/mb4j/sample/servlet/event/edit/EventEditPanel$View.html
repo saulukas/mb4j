@@ -1,0 +1,28 @@
+<h1>Edit Event</h1>
+<form method="post">
+  {{#fd.header}}
+  {{/fd.header}}
+  <input type="hidden" name="{{fd.fields.id.name}}" value="{{fd.fields.id.value}}"/>
+  <input type="hidden" name="{{fd.fields.imageUrl.name}}" value="{{fd.fields.imageUrl.value}}"/>
+  <table>
+    <tr>
+      <td style="text-align: right;">{{fd.fields.title.label}}</td>
+      <td><input type="text" name="{{fd.fields.title.name}}" value="{{fd.fields.title.value}}"/></td>
+      <td style="color:red;">{{fd.fields.title.error}}</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">{{fd.fields.summary.label}}</td>
+      <td><input type="text" name="{{fd.fields.summary.name}}" value="{{fd.fields.summary.value}}"/></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input name="{{fd.actions.save.name}}" type="submit" value="Save"/>
+        <input name="{{fd.actions.reset.name}}" type="submit" value="Reset"/>
+        <input name="{{fd.actions.goToEventList.name}}" type="submit" value="Go To Event List..."/>
+      </td>
+      <td><em>save enabled: {{fd.actions.save.enabled}}</em></td>
+    </tr>
+  </table>
+</form>

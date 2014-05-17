@@ -1,13 +1,21 @@
 package org.mb4j.sample.servlet.home;
 
 import com.google.inject.Singleton;
-import org.mb4j.sample.servlet.event.list.EventListPage;
+import org.mb4j.brick.Brick;
 import org.mb4j.controller.Request;
+import org.mb4j.controller.url.ControllerUrl4Response;
+import org.mb4j.sample.servlet.event.list.EventListPage;
 
 @Singleton
 public class HomeContentPanel {
-  public HomeContentPanelBrick bakeBrick(Request request) {
-    HomeContentPanelBrick brick = new HomeContentPanelBrick();
+  public static class View extends Brick {
+    ControllerUrl4Response oneEventUrl;
+    ControllerUrl4Response twoEventsUrl;
+    ControllerUrl4Response allEventsUrl;
+  }
+
+  public View bakeBrick(Request request) {
+    View brick = new View();
     brick.oneEventUrl = request.resolve(EventListPage.url(1));
     brick.twoEventsUrl = request.resolve(EventListPage.url(2));
     brick.allEventsUrl = request.resolve(EventListPage.url(EventListPage.SHOW_ALL));

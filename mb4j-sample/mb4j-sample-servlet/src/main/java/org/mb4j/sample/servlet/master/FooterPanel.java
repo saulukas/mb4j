@@ -8,6 +8,8 @@ import org.mb4j.controller.Request;
 import org.mb4j.controller.Response;
 import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.resource.ResourceMethod;
+import org.mb4j.controller.resource.Resources4Response;
+import org.mb4j.controller.url.ControllerUrl4Response;
 import org.mb4j.sample.servlet.services.TimeService;
 
 @Singleton
@@ -17,8 +19,13 @@ public class FooterPanel extends Panel {
   private FooterPanel() {
   }
 
-  Brick bakeBrickFrom(Request request) {
-    FooterPanelBrick brick = new FooterPanelBrick();
+  public static class View extends Brick {
+    ControllerUrl4Response timeServiceUrl;
+    Resources4Response resources;
+  }
+
+  View bakeBrick(Request request) {
+    View brick = new View();
     brick.timeServiceUrl = request.resolve(TimeService.url());
     brick.resources = request.resolveResourcesOf(this);
     return brick;

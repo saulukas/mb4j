@@ -1,15 +1,24 @@
 package org.mb4j.sample.servlet.event.list;
 
 import com.google.inject.Singleton;
+import org.mb4j.brick.Brick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.page.Panel;
+import org.mb4j.controller.url.AssetUrl4Response;
+import org.mb4j.controller.url.ControllerUrl4Response;
 import org.mb4j.sample.domain.data.Event;
 import org.mb4j.sample.servlet.event.edit.EventEditPage;
 
 @Singleton
 public class EventListItemPanel extends Panel {
-  public EventListItemPanelBrick bakeBrick(Request request, Event event) {
-    EventListItemPanelBrick brick = new EventListItemPanelBrick();
+  public static class View extends Brick {
+    Event event;
+    AssetUrl4Response eventImageUrl;
+    ControllerUrl4Response eventEditUrl;
+  }
+
+  public View bakeBrick(Request request, Event event) {
+    View brick = new View();
     brick.event = event;
     brick.eventImageUrl = request.resolveUrl(event.imageUrl);
     brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));

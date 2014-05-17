@@ -7,9 +7,9 @@ import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.controller.sitemap.SiteMap;
 import org.mb4j.sample.domain.EventDomainModule;
-import org.mb4j.sample.servlet.event.edit.EventEditPageModule;
-import org.mb4j.sample.servlet.event.list.EventListPageModule;
-import org.mb4j.sample.servlet.home.HomePageModule;
+import org.mb4j.sample.servlet.event.edit.EventEditPage;
+import org.mb4j.sample.servlet.event.list.EventListPage;
+import org.mb4j.sample.servlet.home.HomePage;
 import org.mb4j.sample.servlet.util.ModuleWithExplicitBindings;
 
 public class ServletSampleModule extends AbstractModule {
@@ -35,8 +35,8 @@ public class ServletSampleModule extends AbstractModule {
   }
 
   private void bindPages() {
-    install(new HomePageModule());
-    install(new EventListPageModule());
-    install(new EventEditPageModule());
+    install(new HomePage.Module());
+    install(new EventListPage.Module());
+    install(new EventEditPage.Module());
   }
 }
