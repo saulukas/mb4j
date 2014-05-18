@@ -3,13 +3,12 @@ package org.mb4j.sample.servlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class StartBrickServletSampleJetty {
+public class StartServletSampleJetty {
   public static void main(String[] args) throws Exception {
     final int PORT = 8180;
     final String CONTEXT_PATH = "/brickSample";
     // Server
     Server server = new Server(PORT);
-    // WebAppContext
     WebAppContext webAppContext = new WebAppContext();
     webAppContext.setServer(server);
     webAppContext.setContextPath(CONTEXT_PATH);

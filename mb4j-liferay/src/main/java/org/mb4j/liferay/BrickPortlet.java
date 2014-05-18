@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.net.URI;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.GenericPortlet;
+import javax.portlet.Portlet;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -13,6 +14,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.ResourceServingPortlet;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.Component;
 import org.mb4j.controller.Request;
@@ -34,7 +36,7 @@ import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
 import static org.mb4j.liferay.PortletPathToHome.pathToAssets;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
-public class BrickPortlet extends GenericPortlet {
+public class BrickPortlet implements Portlet, ResourceServingPortlet {
   private final String friendlyUrlMapping;
   private final BrickRenderer renderer;
   private final SiteMap viewMap;
@@ -46,7 +48,15 @@ public class BrickPortlet extends GenericPortlet {
   }
 
   @Override
-  protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
+  public void init(PortletConfig config) throws PortletException {
+  }
+
+  @Override
+  public void destroy() {
+  }
+
+  @Override
+  public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
     MapUrlPath2Controller.Result resolved = resolveView(renderRequest);
     Request request = createRequest(resolved, renderRequest, renderResponse);
     resolved.controller.handle(request, new PortletControllerResponse(renderer, renderResponse));
@@ -78,7 +88,6 @@ public class BrickPortlet extends GenericPortlet {
   public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException, IOException {
     String resourceParam = resourceRequest.getParameter(Resources4ResponseResolver.RESOURCE_PARAM_NAME);
     if (resourceParam == null) {
-      super.serveResource(resourceRequest, resourceResponse);
       return;
     }
     Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
