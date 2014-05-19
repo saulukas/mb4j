@@ -3,11 +3,11 @@ package org.mb4j.brick.template;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 import java.io.InputStream;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 
 public class TemplateProviderFromClasspath implements TemplateProvider {
   @Override
-  public BrickTemplate templateFor(Class<? extends Brick> brickClass) {
+  public BrickTemplate templateFor(Class<? extends MustacheBrick> brickClass) {
     TemplateTextSource source = templateTextSourceFor(brickClass);
     String templateText = templateTextFrom(source);
     Template template = Mustache.compiler().compile(templateText);
@@ -26,7 +26,7 @@ public class TemplateProviderFromClasspath implements TemplateProvider {
     }
   }
 
-  private TemplateTextSource templateTextSourceFor(Class<? extends Brick> brickClass) {
+  private TemplateTextSource templateTextSourceFor(Class<? extends MustacheBrick> brickClass) {
     String templateType = TemplateUtils.typeStringOf(brickClass);
     Class<?> templateClass = brickClass;
     InputStream inputStream = TemplateIoUtils.inputStreamOrNull(templateClass, templateType);

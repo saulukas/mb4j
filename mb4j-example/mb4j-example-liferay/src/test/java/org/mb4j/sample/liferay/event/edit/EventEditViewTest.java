@@ -1,7 +1,7 @@
 package org.mb4j.sample.liferay.event.edit;
 
 import org.junit.Test;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
 import org.mb4j.controller.url.ControllerUrl;
 import static org.mb4j.sample.liferay.LiferaySampleTestApplication.inject;
@@ -15,7 +15,7 @@ public class EventEditViewTest {
   @Test
   public void renders_fishing_event() {
     ControllerUrl url = EventEditView.url(fishingEventId());
-    Brick brick = page.bakeBrickFrom(requestFor(Views.class, url));
+    MustacheBrick brick = page.bakeBrickFrom(requestFor(Views.class, url));
     System.out.println(renderToString4Development(brick));
   }
 }

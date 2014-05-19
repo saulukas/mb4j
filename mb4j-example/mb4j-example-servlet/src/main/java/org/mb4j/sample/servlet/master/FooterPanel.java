@@ -3,7 +3,7 @@ package org.mb4j.sample.servlet.master;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.Date;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.Response;
 import org.mb4j.controller.page.Panel;
@@ -19,7 +19,7 @@ public class FooterPanel extends Panel {
   private FooterPanel() {
   }
 
-  public static class View extends Brick {
+  public static class View extends MustacheBrick {
     ControllerUrl4Response timeServiceUrl;
     Resources4Response resources;
   }

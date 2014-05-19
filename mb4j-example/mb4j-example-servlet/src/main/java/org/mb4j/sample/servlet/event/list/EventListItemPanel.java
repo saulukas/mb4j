@@ -1,7 +1,7 @@
 package org.mb4j.sample.servlet.event.list;
 
 import com.google.inject.Singleton;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.url.AssetUrl4Response;
@@ -11,7 +11,7 @@ import org.mb4j.sample.servlet.event.edit.EventEditPage;
 
 @Singleton
 public class EventListItemPanel extends Panel {
-  public static class View extends Brick {
+  public static class View extends MustacheBrick {
     Event event;
     AssetUrl4Response eventImageUrl;
     ControllerUrl4Response eventEditUrl;

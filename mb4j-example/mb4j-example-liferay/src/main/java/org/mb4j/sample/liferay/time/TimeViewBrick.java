@@ -1,10 +1,10 @@
 package org.mb4j.sample.liferay.time;
 
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.resource.Resources4Response;
 import org.mb4j.controller.url.ControllerUrl4Response;
 
-public class TimeViewBrick extends Brick {
+public class TimeViewBrick extends MustacheBrick {
   ControllerUrl4Response timeServiceUrl;
   Resources4Response resources;
 }

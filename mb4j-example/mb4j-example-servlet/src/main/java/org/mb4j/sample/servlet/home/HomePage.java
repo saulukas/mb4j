@@ -2,7 +2,7 @@ package org.mb4j.sample.servlet.home;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.sample.servlet.master.MasterLayoutPage;
@@ -24,7 +24,7 @@ public class HomePage extends MasterLayoutPage {
   }
 
   @Override
-  protected Brick bakeContentBrick(Request request) {
+  protected MustacheBrick bakeContentBrick(Request request) {
     return contentPanel.bakeBrick(request);
   }
 }

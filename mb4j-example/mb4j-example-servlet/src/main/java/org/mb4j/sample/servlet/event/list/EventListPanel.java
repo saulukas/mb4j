@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.page.Panel;
 import org.mb4j.controller.url.ControllerUrl;
@@ -22,7 +22,7 @@ public class EventListPanel extends Panel {
   @Inject
   EventListItemPanel itemPanel;
 
-  public static class View extends Brick {
+  public static class View extends MustacheBrick {
     List<DecoratedListItem> list;
     ControllerUrl4Response reverseOrderUrl;
 

@@ -2,7 +2,7 @@ package org.mb4j.sample.servlet.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.page.BrickBaker;
 import org.mb4j.controller.page.Panel;
@@ -16,7 +16,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     String offerText;
   }
 
-  public static class View extends Brick {
+  public static class View extends MustacheBrick {
     boolean offerVisible = false;
     String offerText;
     String offerLinkText;

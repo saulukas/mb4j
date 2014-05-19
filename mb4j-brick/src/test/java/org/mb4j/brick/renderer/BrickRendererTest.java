@@ -3,7 +3,7 @@ package org.mb4j.brick.renderer;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.TestingUtils;
 import org.mb4j.brick.samples.composition.CompositeBrick;
 import org.mb4j.brick.samples.composition.CompositeWithUnindentedBrick;
@@ -91,7 +91,7 @@ public class BrickRendererTest {
     assertRendererOutputFor(new CompositeWithUnindentedBrick());
   }
 
-  private void assertRendererOutputFor(Brick brick) {
+  private void assertRendererOutputFor(MustacheBrick brick) {
     String actual = RendererUtils.renderToString4Development(brick);
     String expected = TestingUtils.fileContentFor(brick.getClass(), ".expected");
     assertThat(actual, is(expected));

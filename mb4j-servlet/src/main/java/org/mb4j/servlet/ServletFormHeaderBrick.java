@@ -1,8 +1,8 @@
 package org.mb4j.servlet;
 
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 
-public class ServletFormHeaderBrick extends Brick {
+public class ServletFormHeaderBrick extends MustacheBrick {
   final String formParamName;
   final String formParamValue;
 

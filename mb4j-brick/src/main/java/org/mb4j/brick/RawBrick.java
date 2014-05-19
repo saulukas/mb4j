@@ -7,7 +7,7 @@ import java.io.Writer;
 /**
  * Does not html-escape rawText.
  */
-public class RawBrick extends Brick {
+public class RawBrick extends MustacheBrick {
   public final String rawText;
 
   public RawBrick(String rawText) {

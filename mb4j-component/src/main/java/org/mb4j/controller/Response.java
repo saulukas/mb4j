@@ -2,7 +2,7 @@ package org.mb4j.controller;
 
 import java.io.OutputStream;
 import java.io.Writer;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 
@@ -27,7 +27,7 @@ public abstract class Response {
     return renderer;
   }
 
-  public void render(Brick brick) {
+  public void render(MustacheBrick brick) {
     setCharacterEncoding(outputEncodingStringOf(brick.getClass()));
     getRenderer().render(brick, getWriter());
   }

@@ -1,12 +1,12 @@
 package org.mb4j.brick.renderer;
 
 import java.io.StringWriter;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.template.CachedTemplateProvider;
 import org.mb4j.brick.template.TemplateProviderFromClasspath;
 
 public class RendererUtils {
-  public static String renderToString4Development(Brick brick) {
+  public static String renderToString4Development(MustacheBrick brick) {
     return renderToString(brick, renderer4Development());
   }
 
@@ -18,7 +18,7 @@ public class RendererUtils {
     return new BrickRenderer(new CachedTemplateProvider(new TemplateProviderFromClasspath()));
   }
 
-  public static String renderToString(Brick brick, BrickRenderer renderer) {
+  public static String renderToString(MustacheBrick brick, BrickRenderer renderer) {
     StringWriter out = new StringWriter();
     renderer.render(brick, out);
     return out.toString();

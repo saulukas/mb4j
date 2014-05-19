@@ -1,14 +1,14 @@
 package org.mb4j.sample.servlet.home;
 
 import com.google.inject.Singleton;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.Request;
 import org.mb4j.controller.url.ControllerUrl4Response;
 import org.mb4j.sample.servlet.event.list.EventListPage;
 
 @Singleton
 public class HomeContentPanel {
-  public static class View extends Brick {
+  public static class View extends MustacheBrick {
     ControllerUrl4Response oneEventUrl;
     ControllerUrl4Response twoEventsUrl;
     ControllerUrl4Response allEventsUrl;

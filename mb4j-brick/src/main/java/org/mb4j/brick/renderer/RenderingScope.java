@@ -6,7 +6,7 @@ import java.io.FilterWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Iterator;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.template.BrickTemplate;
 import org.mb4j.brick.template.TemplateProvider;
 
@@ -19,11 +19,11 @@ public class RenderingScope extends FilterWriter {
     this.templateProvider = templateProvider;
   }
 
-  public void render(Brick brick) {
+  public void render(MustacheBrick brick) {
     brick.execute(null, this);
   }
 
-  public void renderUnindented(Brick brick, Fragment frag) {
+  public void renderUnindented(MustacheBrick brick, Fragment frag) {
     String oldLineEnd = lineEnd;
     lineEnd = "\n";
     try {
@@ -33,7 +33,7 @@ public class RenderingScope extends FilterWriter {
     }
   }
 
-  public void renderIndented(Brick brick, Fragment frag) {
+  public void renderIndented(MustacheBrick brick, Fragment frag) {
     String oldLineEnd = lineEnd;
     if (frag != null) {
       lineEnd += lineEndFrom(frag);
@@ -45,10 +45,10 @@ public class RenderingScope extends FilterWriter {
     }
   }
 
-  public void renderList(Iterable<? extends Brick> bricks, Fragment frag) {
-    Iterator<? extends Brick> iterator = bricks.iterator();
+  public void renderList(Iterable<? extends MustacheBrick> bricks, Fragment frag) {
+    Iterator<? extends MustacheBrick> iterator = bricks.iterator();
     while (iterator.hasNext()) {
-      Brick brick = iterator.next();
+      MustacheBrick brick = iterator.next();
       doRender(brick);
       if (iterator.hasNext()) {
         frag.execute(this);
@@ -56,7 +56,7 @@ public class RenderingScope extends FilterWriter {
     }
   }
 
-  private void doRender(Brick brick) throws MustacheException {
+  private void doRender(MustacheBrick brick) throws MustacheException {
     BrickTemplate brickTemplate = templateProvider.templateFor(brick.getClass());
     try {
       brickTemplate.template.execute(brick, this);

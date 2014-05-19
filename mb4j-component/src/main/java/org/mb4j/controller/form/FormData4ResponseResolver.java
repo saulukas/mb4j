@@ -3,7 +3,7 @@ package org.mb4j.controller.form;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.controller.form.field.FormField;
 import org.mb4j.controller.sitemap.MapFormClass2Name;
 
@@ -23,7 +23,7 @@ public abstract class FormData4ResponseResolver {
         actions4ResponseFrom(formData));
   }
 
-  protected abstract Brick createHeaderBrick(String formName);
+  protected abstract MustacheBrick createHeaderBrick(String formName);
 
   protected String fieldName4Response(String name) {
     return name;

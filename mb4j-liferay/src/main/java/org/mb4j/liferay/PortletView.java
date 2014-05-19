@@ -1,6 +1,6 @@
 package org.mb4j.liferay;
 
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.EmptyBrick;
 import org.mb4j.controller.Component;
 import org.mb4j.controller.Controller;
@@ -15,7 +15,7 @@ public class PortletView extends Component implements Controller, BrickBaker {
   }
 
   @Override
-  public Brick bakeBrickFrom(Request request) {
+  public MustacheBrick bakeBrickFrom(Request request) {
     return EmptyBrick.emptyBrick();
   }
 }

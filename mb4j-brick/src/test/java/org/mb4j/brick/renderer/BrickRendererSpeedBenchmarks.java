@@ -8,7 +8,7 @@ import com.samskivert.mustache.Template;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
 public class BrickRendererSpeedBenchmarks {
@@ -17,7 +17,7 @@ public class BrickRendererSpeedBenchmarks {
     //      1
     //    --------
     //
-    Brick brick = new MoreCompositeBrick();
+    MustacheBrick brick = new MoreCompositeBrick();
     long startNanos = System.nanoTime();
     String output = "";
     for (int i = 0; i < 10 * 1000; i++) {

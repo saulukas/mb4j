@@ -1,10 +1,10 @@
 package org.mb4j.brick.samples.recursion;
 
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
-public class RecursiveBrick extends Brick {
+public class RecursiveBrick extends MustacheBrick {
   final RecursiveBrick next;
   final String message;
 

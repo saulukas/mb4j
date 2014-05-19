@@ -4,17 +4,17 @@ import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 import org.mb4j.brick.samples.composition.CompositeBrick;
 import org.mb4j.brick.samples.lists.ListOfBrickItems;
 import org.mb4j.brick.samples.lists.ListOfCustomItems;
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.samples.SimpleBrick;
 import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
-public class VeryCompositeBrick extends Brick {
-  final Brick moreComposite = new MoreCompositeBrick();
-  final Brick composite = new CompositeBrick();
-  final Brick simple = new SimpleBrick("<Hello>");
-  final Brick listOfBricks = new ListOfBrickItems();
-  final Brick listOfCustomItems = new ListOfCustomItems();
+public class VeryCompositeBrick extends MustacheBrick {
+  final MustacheBrick moreComposite = new MoreCompositeBrick();
+  final MustacheBrick composite = new CompositeBrick();
+  final MustacheBrick simple = new SimpleBrick("<Hello>");
+  final MustacheBrick listOfBricks = new ListOfBrickItems();
+  final MustacheBrick listOfCustomItems = new ListOfCustomItems();
   String message;
 
   VeryCompositeBrick() {

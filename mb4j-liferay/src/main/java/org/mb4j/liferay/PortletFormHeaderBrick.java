@@ -1,8 +1,8 @@
 package org.mb4j.liferay;
 
-import org.mb4j.brick.Brick;
+import org.mb4j.brick.MustacheBrick;
 
-public class PortletFormHeaderBrick extends Brick {
+public class PortletFormHeaderBrick extends MustacheBrick {
   final boolean pauthParamEnabled;
   final String pauthParamValue;
   final String formParamName;
