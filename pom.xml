@@ -12,7 +12,7 @@
 
   <modules>
     <module>mb4j-brick</module>
-    <module>mb4j-controller</module>
+    <module>mb4j-component</module>
     <module>mb4j-liferay</module>
     <module>mb4j-sample</module>
     <module>mb4j-servlet</module>
