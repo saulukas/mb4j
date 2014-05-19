@@ -12,13 +12,13 @@
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>mb4j-sample</artifactId>
+  <artifactId>mb4j-example</artifactId>
   <packaging>pom</packaging>
 
   <modules>
-    <module>mb4j-sample-domain</module>
-    <module>mb4j-sample-liferay</module>
-    <module>mb4j-sample-servlet</module>
+    <module>mb4j-example-domain</module>
+    <module>mb4j-example-liferay</module>
+    <module>mb4j-example-servlet</module>
   </modules>
 
   <properties>

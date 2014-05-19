@@ -7,12 +7,12 @@
 
   <parent>
     <groupId>org.mb4j</groupId>
-    <artifactId>mb4j-sample</artifactId>
+    <artifactId>mb4j-example</artifactId>
     <version>0.3.5-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>mb4j-sample-servlet</artifactId>
+  <artifactId>mb4j-example-servlet</artifactId>
   <packaging>war</packaging>
 
   <build>
@@ -42,7 +42,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>mb4j-sample-domain</artifactId>
+      <artifactId>mb4j-example-domain</artifactId>
       <version>${project.version}</version>
     </dependency>
 

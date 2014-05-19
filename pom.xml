@@ -13,8 +13,8 @@
   <modules>
     <module>mb4j-brick</module>
     <module>mb4j-component</module>
+    <module>mb4j-example</module>
     <module>mb4j-liferay</module>
-    <module>mb4j-sample</module>
     <module>mb4j-servlet</module>
   </modules>
 
