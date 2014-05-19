@@ -12,12 +12,12 @@ public class EventEditPanel extends Panel {
   @Inject
   EventEditForm form;
 
-  public static class View extends MustacheBrick {
+  public static class Brick extends MustacheBrick {
     FormData4Response fd;
   }
 
-  public View bakeBrick(Request request, int eventId) {
-    View brick = new View();
+  public Brick bakeBrick(Request request, int eventId) {
+    Brick brick = new Brick();
     brick.fd = request.resolve(form.data(request, eventId));
     return brick;
   }

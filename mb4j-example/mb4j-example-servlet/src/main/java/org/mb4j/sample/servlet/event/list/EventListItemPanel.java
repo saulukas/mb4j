@@ -11,14 +11,14 @@ import org.mb4j.sample.servlet.event.edit.EventEditPage;
 
 @Singleton
 public class EventListItemPanel extends Panel {
-  public static class View extends MustacheBrick {
+  public static class Brick extends MustacheBrick {
     Event event;
     AssetUrl4Response eventImageUrl;
     ControllerUrl4Response eventEditUrl;
   }
 
-  public View bakeBrick(Request request, Event event) {
-    View brick = new View();
+  public Brick bakeBrick(Request request, Event event) {
+    Brick brick = new Brick();
     brick.event = event;
     brick.eventImageUrl = request.resolveUrl(event.imageUrl);
     brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));

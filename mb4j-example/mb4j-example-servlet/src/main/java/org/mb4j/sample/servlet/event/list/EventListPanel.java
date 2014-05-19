@@ -13,7 +13,7 @@ import org.mb4j.controller.url.UrlParams;
 import org.mb4j.controller.url.UrlPathBuilder;
 import org.mb4j.sample.domain.data.Event;
 import org.mb4j.sample.domain.queries.EventListQuery;
-import org.mb4j.sample.servlet.event.list.EventListPanel.View.DecoratedListItem;
+import org.mb4j.sample.servlet.event.list.EventListPanel.Brick.DecoratedListItem;
 
 @Singleton
 public class EventListPanel extends Panel {
@@ -22,22 +22,22 @@ public class EventListPanel extends Panel {
   @Inject
   EventListItemPanel itemPanel;
 
-  public static class View extends MustacheBrick {
+  public static class Brick extends MustacheBrick {
     List<DecoratedListItem> list;
     ControllerUrl4Response reverseOrderUrl;
 
     static class DecoratedListItem {
-      EventListItemPanel.View item;
+      EventListItemPanel.Brick item;
 
-      DecoratedListItem(EventListItemPanel.View item) {
+      DecoratedListItem(EventListItemPanel.Brick item) {
         this.item = item;
       }
     }
   }
 
-  public View bakeBrick(Request request) {
+  public Brick bakeBrick(Request request) {
     Params params = Params.from(request);
-    View brick = new View();
+    Brick brick = new Brick();
     brick.list = initDecoratedList(params, request);
     brick.reverseOrderUrl = request.resolve(initReverseOrderUrl(params, request));
     return brick;

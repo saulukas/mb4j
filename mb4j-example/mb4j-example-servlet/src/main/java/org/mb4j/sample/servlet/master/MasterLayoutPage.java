@@ -12,7 +12,7 @@ public abstract class MasterLayoutPage extends Page {
   final PersonalOfferPanel headerPanel = new PersonalOfferPanel();
   final FooterPanel footerPanel = FooterPanel.INSTANCE;
 
-  public static class View extends MustacheBrick {
+  public static class Brick extends MustacheBrick {
     MustacheBrick header;
     MustacheBrick content;
     MustacheBrick footer;
@@ -22,7 +22,7 @@ public abstract class MasterLayoutPage extends Page {
 
   @Override
   public MustacheBrick bakeBrickFrom(Request request) {
-    View brick = new View();
+    Brick brick = new Brick();
     brick.header = headerPanel.bakeBrickFrom(request);
     brick.content = bakeContentBrick(request);
     brick.footer = footerPanel.bakeBrick(request);

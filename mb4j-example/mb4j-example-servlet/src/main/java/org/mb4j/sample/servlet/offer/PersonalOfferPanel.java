@@ -16,7 +16,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     String offerText;
   }
 
-  public static class View extends MustacheBrick {
+  public static class Brick extends MustacheBrick {
     boolean offerVisible = false;
     String offerText;
     String offerLinkText;
@@ -24,9 +24,9 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
   }
 
   @Override
-  public View bakeBrickFrom(Request request) {
+  public Brick bakeBrickFrom(Request request) {
     Params params = paramsFrom(request);
-    View brick = new View();
+    Brick brick = new Brick();
     brick.offerVisible = !isOfferTextEmpty(params);
     brick.offerText = params.offerText;
     brick.offerLinkText = (brick.offerVisible ? "Hide personal offer" : "Show personal offer");

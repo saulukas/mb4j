@@ -19,13 +19,13 @@ public class FooterPanel extends Panel {
   private FooterPanel() {
   }
 
-  public static class View extends MustacheBrick {
+  public static class Brick extends MustacheBrick {
     ControllerUrl4Response timeServiceUrl;
     Resources4Response resources;
   }
 
-  View bakeBrick(Request request) {
-    View brick = new View();
+  Brick bakeBrick(Request request) {
+    Brick brick = new Brick();
     brick.timeServiceUrl = request.resolve(TimeService.url());
     brick.resources = request.resolveResourcesOf(this);
     return brick;
