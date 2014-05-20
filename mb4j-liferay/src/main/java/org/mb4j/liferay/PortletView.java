@@ -6,7 +6,7 @@ import org.mb4j.component.Component;
 import org.mb4j.component.view.View;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewResponse;
-import org.mb4j.component.page.BrickBaker;
+import org.mb4j.component.view.BrickBaker;
 
 public class PortletView extends Component implements View, BrickBaker {
   @Override

@@ -1,4 +1,4 @@
-package org.mb4j.servlet;
+package org.mb4j.servlet.adapters;
 
 import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.sitemap.MapComponentClass2Name;

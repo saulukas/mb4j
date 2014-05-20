@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.page.BrickBaker;
+import org.mb4j.component.view.BrickBaker;
 import org.mb4j.component.page.Panel;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.view.ViewUrl4Response;

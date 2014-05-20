@@ -1,5 +1,6 @@
 package org.mb4j.component.page;
 
+import org.mb4j.component.view.BrickBaker;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.EmptyBrick;
 import org.mb4j.component.Component;

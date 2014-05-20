@@ -1,5 +1,6 @@
 package org.mb4j.servlet;
 
+import org.mb4j.servlet.adapters.ServletRequestAttributes;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package org.mb4j.component.page;
+package org.mb4j.component.view;
 
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.view.ViewRequest;

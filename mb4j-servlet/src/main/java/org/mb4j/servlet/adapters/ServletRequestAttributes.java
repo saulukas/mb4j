@@ -1,4 +1,4 @@
-package org.mb4j.servlet;
+package org.mb4j.servlet.adapters;
 
 import com.google.common.base.Optional;
 import javax.servlet.http.HttpServletRequest;

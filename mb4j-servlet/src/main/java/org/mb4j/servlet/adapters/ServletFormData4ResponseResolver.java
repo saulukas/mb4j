@@ -1,4 +1,4 @@
-package org.mb4j.servlet;
+package org.mb4j.servlet.adapters;
 
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.form.FormData4ResponseResolver;
