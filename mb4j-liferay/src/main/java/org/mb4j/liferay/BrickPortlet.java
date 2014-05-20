@@ -18,6 +18,7 @@ import javax.portlet.ResourceServingPortlet;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.Component;
 import org.mb4j.controller.Request;
+import org.mb4j.controller.Response;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
@@ -59,7 +60,8 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
   public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
     MapUrlPath2Controller.Result resolved = resolveView(renderRequest);
     Request request = createRequest(resolved, renderRequest, renderResponse);
-    resolved.controller.handle(request, new PortletControllerResponse(renderer, renderResponse));
+    Response response = new PortletControllerResponse(renderer, renderResponse);
+    resolved.controller.handle(request, response);
   }
 
   @Override

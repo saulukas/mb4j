@@ -3,7 +3,6 @@ package org.mb4j.controller.sitemap;
 import java.util.Collection;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.url.BufferedUrlPathReader;
-import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 
@@ -25,7 +24,7 @@ public class SiteMapBuilder {
   }
 
   public SiteMapBuilder mount(UrlPath path, Controller controller) {
-    BufferedUrlPathReader pathReader = bufferedReaderOf(path);
+    BufferedUrlPathReader pathReader = BufferedUrlPathReader.of(path);
     root.mount(pathReader, controller);
     controllerClasses.mount(pathReader.processedPath(), controller.getClass());
     return this;

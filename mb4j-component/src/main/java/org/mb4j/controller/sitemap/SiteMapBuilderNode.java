@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import org.mb4j.controller.Controller;
 import org.mb4j.controller.url.BufferedUrlPathReader;
-import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
 import org.mb4j.controller.url.UrlPath;
 import org.mb4j.controller.url.UrlPathString;
 import static org.mb4j.controller.url.UrlPathString.pathStringOf;
@@ -46,7 +45,7 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
 
   @Override
   public Result controllerFor(UrlPath path) {
-    return resolve(bufferedReaderOf(path));
+    return resolve(BufferedUrlPathReader.of(path));
   }
 
   private Result resolve(BufferedUrlPathReader reader) {
@@ -69,7 +68,7 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
   }
 
   void mount(UrlPath path, Controller controller) {
-    mount(bufferedReaderOf(path), controller);
+    mount(BufferedUrlPathReader.of(path), controller);
   }
 
   void mount(BufferedUrlPathReader reader, Controller controller) {

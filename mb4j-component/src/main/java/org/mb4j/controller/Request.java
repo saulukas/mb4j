@@ -5,12 +5,12 @@ import org.mb4j.controller.form.FormData4Response;
 import org.mb4j.controller.form.FormData4ResponseResolver;
 import org.mb4j.controller.resource.Resources4Response;
 import org.mb4j.controller.resource.Resources4ResponseResolver;
-import static org.mb4j.controller.url.BufferedUrlPathReader.bufferedReaderOf;
+import org.mb4j.controller.url.AssetUrl4Response;
+import org.mb4j.controller.url.AssetUrl4ResponseResolver;
+import org.mb4j.controller.url.BufferedUrlPathReader;
 import org.mb4j.controller.url.ControllerUrl;
 import org.mb4j.controller.url.ControllerUrl4Response;
 import org.mb4j.controller.url.ControllerUrl4ResponseResolver;
-import org.mb4j.controller.url.AssetUrl4Response;
-import org.mb4j.controller.url.AssetUrl4ResponseResolver;
 import org.mb4j.controller.url.UrlPathReader;
 import org.mb4j.controller.utils.Attributes;
 
@@ -31,7 +31,7 @@ public class Request {
       FormData4ResponseResolver formDataResolver,
       Resources4ResponseResolver resourcesResolver) {
     this.url = url;
-    this.urlPathReader = bufferedReaderOf(url.params.path);
+    this.urlPathReader = BufferedUrlPathReader.of(url.params.path);
     this.attributes = attributes;
     this.urlResolver = urlResolver;
     this.controllerUrlResolver = controllerUrlResolver;

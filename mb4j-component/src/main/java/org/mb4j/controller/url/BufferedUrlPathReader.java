@@ -13,7 +13,7 @@ public class BufferedUrlPathReader implements UrlPathReader {
     Iterators.addAll(remainingSegments, pathSegments);
   }
 
-  public static BufferedUrlPathReader bufferedReaderOf(UrlPath path) {
+  public static BufferedUrlPathReader of(UrlPath path) {
     return new BufferedUrlPathReader(path.segments().iterator());
   }
 

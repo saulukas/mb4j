@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.controller.Component;
 import org.mb4j.controller.Request;
+import org.mb4j.controller.Response;
 import org.mb4j.controller.form.FormResponse;
 import org.mb4j.controller.form.FormResponseRedirectToUrlString;
 import org.mb4j.controller.form.FormResponseRenderCurrentPage;
@@ -96,7 +97,8 @@ public class BrickServletFilter extends HttpFilter {
     //   --------------------------
     //
     Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
-    resolved.controller.handle(request, new ServletControllerResponse(renderer, httpResponse));
+    Response response = new ServletControllerResponse(renderer, httpResponse);
+    resolved.controller.handle(request, response);
   }
 
   private Request createRequest(
