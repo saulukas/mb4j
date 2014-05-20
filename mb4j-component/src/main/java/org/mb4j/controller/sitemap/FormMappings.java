@@ -38,6 +38,10 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
     }
   }
 
+  public boolean isEmpty() {
+    return class2name.isEmpty();
+  }
+
   @Override
   public String formNameOf(Class<? extends Form> formClass) {
     String name = class2name.get(formClass);

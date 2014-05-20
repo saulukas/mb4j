@@ -46,7 +46,7 @@ public class SiteMap {
   public String toString() {
     return SimpleClassName.of(getClass()) + ":"
         + "\n    " + builder.toString("    ")
-        + "\n" + formMappings
-        + "\n" + resourceMappings;
+        + (formMappings.isEmpty() ? "" : "\n" + formMappings)
+        + (resourceMappings.isEmpty() ? "" : "\n" + resourceMappings);
   }
 }

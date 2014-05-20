@@ -40,6 +40,10 @@ public class ResourceMappings implements MapComponentClass2Name, MapComponentNam
     }
   }
 
+  public boolean isEmpty() {
+    return class2name.isEmpty();
+  }
+
   @Override
   public String componentNameOf(Class<? extends Component> componentClass) {
     String name = class2name.get(componentClass);
