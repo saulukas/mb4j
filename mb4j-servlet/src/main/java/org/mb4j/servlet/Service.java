@@ -1,4 +1,4 @@
-package org.mb4j.component.service;
+package org.mb4j.servlet;
 
 import org.mb4j.component.view.View;
 import org.mb4j.component.view.ViewRequest;

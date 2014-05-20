@@ -4,7 +4,7 @@ import com.google.inject.Singleton;
 import java.util.Date;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewResponse;
-import org.mb4j.component.service.Service;
+import org.mb4j.servlet.Service;
 import org.mb4j.component.view.ViewUrl;
 
 @Singleton

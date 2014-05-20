@@ -4,17 +4,21 @@ import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.Date;
 import org.mb4j.brick.MustacheBrick;
+import org.mb4j.component.resource.ResourceMethod;
+import org.mb4j.component.resource.Resources4Response;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewResponse;
-import org.mb4j.component.resource.ResourceMethod;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
 public class TimeView extends PortletView {
+  static class Brick extends MustacheBrick {
+    Resources4Response resources;
+  }
+
   @Override
   public MustacheBrick bakeBrickFrom(ViewRequest request) {
-    TimeViewBrick brick = new TimeViewBrick();
-    brick.timeServiceUrl = request.resolve(TimeService.url());
+    Brick brick = new Brick();
     brick.resources = request.resolveResourcesOf(this);
     return brick;
   }
