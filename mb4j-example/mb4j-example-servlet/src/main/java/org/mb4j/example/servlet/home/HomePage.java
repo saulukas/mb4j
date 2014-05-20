@@ -19,8 +19,8 @@ public class HomePage extends MasterLayoutPage {
     }
   }
 
-  public static ControViewUrl {
-    return ControllerUrViewUrl.class);
+  public static ViewUrl url() {
+    return ViewUrl.of(HomePage.class);
   }
 
   @Override

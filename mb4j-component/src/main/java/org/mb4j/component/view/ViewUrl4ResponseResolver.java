@@ -20,7 +20,7 @@ public class ViewUrl4ResponseResolver {
 
   public ViewUrl4Response resolve(ViewUrl url) {
     StringBuilder result = new StringBuilder(path2home);
-    appendEscapedPath(result, controllerClass2UrlPath.urlPathFor(url.controllerClass));
+    appendEscapedPath(result, controllerClass2UrlPath.urlPathFor(url.viewClass));
     if (!url.params.path.isEmpty()) {
       result.append('/');
       appendEscapedPath(result, url.params.path);

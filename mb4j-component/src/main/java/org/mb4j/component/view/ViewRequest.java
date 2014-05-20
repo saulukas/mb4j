@@ -16,7 +16,7 @@ public class ViewRequest {
   private final ViewUrl url;
   private final UrlPathReader urlPathReader;
   private final Attributes attributes;
-  private final AssetUrl4ResponseResolver urlResolver;
+  private final AssetUrl4ResponseResolver assetUrlResolver;
   private final ViewUrl4ResponseResolver controllerUrlResolver;
   private final FormData4ResponseResolver formDataResolver;
   private final Resources4ResponseResolver resourcesResolver;
@@ -24,14 +24,14 @@ public class ViewRequest {
   public ViewRequest(
       ViewUrl url,
       Attributes attributes,
-      AssetUrl4ResponseResolver urlResolver,
+      AssetUrl4ResponseResolver assetUrlResolver,
       ViewUrl4ResponseResolver controllerUrlResolver,
       FormData4ResponseResolver formDataResolver,
       Resources4ResponseResolver resourcesResolver) {
     this.url = url;
     this.urlPathReader = BufferedUrlPathReader.of(url.params.path);
     this.attributes = attributes;
-    this.urlResolver = urlResolver;
+    this.assetUrlResolver = assetUrlResolver;
     this.controllerUrlResolver = controllerUrlResolver;
     this.formDataResolver = formDataResolver;
     this.resourcesResolver = resourcesResolver;
@@ -54,7 +54,7 @@ public class ViewRequest {
   }
 
   public AssetUrl4Response resolveUrl(String assetUrl) {
-    return urlResolver.resolveUrl(assetUrl);
+    return assetUrlResolver.resolveUrl(assetUrl);
   }
 
   public FormData4Response resolve(FormData<?> formData) {

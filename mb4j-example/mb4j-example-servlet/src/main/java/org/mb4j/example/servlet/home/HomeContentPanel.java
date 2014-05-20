@@ -9,9 +9,10 @@ import org.mb4j.example.servlet.event.list.EventListPage;
 @Singleton
 public class HomeContentPanel {
   public static class Brick extends MustacheBrick {
-    ControViewUrl4ResponseentUrl;
-    ControllerUrViewUrl4Responsel;
-    ControllerUrl4RespViewUrl4Response
+    ViewUrl4Response oneEventUrl;
+    ViewUrl4Response twoEventsUrl;
+    ViewUrl4Response allEventsUrl;
+  }
 
   public Brick bakeBrick(ViewRequest request) {
     Brick brick = new Brick();
