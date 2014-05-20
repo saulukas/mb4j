@@ -2,8 +2,8 @@ package org.mb4j.liferay;
 
 import com.google.common.base.Optional;
 import javax.portlet.PortletRequest;
-import org.mb4j.controller.utils.AttributeKey;
-import org.mb4j.controller.utils.Attributes;
+import org.mb4j.component.utils.AttributeKey;
+import org.mb4j.component.utils.Attributes;
 
 public class PortletRequestAttributes extends Attributes {
   private final PortletRequest request;

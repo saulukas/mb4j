@@ -8,26 +8,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.controller.Component;
-import org.mb4j.controller.Request;
-import org.mb4j.controller.Response;
-import org.mb4j.controller.form.FormResponse;
-import org.mb4j.controller.form.FormResponseRedirectToUrlString;
-import org.mb4j.controller.form.FormResponseRenderCurrentPage;
-import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
-import org.mb4j.controller.resource.Resources4ResponseResolver;
-import org.mb4j.controller.resource.Resources4ResponseResolver.ParamValue;
-import org.mb4j.controller.sitemap.MapUrlPath2Controller;
-import org.mb4j.controller.sitemap.MapUrlPath2Controller.Result;
-import org.mb4j.controller.sitemap.SiteMap;
-import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.NamedParams;
-import org.mb4j.controller.url.UrlParams;
-import org.mb4j.controller.url.UrlPath;
-import org.mb4j.controller.url.UrlPathString;
-import org.mb4j.controller.url.UrlPathStringToHome;
-import org.mb4j.controller.utils.HttpFilter;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
+import org.mb4j.component.Component;
+import org.mb4j.component.ViewRequest;
+import org.mb4j.component.ViewResponse;
+import org.mb4j.component.form.FormResponse;
+import org.mb4j.component.form.FormResponseRedirectToUrlString;
+import org.mb4j.component.form.FormResponseRenderCurrentPage;
+import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
+import org.mb4j.component.resource.Resources4ResponseResolver;
+import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
+import org.mb4j.component.sitemap.MapUrlPath2Controller;
+import org.mb4j.component.sitemap.MapUrlPath2Controller.Result;
+import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.url.NamedParams;
+import org.mb4j.component.url.UrlParams;
+import org.mb4j.component.url.UrlPath;
+import org.mb4j.component.url.UrlPathString;
+import org.mb4j.component.url.UrlPathStringToHome;
+import org.mb4j.component.utils.HttpFilter;
+import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
@@ -65,7 +65,7 @@ public class BrickServletFilter extends HttpFilter {
       Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
       Component componentWithResources
           = siteMap.componentWithResourcesName2Component().componentFor(value.componentName);
-      Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
+      ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
       componentWithResources.serveResource(
           value.resourceName,
           request,
@@ -78,7 +78,7 @@ public class BrickServletFilter extends HttpFilter {
     //   ------------------------
     //
     if (Objects.equal(httpRequest.getMethod(), "POST")) {
-      Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
+      ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
       NamedParams postParams = namedParamsFromRawQuery(httpRequest.getReader().readLine());
       Optional<FormResponse> formRC = formResponseFor(request, postParams, siteMap.formName2Form());
       if (formRC.isPresent()) {
@@ -96,12 +96,12 @@ public class BrickServletFilter extends HttpFilter {
     //   handle Controller response
     //   --------------------------
     //
-    Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
-    Response response = new ServletControllerResponse(renderer, httpResponse);
+    ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
+    ViewResponse response = new ServletControllerResponse(renderer, httpResponse);
     resolved.controller.handle(request, response);
   }
 
-  private Request createRequest(
+  private ViewRequest createRequest(
       String servletPath,
       NamedParams queryParams,
       Result resolved,
@@ -111,7 +111,7 @@ public class BrickServletFilter extends HttpFilter {
     ControllerUrl controllerUrl = ControllerUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, queryParams));
-    Request request = ServletControllerRequest.of(
+    ViewRequest request = ServletControllerRequest.of(
         controllerUrl,
         path2home,
         new ServletRequestAttributes(httpRequest),

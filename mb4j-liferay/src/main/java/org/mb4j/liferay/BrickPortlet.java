@@ -16,24 +16,24 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceServingPortlet;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.controller.Component;
-import org.mb4j.controller.Request;
-import org.mb4j.controller.Response;
-import org.mb4j.controller.form.FormResponse;
-import org.mb4j.controller.form.FormResponseRedirectToUrlString;
-import org.mb4j.controller.form.FormResponseRenderCurrentPage;
-import static org.mb4j.controller.form.FormSubmitHandler.formResponseFor;
-import org.mb4j.controller.resource.Resources4ResponseResolver;
-import org.mb4j.controller.resource.Resources4ResponseResolver.ParamValue;
-import org.mb4j.controller.sitemap.MapUrlPath2Controller;
-import org.mb4j.controller.sitemap.SiteMap;
-import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.NamedParams;
-import org.mb4j.controller.url.UrlParams;
-import org.mb4j.controller.url.UrlPath;
-import static org.mb4j.controller.url.UrlPathString.pathStringOf;
-import org.mb4j.controller.utils.Attributes;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
+import org.mb4j.component.Component;
+import org.mb4j.component.ViewRequest;
+import org.mb4j.component.ViewResponse;
+import org.mb4j.component.form.FormResponse;
+import org.mb4j.component.form.FormResponseRedirectToUrlString;
+import org.mb4j.component.form.FormResponseRenderCurrentPage;
+import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
+import org.mb4j.component.resource.Resources4ResponseResolver;
+import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
+import org.mb4j.component.sitemap.MapUrlPath2Controller;
+import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.url.NamedParams;
+import org.mb4j.component.url.UrlParams;
+import org.mb4j.component.url.UrlPath;
+import static org.mb4j.component.url.UrlPathString.pathStringOf;
+import org.mb4j.component.utils.Attributes;
+import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
 import static org.mb4j.liferay.PortletPathToHome.pathToAssets;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
@@ -59,15 +59,15 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
   @Override
   public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
     MapUrlPath2Controller.Result resolved = resolveView(renderRequest);
-    Request request = createRequest(resolved, renderRequest, renderResponse);
-    Response response = new PortletControllerResponse(renderer, renderResponse);
+    ViewRequest request = createRequest(resolved, renderRequest, renderResponse);
+    ViewResponse response = new PortletControllerResponse(renderer, renderResponse);
     resolved.controller.handle(request, response);
   }
 
   @Override
   public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException, IOException {
     MapUrlPath2Controller.Result resolved = resolveView(actionRequest);
-    Request request = createRequest(resolved, actionRequest, actionResponse);
+    ViewRequest request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
     Optional<FormResponse> formRC = formResponseFor(request, postParams, viewMap.formName2Form());
     if (!formRC.isPresent()) {
@@ -96,7 +96,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
     Component componentWithResources
         = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
     MapUrlPath2Controller.Result resolved = resolveView(resourceRequest);
-    Request request = createRequest(resolved, resourceRequest, resourceResponse);
+    ViewRequest request = createRequest(resolved, resourceRequest, resourceResponse);
     componentWithResources.serveResource(
         value.resourceName,
         request,
@@ -114,7 +114,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
     return resolved;
   }
 
-  private Request createRequest(
+  private ViewRequest createRequest(
       MapUrlPath2Controller.Result resolved,
       PortletRequest request,
       PortletResponse response) {

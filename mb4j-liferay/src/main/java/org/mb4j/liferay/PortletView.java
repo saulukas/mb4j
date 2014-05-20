@@ -2,20 +2,20 @@ package org.mb4j.liferay;
 
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.EmptyBrick;
-import org.mb4j.controller.Component;
-import org.mb4j.controller.Controller;
-import org.mb4j.controller.Request;
-import org.mb4j.controller.Response;
-import org.mb4j.controller.page.BrickBaker;
+import org.mb4j.component.Component;
+import org.mb4j.component.View;
+import org.mb4j.component.ViewRequest;
+import org.mb4j.component.ViewResponse;
+import org.mb4j.component.page.BrickBaker;
 
-public class PortletView extends Component implements Controller, BrickBaker {
+public class PortletView extends Component implements View, BrickBaker {
   @Override
-  public void handle(Request request, Response response) {
+  public void handle(ViewRequest request, ViewResponse response) {
     response.render(bakeBrickFrom(request));
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(Request request) {
+  public MustacheBrick bakeBrickFrom(ViewRequest request) {
     return EmptyBrick.emptyBrick();
   }
 }

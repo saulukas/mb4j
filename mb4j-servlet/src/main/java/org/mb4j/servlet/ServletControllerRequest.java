@@ -1,19 +1,19 @@
 package org.mb4j.servlet;
 
-import org.mb4j.controller.Request;
-import org.mb4j.controller.sitemap.SiteMap;
-import org.mb4j.controller.url.ControllerUrl;
-import org.mb4j.controller.url.ControllerUrl4ResponseResolver;
-import org.mb4j.controller.url.AssetUrl4ResponseResolver;
-import org.mb4j.controller.utils.Attributes;
+import org.mb4j.component.ViewRequest;
+import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.url.ControllerUrl4ResponseResolver;
+import org.mb4j.component.url.AssetUrl4ResponseResolver;
+import org.mb4j.component.utils.Attributes;
 
 public class ServletControllerRequest {
-  public static Request of(
+  public static ViewRequest of(
       ControllerUrl url,
       String path2home,
       Attributes attributes,
       SiteMap siteMap) {
-    return new Request(
+    return new ViewRequest(
         url,
         attributes,
         new AssetUrl4ResponseResolver(path2home),

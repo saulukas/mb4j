@@ -3,8 +3,8 @@ package org.mb4j.liferay;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceURL;
-import org.mb4j.controller.resource.Resources4ResponseResolver;
-import org.mb4j.controller.sitemap.MapComponentClass2Name;
+import org.mb4j.component.resource.Resources4ResponseResolver;
+import org.mb4j.component.sitemap.MapComponentClass2Name;
 
 public class PortletResources4ResponseResolver extends Resources4ResponseResolver {
   private final LiferayPortletResponse portletResponse;

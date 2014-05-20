@@ -9,10 +9,10 @@ import java.util.Map;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
-import static org.mb4j.controller.utils.HttpNamedParams.namedParamsFromRawQuery;
-import org.mb4j.controller.url.NamedParams;
-import org.mb4j.controller.url.UrlPath;
-import org.mb4j.controller.url.UrlPathString;
+import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
+import org.mb4j.component.url.NamedParams;
+import org.mb4j.component.url.UrlPath;
+import org.mb4j.component.url.UrlPathString;
 
 public class PortletUrlUtils {
   public static UrlPath urlPathFor(PortletRequest request, String friendlyUrlMapping) {

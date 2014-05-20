@@ -2,8 +2,8 @@ package org.mb4j.servlet;
 
 import com.google.common.base.Optional;
 import javax.servlet.http.HttpServletRequest;
-import org.mb4j.controller.utils.AttributeKey;
-import org.mb4j.controller.utils.Attributes;
+import org.mb4j.component.utils.AttributeKey;
+import org.mb4j.component.utils.Attributes;
 
 public class ServletRequestAttributes extends Attributes {
   private final HttpServletRequest request;

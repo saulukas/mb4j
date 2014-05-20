@@ -1,0 +1,33 @@
+package org.mb4j.example.servlet;
+
+import org.mb4j.example.servlet.ServletSampleModule;
+import com.google.inject.Injector;
+import java.io.Writer;
+import static org.mb4j.brick.renderer.RendererUtils.renderer4Development;
+import org.mb4j.component.ViewRequest;
+import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.utils.AttributesMap;
+import org.mb4j.component.utils.ResponseOnWriter;
+import org.mb4j.servlet.ServletControllerRequest;
+
+public class ServletSampleTestApplication {
+  static Injector injector = ServletSampleModule.injector();
+
+  public static <T> T inject(Class<T> klass) {
+    return injector.getInstance(klass);
+  }
+
+  public static ViewRequest requestFor(ControllerUrl url) {
+    String path2home = "../../../";
+    return ServletControllerRequest.of(
+        url,
+        path2home,
+        new AttributesMap(),
+        inject(SiteMap.class));
+  }
+
+  public static ResponseOnWriter responseOn(Writer writer) {
+    return new ResponseOnWriter(renderer4Development(), writer);
+  }
+}
