@@ -1,4 +1,4 @@
-package org.mb4j.component.sitemap;
+package org.mb4j.component.viewmap;
 
 import org.mb4j.component.view.View;
 import org.mb4j.component.url.UrlPath;

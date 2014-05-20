@@ -1,4 +1,4 @@
-package org.mb4j.component.sitemap;
+package org.mb4j.component.viewmap;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;

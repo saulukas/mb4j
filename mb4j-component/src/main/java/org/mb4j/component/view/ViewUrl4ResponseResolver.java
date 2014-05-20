@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.component.sitemap.MapControllerClass2UrlPath;
+import org.mb4j.component.viewmap.MapControllerClass2UrlPath;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlPath;
 

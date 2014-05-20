@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.form.field.FormField;
-import org.mb4j.component.sitemap.MapFormClass2Name;
+import org.mb4j.component.viewmap.MapFormClass2Name;
 
 public abstract class FormData4ResponseResolver {
   protected static final String FORM_PARAM = "mb(f)";

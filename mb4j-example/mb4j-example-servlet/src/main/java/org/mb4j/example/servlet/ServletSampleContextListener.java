@@ -4,7 +4,7 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.viewmap.SiteMap;
 
 public class ServletSampleContextListener extends GuiceServletContextListener {
   @Override

@@ -1,7 +1,7 @@
 package org.mb4j.example.liferay;
 
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.viewmap.SiteMap;
 import org.mb4j.liferay.BrickPortlet;
 
 public class SampleBasePortlet extends BrickPortlet {

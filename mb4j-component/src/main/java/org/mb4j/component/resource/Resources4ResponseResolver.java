@@ -3,7 +3,7 @@ package org.mb4j.component.resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.mb4j.component.Component;
-import org.mb4j.component.sitemap.MapComponentClass2Name;
+import org.mb4j.component.viewmap.MapComponentClass2Name;
 
 public abstract class Resources4ResponseResolver {
   public static final String RESOURCE_PARAM_NAME = "mb(r)";

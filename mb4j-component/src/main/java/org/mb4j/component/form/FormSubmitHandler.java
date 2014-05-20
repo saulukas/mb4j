@@ -4,7 +4,7 @@ import com.google.common.base.Optional;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.field.FormFieldRecord;
 import static org.mb4j.component.form.field.FormFieldValueTree.fieldValueTreeOf;
-import org.mb4j.component.sitemap.MapFormName2Form;
+import org.mb4j.component.viewmap.MapFormName2Form;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.NamedParams;
 

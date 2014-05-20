@@ -3,7 +3,7 @@ package org.mb4j.servlet;
 import org.mb4j.servlet.adapters.ServletResources4ResponseResolver;
 import org.mb4j.servlet.adapters.ServletFormData4ResponseResolver;
 import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.viewmap.SiteMap;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.view.ViewUrl4ResponseResolver;
 import org.mb4j.component.asset.AssetUrl4ResponseResolver;

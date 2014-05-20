@@ -1,7 +1,7 @@
 package org.mb4j.servlet.adapters;
 
 import org.mb4j.component.resource.Resources4ResponseResolver;
-import org.mb4j.component.sitemap.MapComponentClass2Name;
+import org.mb4j.component.viewmap.MapComponentClass2Name;
 
 public class ServletResources4ResponseResolver extends Resources4ResponseResolver {
   public ServletResources4ResponseResolver(MapComponentClass2Name componentClass2Name) {

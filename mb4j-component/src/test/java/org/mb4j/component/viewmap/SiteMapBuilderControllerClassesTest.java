@@ -1,6 +1,5 @@
-package org.mb4j.component.sitemap;
+package org.mb4j.component.viewmap;
 
-import org.mb4j.component.sitemap.SiteMapBuilderControllerClasses;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;

@@ -5,7 +5,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
-import org.mb4j.component.sitemap.SiteMap;
+import org.mb4j.component.viewmap.SiteMap;
 import org.mb4j.example.domain.EventDomainModule;
 import org.mb4j.example.servlet.event.edit.EventEditPage;
 import org.mb4j.example.servlet.event.list.EventListPage;
