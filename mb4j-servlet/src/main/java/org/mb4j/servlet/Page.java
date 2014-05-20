@@ -1,4 +1,4 @@
-package org.mb4j.component.page;
+package org.mb4j.servlet;
 
 import org.mb4j.component.view.BrickBaker;
 import org.mb4j.brick.MustacheBrick;

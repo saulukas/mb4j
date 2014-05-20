@@ -1,37 +1,32 @@
 package org.mb4j.component.view;
 
-import org.mb4j.component.url.NamedParams;
-import org.mb4j.component.url.UrlParams;
-import org.mb4j.component.view.ViewUrl;
-import org.mb4j.component.view.ViewUrl4ResponseResolver;
-import org.mb4j.component.url.UrlPathStringToHome;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.component.TypicalPages;
-import org.mb4j.component.TypicalPages.Home;
-import static org.mb4j.component.TypicalPages.TUTORIAL;
-import static org.mb4j.component.TypicalPages.TUTORIAL_ON_EVENTS;
-import static org.mb4j.component.TypicalPages.TUTORIAL_ON_SOCKETS;
-import static org.mb4j.component.TypicalPages.TUTORIAL_OTHER_STUFF;
-import static org.mb4j.component.TypicalPages.TUTORIAL_TOPIC;
-import org.mb4j.component.TypicalPages.TutorialOnEvents;
-import org.mb4j.component.TypicalPages.TutorialOnSockets;
-import org.mb4j.component.TypicalPages.TutorialOtherStuff;
-import org.mb4j.component.TypicalPages.TutorialTopic;
+import org.mb4j.component.TypicalViews;
+import org.mb4j.component.TypicalViews.Home;
+import static org.mb4j.component.TypicalViews.TUTORIAL;
+import static org.mb4j.component.TypicalViews.TUTORIAL_ON_EVENTS;
+import static org.mb4j.component.TypicalViews.TUTORIAL_ON_SOCKETS;
+import static org.mb4j.component.TypicalViews.TUTORIAL_OTHER_STUFF;
+import static org.mb4j.component.TypicalViews.TUTORIAL_TOPIC;
+import org.mb4j.component.TypicalViews.TutorialOnEvents;
+import org.mb4j.component.TypicalViews.TutorialOnSockets;
+import org.mb4j.component.TypicalViews.TutorialOtherStuff;
+import org.mb4j.component.TypicalViews.TutorialTopic;
 import org.mb4j.component.sitemap.SiteMap;
 import org.mb4j.component.sitemap.SiteMapBuilder;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
-import org.mb4j.component.url.UrlPathStringToHome;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
+import org.mb4j.component.url.UrlPathStringToHome;
 
 public class ControllerUrl4ResponseResolverTest {
   @Test
   public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
     SiteMapBuilder builder = SiteMapBuilder
-        .withHomeController(TypicalPages.HOME)
+        .withHomeController(TypicalViews.HOME)
         .mount(urlPathOf("tutorial/*"), TUTORIAL)
         .mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
         .mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)

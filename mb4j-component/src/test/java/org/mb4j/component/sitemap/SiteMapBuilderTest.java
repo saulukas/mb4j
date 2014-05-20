@@ -8,12 +8,12 @@ import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.mb4j.component.view.View;
-import static org.mb4j.component.TypicalPages.HOME;
-import static org.mb4j.component.TypicalPages.TUTORIAL;
-import static org.mb4j.component.TypicalPages.TUTORIAL_ON_EVENTS;
-import static org.mb4j.component.TypicalPages.TUTORIAL_ON_SOCKETS;
-import static org.mb4j.component.TypicalPages.TUTORIAL_OTHER_STUFF;
-import static org.mb4j.component.TypicalPages.TUTORIAL_TOPIC;
+import static org.mb4j.component.TypicalViews.HOME;
+import static org.mb4j.component.TypicalViews.TUTORIAL;
+import static org.mb4j.component.TypicalViews.TUTORIAL_ON_EVENTS;
+import static org.mb4j.component.TypicalViews.TUTORIAL_ON_SOCKETS;
+import static org.mb4j.component.TypicalViews.TUTORIAL_OTHER_STUFF;
+import static org.mb4j.component.TypicalViews.TUTORIAL_TOPIC;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 

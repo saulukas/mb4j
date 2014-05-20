@@ -3,40 +3,39 @@ package org.mb4j.component;
 import org.mb4j.component.view.ViewResponse;
 import org.mb4j.component.view.View;
 import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.page.Page;
 
-public class TypicalPages {
-  public static class Home extends Page {
+public class TypicalViews {
+  public static class Home implements View {
     @Override
     public void handle(ViewRequest request, ViewResponse response) {
     }
   }
 
-  public static class Tutorial extends Page {
+  public static class Tutorial implements View {
     @Override
     public void handle(ViewRequest request, ViewResponse response) {
     }
   }
 
-  public static class TutorialOnEvents extends Page {
+  public static class TutorialOnEvents implements View {
     @Override
     public void handle(ViewRequest request, ViewResponse response) {
     }
   }
 
-  public static class TutorialOnSockets extends Page {
+  public static class TutorialOnSockets implements View {
     @Override
     public void handle(ViewRequest request, ViewResponse response) {
     }
   }
 
-  public static class TutorialTopic extends Page {
+  public static class TutorialTopic implements View {
     @Override
     public void handle(ViewRequest request, ViewResponse response) {
     }
   }
 
-  public static class TutorialOtherStuff extends Page {
+  public static class TutorialOtherStuff implements View {
     @Override
     public void handle(ViewRequest request, ViewResponse response) {
     }
