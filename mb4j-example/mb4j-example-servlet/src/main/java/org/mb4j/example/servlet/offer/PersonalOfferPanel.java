@@ -3,14 +3,14 @@ package org.mb4j.example.servlet.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.Component;
 import org.mb4j.component.view.BrickBaker;
-import org.mb4j.component.page.Panel;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.view.ViewUrl4Response;
 
 @Singleton
-public class PersonalOfferPanel extends Panel implements BrickBaker {
+public class PersonalOfferPanel extends Component implements BrickBaker {
   static class Params {
     static String OFFER_TEXT = "personalOffer";
     String offerText;

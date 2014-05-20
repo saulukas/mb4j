@@ -5,18 +5,18 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.page.Panel;
-import org.mb4j.component.view.ViewUrl;
-import org.mb4j.component.view.ViewUrl4Response;
+import org.mb4j.component.Component;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.view.ViewUrl4Response;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventListQuery;
 import org.mb4j.example.servlet.event.list.EventListPanel.Brick.DecoratedListItem;
 
 @Singleton
-public class EventListPanel extends Panel {
+public class EventListPanel extends Component {
   @Inject
   EventListQuery eventListQuery;
   @Inject
