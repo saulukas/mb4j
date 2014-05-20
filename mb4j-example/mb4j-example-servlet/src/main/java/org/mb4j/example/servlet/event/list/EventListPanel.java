@@ -5,10 +5,10 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.page.Panel;
-import org.mb4j.component.url.ControllerUrl;
-import org.mb4j.component.url.ControllerUrl4Response;
+import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.view.ViewUrl4Response;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
 import org.mb4j.example.domain.data.Event;
@@ -24,7 +24,7 @@ public class EventListPanel extends Panel {
 
   public static class Brick extends MustacheBrick {
     List<DecoratedListItem> list;
-    ControllerUrl4Response reverseOrderUrl;
+    ViewUrl4Response reverseOrderUrl;
 
     static class DecoratedListItem {
       EventListItemPanel.Brick item;
@@ -57,7 +57,7 @@ public class EventListPanel extends Panel {
     return list;
   }
 
-  private ControllerUrl initReverseOrderUrl(Params params, ViewRequest request) {
+  private ViewUrl initReverseOrderUrl(Params params, ViewRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.url().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")

@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.component.ViewResponse;
+import org.mb4j.component.view.ViewResponse;
 
 public class ServletControllerResponse extends ViewResponse {
   private final HttpServletResponse httpResponse;

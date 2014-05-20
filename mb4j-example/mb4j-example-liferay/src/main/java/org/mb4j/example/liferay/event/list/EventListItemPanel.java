@@ -1,7 +1,7 @@
 package org.mb4j.example.liferay.event.list;
 
 import com.google.inject.Singleton;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.liferay.event.edit.EventEditView;
 

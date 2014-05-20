@@ -3,7 +3,7 @@ package org.mb4j.example.servlet.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.FormData4Response;
 import org.mb4j.component.page.Panel;
 

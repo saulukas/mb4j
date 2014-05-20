@@ -1,15 +1,15 @@
 package org.mb4j.component.form;
 
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewUrl;
 
 public class FormResponseRedirectToController implements FormResponse {
-  public final ControllerUrl controllerUrl;
+  public final ViewUrl controllerUrl;
 
-  private FormResponseRedirectToController(ControllerUrl controllerUrl) {
+  private FormResponseRedirectToController(ViewUrl controllerUrl) {
     this.controllerUrl = controllerUrl;
   }
 
-  public static FormResponseRedirectToController redirectTo(ControllerUrl controllerUrl) {
+  public static FormResponseRedirectToController redirectTo(ViewUrl controllerUrl) {
     return new FormResponseRedirectToController(controllerUrl);
   }
 }

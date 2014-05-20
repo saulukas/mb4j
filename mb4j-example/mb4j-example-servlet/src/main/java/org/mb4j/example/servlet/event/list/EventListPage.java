@@ -3,8 +3,8 @@ package org.mb4j.example.servlet.event.list;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewUrl;
 import org.mb4j.example.servlet.master.MasterLayoutPage;
 
 public class EventListPage extends MasterLayoutPage {
@@ -21,12 +21,12 @@ public class EventListPage extends MasterLayoutPage {
     }
   }
 
-  public static ControllerUrl url() {
+  public static ViewUrl url() {
     return url(SHOW_ALL);
   }
 
-  public static ControllerUrl url(int maxEventCount) {
-    return ControllerUrl.of(EventListPage.class,
+  public static ViewUrl url(int maxEventCount) {
+    return ViewUrl.of(EventListPage.class,
         new EventListPanel.Params(maxEventCount, false).toUrlParams());
   }
 

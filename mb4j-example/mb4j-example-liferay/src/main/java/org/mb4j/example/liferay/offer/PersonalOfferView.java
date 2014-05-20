@@ -2,8 +2,8 @@ package org.mb4j.example.liferay.offer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewUrl;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
@@ -38,7 +38,7 @@ public class PersonalOfferView extends PortletView {
     return brick;
   }
 
-  private ControllerUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
+  private ViewUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
         ? request.url().withDeletedParam(Params.OFFER_TEXT)
         : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);

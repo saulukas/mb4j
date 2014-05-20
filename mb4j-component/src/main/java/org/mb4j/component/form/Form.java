@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.field.FormFieldRecord;
 import org.mb4j.component.utils.ReflectionUtils;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodNamesOf;

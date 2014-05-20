@@ -1,22 +1,24 @@
-package org.mb4j.component.url;
+package org.mb4j.component.view;
 
 import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
 import org.mb4j.component.sitemap.MapControllerClass2UrlPath;
+import org.mb4j.component.url.NamedParams;
+import org.mb4j.component.url.UrlPath;
 
-public class ControllerUrl4ResponseResolver {
+public class ViewUrl4ResponseResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
   private final MapControllerClass2UrlPath controllerClass2UrlPath;
 
-  public ControllerUrl4ResponseResolver(String path2home, MapControllerClass2UrlPath controllerClass2UrlPath) {
+  public ViewUrl4ResponseResolver(String path2home, MapControllerClass2UrlPath controllerClass2UrlPath) {
     this.path2home = path2home;
     this.controllerClass2UrlPath = controllerClass2UrlPath;
   }
 
-  public ControllerUrl4Response resolve(ControllerUrl url) {
+  public ViewUrl4Response resolve(ViewUrl url) {
     StringBuilder result = new StringBuilder(path2home);
     appendEscapedPath(result, controllerClass2UrlPath.urlPathFor(url.controllerClass));
     if (!url.params.path.isEmpty()) {
@@ -28,7 +30,7 @@ public class ControllerUrl4ResponseResolver {
     if (Strings.isNullOrEmpty(urlString)) {
       urlString = "./";
     }
-    return new ControllerUrl4Response(urlString);
+    return new ViewUrl4Response(urlString);
   }
 
   private void appendNamedParamsString(StringBuilder result, NamedParams params) {

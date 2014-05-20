@@ -1,6 +1,6 @@
 package org.mb4j.component.form;
 
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.utils.AttributeKey;
 import org.mb4j.component.utils.Attributes;
 

@@ -1,5 +1,7 @@
 package org.mb4j.component;
 
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
 import com.google.common.base.Objects;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

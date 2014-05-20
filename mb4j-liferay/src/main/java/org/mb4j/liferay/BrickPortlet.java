@@ -17,8 +17,8 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceServingPortlet;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Component;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.ViewResponse;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
 import org.mb4j.component.form.FormResponse;
 import org.mb4j.component.form.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.FormResponseRenderCurrentPage;
@@ -27,7 +27,7 @@ import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
 import org.mb4j.component.sitemap.MapUrlPath2Controller;
 import org.mb4j.component.sitemap.SiteMap;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
@@ -120,7 +120,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
       PortletResponse response) {
     URI currentURI = PortletUrlUtils.currentURI(request);
     NamedParams namedParams = namedParamsFromRawQuery(currentURI.getRawQuery());
-    ControllerUrl url = ControllerUrl.of(
+    ViewUrl url = ViewUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)
     );

@@ -3,8 +3,8 @@ package org.mb4j.example.servlet.event.edit;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewUrl;
 import static org.mb4j.component.url.UrlPathBuilder.urlPath;
 import org.mb4j.example.servlet.master.MasterLayoutPage;
 
@@ -21,8 +21,8 @@ public class EventEditPage extends MasterLayoutPage {
     }
   }
 
-  public static ControllerUrl url(int eventId) {
-    return ControllerUrl.of(EventEditPage.class, urlPath().with(String.valueOf(eventId)));
+  public static ControViewUrlnt eventId) {
+    return ControllerUrViewUrltPage.class, urlPath().with(String.valueOf(eventId)));
   }
 
   @Override

@@ -2,15 +2,15 @@ package org.mb4j.example.liferay.time;
 
 import com.google.inject.Singleton;
 import java.util.Date;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.ViewResponse;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
 import org.mb4j.component.service.Service;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewUrl;
 
 @Singleton
 public class TimeService extends Service {
-  public static ControllerUrl url() {
-    return ControllerUrl.of(TimeService.class);
+  public static ViewUrl url() {
+    return ViewUrl.of(TimeService.class);
   }
 
   @Override

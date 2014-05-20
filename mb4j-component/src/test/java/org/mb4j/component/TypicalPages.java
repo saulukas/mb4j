@@ -1,8 +1,8 @@
 package org.mb4j.component;
 
-import org.mb4j.component.ViewResponse;
-import org.mb4j.component.View;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
+import org.mb4j.component.view.View;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.page.Page;
 
 public class TypicalPages {

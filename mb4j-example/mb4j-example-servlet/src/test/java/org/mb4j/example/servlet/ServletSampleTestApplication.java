@@ -4,9 +4,9 @@ import org.mb4j.example.servlet.ServletSampleModule;
 import com.google.inject.Injector;
 import java.io.Writer;
 import static org.mb4j.brick.renderer.RendererUtils.renderer4Development;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.sitemap.SiteMap;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.utils.ResponseOnWriter;
 import org.mb4j.servlet.ServletControllerRequest;
@@ -18,7 +18,7 @@ public class ServletSampleTestApplication {
     return injector.getInstance(klass);
   }
 
-  public static ViewRequest requestFor(ControllerUrl url) {
+  public static ViewRequest requestFor(ViewUrl url) {
     String path2home = "../../../";
     return ServletControllerRequest.of(
         url,

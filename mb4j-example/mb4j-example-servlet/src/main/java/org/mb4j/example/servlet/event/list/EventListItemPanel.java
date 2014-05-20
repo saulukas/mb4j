@@ -2,10 +2,10 @@ package org.mb4j.example.servlet.event.list;
 
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.page.Panel;
-import org.mb4j.component.url.AssetUrl4Response;
-import org.mb4j.component.url.ControllerUrl4Response;
+import org.mb4j.component.asset.AssetUrl4Response;
+import org.mb4j.component.view.ViewUrl4Response;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.servlet.event.edit.EventEditPage;
 
@@ -14,7 +14,7 @@ public class EventListItemPanel extends Panel {
   public static class Brick extends MustacheBrick {
     Event event;
     AssetUrl4Response eventImageUrl;
-    ControllerUrl4Response eventEditUrl;
+    ViewUrl4Response eventEditUrl;
   }
 
   public Brick bakeBrick(ViewRequest request, Event event) {

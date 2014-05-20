@@ -7,7 +7,7 @@ import java.io.Writer;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.component.ViewResponse;
+import org.mb4j.component.view.ViewResponse;
 
 public class PortletControllerResponse extends ViewResponse {
   private final MimeResponse portletResponse;

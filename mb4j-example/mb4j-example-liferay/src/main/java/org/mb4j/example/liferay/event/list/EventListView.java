@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.url.ControllerUrl;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
 import org.mb4j.liferay.PortletView;
@@ -20,12 +20,12 @@ public class EventListView extends PortletView {
   @Inject
   EventListItemPanel itemPanel;
 
-  public static ControllerUrl url() {
+  public static ViewUrl url() {
     return url(Params.SHOW_ALL);
   }
 
-  public static ControllerUrl url(int maxEventCount) {
-    return ControllerUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
+  public static ViewUrl url(int maxEventCount) {
+    return ViewUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
   }
 
   @Override
@@ -54,7 +54,7 @@ public class EventListView extends PortletView {
     return list;
   }
 
-  private ControllerUrl initReverseOrderUrl(Params params, ViewRequest request) {
+  private ViewUrl initReverseOrderUrl(Params params, ViewRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.url().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")

@@ -3,7 +3,7 @@ package org.mb4j.example.liferay.event.edit;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.Form;
 import org.mb4j.component.form.FormActionMethod;
 import org.mb4j.component.form.FormData;

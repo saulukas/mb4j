@@ -1,4 +1,4 @@
-package org.mb4j.component;
+package org.mb4j.component.view;
 
 import java.io.OutputStream;
 import java.io.Writer;

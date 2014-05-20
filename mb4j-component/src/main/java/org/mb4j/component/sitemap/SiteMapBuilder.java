@@ -1,7 +1,7 @@
 package org.mb4j.component.sitemap;
 
 import java.util.Collection;
-import org.mb4j.component.View;
+import org.mb4j.component.view.View;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;

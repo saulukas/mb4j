@@ -1,4 +1,4 @@
-package org.mb4j.component.url;
+package org.mb4j.component.asset;
 
 public class AssetUrl4Response {
   private final String value;

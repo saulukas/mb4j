@@ -2,7 +2,7 @@ package org.mb4j.component.sitemap;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.mb4j.component.View;
+import org.mb4j.component.view.View;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class SiteMap {

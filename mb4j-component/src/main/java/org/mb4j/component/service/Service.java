@@ -1,8 +1,8 @@
 package org.mb4j.component.service;
 
-import org.mb4j.component.View;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.ViewResponse;
+import org.mb4j.component.view.View;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
 
 public abstract class Service implements View {
   @Override

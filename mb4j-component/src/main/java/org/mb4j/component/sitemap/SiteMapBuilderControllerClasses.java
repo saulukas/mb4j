@@ -2,7 +2,7 @@ package org.mb4j.component.sitemap;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.mb4j.component.View;
+import org.mb4j.component.view.View;
 import org.mb4j.component.url.UrlPath;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 

@@ -3,11 +3,11 @@ package org.mb4j.example.servlet.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.page.BrickBaker;
 import org.mb4j.component.page.Panel;
-import org.mb4j.component.url.ControllerUrl;
-import org.mb4j.component.url.ControllerUrl4Response;
+import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.view.ViewUrl4Response;
 
 @Singleton
 public class PersonalOfferPanel extends Panel implements BrickBaker {
@@ -20,7 +20,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     boolean offerVisible = false;
     String offerText;
     String offerLinkText;
-    ControllerUrl4Response toggleOfferUrl;
+    ViewUrl4Response toggleOfferUrl;
   }
 
   @Override
@@ -45,7 +45,7 @@ public class PersonalOfferPanel extends Panel implements BrickBaker {
     return Strings.isNullOrEmpty(params.offerText);
   }
 
-  private ControllerUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
+  private ViewUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
         ? request.url().withDeletedParam(Params.OFFER_TEXT)
         : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);

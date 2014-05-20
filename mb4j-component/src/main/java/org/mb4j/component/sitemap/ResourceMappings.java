@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import org.mb4j.component.Component;
-import org.mb4j.component.View;
+import org.mb4j.component.view.View;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class ResourceMappings implements MapComponentClass2Name, MapComponentName2Component {

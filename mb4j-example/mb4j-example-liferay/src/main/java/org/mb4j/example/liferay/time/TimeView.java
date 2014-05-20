@@ -4,8 +4,8 @@ import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.Date;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
-import org.mb4j.component.ViewResponse;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
 import org.mb4j.component.resource.ResourceMethod;
 import org.mb4j.liferay.PortletView;
 

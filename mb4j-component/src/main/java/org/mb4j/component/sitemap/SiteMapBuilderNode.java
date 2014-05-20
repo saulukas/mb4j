@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.mb4j.component.View;
+import org.mb4j.component.view.View;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;

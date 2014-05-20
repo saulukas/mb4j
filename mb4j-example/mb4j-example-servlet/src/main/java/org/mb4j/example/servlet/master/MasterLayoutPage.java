@@ -2,9 +2,9 @@ package org.mb4j.example.servlet.master;
 
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewRequest;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.page.Page;
-import org.mb4j.component.url.AssetUrl4Response;
+import org.mb4j.component.asset.AssetUrl4Response;
 import org.mb4j.example.servlet.offer.PersonalOfferPanel;
 
 @Singleton

@@ -1,7 +1,7 @@
 package org.mb4j.component.form;
 
-import org.mb4j.component.url.ControllerUrl4Response;
-import org.mb4j.component.url.AssetUrl4Response;
+import org.mb4j.component.view.ViewUrl4Response;
+import org.mb4j.component.asset.AssetUrl4Response;
 
 public class FormResponseRedirectToUrlString implements FormResponse {
   public final String urlString;
@@ -14,7 +14,7 @@ public class FormResponseRedirectToUrlString implements FormResponse {
     return new FormResponseRedirectToUrlString(urlString);
   }
 
-  public static FormResponseRedirectToUrlString redirectTo(ControllerUrl4Response url) {
+  public static FormResponseRedirectToUrlString redirectTo(ViewUrl4Response url) {
     return new FormResponseRedirectToUrlString(url.toString());
   }
 
