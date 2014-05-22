@@ -28,12 +28,12 @@ public class ViewMapBuilderTest {
     System.out.println(margin + builder.toString(margin));
     System.out.println("");
     MapViewClass2UrlPath pathResolver = builder.viewClass2UrlPath();
-    assertThat(resolvedPathString(pathResolver, HOME), is(""));
-    assertThat(resolvedPathString(pathResolver, TUTORIAL), is("tutorial"));
-    assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_EVENTS), is("tutorial/events"));
-    assertThat(resolvedPathString(pathResolver, TUTORIAL_ON_SOCKETS), is("tutorial/sockets"));
-    assertThat(resolvedPathString(pathResolver, TUTORIAL_TOPIC), is("tutorial/topic"));
-    assertThat(resolvedPathString(pathResolver, TUTORIAL_OTHER_STUFF), is("tutorial/other/stuff"));
+    assertThat(pathString(pathResolver, HOME), is(""));
+    assertThat(pathString(pathResolver, TUTORIAL), is("tutorial"));
+    assertThat(pathString(pathResolver, TUTORIAL_ON_EVENTS), is("tutorial/events"));
+    assertThat(pathString(pathResolver, TUTORIAL_ON_SOCKETS), is("tutorial/sockets"));
+    assertThat(pathString(pathResolver, TUTORIAL_TOPIC), is("tutorial/topic"));
+    assertThat(pathString(pathResolver, TUTORIAL_OTHER_STUFF), is("tutorial/other/stuff"));
     MapUrlPath2View map = builder.urlPath2View();
     assertThat(viewAt(map, ""), sameInstance(HOME));
     assertThat(viewAt(map, "tutorial"), sameInstance(TUTORIAL));
@@ -49,7 +49,7 @@ public class ViewMapBuilderTest {
     assertThat(viewAt(map, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
-  private String resolvedPathString(MapViewClass2UrlPath map, View view) {
+  private String pathString(MapViewClass2UrlPath map, View view) {
     return pathStringOf(map.urlPathFor(view.getClass()));
   }
 
