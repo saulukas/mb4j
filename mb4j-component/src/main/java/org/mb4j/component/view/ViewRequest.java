@@ -13,7 +13,7 @@ import org.mb4j.component.url.UrlPathReader;
 import org.mb4j.component.utils.Attributes;
 
 public class ViewRequest {
-  private final ViewUrl url;
+  private final ViewUrl viewUrl;
   private final UrlPathReader urlPathReader;
   private final Attributes attributes;
   private final AssetUrl4ResponseResolver assetUrlResolver;
@@ -22,14 +22,14 @@ public class ViewRequest {
   private final Resources4ResponseResolver resourcesResolver;
 
   public ViewRequest(
-      ViewUrl url,
+      ViewUrl viewUrl,
       Attributes attributes,
       AssetUrl4ResponseResolver assetUrlResolver,
       ViewUrl4ResponseResolver controllerUrlResolver,
       FormData4ResponseResolver formDataResolver,
       Resources4ResponseResolver resourcesResolver) {
-    this.url = url;
-    this.urlPathReader = BufferedUrlPathReader.of(url.params.path);
+    this.viewUrl = viewUrl;
+    this.urlPathReader = BufferedUrlPathReader.of(viewUrl.params.path);
     this.attributes = attributes;
     this.assetUrlResolver = assetUrlResolver;
     this.controllerUrlResolver = controllerUrlResolver;
@@ -37,8 +37,8 @@ public class ViewRequest {
     this.resourcesResolver = resourcesResolver;
   }
 
-  public ViewUrl url() {
-    return url;
+  public ViewUrl viewUrl() {
+    return viewUrl;
   }
 
   public boolean hasMorePathSegments() {

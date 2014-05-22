@@ -37,7 +37,7 @@ public class PersonalOfferPanel extends Component implements BrickBaker {
 
   static Params paramsFrom(ViewRequest request) {
     Params params = new Params();
-    params.offerText = request.url().params.named.valueOrNullOf(Params.OFFER_TEXT);
+    params.offerText = request.viewUrl().params.named.valueOrNullOf(Params.OFFER_TEXT);
     return params;
   }
 
@@ -47,7 +47,7 @@ public class PersonalOfferPanel extends Component implements BrickBaker {
 
   private ViewUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
-        ? request.url().withDeletedParam(Params.OFFER_TEXT)
-        : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);
+        ? request.viewUrl().withDeletedParam(Params.OFFER_TEXT)
+        : request.viewUrl().withReplacedParam(Params.OFFER_TEXT, newOffer);
   }
 }

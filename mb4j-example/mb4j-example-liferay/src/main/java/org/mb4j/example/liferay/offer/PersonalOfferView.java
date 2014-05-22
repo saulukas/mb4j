@@ -10,9 +10,27 @@ import org.mb4j.liferay.PortletView;
 
 @Singleton
 public class PersonalOfferView extends PortletView {
+  public static ViewUrl url(String offerText) {
+    return new Params(offerText).toUrl();
+  }
+
+  static class Brick extends MustacheBrick {
+    boolean offerVisible = false;
+    String offerText;
+    String offerLinkText;
+    ViewUrl4Response toggleOfferUrl;
+  }
+
   @Override
   public MustacheBrick bakeBrickFrom(ViewRequest request) {
-    return brickFrom(request, Params.from(request));
+    Params params = Params.from(request);
+    Brick brick = new Brick();
+    brick.offerVisible = !params.isOfferTextEmpty();
+    brick.offerText = params.offerText;
+    brick.offerLinkText = brick.offerVisible ? "Hide personal offer" : "Show personal offer";
+    Params newParams = new Params(brick.offerVisible ? "" : "Consider going to fishing event!");
+    brick.toggleOfferUrl = request.resolve(newParams.urlMergedWith(request.viewUrl()));
+    return brick;
   }
 
   static class Params {
@@ -24,34 +42,21 @@ public class PersonalOfferView extends PortletView {
     }
 
     public static Params from(ViewRequest request) {
-      return new Params(request.url().params.named.valueOrNullOf(OFFER_TEXT));
+      return new Params(request.viewUrl().params.named.valueOrNullOf(OFFER_TEXT));
     }
 
     boolean isOfferTextEmpty() {
       return Strings.isNullOrEmpty(offerText);
     }
-  }
 
-  static class Brick extends MustacheBrick {
-    boolean offerVisible = false;
-    String offerText;
-    String offerLinkText;
-    ViewUrl4Response toggleOfferUrl;
-  }
+    ViewUrl toUrl() {
+      return urlMergedWith(ViewUrl.of(PersonalOfferView.class));
+    }
 
-  MustacheBrick brickFrom(ViewRequest request, Params params) {
-    Brick brick = new Brick();
-    brick.offerVisible = !params.isOfferTextEmpty();
-    brick.offerText = params.offerText;
-    brick.offerLinkText = brick.offerVisible ? "Hide personal offer" : "Show personal offer";
-    String newOffer = brick.offerVisible ? "" : "Consider going to fishing event!";
-    brick.toggleOfferUrl = request.resolve(togglePersonalOfferUrl(request, newOffer));
-    return brick;
-  }
-
-  private ViewUrl togglePersonalOfferUrl(ViewRequest request, String newOffer) {
-    return Strings.isNullOrEmpty(newOffer)
-        ? request.url().withDeletedParam(Params.OFFER_TEXT)
-        : request.url().withReplacedParam(Params.OFFER_TEXT, newOffer);
+    ViewUrl urlMergedWith(ViewUrl currentUrl) {
+      return isOfferTextEmpty()
+          ? currentUrl.withDeletedParam(OFFER_TEXT)
+          : currentUrl.withReplacedParam(OFFER_TEXT, offerText);
+    }
   }
 }

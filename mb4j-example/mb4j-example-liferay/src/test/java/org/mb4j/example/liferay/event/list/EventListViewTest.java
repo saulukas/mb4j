@@ -1,6 +1,5 @@
 package org.mb4j.example.liferay.event.list;
 
-import org.mb4j.example.liferay.event.list.EventListView;
 import org.junit.Test;
 import org.mb4j.brick.MustacheBrick;
 import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;

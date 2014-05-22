@@ -1,6 +1,5 @@
 package org.mb4j.example.liferay.event.edit;
 
-import org.mb4j.example.liferay.event.edit.EventEditView;
 import org.junit.Test;
 import org.mb4j.brick.MustacheBrick;
 import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;

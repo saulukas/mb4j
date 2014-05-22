@@ -1,30 +1,17 @@
 package org.mb4j.example.liferay.time;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import org.mb4j.component.viewmap.SiteMap;
-import static org.mb4j.component.viewmap.SiteMapBuilder.withDefaultHomeController;
-import org.mb4j.example.liferay.SampleBasePortlet;
+import org.mb4j.example.liferay.SampleSingleViewPortlet;
 
-public class TimePortlet extends SampleBasePortlet {
-  @Singleton
-  public static class Views extends SiteMap {
-    @Inject
-    public Views(TimeView timeView) {
-      super(withDefaultHomeController(timeView));
-    }
-  }
-
-  public TimePortlet() {
-    super("time", Views.class);
-  }
-
+public class TimePortlet extends SampleSingleViewPortlet {
   public static class Module extends AbstractModule {
     @Override
     protected void configure() {
       bind(TimeView.class);
-      bind(Views.class);
     }
+  }
+
+  public TimePortlet() {
+    super("time", TimeView.class);
   }
 }

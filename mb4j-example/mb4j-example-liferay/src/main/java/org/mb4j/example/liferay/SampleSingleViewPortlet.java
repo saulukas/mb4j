@@ -5,8 +5,12 @@ import static org.mb4j.component.viewmap.SiteMapBuilder.withDefaultHomeControlle
 import org.mb4j.liferay.PortletView;
 
 public class SampleSingleViewPortlet extends SampleBasePortlet {
-  protected <T extends PortletView> SampleSingleViewPortlet(String friendlyUrlMapping, Class<T> viewClass) {
-    super(friendlyUrlMapping, new SiteMap(withDefaultHomeController(
-        LiferaySampleModule.injector().getInstance(viewClass))));
+  protected SampleSingleViewPortlet(String friendlyUrl, Class<? extends PortletView> viewClass) {
+    super(friendlyUrl, singleViewMapFor(viewClass));
+  }
+
+  public static SiteMap singleViewMapFor(Class<? extends PortletView> viewClass) {
+    return new SiteMap(withDefaultHomeController(
+        LiferaySampleModule.injector().getInstance(viewClass)));
   }
 }

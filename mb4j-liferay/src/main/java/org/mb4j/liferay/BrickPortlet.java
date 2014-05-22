@@ -17,23 +17,23 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceServingPortlet;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Component;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewResponse;
 import org.mb4j.component.form.FormResponse;
 import org.mb4j.component.form.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.FormResponseRenderCurrentPage;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
-import org.mb4j.component.viewmap.MapUrlPath2Controller;
-import org.mb4j.component.viewmap.SiteMap;
-import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import org.mb4j.component.utils.Attributes;
 import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewResponse;
+import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.viewmap.MapUrlPath2Controller;
+import org.mb4j.component.viewmap.SiteMap;
 import static org.mb4j.liferay.PortletPathToHome.pathToAssets;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
@@ -120,7 +120,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
       PortletResponse response) {
     URI currentURI = PortletUrlUtils.currentURI(request);
     NamedParams namedParams = namedParamsFromRawQuery(currentURI.getRawQuery());
-    ViewUrl url = ViewUrl.of(
+    ViewUrl viewUrl = ViewUrl.of(
         resolved.controller.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)
     );
@@ -130,7 +130,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
     String authTokenOrNull = authTokenOrNullFrom(response);
     String namespace = response.getNamespace();
     return PortletControllerRequest.of(
-        url,
+        viewUrl,
         path2home,
         path2assets,
         attributes,

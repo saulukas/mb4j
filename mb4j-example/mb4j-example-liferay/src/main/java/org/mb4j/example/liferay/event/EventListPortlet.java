@@ -3,14 +3,12 @@ package org.mb4j.example.liferay.event;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.component.viewmap.SiteMap;
 import static org.mb4j.component.viewmap.SiteMapBuilder.withDefaultHomeController;
-import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.example.liferay.SampleBasePortlet;
 import org.mb4j.example.liferay.event.edit.EventEditView;
-import org.mb4j.example.liferay.event.edit.EventEditViewModule;
 import org.mb4j.example.liferay.event.list.EventListView;
-import org.mb4j.example.liferay.event.list.EventListViewModule;
 
 public class EventListPortlet extends SampleBasePortlet {
   @Singleton
@@ -32,8 +30,8 @@ public class EventListPortlet extends SampleBasePortlet {
   public static class Module extends AbstractModule {
     @Override
     protected void configure() {
-      install(new EventListViewModule());
-      install(new EventEditViewModule());
+      install(new EventListView.Module());
+      install(new EventEditView.Module());
       bind(Views.class);
     }
   }

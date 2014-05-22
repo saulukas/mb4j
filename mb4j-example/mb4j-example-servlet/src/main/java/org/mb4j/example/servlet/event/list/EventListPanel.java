@@ -60,8 +60,8 @@ public class EventListPanel extends Component {
   private ViewUrl initReverseOrderUrl(Params params, ViewRequest request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
-        ? request.url().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
-        : request.url().withDeletedParam(Params.PARAM_REVERSE_ORDER);
+        ? request.viewUrl().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
+        : request.viewUrl().withDeletedParam(Params.PARAM_REVERSE_ORDER);
   }
 
   public static class Params {
@@ -96,7 +96,7 @@ public class EventListPanel extends Component {
     }
 
     private static boolean readReverseOrderFlag(ViewRequest request) {
-      return request.url().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
+      return request.viewUrl().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
     }
   }
 }
