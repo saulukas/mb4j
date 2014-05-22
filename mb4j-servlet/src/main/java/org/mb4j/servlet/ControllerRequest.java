@@ -9,7 +9,7 @@ import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.servlet.adapters.ServletFormData4ResponseResolver;
 import org.mb4j.servlet.adapters.ServletResources4ResponseResolver;
 
-public class ServletControllerRequest {
+public class ControllerRequest {
   public static ViewRequest of(
       ViewUrl viewUrl,
       String path2home,
@@ -19,7 +19,7 @@ public class ServletControllerRequest {
         viewUrl,
         attributes,
         new AssetUrl4ResponseResolver(path2home),
-        new ViewUrl4ResponseResolver(path2home, viewMap.controllerClass2UrlPath()),
+        new ViewUrl4ResponseResolver(path2home, viewMap.viewClass2UrlPath()),
         new ServletFormData4ResponseResolver(viewMap.formClass2Name()),
         new ServletResources4ResponseResolver(viewMap.componentWithResourcesClass2Name())
     );

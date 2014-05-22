@@ -14,11 +14,11 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   private final Map<Class<? extends Form>, String> class2name = new HashMap<>();
   private final Map<String, Form> name2form = new TreeMap<>();
 
-  public FormMappings(Set<View> controllers) {
+  public FormMappings(Set<View> views) {
     Set<Form> forms = new HashSet<>();
-    for (View controller : controllers) {
-      if (controller instanceof Component) {
-        Component component = (Component) controller;
+    for (View view : views) {
+      if (view instanceof Component) {
+        Component component = (Component) view;
         component.addFormsRecursively(forms);
       }
     }

@@ -11,7 +11,7 @@ import static org.mb4j.component.url.UrlPathString.urlPathOf;
 
 public class ViewMapClassesTest {
   @Test
-  public void mounts_controller_classes_at_controller_paths() {
+  public void maps_view_classes_at_view_paths() {
     ViewMapClasses classes = new ViewMapClasses();
     classes.mount(urlPathOf("/"), HOME.getClass());
     classes.mount(urlPathOf("tutorial"), TUTORIAL.getClass());
@@ -20,7 +20,7 @@ public class ViewMapClassesTest {
   }
 
   @Test
-  public void does_not_allow_to_mount_same_controller_class_twice() {
+  public void does_not_allow_to_map_same_view_class_twice() {
     ViewMapClasses classes = new ViewMapClasses();
     classes.mount(urlPathOf("tutorial"), TUTORIAL.getClass());
     try {
@@ -38,7 +38,7 @@ public class ViewMapClassesTest {
   }
 
   @Test
-  public void throws_exception_when_resolving_unmounted_controller() {
+  public void throws_exception_when_resolving_not_mapped_view() {
     ViewMapClasses classes = new ViewMapClasses();
     try {
       classes.urlPathFor(TUTORIAL.getClass());

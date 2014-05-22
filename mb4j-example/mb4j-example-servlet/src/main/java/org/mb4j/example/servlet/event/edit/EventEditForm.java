@@ -9,7 +9,7 @@ import org.mb4j.component.form.Form;
 import org.mb4j.component.form.FormActionMethod;
 import org.mb4j.component.form.FormData;
 import org.mb4j.component.form.FormResponse;
-import static org.mb4j.component.form.FormResponseRedirectToController.redirectTo;
+import static org.mb4j.component.form.FormResponseRedirectToView.redirectTo;
 import static org.mb4j.component.form.FormResponseRenderCurrentPage.renderCurrentPage;
 import org.mb4j.component.form.field.FormField;
 import static org.mb4j.component.form.field.FormField.createOptionalField;

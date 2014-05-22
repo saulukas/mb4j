@@ -14,7 +14,7 @@ import static org.mb4j.component.url.UrlPathString.urlPathOf;
 
 public class ViewMapNodeTest {
   @Test
-  public void prints_controller_tree_as_string() {
+  public void prints_view_tree_as_string() {
     ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf(""), HOME);
     root.mount(urlPathOf("tutorial/*"), TUTORIAL);
@@ -28,7 +28,7 @@ public class ViewMapNodeTest {
   }
 
   @Test
-  public void mounts_controllers_at_urlPaths() {
+  public void mounts_views_at_urlPaths() {
     ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf(""), HOME);
     root.mount(urlPathOf("tutorial/*"), TUTORIAL);
@@ -36,22 +36,22 @@ public class ViewMapNodeTest {
     root.mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS);
     root.mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC);
     root.mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
-    assertThat(root.controllerFor(urlPathOf("")).controller, sameInstance(HOME));
-    assertThat(root.controllerFor(urlPathOf("tutorial")).controller, sameInstance(TUTORIAL));
-    assertThat(root.controllerFor(urlPathOf("tutorial/")).controller, sameInstance(TUTORIAL));
-    assertThat(root.controllerFor(urlPathOf("tutorial/1")).controller, sameInstance(TUTORIAL));
-    assertThat(root.controllerFor(urlPathOf("tutorial/2/3")).controller, sameInstance(TUTORIAL));
-    assertThat(root.controllerFor(urlPathOf("tutorial/events")).controller, sameInstance(TUTORIAL_ON_EVENTS));
-    assertThat(root.controllerFor(urlPathOf("tutorial/sockets")).controller, sameInstance(TUTORIAL_ON_SOCKETS));
-    assertThat(root.controllerFor(urlPathOf("tutorial/topic")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.controllerFor(urlPathOf("tutorial/topic/")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.controllerFor(urlPathOf("tutorial/topic/7")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.controllerFor(urlPathOf("tutorial/topic/8/9")).controller, sameInstance(TUTORIAL_TOPIC));
-    assertThat(root.controllerFor(urlPathOf("tutorial/other/stuff")).controller, sameInstance(TUTORIAL_OTHER_STUFF));
+    assertThat(root.viewAt(urlPathOf("")).view, sameInstance(HOME));
+    assertThat(root.viewAt(urlPathOf("tutorial")).view, sameInstance(TUTORIAL));
+    assertThat(root.viewAt(urlPathOf("tutorial/")).view, sameInstance(TUTORIAL));
+    assertThat(root.viewAt(urlPathOf("tutorial/1")).view, sameInstance(TUTORIAL));
+    assertThat(root.viewAt(urlPathOf("tutorial/2/3")).view, sameInstance(TUTORIAL));
+    assertThat(root.viewAt(urlPathOf("tutorial/events")).view, sameInstance(TUTORIAL_ON_EVENTS));
+    assertThat(root.viewAt(urlPathOf("tutorial/sockets")).view, sameInstance(TUTORIAL_ON_SOCKETS));
+    assertThat(root.viewAt(urlPathOf("tutorial/topic")).view, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.viewAt(urlPathOf("tutorial/topic/")).view, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.viewAt(urlPathOf("tutorial/topic/7")).view, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.viewAt(urlPathOf("tutorial/topic/8/9")).view, sameInstance(TUTORIAL_TOPIC));
+    assertThat(root.viewAt(urlPathOf("tutorial/other/stuff")).view, sameInstance(TUTORIAL_OTHER_STUFF));
   }
 
   @Test
-  public void does_not_allow_several_controllers_on_same_urlPath() {
+  public void does_not_allow_several_views_on_same_urlPath() {
     ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC);
     try {

@@ -4,23 +4,23 @@ import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.net.UrlEscapers;
 import java.util.Collection;
-import org.mb4j.component.viewmap.MapControllerClass2UrlPath;
+import org.mb4j.component.viewmap.MapViewClass2UrlPath;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlPath;
 
 public class ViewUrl4ResponseResolver {
   private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
   private final String path2home;
-  private final MapControllerClass2UrlPath controllerClass2UrlPath;
+  private final MapViewClass2UrlPath viewClass2UrlPath;
 
-  public ViewUrl4ResponseResolver(String path2home, MapControllerClass2UrlPath controllerClass2UrlPath) {
+  public ViewUrl4ResponseResolver(String path2home, MapViewClass2UrlPath viewClass2UrlPath) {
     this.path2home = path2home;
-    this.controllerClass2UrlPath = controllerClass2UrlPath;
+    this.viewClass2UrlPath = viewClass2UrlPath;
   }
 
   public ViewUrl4Response resolve(ViewUrl url) {
     StringBuilder result = new StringBuilder(path2home);
-    appendEscapedPath(result, controllerClass2UrlPath.urlPathFor(url.viewClass));
+    appendEscapedPath(result, viewClass2UrlPath.urlPathFor(url.viewClass));
     if (!url.params.path.isEmpty()) {
       result.append('/');
       appendEscapedPath(result, url.params.path);

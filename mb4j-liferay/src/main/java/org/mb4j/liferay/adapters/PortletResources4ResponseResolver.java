@@ -1,4 +1,4 @@
-package org.mb4j.liferay;
+package org.mb4j.liferay.adapters;
 
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import javax.portlet.PortletResponse;

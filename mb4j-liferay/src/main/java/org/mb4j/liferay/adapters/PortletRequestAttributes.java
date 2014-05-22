@@ -1,4 +1,4 @@
-package org.mb4j.liferay;
+package org.mb4j.liferay.adapters;
 
 import com.google.common.base.Optional;
 import javax.portlet.PortletRequest;

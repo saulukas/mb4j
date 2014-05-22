@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.view.ViewResponse;
 
-public class ServletControllerResponse extends ViewResponse {
+public class ControllerResponse extends ViewResponse {
   private final HttpServletResponse httpResponse;
 
-  public ServletControllerResponse(BrickRenderer renderer, HttpServletResponse httpResponse) {
+  public ControllerResponse(BrickRenderer renderer, HttpServletResponse httpResponse) {
     super(renderer);
     this.httpResponse = httpResponse;
   }

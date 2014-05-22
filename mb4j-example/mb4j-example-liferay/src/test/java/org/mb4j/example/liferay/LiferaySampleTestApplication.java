@@ -7,7 +7,7 @@ import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.example.liferay.SampleSingleViewPortlet.singleViewMapFor;
-import org.mb4j.liferay.PortletControllerRequest;
+import org.mb4j.liferay.PortletViewRequest;
 import org.mb4j.liferay.PortletView;
 
 public class LiferaySampleTestApplication {
@@ -30,7 +30,7 @@ public class LiferaySampleTestApplication {
     String path2assets = "../path2assets/../";
     String authToken = "12auth34";
     String namespace = "_namespace_";
-    return PortletControllerRequest.of(
+    return PortletViewRequest.of(
         viewUrl,
         path2home,
         path2assets,

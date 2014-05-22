@@ -12,18 +12,18 @@ public class ViewMap {
 
   public ViewMap(ViewMapBuilder builder) {
     this.builder = builder;
-    Set<View> controllers = new HashSet<>();
-    builder.collectControllers(controllers);
-    this.formMappings = new FormMappings(controllers);
-    this.resourceMappings = new ResourceMappings(controllers);
+    Set<View> views = new HashSet<>();
+    builder.collectViews(views);
+    this.formMappings = new FormMappings(views);
+    this.resourceMappings = new ResourceMappings(views);
   }
 
-  public MapUrlPath2Controller urlPath2Controller() {
-    return builder.urlPath2Controller();
+  public MapUrlPath2View urlPath2View() {
+    return builder.urlPath2View();
   }
 
-  public MapControllerClass2UrlPath controllerClass2UrlPath() {
-    return builder.controllerClass2UrlPath();
+  public MapViewClass2UrlPath viewClass2UrlPath() {
+    return builder.viewClass2UrlPath();
   }
 
   public MapFormClass2Name formClass2Name() {

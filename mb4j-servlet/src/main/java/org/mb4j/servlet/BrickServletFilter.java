@@ -18,8 +18,8 @@ import org.mb4j.component.form.FormResponseRenderCurrentPage;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
-import org.mb4j.component.viewmap.MapUrlPath2Controller;
-import org.mb4j.component.viewmap.MapUrlPath2Controller.Result;
+import org.mb4j.component.viewmap.MapUrlPath2View;
+import org.mb4j.component.viewmap.MapUrlPath2View.Result;
 import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.NamedParams;
@@ -46,12 +46,12 @@ public class BrickServletFilter extends HttpFilter {
       FilterChain chain
   ) throws IOException, ServletException {
     //
-    //   find mapped controller if any
+    //   find mapped view if any
     //   -----------------------------
     //
     String servletPath = httpRequest.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
-    MapUrlPath2Controller.Result resolved = viewMap.urlPath2Controller().controllerFor(path);
+    MapUrlPath2View.Result resolved = viewMap.urlPath2View().viewAt(path);
     if (resolved.resultIsEmpty()) {
       chain.doFilter(httpRequest, httpResponse);
       return;
@@ -70,7 +70,7 @@ public class BrickServletFilter extends HttpFilter {
       componentWithResources.serveResource(
           value.resourceName,
           request,
-          new ServletControllerResponse(renderer, httpResponse)
+          new ControllerResponse(renderer, httpResponse)
       );
       return;
     }
@@ -94,12 +94,12 @@ public class BrickServletFilter extends HttpFilter {
       }
     }
     //
-    //   handle Controller response
+    //   handle View response
     //   --------------------------
     //
     ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
-    ViewResponse response = new ServletControllerResponse(renderer, httpResponse);
-    resolved.controller.handle(request, response);
+    ViewResponse response = new ControllerResponse(renderer, httpResponse);
+    resolved.view.handle(request, response);
   }
 
   private ViewRequest createRequest(
@@ -109,11 +109,11 @@ public class BrickServletFilter extends HttpFilter {
       HttpServletRequest httpRequest
   ) {
     String path2home = UrlPathStringToHome.from(servletPath);
-    ViewUrl controllerUrl = ViewUrl.of(
-        resolved.controller.getClass(),
+    ViewUrl viewUrl = ViewUrl.of(
+        resolved.view.getClass(),
         UrlParams.of(resolved.paramsPath, queryParams));
-    ViewRequest request = ServletControllerRequest.of(
-        controllerUrl,
+    ViewRequest request = ControllerRequest.of(
+        viewUrl,
         path2home,
         new ServletRequestAttributes(httpRequest),
         viewMap);

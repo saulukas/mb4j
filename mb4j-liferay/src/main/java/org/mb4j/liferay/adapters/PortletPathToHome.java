@@ -1,4 +1,4 @@
-package org.mb4j.liferay;
+package org.mb4j.liferay.adapters;
 
 import javax.portlet.PortletRequest;
 import org.mb4j.component.url.UrlPathStringToHome;

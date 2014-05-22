@@ -10,36 +10,36 @@ public class ViewMapBuilder {
   private static final UrlPath HOME_VIEW_PATH = UrlPath.empty();
   private static final UrlPath DEFAULT_HOME_VIEW_PATH = UrlPathString.urlPathOf("*");
   private final ViewMapNode root = ViewMapNode.createRoot();
-  private final ViewMapClasses controllerClasses = new ViewMapClasses();
+  private final ViewMapClasses viewClasses = new ViewMapClasses();
 
   private ViewMapBuilder() {
   }
 
-  public static ViewMapBuilder withHomeController(View homeController) {
-    return new ViewMapBuilder().mount(HOME_VIEW_PATH, homeController);
+  public static ViewMapBuilder withHomeView(View homeView) {
+    return new ViewMapBuilder().mount(HOME_VIEW_PATH, homeView);
   }
 
-  public static ViewMapBuilder withDefaultHomeController(View homeController) {
-    return new ViewMapBuilder().mount(DEFAULT_HOME_VIEW_PATH, homeController);
+  public static ViewMapBuilder withDefaultHomeView(View homeView) {
+    return new ViewMapBuilder().mount(DEFAULT_HOME_VIEW_PATH, homeView);
   }
 
-  public ViewMapBuilder mount(UrlPath path, View controller) {
+  public ViewMapBuilder mount(UrlPath path, View view) {
     BufferedUrlPathReader pathReader = BufferedUrlPathReader.of(path);
-    root.mount(pathReader, controller);
-    controllerClasses.mount(pathReader.processedPath(), controller.getClass());
+    root.mount(pathReader, view);
+    viewClasses.mount(pathReader.processedPath(), view.getClass());
     return this;
   }
 
-  MapUrlPath2Controller urlPath2Controller() {
+  MapUrlPath2View urlPath2View() {
     return root;
   }
 
-  MapControllerClass2UrlPath controllerClass2UrlPath() {
-    return controllerClasses;
+  MapViewClass2UrlPath viewClass2UrlPath() {
+    return viewClasses;
   }
 
-  void collectControllers(Collection<View> result) {
-    root.collectControllers(result);
+  void collectViews(Collection<View> result) {
+    root.collectViews(result);
   }
 
   @Override

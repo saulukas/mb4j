@@ -22,9 +22,9 @@ public class FormSubmitHandler {
     FormFieldRecord fields = form.createEmptyFields();
     fields.setValuesFrom(fieldValueTreeOf(postParams.asMap()));
     FormResponse formResponse = form.handle(actionName, request, fields);
-    if (formResponse instanceof FormResponseRedirectToController) {
-      ViewUrl controllerUrl = ((FormResponseRedirectToController) formResponse).controllerUrl;
-      formResponse = FormResponseRedirectToUrlString.redirectTo(request.resolve(controllerUrl));
+    if (formResponse instanceof FormResponseRedirectToView) {
+      ViewUrl viewUrl = ((FormResponseRedirectToView) formResponse).viewUrl;
+      formResponse = FormResponseRedirectToUrlString.redirectTo(request.resolve(viewUrl));
     }
     return Optional.of(formResponse);
   }

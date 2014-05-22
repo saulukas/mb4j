@@ -2,29 +2,29 @@ package org.mb4j.component.viewmap;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.mb4j.component.view.View;
 import org.mb4j.component.url.UrlPath;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
+import org.mb4j.component.view.View;
 
-class ViewMapClasses implements MapControllerClass2UrlPath {
-  Map<Class<? extends View>, UrlPath> controllerClass2path = new HashMap<>();
+class ViewMapClasses implements MapViewClass2UrlPath {
+  Map<Class<? extends View>, UrlPath> viewClass2path = new HashMap<>();
 
   @Override
-  public UrlPath urlPathFor(Class<? extends View> controllerClass) {
-    UrlPath path = controllerClass2path.get(controllerClass);
+  public UrlPath urlPathFor(Class<? extends View> viewClass) {
+    UrlPath path = viewClass2path.get(viewClass);
     if (path == null) {
-      throw new RuntimeException("Controller was not mounted: " + controllerClass);
+      throw new RuntimeException("View was not mounted: " + viewClass);
     }
     return path;
   }
 
-  void mount(UrlPath path, Class<? extends View> controllerClass) {
-    UrlPath mountedPath = controllerClass2path.get(controllerClass);
+  void mount(UrlPath path, Class<? extends View> viewClass) {
+    UrlPath mountedPath = viewClass2path.get(viewClass);
     if (mountedPath != null) {
-      throw new RuntimeException("Attept to mount controller class " + controllerClass
+      throw new RuntimeException("Attept to mount view class " + viewClass
           + "\n    at path \"" + pathStringOf(path) + "\""
-          + "\n    which is already mounded at \"" + pathStringOf(mountedPath) + "\".");
+          + "\n    which is already mounted at \"" + pathStringOf(mountedPath) + "\".");
     }
-    controllerClass2path.put(controllerClass, path);
+    viewClass2path.put(viewClass, path);
   }
 }

@@ -9,7 +9,7 @@ import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.utils.ResponseOnWriter;
-import org.mb4j.servlet.ServletControllerRequest;
+import org.mb4j.servlet.ControllerRequest;
 
 public class ServletSampleTestApplication {
   static Injector injector = ServletSampleModule.injector();
@@ -20,7 +20,7 @@ public class ServletSampleTestApplication {
 
   public static ViewRequest requestFor(ViewUrl url) {
     String path2home = "../../../";
-    return ServletControllerRequest.of(
+    return ControllerRequest.of(
         url,
         path2home,
         new AttributesMap(),

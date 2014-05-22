@@ -9,10 +9,10 @@ import javax.portlet.ResourceResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.view.ViewResponse;
 
-public class PortletControllerResponse extends ViewResponse {
+public class PortletViewResponse extends ViewResponse {
   private final MimeResponse portletResponse;
 
-  public PortletControllerResponse(BrickRenderer renderer, MimeResponse portletResponse) {
+  public PortletViewResponse(BrickRenderer renderer, MimeResponse portletResponse) {
     super(renderer);
     this.portletResponse = portletResponse;
   }

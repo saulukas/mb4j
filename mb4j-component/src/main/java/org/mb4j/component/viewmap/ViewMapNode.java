@@ -17,14 +17,14 @@ import org.mb4j.component.url.UrlPathString;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import org.mb4j.component.utils.SimpleClassName;
 
-class ViewMapNode implements MapUrlPath2Controller {
+class ViewMapNode implements MapUrlPath2View {
   @Nullable
   private final ViewMapNode parent;
   @Nullable
   private final String pathSegment;
   private boolean isAsterisk = false;
   @Nullable
-  private View controller = null;
+  private View view = null;
   @Nullable
   private Map<String, ViewMapNode> children = null;
 
@@ -44,14 +44,14 @@ class ViewMapNode implements MapUrlPath2Controller {
   }
 
   @Override
-  public Result controllerFor(UrlPath path) {
+  public Result viewAt(UrlPath path) {
     return resolve(BufferedUrlPathReader.of(path));
   }
 
   private Result resolve(BufferedUrlPathReader reader) {
     if (!reader.hasMoreSegments()) {
       return new Result(
-          controller,
+          view,
           reader.processedPath(),
           reader.remainingPath());
     }
@@ -62,18 +62,18 @@ class ViewMapNode implements MapUrlPath2Controller {
     }
     reader.revertLastRead();
     return new Result(
-        (isAsterisk ? controller : null),
+        (isAsterisk ? view : null),
         reader.processedPath(),
         reader.remainingPath());
   }
 
-  void mount(UrlPath path, View controller) {
-    mount(BufferedUrlPathReader.of(path), controller);
+  void mount(UrlPath path, View view) {
+    mount(BufferedUrlPathReader.of(path), view);
   }
 
-  void mount(BufferedUrlPathReader reader, View controller) {
+  void mount(BufferedUrlPathReader reader, View view) {
     if (!reader.hasMoreSegments()) {
-      setController(reader, controller);
+      setView(reader, view);
       return;
     }
     String segment = reader.readSegment();
@@ -84,7 +84,7 @@ class ViewMapNode implements MapUrlPath2Controller {
       }
       reader.revertLastRead();
       isAsterisk = true;
-      setController(reader, controller);
+      setView(reader, view);
       return;
     }
     ViewMapNode child = findChildOrNull(segment);
@@ -92,20 +92,20 @@ class ViewMapNode implements MapUrlPath2Controller {
       child = new ViewMapNode(this, segment);
       addChild(child);
     }
-    child.mount(reader, controller);
+    child.mount(reader, view);
   }
 
-  private void setController(BufferedUrlPathReader reader, View controller) {
-    if (hasController()) {
-      throw new RuntimeException("Can not mount controller " + debugNameOf(controller)
+  private void setView(BufferedUrlPathReader reader, View view) {
+    if (hasView()) {
+      throw new RuntimeException("Can not mount view " + debugNameOf(view)
           + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
-          + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.controller) + ".");
+          + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.view) + ".");
     }
-    this.controller = controller;
+    this.view = view;
   }
 
-  private boolean hasController() {
-    return controller != null;
+  private boolean hasView() {
+    return view != null;
   }
 
   private boolean isRoot() {
@@ -116,8 +116,8 @@ class ViewMapNode implements MapUrlPath2Controller {
     return children != null && !children.isEmpty();
   }
 
-  private String debugNameOf(View controller) {
-    return controller == null ? "null" : controller.getClass().getName();
+  private String debugNameOf(View view) {
+    return view == null ? "null" : view.getClass().getName();
   }
 
   private void addChild(ViewMapNode child) {
@@ -135,13 +135,13 @@ class ViewMapNode implements MapUrlPath2Controller {
     return children;
   }
 
-  public void collectControllers(Collection<View> result) {
-    if (controller != null) {
-      result.add(controller);
+  public void collectViews(Collection<View> result) {
+    if (view != null) {
+      result.add(view);
     }
     if (children != null) {
       for (ViewMapNode child : children.values()) {
-        child.collectControllers(result);
+        child.collectViews(result);
       }
     }
   }
@@ -153,10 +153,10 @@ class ViewMapNode implements MapUrlPath2Controller {
 
   public String toString(String margin) {
     String result = "\"" + Strings.nullToEmpty(pathSegment) + (isAsterisk ? "/*" : "") + "\"";
-    if (hasController()) {
+    if (hasView()) {
       result += "   ....";
       result = Strings.padEnd(result, 62 - margin.length(), '.');
-      result += " " + SimpleClassName.of(controller.getClass());
+      result += " " + SimpleClassName.of(view.getClass());
     }
     if (hasChildren()) {
       List<String> childNames = newArrayList(children.keySet());

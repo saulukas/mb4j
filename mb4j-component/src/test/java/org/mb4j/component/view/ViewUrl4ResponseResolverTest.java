@@ -21,12 +21,12 @@ import org.mb4j.component.url.UrlParams;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.component.url.UrlPathStringToHome;
 
-public class ControllerUrl4ResponseResolverTest {
+public class ViewUrl4ResponseResolverTest {
   @Test
-  public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
+  public void resolves_ViewUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
     ViewMapBuilder builder = ViewMapBuilder
-        .withHomeController(TypicalViews.HOME)
+        .withHomeView(TypicalViews.HOME)
         .mount(urlPathOf("tutorial/*"), TUTORIAL)
         .mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
         .mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)
@@ -34,7 +34,7 @@ public class ControllerUrl4ResponseResolverTest {
         .mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     ViewUrl4ResponseResolver resolver = new ViewUrl4ResponseResolver(
         path2home,
-        new ViewMap(builder).controllerClass2UrlPath());
+        new ViewMap(builder).viewClass2UrlPath());
     assertThat(resolver.resolve(ViewUrl.of(Home.class)).toString(),
         is("../../"));
     assertThat(resolver.resolve(ViewUrl.of(TutorialOnEvents.class)).toString(),
