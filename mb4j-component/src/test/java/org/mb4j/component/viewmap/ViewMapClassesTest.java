@@ -9,10 +9,10 @@ import static org.mb4j.component.TypicalViews.TUTORIAL;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 
-public class SiteMapBuilderControllerClassesTest {
+public class ViewMapClassesTest {
   @Test
   public void mounts_controller_classes_at_controller_paths() {
-    SiteMapBuilderControllerClasses classes = new SiteMapBuilderControllerClasses();
+    ViewMapClasses classes = new ViewMapClasses();
     classes.mount(urlPathOf("/"), HOME.getClass());
     classes.mount(urlPathOf("tutorial"), TUTORIAL.getClass());
     assertThat(pathStringOf(classes.urlPathFor(HOME.getClass())), is(""));
@@ -21,7 +21,7 @@ public class SiteMapBuilderControllerClassesTest {
 
   @Test
   public void does_not_allow_to_mount_same_controller_class_twice() {
-    SiteMapBuilderControllerClasses classes = new SiteMapBuilderControllerClasses();
+    ViewMapClasses classes = new ViewMapClasses();
     classes.mount(urlPathOf("tutorial"), TUTORIAL.getClass());
     try {
       classes.mount(urlPathOf("tutorial"), TUTORIAL.getClass());
@@ -39,7 +39,7 @@ public class SiteMapBuilderControllerClassesTest {
 
   @Test
   public void throws_exception_when_resolving_unmounted_controller() {
-    SiteMapBuilderControllerClasses classes = new SiteMapBuilderControllerClasses();
+    ViewMapClasses classes = new ViewMapClasses();
     try {
       classes.urlPathFor(TUTORIAL.getClass());
       fail();

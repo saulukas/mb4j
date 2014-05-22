@@ -1,7 +1,7 @@
 package org.mb4j.example.liferay;
 
-import org.mb4j.component.viewmap.SiteMap;
-import static org.mb4j.component.viewmap.SiteMapBuilder.withDefaultHomeController;
+import org.mb4j.component.viewmap.ViewMap;
+import static org.mb4j.component.viewmap.ViewMapBuilder.withDefaultHomeController;
 import org.mb4j.liferay.PortletView;
 
 public class SampleSingleViewPortlet extends SampleBasePortlet {
@@ -9,8 +9,8 @@ public class SampleSingleViewPortlet extends SampleBasePortlet {
     super(friendlyUrl, singleViewMapFor(viewClass));
   }
 
-  public static SiteMap singleViewMapFor(Class<? extends PortletView> viewClass) {
-    return new SiteMap(withDefaultHomeController(
+  public static ViewMap singleViewMapFor(Class<? extends PortletView> viewClass) {
+    return new ViewMap(withDefaultHomeController(
         LiferaySampleModule.injector().getInstance(viewClass)));
   }
 }

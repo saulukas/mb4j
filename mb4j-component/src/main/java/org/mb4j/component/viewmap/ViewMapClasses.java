@@ -6,7 +6,7 @@ import org.mb4j.component.view.View;
 import org.mb4j.component.url.UrlPath;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 
-class SiteMapBuilderControllerClasses implements MapControllerClass2UrlPath {
+class ViewMapClasses implements MapControllerClass2UrlPath {
   Map<Class<? extends View>, UrlPath> controllerClass2path = new HashMap<>();
 
   @Override

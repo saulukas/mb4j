@@ -12,10 +12,10 @@ import static org.mb4j.component.TypicalViews.TUTORIAL_OTHER_STUFF;
 import static org.mb4j.component.TypicalViews.TUTORIAL_TOPIC;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 
-public class SiteMapBuilderNodeTest {
+public class ViewMapNodeTest {
   @Test
   public void prints_controller_tree_as_string() {
-    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
+    ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf(""), HOME);
     root.mount(urlPathOf("tutorial/*"), TUTORIAL);
     root.mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS);
@@ -29,7 +29,7 @@ public class SiteMapBuilderNodeTest {
 
   @Test
   public void mounts_controllers_at_urlPaths() {
-    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
+    ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf(""), HOME);
     root.mount(urlPathOf("tutorial/*"), TUTORIAL);
     root.mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS);
@@ -52,7 +52,7 @@ public class SiteMapBuilderNodeTest {
 
   @Test
   public void does_not_allow_several_controllers_on_same_urlPath() {
-    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
+    ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC);
     try {
       root.mount(urlPathOf("tutorial/topic"), TUTORIAL_OTHER_STUFF);
@@ -64,7 +64,7 @@ public class SiteMapBuilderNodeTest {
 
   @Test
   public void allows_asterist_only_at_path_end() {
-    SiteMapBuilderNode root = SiteMapBuilderNode.createRoot();
+    ViewMapNode root = ViewMapNode.createRoot();
     root.mount(urlPathOf("*"), TUTORIAL);
     root.mount(urlPathOf("other/*"), TUTORIAL_OTHER_STUFF);
     try {

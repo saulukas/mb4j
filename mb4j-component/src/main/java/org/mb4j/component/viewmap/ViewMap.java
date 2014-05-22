@@ -5,12 +5,12 @@ import java.util.Set;
 import org.mb4j.component.view.View;
 import org.mb4j.component.utils.SimpleClassName;
 
-public class SiteMap {
-  private final SiteMapBuilder builder;
+public class ViewMap {
+  private final ViewMapBuilder builder;
   private final FormMappings formMappings;
   private final ResourceMappings resourceMappings;
 
-  public SiteMap(SiteMapBuilder builder) {
+  public ViewMap(ViewMapBuilder builder) {
     this.builder = builder;
     Set<View> controllers = new HashSet<>();
     builder.collectControllers(controllers);

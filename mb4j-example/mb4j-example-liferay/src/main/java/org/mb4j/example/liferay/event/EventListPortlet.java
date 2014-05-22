@@ -4,15 +4,15 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
-import org.mb4j.component.viewmap.SiteMap;
-import static org.mb4j.component.viewmap.SiteMapBuilder.withDefaultHomeController;
+import org.mb4j.component.viewmap.ViewMap;
+import static org.mb4j.component.viewmap.ViewMapBuilder.withDefaultHomeController;
 import org.mb4j.example.liferay.SampleBasePortlet;
 import org.mb4j.example.liferay.event.edit.EventEditView;
 import org.mb4j.example.liferay.event.list.EventListView;
 
 public class EventListPortlet extends SampleBasePortlet {
   @Singleton
-  public static class Views extends SiteMap {
+  public static class Views extends ViewMap {
     @Inject
     public Views(
         EventListView eventList,

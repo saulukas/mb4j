@@ -6,7 +6,7 @@ import org.mb4j.component.utils.Attributes;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.view.ViewUrl4ResponseResolver;
-import org.mb4j.component.viewmap.SiteMap;
+import org.mb4j.component.viewmap.ViewMap;
 
 public class PortletControllerRequest {
   public static ViewRequest of(
@@ -17,14 +17,14 @@ public class PortletControllerRequest {
       String namespace,
       String authTokenOrNull,
       Resources4ResponseResolver resourcesResolver,
-      SiteMap siteMap
+      ViewMap viewMap
   ) {
     return new ViewRequest(
         viewUrl,
         attributes,
         new AssetUrl4ResponseResolver(path2assets),
-        new ViewUrl4ResponseResolver(path2home, siteMap.controllerClass2UrlPath()),
-        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, siteMap.formClass2Name()),
+        new ViewUrl4ResponseResolver(path2home, viewMap.controllerClass2UrlPath()),
+        new PortletFormData4ResponseResolver(namespace, authTokenOrNull, viewMap.formClass2Name()),
         resourcesResolver
     );
   }

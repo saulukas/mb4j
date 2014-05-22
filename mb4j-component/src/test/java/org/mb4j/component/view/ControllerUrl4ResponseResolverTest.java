@@ -14,8 +14,8 @@ import org.mb4j.component.TypicalViews.TutorialOnEvents;
 import org.mb4j.component.TypicalViews.TutorialOnSockets;
 import org.mb4j.component.TypicalViews.TutorialOtherStuff;
 import org.mb4j.component.TypicalViews.TutorialTopic;
-import org.mb4j.component.viewmap.SiteMap;
-import org.mb4j.component.viewmap.SiteMapBuilder;
+import org.mb4j.component.viewmap.ViewMap;
+import org.mb4j.component.viewmap.ViewMapBuilder;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
@@ -25,7 +25,7 @@ public class ControllerUrl4ResponseResolverTest {
   @Test
   public void resolves_ControllerUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
-    SiteMapBuilder builder = SiteMapBuilder
+    ViewMapBuilder builder = ViewMapBuilder
         .withHomeController(TypicalViews.HOME)
         .mount(urlPathOf("tutorial/*"), TUTORIAL)
         .mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
@@ -34,7 +34,7 @@ public class ControllerUrl4ResponseResolverTest {
         .mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     ViewUrl4ResponseResolver resolver = new ViewUrl4ResponseResolver(
         path2home,
-        new SiteMap(builder).controllerClass2UrlPath());
+        new ViewMap(builder).controllerClass2UrlPath());
     assertThat(resolver.resolve(ViewUrl.of(Home.class)).toString(),
         is("../../"));
     assertThat(resolver.resolve(ViewUrl.of(TutorialOnEvents.class)).toString(),

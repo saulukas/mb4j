@@ -4,7 +4,7 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import org.mb4j.component.viewmap.SiteMap;
+import org.mb4j.component.viewmap.ViewMap;
 
 public class ServletSampleContextListener extends GuiceServletContextListener {
   @Override
@@ -12,7 +12,7 @@ public class ServletSampleContextListener extends GuiceServletContextListener {
     Injector injector = ServletSampleModule.injector();
     System.out.println(""
         + "\n"
-        + "" + injector.getInstance(SiteMap.class).toString()
+        + "" + injector.getInstance(ViewMap.class).toString()
         + "\n");
     return injector;
   }

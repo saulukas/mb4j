@@ -17,18 +17,18 @@ import org.mb4j.component.url.UrlPathString;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import org.mb4j.component.utils.SimpleClassName;
 
-class SiteMapBuilderNode implements MapUrlPath2Controller {
+class ViewMapNode implements MapUrlPath2Controller {
   @Nullable
-  private final SiteMapBuilderNode parent;
+  private final ViewMapNode parent;
   @Nullable
   private final String pathSegment;
   private boolean isAsterisk = false;
   @Nullable
   private View controller = null;
   @Nullable
-  private Map<String, SiteMapBuilderNode> children = null;
+  private Map<String, ViewMapNode> children = null;
 
-  private SiteMapBuilderNode(SiteMapBuilderNode parent, String pathSegment) {
+  private ViewMapNode(ViewMapNode parent, String pathSegment) {
     this.parent = parent;
     this.pathSegment = pathSegment;
     if (isRoot() && pathSegment != null) {
@@ -39,8 +39,8 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
     }
   }
 
-  static SiteMapBuilderNode createRoot() {
-    return new SiteMapBuilderNode(null, null);
+  static ViewMapNode createRoot() {
+    return new ViewMapNode(null, null);
   }
 
   @Override
@@ -56,7 +56,7 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
           reader.remainingPath());
     }
     String segment = reader.readSegment();
-    SiteMapBuilderNode child = findChildOrNull(segment);
+    ViewMapNode child = findChildOrNull(segment);
     if (child != null) {
       return child.resolve(reader);
     }
@@ -87,9 +87,9 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
       setController(reader, controller);
       return;
     }
-    SiteMapBuilderNode child = findChildOrNull(segment);
+    ViewMapNode child = findChildOrNull(segment);
     if (child == null) {
-      child = new SiteMapBuilderNode(this, segment);
+      child = new ViewMapNode(this, segment);
       addChild(child);
     }
     child.mount(reader, controller);
@@ -120,15 +120,15 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
     return controller == null ? "null" : controller.getClass().getName();
   }
 
-  private void addChild(SiteMapBuilderNode child) {
+  private void addChild(ViewMapNode child) {
     nonNullChildren().put(child.pathSegment, child);
   }
 
-  private SiteMapBuilderNode findChildOrNull(String segment) {
+  private ViewMapNode findChildOrNull(String segment) {
     return children == null ? null : children.get(segment);
   }
 
-  private Map<String, SiteMapBuilderNode> nonNullChildren() {
+  private Map<String, ViewMapNode> nonNullChildren() {
     if (children == null) {
       children = new HashMap<>();
     }
@@ -140,7 +140,7 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
       result.add(controller);
     }
     if (children != null) {
-      for (SiteMapBuilderNode child : children.values()) {
+      for (ViewMapNode child : children.values()) {
         child.collectControllers(result);
       }
     }
@@ -164,7 +164,7 @@ class SiteMapBuilderNode implements MapUrlPath2Controller {
       Iterator<String> namesIterator = childNames.iterator();
       while (namesIterator.hasNext()) {
         String childName = namesIterator.next();
-        SiteMapBuilderNode child = children.get(childName);
+        ViewMapNode child = children.get(childName);
         result += "\n" + margin + "|";
         result += "\n" + margin + "+-- "
             + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));

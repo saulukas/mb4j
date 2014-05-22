@@ -14,10 +14,10 @@ import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.component.view.View;
 
-public class SiteMapBuilderTest {
+public class ViewMapBuilderTest {
   @Test
   public void mounts_controllers_at_given_paths() {
-    SiteMapBuilder builder = SiteMapBuilder.withHomeController(HOME);
+    ViewMapBuilder builder = ViewMapBuilder.withHomeController(HOME);
     builder.mount(urlPathOf("/tutorial/*"), TUTORIAL);
     builder.mount(urlPathOf("/tutorial/events"), TUTORIAL_ON_EVENTS);
     builder.mount(urlPathOf("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);

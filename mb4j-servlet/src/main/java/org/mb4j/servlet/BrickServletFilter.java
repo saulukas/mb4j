@@ -20,7 +20,7 @@ import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
 import org.mb4j.component.viewmap.MapUrlPath2Controller;
 import org.mb4j.component.viewmap.MapUrlPath2Controller.Result;
-import org.mb4j.component.viewmap.SiteMap;
+import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
@@ -32,11 +32,11 @@ import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
 
 public class BrickServletFilter extends HttpFilter {
   private final BrickRenderer renderer;
-  private final SiteMap siteMap;
+  private final ViewMap viewMap;
 
-  public BrickServletFilter(BrickRenderer renderer, SiteMap siteMap) {
+  public BrickServletFilter(BrickRenderer renderer, ViewMap viewMap) {
     this.renderer = renderer;
-    this.siteMap = siteMap;
+    this.viewMap = viewMap;
   }
 
   @Override
@@ -51,7 +51,7 @@ public class BrickServletFilter extends HttpFilter {
     //
     String servletPath = httpRequest.getServletPath();
     UrlPath path = UrlPathString.urlPathOf(servletPath);
-    MapUrlPath2Controller.Result resolved = siteMap.urlPath2Controller().controllerFor(path);
+    MapUrlPath2Controller.Result resolved = viewMap.urlPath2Controller().controllerFor(path);
     if (resolved.resultIsEmpty()) {
       chain.doFilter(httpRequest, httpResponse);
       return;
@@ -65,7 +65,7 @@ public class BrickServletFilter extends HttpFilter {
     if (resourceParam != null) {
       Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
       Component componentWithResources
-          = siteMap.componentWithResourcesName2Component().componentFor(value.componentName);
+          = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
       ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
       componentWithResources.serveResource(
           value.resourceName,
@@ -81,7 +81,7 @@ public class BrickServletFilter extends HttpFilter {
     if (Objects.equal(httpRequest.getMethod(), "POST")) {
       ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
       NamedParams postParams = namedParamsFromRawQuery(httpRequest.getReader().readLine());
-      Optional<FormResponse> formRC = formResponseFor(request, postParams, siteMap.formName2Form());
+      Optional<FormResponse> formRC = formResponseFor(request, postParams, viewMap.formName2Form());
       if (formRC.isPresent()) {
         FormResponse formResponse = formRC.get();
         if (formResponse instanceof FormResponseRedirectToUrlString) {
@@ -116,7 +116,7 @@ public class BrickServletFilter extends HttpFilter {
         controllerUrl,
         path2home,
         new ServletRequestAttributes(httpRequest),
-        siteMap);
+        viewMap);
     return request;
   }
 }

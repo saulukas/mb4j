@@ -33,16 +33,16 @@ import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewResponse;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.viewmap.MapUrlPath2Controller;
-import org.mb4j.component.viewmap.SiteMap;
+import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.liferay.PortletPathToHome.pathToAssets;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 
 public class BrickPortlet implements Portlet, ResourceServingPortlet {
   private final String friendlyUrlMapping;
   private final BrickRenderer renderer;
-  private final SiteMap viewMap;
+  private final ViewMap viewMap;
 
-  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, SiteMap viewMap) {
+  protected BrickPortlet(String friendlyUrlMapping, BrickRenderer renderer, ViewMap viewMap) {
     this.friendlyUrlMapping = friendlyUrlMapping;
     this.renderer = renderer;
     this.viewMap = viewMap;

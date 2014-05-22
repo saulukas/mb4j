@@ -5,7 +5,7 @@ import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewUrl;
-import org.mb4j.component.viewmap.SiteMap;
+import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.example.liferay.SampleSingleViewPortlet.singleViewMapFor;
 import org.mb4j.liferay.PortletControllerRequest;
 import org.mb4j.liferay.PortletView;
@@ -21,11 +21,11 @@ public class LiferaySampleTestApplication {
     return requestFor(singleViewMapFor((Class<? extends PortletView>) viewUrl.viewClass), viewUrl);
   }
 
-  public static ViewRequest requestFor(Class<? extends SiteMap> siteMapClass, ViewUrl viewUrl) {
-    return requestFor(inject(siteMapClass), viewUrl);
+  public static ViewRequest requestFor(Class<? extends ViewMap> viewMapClass, ViewUrl viewUrl) {
+    return requestFor(inject(viewMapClass), viewUrl);
   }
 
-  public static ViewRequest requestFor(SiteMap siteMap, ViewUrl viewUrl) {
+  public static ViewRequest requestFor(ViewMap viewMap, ViewUrl viewUrl) {
     String path2home = "../path2home/../";
     String path2assets = "../path2assets/../";
     String authToken = "12auth34";
@@ -37,13 +37,13 @@ public class LiferaySampleTestApplication {
         new AttributesMap(),
         namespace,
         authToken,
-        new Resources4ResponseResolver(siteMap.componentWithResourcesClass2Name()) {
+        new Resources4ResponseResolver(viewMap.componentWithResourcesClass2Name()) {
           @Override
           protected String resolveResourceUrl(String resourceParamName, String resourceParamValue) {
             return "./resourceUrl4Tests/?" + resourceParamName + "=" + resourceParamValue;
           }
         },
-        siteMap
+        viewMap
     );
   }
 }

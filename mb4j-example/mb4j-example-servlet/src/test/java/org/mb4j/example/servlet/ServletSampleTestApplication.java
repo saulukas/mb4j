@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import java.io.Writer;
 import static org.mb4j.brick.renderer.RendererUtils.renderer4Development;
 import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.viewmap.SiteMap;
+import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.utils.ResponseOnWriter;
@@ -24,7 +24,7 @@ public class ServletSampleTestApplication {
         url,
         path2home,
         new AttributesMap(),
-        inject(SiteMap.class));
+        inject(ViewMap.class));
   }
 
   public static ResponseOnWriter responseOn(Writer writer) {
