@@ -13,13 +13,13 @@ import org.mb4j.liferay.PortletView;
 @Singleton
 public class EventEditView extends PortletView {
   @Inject
-  EventEditForm form;
+  EventEditFormHandler form;
 
   public static class Module extends AbstractModule {
     @Override
     protected void configure() {
       bind(EventEditView.class);
-      bind(EventEditForm.class);
+      bind(EventEditFormHandler.class);
     }
   }
 

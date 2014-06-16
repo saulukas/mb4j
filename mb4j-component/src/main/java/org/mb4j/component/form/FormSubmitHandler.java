@@ -16,7 +16,7 @@ public class FormSubmitHandler {
     if (formName == null) {
       return Optional.absent();
     }
-    Form form = formName2Form.formFor(formName);
+    FormHandler form = formName2Form.formFor(formName);
     String actionName = getActionNameFrom(postParams, form);
     FormFieldRecord fields = form.createEmptyFields();
     fields.setValuesFrom(postParams.asMap());
@@ -28,7 +28,7 @@ public class FormSubmitHandler {
     return Optional.of(formResponse);
   }
 
-  private static String getActionNameFrom(NamedParams postParams, Form form) {
+  private static String getActionNameFrom(NamedParams postParams, FormHandler form) {
     for (String paramName : postParams.names()) {
       if (paramName.startsWith(FormData4ResponseResolver.ACTION_PARAM_PREFIX)) {
         return paramName.substring(FormData4ResponseResolver.ACTION_PARAM_PREFIX.length());

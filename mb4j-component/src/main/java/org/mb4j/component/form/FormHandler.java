@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.field.FormFieldRecord;
 import org.mb4j.component.utils.ReflectionUtils;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodsOf;
+import org.mb4j.component.utils.SimpleClassName;
+import org.mb4j.component.view.ViewRequest;
 
-public class Form<T extends FormFieldRecord> {
+public class FormHandler<T extends FormFieldRecord> {
   public final Class<T> fieldsClass;
 
-  protected Form() {
+  protected FormHandler() {
     ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
     this.fieldsClass = (Class<T>) type.getActualTypeArguments()[0];
   }
 
-  protected Form(Class<T> fieldsClass) {
+  protected FormHandler(Class<T> fieldsClass) {
     this.fieldsClass = fieldsClass;
   }
 
@@ -37,7 +38,7 @@ public class Form<T extends FormFieldRecord> {
   }
 
   public Set<String> getActionNames() {
-    return getAnnotatedMethodNamesOf(getClass(), Form.class, FormActionMethod.class);
+    return getAnnotatedMethodNamesOf(getClass(), FormHandler.class, FormActionMethod.class);
   }
 
   public Collection<FormAction> getActions() {
@@ -72,12 +73,18 @@ public class Form<T extends FormFieldRecord> {
   }
 
   private Method getActionMethodByName(String name) {
-    List<Method> methods = getAnnotatedMethodsOf(getClass(), Form.class, FormActionMethod.class);
+    List<Method> methods = getAnnotatedMethodsOf(getClass(), FormHandler.class, FormActionMethod.class);
     for (Method method : methods) {
       if (Objects.equal(name, method.getName())) {
         return method;
       }
     }
     return null;
+  }
+
+  @Override
+  public String toString() {
+    return SimpleClassName.of(getClass()) + "(" + SimpleClassName.of(fieldsClass) + ") "
+        + getActionNames();
   }
 }

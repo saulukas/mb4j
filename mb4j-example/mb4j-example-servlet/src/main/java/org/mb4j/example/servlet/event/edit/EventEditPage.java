@@ -17,7 +17,7 @@ public class EventEditPage extends MasterLayoutPage {
     protected void configure() {
       bind(EventEditPage.class);
       bind(EventEditPanel.class);
-      bind(EventEditForm.class);
+      bind(EventEditFormHandler.class);
     }
   }
 

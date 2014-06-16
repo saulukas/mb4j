@@ -10,7 +10,7 @@ import org.mb4j.component.view.ViewRequest;
 @Singleton
 public class EventEditPanel extends Component {
   @Inject
-  EventEditForm form;
+  EventEditFormHandler form;
 
   public static class Brick extends MustacheBrick {
     FormData4Response fd;

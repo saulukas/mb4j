@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.mb4j.component.form.Form;
+import org.mb4j.component.form.FormHandler;
 import org.mb4j.component.resource.Resource;
 import org.mb4j.component.resource.ResourceMethod;
 import org.mb4j.component.utils.ReflectionUtils;
@@ -21,8 +21,8 @@ import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodsOf;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class Component {
-  public void addFormsRecursively(Collection<Form> result) {
-    ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, Form.class, result);
+  public void addFormsRecursively(Collection<FormHandler> result) {
+    ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, FormHandler.class, result);
   }
 
   public void addSubtree(Collection<Component> result) {
@@ -74,7 +74,7 @@ public class Component {
   public String componentTreeToString(String margin) {
     String result = SimpleClassName.of(getClass());
     Map<String, Component> children = getChildren();
-    for (Form form : getForms().values()) {
+    for (FormHandler form : getForms().values()) {
       String formMargin = margin + (children.isEmpty() ? "    " : "|   ");
       result += "\n" + formMargin + "form: " + SimpleClassName.of(form.getClass())
           + " " + form.getActionNames();
@@ -98,8 +98,8 @@ public class Component {
     return result;
   }
 
-  private Map<String, Form> getForms() {
-    return ReflectionUtils.getNonStaticFieldsOf(this, Component.class, Form.class);
+  private Map<String, FormHandler> getForms() {
+    return ReflectionUtils.getNonStaticFieldsOf(this, Component.class, FormHandler.class);
   }
 
   private Map<String, Component> getChildren() {

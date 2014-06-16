@@ -7,22 +7,22 @@ import java.util.Set;
 import java.util.TreeMap;
 import org.mb4j.component.Component;
 import org.mb4j.component.view.View;
-import org.mb4j.component.form.Form;
+import org.mb4j.component.form.FormHandler;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class FormMappings implements MapFormClass2Name, MapFormName2Form {
-  private final Map<Class<? extends Form>, String> class2name = new HashMap<>();
-  private final Map<String, Form> name2form = new TreeMap<>();
+  private final Map<Class<? extends FormHandler>, String> class2name = new HashMap<>();
+  private final Map<String, FormHandler> name2form = new TreeMap<>();
 
   public FormMappings(Set<View> views) {
-    Set<Form> forms = new HashSet<>();
+    Set<FormHandler> forms = new HashSet<>();
     for (View view : views) {
       if (view instanceof Component) {
         Component component = (Component) view;
         component.addFormsRecursively(forms);
       }
     }
-    for (Form form : forms) {
+    for (FormHandler form : forms) {
       if (!class2name.containsKey(form.getClass())) {
         String name = SimpleClassName.of(form.getClass());
         String postfix = "";
@@ -43,7 +43,7 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   }
 
   @Override
-  public String formNameOf(Class<? extends Form> formClass) {
+  public String formNameOf(Class<? extends FormHandler> formClass) {
     String name = class2name.get(formClass);
     if (name == null) {
       throw new RuntimeException("No mapping found for Form class: " + formClass);
@@ -52,8 +52,8 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   }
 
   @Override
-  public Form formFor(String formName) {
-    Form form = name2form.get(formName);
+  public FormHandler formFor(String formName) {
+    FormHandler form = name2form.get(formName);
     if (form == null) {
       throw new RuntimeException("No mapping found for Form name: " + formName);
     }
@@ -63,8 +63,8 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   @Override
   public String toString() {
     String result = "Form count: " + name2form.size();
-    for (Map.Entry<String, Form> entry : name2form.entrySet()) {
-      Form form = entry.getValue();
+    for (Map.Entry<String, FormHandler> entry : name2form.entrySet()) {
+      FormHandler form = entry.getValue();
       result += "\n    " + entry.getKey() + " -> " + form.getClass().getName()
           + " " + form.getActionNames();
     }

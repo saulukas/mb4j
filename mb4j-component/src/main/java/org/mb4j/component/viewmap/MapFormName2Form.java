@@ -1,7 +1,7 @@
 package org.mb4j.component.viewmap;
 
-import org.mb4j.component.form.Form;
+import org.mb4j.component.form.FormHandler;
 
 public interface MapFormName2Form {
-  Form formFor(String formName);
+  FormHandler formFor(String formName);
 }
