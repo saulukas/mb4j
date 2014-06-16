@@ -1,9 +1,10 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data;
 
+import org.mb4j.component.form.data.binding.FormFieldValueNode;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class FormFieldBase {
+public abstract class AbstractFormData {
   public Map<String, FormField> asFieldMap() {
     Map<String, FormField> formFields = new HashMap<>();
     collectFields("", formFields);

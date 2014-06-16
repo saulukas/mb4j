@@ -1,4 +1,4 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.response;
 
 import org.mb4j.component.view.ViewUrl;
 

@@ -1,10 +1,10 @@
 package org.mb4j.liferay.adapters;
 
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.form.FormData4ResponseResolver;
+import org.mb4j.component.form.Form4ResponseResolver;
 import org.mb4j.component.viewmap.MapFormClass2Name;
 
-public class PortletFormData4ResponseResolver extends FormData4ResponseResolver {
+public class PortletFormData4ResponseResolver extends Form4ResponseResolver {
   private final String portletNamespace;
   private final String pauthParamOrNull;
 

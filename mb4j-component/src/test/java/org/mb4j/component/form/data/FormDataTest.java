@@ -1,51 +1,51 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data;
 
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.mb4j.component.form.field.FormField.createOptionalField;
-import static org.mb4j.component.form.field.FormField.createRequiredField;
+import static org.mb4j.component.form.data.FormField.optionalField;
+import static org.mb4j.component.form.data.FormField.requiredField;
 
-public class FormFieldRecordTest {
-  static class EmbeddedFields extends FormFieldRecord {
-    FormField detailA = createOptionalField("Some details about something.");
-    FormField detailB = createOptionalField();
+public class FormDataTest {
+  public static class EmbeddedData extends FormData {
+    public FormField detailA = optionalField().withValue("Some details about something.");
+    public FormField detailB = optionalField();
   }
 
-  static class PersonFields extends FormFieldRecord {
-    FormField name = createRequiredField().withMaxSize(75);
-    FormField hobby = createOptionalField();
+  public static class PersonData extends FormData {
+    public FormField name = requiredField().withMaxSize(75);
+    public FormField hobby = optionalField();
 
-    PersonFields() {
+    public PersonData() {
     }
 
-    PersonFields(String name, String hobby) {
+    public PersonData(String name, String hobby) {
       this.name.value = name;
       this.hobby.value = hobby;
     }
   }
 
-  static class BaseFields extends FormFieldRecord {
-    FormField companyName = createRequiredField("Bricks Ltd.");
-    FormField address = createOptionalField("River Street 25");
-    FormField rating = createOptionalField("99");
-    FormFieldList<PersonFields> employees = FormFieldList.of(PersonFields.class,
-        new PersonFields("Tom", "music"),
-        new PersonFields("Ana", "dancing"),
-        new PersonFields("Jonas", "walking")
+  public static class BaseData extends FormData {
+    public FormField companyName = requiredField().withValue("Bricks Ltd.");
+    public FormField address = optionalField().withValue("River Street 25");
+    public FormField rating = optionalField().withValue("99");
+    public FormDataList<PersonData> employees = FormDataList.of(PersonData.class,
+        new PersonData("Tom", "music"),
+        new PersonData("Ana", "dancing"),
+        new PersonData("Jonas", "walking")
     );
   }
 
-  static class ExtendedFields extends BaseFields {
-    FormField founder = createOptionalField("Jon Jonson");
-    FormField country = createOptionalField("Rainland");
-    EmbeddedFields embeddedInfo = new EmbeddedFields();
+  public static class ExtendedData extends BaseData {
+    public FormField founder = optionalField().withValue("Jon Jonson");
+    public FormField country = optionalField().withValue("Rainland");
+    public EmbeddedData embeddedInfo = new EmbeddedData();
   }
 
   @Test
   public void asFieldMap_maps_field_names_to_FormField_including_inherited_and_nested_ones() {
-    FormFieldRecord fields = new ExtendedFields();
+    FormData fields = new ExtendedData();
     Map<String, FormField> fieldMap = fields.asFieldMap();
     assertEquals(fieldMap.size(), 13);
     assertEquals(fieldMap.get("address").value, "River Street 25");
@@ -65,11 +65,11 @@ public class FormFieldRecordTest {
 
   @Test
   public void has_nice_toString() {
-    System.out.println("nice toString: " + new ExtendedFields());
+    System.out.println("nice toString: " + new ExtendedData());
   }
 
-  private static class NonFieldAttributes extends FormFieldRecord {
-    FormField validField = createOptionalField();
+  private static class NonFieldAttributes extends FormData {
+    FormField validField = optionalField();
     Number invalidField;
   }
 

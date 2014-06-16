@@ -1,4 +1,4 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data.binding;
 
 import com.google.common.base.Splitter;
 import java.util.Map;

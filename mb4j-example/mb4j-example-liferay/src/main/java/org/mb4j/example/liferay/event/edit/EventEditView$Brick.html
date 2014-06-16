@@ -2,17 +2,17 @@
 <form method="post">
   {{#form.header}}
   {{/form.header}}
-  <input type="hidden" name="{{form.fields.id.name}}" value="{{form.fields.id.value}}"/>
-  <input type="hidden" name="{{form.fields.imageUrl.name}}" value="{{form.fields.imageUrl.value}}"/>
+  <input type="hidden" name="{{form.data.id.name}}" value="{{form.data.id.value}}"/>
+  <input type="hidden" name="{{form.data.imageUrl.name}}" value="{{form.data.imageUrl.value}}"/>
   <table>
     <tr>
-      <td style="text-align: right;">{{form.fields.title.label}}</td>
-      <td><input type="text" name="{{form.fields.title.name}}" value="{{form.fields.title.value}}"/></td>
-      <td style="color:red;">{{form.fields.title.error}}</td>
+      <td style="text-align: right;">{{form.data.title.label}}</td>
+      <td><input type="text" name="{{form.data.title.name}}" value="{{form.data.title.value}}"/></td>
+      <td style="color:red;">{{form.data.title.error}}</td>
     </tr>
     <tr>
-      <td style="text-align: right;">{{form.fields.summary.label}}</td>
-      <td><input type="text" name="{{form.fields.summary.name}}" value="{{form.fields.summary.value}}"/></td>
+      <td style="text-align: right;">{{form.data.summary.label}}</td>
+      <td><input type="text" name="{{form.data.summary.name}}" value="{{form.data.summary.value}}"/></td>
       <td></td>
     </tr>
     <tr>

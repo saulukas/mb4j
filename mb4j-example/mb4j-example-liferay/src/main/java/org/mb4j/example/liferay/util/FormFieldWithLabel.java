@@ -1,6 +1,6 @@
 package org.mb4j.example.liferay.util;
 
-import org.mb4j.component.form.field.FormField;
+import org.mb4j.component.form.data.FormField;
 
 public class FormFieldWithLabel extends FormField {
   public String label;

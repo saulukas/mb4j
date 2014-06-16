@@ -1,4 +1,4 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data.binding;
 
 import static com.google.common.collect.Lists.newArrayList;
 import java.util.Collections;
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public class FormFieldValueNode {
-  String value = null;
-  Map<String, FormFieldValueNode> children = null;
+  public String value = null;
+  public Map<String, FormFieldValueNode> children = null;
 
   FormFieldValueNode findOrCreateChildFor(String nameSegment) {
     if (children == null) {

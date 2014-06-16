@@ -1,4 +1,4 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.action;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

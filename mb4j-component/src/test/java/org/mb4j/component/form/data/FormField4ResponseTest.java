@@ -1,14 +1,12 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.data;
 
-import org.mb4j.component.form.FormField4Response;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import org.mb4j.component.form.field.FormField;
 
 public class FormField4ResponseTest {
   @Test
   public void creates_map_of_attributes_of_FormField() {
-    FormField field = FormField.createOptionalField("value123").withMaxSize(120);
+    FormField field = FormField.optionalField().withMaxSize(120).withValue("value123");
     field.enabled = false;
     field.error = "Some easy to fix error.";
     FormField4Response field4Response = new FormField4Response("name7", field);

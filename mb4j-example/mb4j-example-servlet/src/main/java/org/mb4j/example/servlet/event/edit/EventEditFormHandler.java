@@ -4,18 +4,18 @@ import com.google.common.base.Objects;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.form.Form;
 import org.mb4j.component.form.FormHandler;
-import org.mb4j.component.form.FormActionMethod;
-import org.mb4j.component.form.FormData;
-import org.mb4j.component.form.FormResponse;
-import static org.mb4j.component.form.FormResponseRedirectToView.redirectTo;
-import static org.mb4j.component.form.FormResponseRenderCurrentPage.renderCurrentPage;
-import org.mb4j.component.form.field.FormField;
-import static org.mb4j.component.form.field.FormField.createOptionalField;
-import static org.mb4j.component.form.field.FormField.createRequiredField;
-import org.mb4j.component.form.field.FormFieldRecord;
+import org.mb4j.component.form.action.FormActionMethod;
+import org.mb4j.component.form.data.FormData;
+import org.mb4j.component.form.data.FormField;
+import static org.mb4j.component.form.data.FormField.optionalField;
+import static org.mb4j.component.form.data.FormField.requiredField;
+import org.mb4j.component.form.response.FormResponse;
+import static org.mb4j.component.form.response.FormResponseRedirectToView.redirectTo;
+import static org.mb4j.component.form.response.FormResponseRenderCurrentPage.renderCurrentPage;
 import org.mb4j.component.utils.AttributeKey;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.example.domain.commands.EventSaveCommand;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventByIdQuery;
@@ -25,70 +25,70 @@ import static org.mb4j.example.servlet.util.FormFieldWithLabel.optionalFieldWith
 import static org.mb4j.example.servlet.util.FormFieldWithLabel.requiredFieldWithLabel;
 
 @Singleton
-public class EventEditFormHandler extends FormHandler<EventEditFormHandler.Fields> {
-  private static final AttributeKey<Fields> FIELDS_KEY = new AttributeKey<Fields>() {
+public class EventEditFormHandler extends FormHandler<EventEditFormHandler.Data> {
+  private static final AttributeKey<Data> DATA_KEY = new AttributeKey<Data>() {
   };
   @Inject
   EventByIdQuery eventByIdQuery;
   @Inject
   EventSaveCommand eventSaveCommand;
 
-  static class Fields extends FormFieldRecord {
-    FormField id = createRequiredField();
+  static class Data extends FormData {
+    FormField id = requiredField();
     FormFieldWithLabel title = requiredFieldWithLabel("Title:");
     FormFieldWithLabel summary = optionalFieldWithLabel("Summary:");
-    FormField imageUrl = createOptionalField();
+    FormField imageUrl = optionalField();
   }
 
-  private Fields createFieldsFrom(Event event) {
-    Fields fields = createEmptyFields();
-    fields.id.value = Integer.toString(event.id);
-    fields.title.value = event.title;
-    fields.summary.value = event.summary;
-    fields.imageUrl.value = event.imageUrl;
-    return fields;
+  private Data createData(Event event) {
+    Data data = createEmptyFields();
+    data.id.value = Integer.toString(event.id);
+    data.title.value = event.title;
+    data.summary.value = event.summary;
+    data.imageUrl.value = event.imageUrl;
+    return data;
   }
 
-  private Event createEventFrom(Fields fields) {
+  private Event createEvent(Data data) {
     return new Event(
-        Integer.parseInt(fields.id.value),
-        fields.imageUrl.value,
-        fields.title.value,
-        fields.summary.value);
+        Integer.parseInt(data.id.value),
+        data.imageUrl.value,
+        data.title.value,
+        data.summary.value);
   }
 
-  FormData<Fields> data(ViewRequest request, int eventId) {
-    Fields fields = request.attributes().valueOf(FIELDS_KEY).orNull();
-    if (fields == null) {
+  Form<Data> fillForm(ViewRequest request, int eventId) {
+    Data data = request.attributes().valueOf(DATA_KEY).orNull();
+    if (data == null) {
       Event event = eventByIdQuery.result(eventId).get();
-      fields = createFieldsFrom(event);
+      data = createData(event);
     }
-    return dataWith(fields);
+    return formWith(data);
   }
 
   @FormActionMethod
-  FormResponse save(ViewRequest request, Fields fields) {
-    if (errorsFoundIn(fields)) {
-      return renderCurrentPage(request).with(FIELDS_KEY, fields);
+  FormResponse save(ViewRequest request, Data data) {
+    if (errorsFoundIn(data)) {
+      return renderCurrentPage(request).with(DATA_KEY, data);
     }
-    eventSaveCommand.execute(createEventFrom(fields));
+    eventSaveCommand.execute(createEvent(data));
     return redirectTo(EventListPage.url());
   }
 
   @FormActionMethod
-  FormResponse reset(ViewRequest request, Fields fields) {
-    fields.summary.value = "";
-    return renderCurrentPage(request).with(FIELDS_KEY, fields);
+  FormResponse reset(ViewRequest request, Data data) {
+    data.summary.value = "";
+    return renderCurrentPage(request).with(DATA_KEY, data);
   }
 
   @FormActionMethod
-  FormResponse goToEventList(ViewRequest request, Fields fields) {
+  FormResponse goToEventList(ViewRequest request, Data data) {
     return redirectTo(EventListPage.url());
   }
 
-  private boolean errorsFoundIn(Fields fields) {
-    fields.title.setErrorIf(isNullOrEmpty(fields.title.value), "Title may not be empty.");
-    return fields.hasErrors();
+  private boolean errorsFoundIn(Data data) {
+    data.title.setErrorIf(isNullOrEmpty(data.title.value), "Title may not be empty.");
+    return data.hasErrors();
   }
 
   @Override

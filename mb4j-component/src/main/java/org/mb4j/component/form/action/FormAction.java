@@ -1,4 +1,4 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.action;
 
 public class FormAction {
   public String name;

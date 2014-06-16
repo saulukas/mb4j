@@ -1,38 +1,32 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data;
 
+import org.mb4j.component.form.data.binding.FormFieldValueNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import org.mb4j.component.utils.ReflectionUtils;
-import org.mb4j.component.utils.SimpleClassName;
 
-public class FormFieldList<T extends FormFieldBase> extends FormFieldBase {
+public class FormDataList<T extends FormData> extends AbstractFormData {
   public final Class<T> itemClass;
   private List<T> list;
 
-  protected FormFieldList(Class<T> itemClass) {
+  protected FormDataList(Class<T> itemClass) {
     this(itemClass, new ArrayList<T>());
   }
 
-  protected FormFieldList(Class<T> itemClass, List<T> list) {
-    if (!FormFieldRecord.class.isAssignableFrom(itemClass)
-        && !FormFieldList.class.isAssignableFrom(itemClass)) {
-      throw new RuntimeException("Items of " + SimpleClassName.of(FormFieldList.class)
-          + " may only be of class " + SimpleClassName.of(FormFieldRecord.class)
-          + " or " + SimpleClassName.of(FormFieldList.class) + " but found: " + itemClass);
-    }
+  protected FormDataList(Class<T> itemClass, List<T> list) {
     this.itemClass = itemClass;
     this.list = new ArrayList<>(list);
   }
 
-  public static <T extends FormFieldBase> FormFieldList<T> of(Class<T> itemClass, T... items) {
-    return new FormFieldList<>(itemClass, Arrays.asList(items));
+  public static <T extends FormData> FormDataList<T> of(Class<T> itemClass, T... items) {
+    return new FormDataList<>(itemClass, Arrays.asList(items));
   }
 
-  public static <T extends FormFieldBase> FormFieldList<T> of(Class<T> itemClass, List<T> items) {
-    return new FormFieldList<>(itemClass, items);
+  public static <T extends FormData> FormDataList<T> of(Class<T> itemClass, List<T> items) {
+    return new FormDataList<>(itemClass, items);
   }
 
   public T itemAt(int index) {
@@ -41,7 +35,7 @@ public class FormFieldList<T extends FormFieldBase> extends FormFieldBase {
 
   @Override
   public boolean hasErrors() {
-    for (FormFieldBase member : list) {
+    for (AbstractFormData member : list) {
       if (member.hasErrors()) {
         return true;
       }
@@ -52,7 +46,7 @@ public class FormFieldList<T extends FormFieldBase> extends FormFieldBase {
   @Override
   void collectFields(String nameInParent, Map<String, FormField> fieldMap) {
     int index = 0;
-    for (FormFieldBase member : list) {
+    for (AbstractFormData member : list) {
       member.collectFields(nameInParent + "." + index, fieldMap);
       index += 1;
     }
@@ -89,7 +83,7 @@ public class FormFieldList<T extends FormFieldBase> extends FormFieldBase {
   public String toString(String margin) {
     String result = getClass().getSimpleName() + ": " + list.size();
     int index = 0;
-    for (FormFieldBase group : list) {
+    for (AbstractFormData group : list) {
       result += "\n" + margin + "    " + index + ". " + group.toString(margin + "    ");
       index += 1;
     }

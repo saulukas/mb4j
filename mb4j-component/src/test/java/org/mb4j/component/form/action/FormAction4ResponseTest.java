@@ -1,7 +1,5 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.action;
 
-import org.mb4j.component.form.FormAction;
-import org.mb4j.component.form.FormAction4Response;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

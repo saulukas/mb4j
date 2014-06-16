@@ -8,30 +8,33 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.mb4j.component.form.field.FormFieldRecord;
+import org.mb4j.component.form.action.FormAction;
+import org.mb4j.component.form.action.FormActionMethod;
+import org.mb4j.component.form.data.FormData;
+import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.utils.ReflectionUtils;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodsOf;
 import org.mb4j.component.utils.SimpleClassName;
 import org.mb4j.component.view.ViewRequest;
 
-public class FormHandler<T extends FormFieldRecord> {
-  public final Class<T> fieldsClass;
+public class FormHandler<T extends FormData> {
+  public final Class<T> dataClass;
 
   protected FormHandler() {
     ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-    this.fieldsClass = (Class<T>) type.getActualTypeArguments()[0];
+    this.dataClass = (Class<T>) type.getActualTypeArguments()[0];
   }
 
-  protected FormHandler(Class<T> fieldsClass) {
-    this.fieldsClass = fieldsClass;
+  protected FormHandler(Class<T> dataClass) {
+    this.dataClass = dataClass;
   }
 
-  public FormResponse handle(String actionName, ViewRequest request, T fields) {
+  public FormResponse handle(String actionName, ViewRequest request, T data) {
     Method method = getActionMethodByName(actionName);
     try {
       method.setAccessible(true);
-      return (FormResponse) method.invoke(this, request, fields);
+      return (FormResponse) method.invoke(this, request, data);
     } catch (IllegalAccessException | IllegalArgumentException | SecurityException | InvocationTargetException ex) {
       throw new RuntimeException("Failed to invoke action method " + method + ": " + ex, ex);
     }
@@ -50,11 +53,11 @@ public class FormHandler<T extends FormFieldRecord> {
   }
 
   public T createEmptyFields() {
-    return ReflectionUtils.createInstanceOf(fieldsClass);
+    return ReflectionUtils.createInstanceOf(dataClass);
   }
 
-  public FormData<T> dataWith(T fields) {
-    return new FormData(getClass(), fields, getActions());
+  public Form<T> formWith(T data) {
+    return new Form(getClass(), data, getActions());
   }
 
   protected FormAction actionForName(String name) {
@@ -84,7 +87,7 @@ public class FormHandler<T extends FormFieldRecord> {
 
   @Override
   public String toString() {
-    return SimpleClassName.of(getClass()) + "(" + SimpleClassName.of(fieldsClass) + ") "
+    return SimpleClassName.of(getClass()) + "(" + SimpleClassName.of(dataClass) + ") "
         + getActionNames();
   }
 }

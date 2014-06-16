@@ -1,8 +1,7 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.data;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import org.mb4j.component.form.field.FormField;
 import org.mb4j.component.utils.ReflectionUtils;
 
 public class FormField4Response extends HashMap<String, Object> {

@@ -4,21 +4,21 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.Component;
-import org.mb4j.component.form.FormData4Response;
+import org.mb4j.component.form.Form4Response;
 import org.mb4j.component.view.ViewRequest;
 
 @Singleton
 public class EventEditPanel extends Component {
   @Inject
-  EventEditFormHandler form;
+  EventEditFormHandler formHandler;
 
   public static class Brick extends MustacheBrick {
-    FormData4Response fd;
+    Form4Response form;
   }
 
   public Brick bakeBrick(ViewRequest request, int eventId) {
     Brick brick = new Brick();
-    brick.fd = request.resolve(form.data(request, eventId));
+    brick.form = request.resolve(formHandler.fillForm(request, eventId));
     return brick;
   }
 }

@@ -1,4 +1,4 @@
-package org.mb4j.component.form;
+package org.mb4j.component.form.action;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

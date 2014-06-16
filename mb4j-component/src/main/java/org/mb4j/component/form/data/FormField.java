@@ -1,9 +1,10 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data;
 
+import org.mb4j.component.form.data.binding.FormFieldValueNode;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import java.util.Map;
 
-public class FormField extends FormFieldBase {
+public class FormField extends AbstractFormData {
   public String value = "";
   public boolean required;
   public boolean enabled = true;
@@ -12,32 +13,28 @@ public class FormField extends FormFieldBase {
   public String error = "";
 
   protected FormField() {
-    this(false, "");
+    this(false);
   }
 
-  protected FormField(boolean required, String value) {
+  protected FormField(boolean required) {
     this.required = required;
-    this.value = value;
   }
 
-  public static FormField createRequiredField() {
-    return createRequiredField("");
+  public static FormField requiredField() {
+    return new FormField(true);
   }
 
-  public static FormField createOptionalField() {
-    return createOptionalField("");
-  }
-
-  public static FormField createRequiredField(String value) {
-    return new FormField(true, value);
-  }
-
-  public static FormField createOptionalField(String value) {
-    return new FormField(false, value);
+  public static FormField optionalField() {
+    return new FormField(false);
   }
 
   public FormField withMaxSize(int maxSize) {
     this.maxSize = maxSize;
+    return this;
+  }
+
+  public FormField withValue(String value) {
+    this.value = value;
     return this;
   }
 

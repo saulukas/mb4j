@@ -1,13 +1,15 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import org.mb4j.component.form.data.binding.FormFieldValueNode;
+import org.mb4j.component.form.data.binding.FormFieldValueTree;
 import org.mb4j.component.utils.ReflectionUtils;
 import org.mb4j.component.utils.SimpleClassName;
 
-public class FormFieldRecord extends FormFieldBase {
+public class FormData extends AbstractFormData {
   public Map<String, FormField> asMap() {
     Map<String, FormField> formFields = new HashMap<>();
     collectFields("", formFields);
@@ -16,7 +18,7 @@ public class FormFieldRecord extends FormFieldBase {
 
   @Override
   public boolean hasErrors() {
-    for (FormFieldBase child : childrenMap().values()) {
+    for (AbstractFormData child : childrenMap().values()) {
       if (child.hasErrors()) {
         return true;
       }
@@ -24,29 +26,29 @@ public class FormFieldRecord extends FormFieldBase {
     return false;
   }
 
-  private Map<String, FormFieldBase> childrenMap() {
-    return ReflectionUtils.getNonStaticFieldsOf(this, FormFieldBase.class, FormFieldBase.class);
+  private Map<String, AbstractFormData> childrenMap() {
+    return ReflectionUtils.getNonStaticFieldsOf(this, AbstractFormData.class, AbstractFormData.class);
   }
 
   @Override
   void collectFields(String nameInParent, Map<String, FormField> fieldMap) {
     String namePrefix = (nameInParent.isEmpty() ? "" : nameInParent + ".");
     Class superClass = getClass();
-    while (superClass != null && FormFieldRecord.class.isAssignableFrom(superClass)) {
+    while (superClass != null && FormData.class.isAssignableFrom(superClass)) {
       Field[] declaredFields = superClass.getDeclaredFields();
       for (Field declaredField : declaredFields) {
         Object fieldValue = ReflectionUtils.valueOf(declaredField, this);
         String fieldName = declaredField.getName();
-        if (fieldValue instanceof FormFieldBase) {
-          FormFieldBase member = (FormFieldBase) fieldValue;
+        if (fieldValue instanceof AbstractFormData) {
+          AbstractFormData member = (AbstractFormData) fieldValue;
           member.collectFields(namePrefix + fieldName, fieldMap);
         } else {
           throw new RuntimeException("Illegal attribute '" + fieldName + "' of type "
               + SimpleClassName.of(declaredField.getType()) + " found in " + getClass() + ".\n"
-              + FormFieldRecord.class.getSimpleName() + " must containt only non-null attributes of types: "
+              + FormData.class.getSimpleName() + " must containt only non-null attributes of types: "
               + FormField.class.getSimpleName() + ", "
-              + FormFieldRecord.class.getSimpleName() + " or "
-              + FormFieldList.class.getSimpleName() + ".");
+              + FormData.class.getSimpleName() + " or "
+              + FormDataList.class.getSimpleName() + ".");
         }
       }
       superClass = superClass.getSuperclass();
@@ -57,18 +59,18 @@ public class FormFieldRecord extends FormFieldBase {
     setValuesFrom(FormFieldValueTree.fieldValueTreeOf(name2valueMap));
   }
 
-  void setValuesFrom(FormFieldValueTree valueTree) {
+  public void setValuesFrom(FormFieldValueTree valueTree) {
     setValuesFrom(valueTree.root);
   }
 
   @Override
   void setValuesFrom(FormFieldValueNode node) {
-    Map<String, FormFieldBase> childrenMap = childrenMap();
-    for (Map.Entry<String, FormFieldBase> entry : childrenMap.entrySet()) {
+    Map<String, AbstractFormData> childrenMap = childrenMap();
+    for (Map.Entry<String, AbstractFormData> entry : childrenMap.entrySet()) {
       String name = entry.getKey();
       FormFieldValueNode childNode = node.children.get(name);
       if (childNode != null) {
-        FormFieldBase child = entry.getValue();
+        AbstractFormData child = entry.getValue();
         child.setValuesFrom(childNode);
       }
     }
@@ -77,11 +79,11 @@ public class FormFieldRecord extends FormFieldBase {
   @Override
   public String toString(String margin) {
     String result = SimpleClassName.of(getClass());
-    Map<String, FormFieldBase> children = childrenMap();
+    Map<String, AbstractFormData> children = childrenMap();
     Iterator<String> namesIterator = children.keySet().iterator();
     while (namesIterator.hasNext()) {
       String childName = namesIterator.next();
-      FormFieldBase child = children.get(childName);
+      AbstractFormData child = children.get(childName);
       result += "\n" + margin + "    " + childName + " = " + child.toString(margin + "    ");
     }
     return result;

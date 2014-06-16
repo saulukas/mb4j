@@ -1,9 +1,10 @@
-package org.mb4j.component.form.field;
+package org.mb4j.component.form.data.binding;
 
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.mb4j.component.form.data.FormDataTest;
 
 public class FormFieldValueTreeTest {
   private final FormFieldValueTree tree;
@@ -33,21 +34,21 @@ public class FormFieldValueTreeTest {
 
   @Test
   public void assigns_recursivelly_to_FormFields() {
-    FormFieldRecordTest.ExtendedFields fields = new FormFieldRecordTest.ExtendedFields();
-    fields.setValuesFrom(tree);
-    System.out.println("\nFields after set vales: " + fields + "\n");
-    assertEquals(fields.address.value, "Some address");
-    assertEquals(fields.companyName.value, "Company Ltd.");
-    assertEquals(fields.country.value, "Rainland");
-    assertEquals(fields.embeddedInfo.detailA.value, "Some details for A");
-    assertEquals(fields.embeddedInfo.detailB.value, "Some details for B");
-    assertEquals(fields.employees.itemAt(0).hobby.value, "fishing");
-    assertEquals(fields.employees.itemAt(0).name.value, "Dima");
-    assertEquals(fields.employees.itemAt(1).hobby.value, "walking");
-    assertEquals(fields.employees.itemAt(1).name.value, "Jon");
-    assertEquals(fields.employees.itemAt(2).hobby.value, "dancing");
-    assertEquals(fields.employees.itemAt(2).name.value, "Maria");
-    assertEquals(fields.founder.value, "Tom Tomson");
-    assertEquals(fields.rating.value, "3");
+    FormDataTest.ExtendedData data = new FormDataTest.ExtendedData();
+    data.setValuesFrom(tree);
+    System.out.println("\nFields after set vales: " + data + "\n");
+    assertEquals(data.address.value, "Some address");
+    assertEquals(data.companyName.value, "Company Ltd.");
+    assertEquals(data.country.value, "Rainland");
+    assertEquals(data.embeddedInfo.detailA.value, "Some details for A");
+    assertEquals(data.embeddedInfo.detailB.value, "Some details for B");
+    assertEquals(data.employees.itemAt(0).hobby.value, "fishing");
+    assertEquals(data.employees.itemAt(0).name.value, "Dima");
+    assertEquals(data.employees.itemAt(1).hobby.value, "walking");
+    assertEquals(data.employees.itemAt(1).name.value, "Jon");
+    assertEquals(data.employees.itemAt(2).hobby.value, "dancing");
+    assertEquals(data.employees.itemAt(2).name.value, "Maria");
+    assertEquals(data.founder.value, "Tom Tomson");
+    assertEquals(data.rating.value, "3");
   }
 }

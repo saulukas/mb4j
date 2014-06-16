@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.form.FormData4Response;
+import org.mb4j.component.form.Form4Response;
 import static org.mb4j.component.url.UrlPathBuilder.urlPath;
 import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.view.ViewUrl;
@@ -28,14 +28,14 @@ public class EventEditView extends PortletView {
   }
 
   static class Brick extends MustacheBrick {
-    FormData4Response form;
+    Form4Response form;
   }
 
   @Override
   public MustacheBrick bakeBrick(ViewRequest request) {
     int eventId = Integer.parseInt(request.readPathSegment());
     Brick brick = new Brick();
-    brick.form = request.resolve(form.dataFor(request, eventId));
+    brick.form = request.resolve(form.fillForm(request, eventId));
     return brick;
   }
 }
