@@ -22,7 +22,7 @@ public class PersonalOfferView extends PortletView {
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(ViewRequest request) {
+  public MustacheBrick bakeBrick(ViewRequest request) {
     Params params = Params.from(request);
     Brick brick = new Brick();
     brick.offerVisible = !params.isOfferTextEmpty();

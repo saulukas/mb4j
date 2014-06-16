@@ -3,7 +3,6 @@ package org.mb4j.example.liferay.event.edit;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.Form;
 import org.mb4j.component.form.FormActionMethod;
 import org.mb4j.component.form.FormData;
@@ -15,6 +14,7 @@ import static org.mb4j.component.form.field.FormField.createOptionalField;
 import static org.mb4j.component.form.field.FormField.createRequiredField;
 import org.mb4j.component.form.field.FormFieldRecord;
 import org.mb4j.component.utils.AttributeKey;
+import org.mb4j.component.view.ViewRequest;
 import org.mb4j.example.domain.commands.EventSaveCommand;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventByIdQuery;
@@ -39,7 +39,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
     FormField imageUrl = createOptionalField();
   }
 
-  private Fields createFieldsFrom(Event event) {
+  private Fields createFields(Event event) {
     Fields fields = createEmptyFields();
     fields.id.value = Integer.toString(event.id);
     fields.title.value = event.title;
@@ -48,7 +48,7 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
     return fields;
   }
 
-  private Event createEventFrom(Fields fields) {
+  private Event createEvent(Fields fields) {
     return new Event(
         Integer.parseInt(fields.id.value),
         fields.imageUrl.value,
@@ -60,17 +60,17 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
     Fields fields = request.attributes().valueOf(FIELDS_KEY).orNull();
     if (fields == null) {
       Event event = eventByIdQuery.result(eventId).get();
-      fields = createFieldsFrom(event);
+      fields = createFields(event);
     }
     return dataWith(fields);
   }
 
   @FormActionMethod
   FormResponse save(ViewRequest request, Fields fields) {
-    if (errorsFoundIn(fields)) {
+    if (validated(fields).hasErrors()) {
       return renderCurrentPage(request).with(FIELDS_KEY, fields);
     }
-    eventSaveCommand.execute(createEventFrom(fields));
+    eventSaveCommand.execute(createEvent(fields));
     return redirectTo(EventListView.url());
   }
 
@@ -85,8 +85,8 @@ public class EventEditForm extends Form<EventEditForm.Fields> {
     return redirectTo(EventListView.url());
   }
 
-  private boolean errorsFoundIn(Fields fields) {
+  private Fields validated(Fields fields) {
     fields.title.setErrorIf(isNullOrEmpty(fields.title.value), "Title may not be empty.");
-    return fields.hasErrors();
+    return fields;
   }
 }

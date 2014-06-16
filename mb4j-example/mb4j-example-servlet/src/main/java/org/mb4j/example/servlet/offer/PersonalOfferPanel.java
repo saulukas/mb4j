@@ -24,7 +24,7 @@ public class PersonalOfferPanel extends Component implements BrickBaker {
   }
 
   @Override
-  public Brick bakeBrickFrom(ViewRequest request) {
+  public Brick bakeBrick(ViewRequest request) {
     Params params = paramsFrom(request);
     Brick brick = new Brick();
     brick.offerVisible = !isOfferTextEmpty(params);

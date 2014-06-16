@@ -10,20 +10,21 @@ import org.mb4j.example.liferay.SampleBasePortlet;
 import org.mb4j.example.liferay.event.edit.EventEditView;
 import org.mb4j.example.liferay.event.list.EventListView;
 
-public class EventListPortlet extends SampleBasePortlet {
+public class EventPortlet extends SampleBasePortlet {
   @Singleton
   public static class Views extends ViewMap {
     @Inject
     public Views(
         EventListView eventList,
         EventEditView eventEdit) {
-      super(withDefaultHomeView(eventList)
+      super(
+          withDefaultHomeView(eventList)
           .mount(urlPathOf("edit/*"), eventEdit)
       );
     }
   }
 
-  public EventListPortlet() {
+  public EventPortlet() {
     super("events", Views.class);
   }
 

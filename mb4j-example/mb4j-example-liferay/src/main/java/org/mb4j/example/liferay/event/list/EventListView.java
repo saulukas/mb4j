@@ -53,7 +53,7 @@ public class EventListView extends PortletView {
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(ViewRequest request) {
+  public MustacheBrick bakeBrick(ViewRequest request) {
     Params params = Params.from(request);
     Brick brick = new Brick();
     brick.list = initDecoratedList(params, request);

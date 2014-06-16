@@ -53,7 +53,11 @@ public class FormFieldRecord extends FormFieldBase {
     }
   }
 
-  public void setValuesFrom(FormFieldValueTree valueTree) {
+  public void setValuesFrom(Map<String, String> name2valueMap) {
+    setValuesFrom(FormFieldValueTree.fieldValueTreeOf(name2valueMap));
+  }
+
+  void setValuesFrom(FormFieldValueTree valueTree) {
     setValuesFrom(valueTree.root);
   }
 

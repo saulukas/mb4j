@@ -1,8 +1,5 @@
 package org.mb4j.component.form.field;
 
-import org.mb4j.component.form.field.FormField;
-import org.mb4j.component.form.field.FormFieldRecord;
-import org.mb4j.component.form.field.FormFieldList;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

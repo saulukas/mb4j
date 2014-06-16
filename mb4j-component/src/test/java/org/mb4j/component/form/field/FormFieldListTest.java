@@ -1,8 +1,5 @@
 package org.mb4j.component.form.field;
 
-import org.mb4j.component.form.field.FormField;
-import org.mb4j.component.form.field.FormFieldRecord;
-import org.mb4j.component.form.field.FormFieldList;
 import static java.util.Arrays.asList;
 import java.util.List;
 import static org.hamcrest.Matchers.containsInAnyOrder;

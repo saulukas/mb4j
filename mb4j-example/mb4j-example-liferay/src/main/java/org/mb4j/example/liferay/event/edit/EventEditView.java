@@ -32,7 +32,7 @@ public class EventEditView extends PortletView {
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(ViewRequest request) {
+  public MustacheBrick bakeBrick(ViewRequest request) {
     int eventId = Integer.parseInt(request.readPathSegment());
     Brick brick = new Brick();
     brick.form = request.resolve(form.dataFor(request, eventId));

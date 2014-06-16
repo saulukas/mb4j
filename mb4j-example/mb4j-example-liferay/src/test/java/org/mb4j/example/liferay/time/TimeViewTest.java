@@ -12,7 +12,7 @@ public class TimeViewTest {
 
   @Test
   public void renders_successfully_offer_wtih_text() {
-    MustacheBrick brick = view.bakeBrickFrom(singleViewRequestFor(ViewUrl.of(TimeView.class)));
+    MustacheBrick brick = view.bakeBrick(singleViewRequestFor(ViewUrl.of(TimeView.class)));
     System.out.println(renderToString4Development(brick));
   }
 }

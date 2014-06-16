@@ -11,11 +11,11 @@ import org.mb4j.component.view.BrickBaker;
 public class PortletView extends Component implements View, BrickBaker {
   @Override
   public void handle(ViewRequest request, ViewResponse response) {
-    response.render(bakeBrickFrom(request));
+    response.render(bakeBrick(request));
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(ViewRequest request) {
+  public MustacheBrick bakeBrick(ViewRequest request) {
     return EmptyBrick.emptyBrick();
   }
 }

@@ -1,6 +1,5 @@
 package org.mb4j.component.utils;
 
-import org.mb4j.component.utils.SimpleClassName;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;

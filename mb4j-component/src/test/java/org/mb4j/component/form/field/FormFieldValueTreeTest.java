@@ -1,6 +1,5 @@
 package org.mb4j.component.form.field;
 
-import org.mb4j.component.form.field.FormFieldValueTree;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;

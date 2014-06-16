@@ -21,9 +21,9 @@ public abstract class MasterLayoutPage extends Page {
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(ViewRequest request) {
+  public MustacheBrick bakeBrick(ViewRequest request) {
     Brick brick = new Brick();
-    brick.header = headerPanel.bakeBrickFrom(request);
+    brick.header = headerPanel.bakeBrick(request);
     brick.content = bakeContentBrick(request);
     brick.footer = footerPanel.bakeBrick(request);
     brick.jquery_js = request.resolveUrl("js/jquery.js");

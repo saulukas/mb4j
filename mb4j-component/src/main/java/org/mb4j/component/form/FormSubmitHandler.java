@@ -1,12 +1,11 @@
 package org.mb4j.component.form;
 
 import com.google.common.base.Optional;
-import org.mb4j.component.view.ViewRequest;
 import org.mb4j.component.form.field.FormFieldRecord;
-import static org.mb4j.component.form.field.FormFieldValueTree.fieldValueTreeOf;
-import org.mb4j.component.viewmap.MapFormName2Form;
-import org.mb4j.component.view.ViewUrl;
 import org.mb4j.component.url.NamedParams;
+import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.viewmap.MapFormName2Form;
 
 public class FormSubmitHandler {
   public static Optional<FormResponse> formResponseFor(
@@ -20,7 +19,7 @@ public class FormSubmitHandler {
     Form form = formName2Form.formFor(formName);
     String actionName = getActionNameFrom(postParams, form);
     FormFieldRecord fields = form.createEmptyFields();
-    fields.setValuesFrom(fieldValueTreeOf(postParams.asMap()));
+    fields.setValuesFrom(postParams.asMap());
     FormResponse formResponse = form.handle(actionName, request, fields);
     if (formResponse instanceof FormResponseRedirectToView) {
       ViewUrl viewUrl = ((FormResponseRedirectToView) formResponse).viewUrl;

@@ -17,7 +17,7 @@ public class TimeView extends PortletView {
   }
 
   @Override
-  public MustacheBrick bakeBrickFrom(ViewRequest request) {
+  public MustacheBrick bakeBrick(ViewRequest request) {
     Brick brick = new Brick();
     brick.resources = request.resolveResourcesOf(this);
     return brick;

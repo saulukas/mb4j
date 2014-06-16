@@ -12,14 +12,14 @@ public class PersonalOfferViewTest {
   @Test
   public void renders_successfully_offer_wtih_text() {
     String offer = "nice offer";
-    MustacheBrick brick = view.bakeBrickFrom(singleViewRequestFor(PersonalOfferView.url(offer)));
+    MustacheBrick brick = view.bakeBrick(singleViewRequestFor(PersonalOfferView.url(offer)));
     System.out.println(renderToString4Development(brick));
   }
 
   @Test
   public void renders_successfully_empty_offer() {
     String offer = "";
-    MustacheBrick brick = view.bakeBrickFrom(singleViewRequestFor(PersonalOfferView.url(offer)));
+    MustacheBrick brick = view.bakeBrick(singleViewRequestFor(PersonalOfferView.url(offer)));
     System.out.println(renderToString4Development(brick));
   }
 }

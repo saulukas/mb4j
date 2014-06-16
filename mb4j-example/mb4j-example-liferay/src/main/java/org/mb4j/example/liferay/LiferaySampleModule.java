@@ -6,7 +6,7 @@ import com.google.inject.Injector;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.example.domain.EventDomainModule;
-import org.mb4j.example.liferay.event.EventListPortlet;
+import org.mb4j.example.liferay.event.EventPortlet;
 import org.mb4j.example.liferay.offer.PersonalOfferPortlet;
 import org.mb4j.example.liferay.time.TimePortlet;
 import org.mb4j.example.liferay.util.ModuleWithExplicitBindings;
@@ -27,7 +27,7 @@ public class LiferaySampleModule extends AbstractModule {
   @Override
   protected void configure() {
     install(new EventDomainModule());
-    install(new EventListPortlet.Module());
+    install(new EventPortlet.Module());
     install(new PersonalOfferPortlet.Module());
     install(new TimePortlet.Module());
     bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());

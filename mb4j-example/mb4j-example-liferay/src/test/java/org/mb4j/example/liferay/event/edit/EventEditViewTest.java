@@ -6,7 +6,7 @@ import static org.mb4j.brick.renderer.RendererUtils.renderToString4Development;
 import org.mb4j.component.view.ViewUrl;
 import static org.mb4j.example.liferay.LiferaySampleTestApplication.inject;
 import static org.mb4j.example.liferay.LiferaySampleTestApplication.requestFor;
-import org.mb4j.example.liferay.event.EventListPortlet.Views;
+import org.mb4j.example.liferay.event.EventPortlet.Views;
 import static org.mb4j.example.liferay.event.TypicalEvents.fishingEventId;
 
 public class EventEditViewTest {
@@ -15,7 +15,7 @@ public class EventEditViewTest {
   @Test
   public void renders_fishing_event() {
     ViewUrl url = EventEditView.url(fishingEventId());
-    MustacheBrick brick = page.bakeBrickFrom(requestFor(Views.class, url));
+    MustacheBrick brick = page.bakeBrick(requestFor(Views.class, url));
     System.out.println(renderToString4Development(brick));
   }
 }
