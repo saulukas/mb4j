@@ -23,13 +23,6 @@ public class EventListView extends PortletView {
   @Inject
   EventListItemPanel itemPanel;
 
-  public static class Module extends AbstractModule {
-    @Override
-    protected void configure() {
-      bind(EventListView.class);
-      bind(EventListItemPanel.class);
-    }
-  }
 
   public static ViewUrl url() {
     return url(Params.SHOW_ALL);

@@ -8,7 +8,9 @@ import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.component.viewmap.ViewMapBuilder.withDefaultHomeView;
 import org.mb4j.example.liferay.SampleBasePortlet;
 import org.mb4j.example.liferay.event.edit.EventEditView;
+import org.mb4j.example.liferay.event.edit.EventEditViewModule;
 import org.mb4j.example.liferay.event.list.EventListView;
+import org.mb4j.example.liferay.event.list.EventListViewModule;
 
 public class EventPortlet extends SampleBasePortlet {
   @Singleton
@@ -31,8 +33,8 @@ public class EventPortlet extends SampleBasePortlet {
   public static class Module extends AbstractModule {
     @Override
     protected void configure() {
-      install(new EventListView.Module());
-      install(new EventEditView.Module());
+      install(new EventListViewModule());
+      install(new EventEditViewModule());
       bind(Views.class);
     }
   }

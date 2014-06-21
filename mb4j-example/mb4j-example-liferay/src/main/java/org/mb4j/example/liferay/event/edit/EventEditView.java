@@ -1,6 +1,5 @@
 package org.mb4j.example.liferay.event.edit;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
@@ -14,14 +13,6 @@ import org.mb4j.liferay.PortletView;
 public class EventEditView extends PortletView {
   @Inject
   EventEditFormHandler form;
-
-  public static class Module extends AbstractModule {
-    @Override
-    protected void configure() {
-      bind(EventEditView.class);
-      bind(EventEditFormHandler.class);
-    }
-  }
 
   public static ViewUrl url(int eventId) {
     return ViewUrl.of(EventEditView.class, urlPath().with(String.valueOf(eventId)));
