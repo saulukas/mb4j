@@ -7,6 +7,7 @@ public class StartServletSampleJetty {
   public static void main(String[] args) throws Exception {
     final int PORT = 8180;
     final String CONTEXT_PATH = "/brickSample";
+    long startNanos = System.nanoTime();
     // Server
     Server server = new Server(PORT);
     WebAppContext webAppContext = new WebAppContext();
@@ -18,8 +19,9 @@ public class StartServletSampleJetty {
     // starting...
     System.out.println("---- starting jetty ...");
     server.start();
+    long deltaMillis = (System.nanoTime() - startNanos) / 1000 / 1000;
     System.out.println(""
-        + "\n---- starting jetty ... ok"
+        + "\n---- starting jetty ... ok (" + deltaMillis + " ms)"
         + "\n----"
         + "\n----     http://localhost:" + PORT + CONTEXT_PATH
         + "\n----"
