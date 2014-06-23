@@ -4,6 +4,7 @@ import java.util.Collection;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;
+import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.component.view.View;
 
 public class ViewMapBuilder {
@@ -15,15 +16,19 @@ public class ViewMapBuilder {
   private ViewMapBuilder() {
   }
 
-  public static ViewMapBuilder withHomeView(View homeView) {
-    return new ViewMapBuilder().mount(HOME_VIEW_PATH, homeView);
+  public static ViewMapBuilder routeHomeTo(View homeView) {
+    return new ViewMapBuilder().route(HOME_VIEW_PATH, homeView);
   }
 
-  public static ViewMapBuilder withDefaultHomeView(View homeView) {
-    return new ViewMapBuilder().mount(DEFAULT_HOME_VIEW_PATH, homeView);
+  public static ViewMapBuilder routeDefaultHomeTo(View homeView) {
+    return new ViewMapBuilder().route(DEFAULT_HOME_VIEW_PATH, homeView);
   }
 
-  public ViewMapBuilder mount(UrlPath path, View view) {
+  public ViewMapBuilder route(String pathString, View view) {
+    return route(urlPathOf(pathString), view);
+  }
+
+  public ViewMapBuilder route(UrlPath path, View view) {
     BufferedUrlPathReader pathReader = BufferedUrlPathReader.of(path);
     root.mount(pathReader, view);
     viewClasses.mount(pathReader.processedPath(), view.getClass());

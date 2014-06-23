@@ -26,12 +26,12 @@ public class ViewUrl4ResponseResolverTest {
   public void resolves_ViewUtl_into_string_taking_into_account_current_path2home() {
     String path2home = UrlPathStringToHome.from("path/from/home");
     ViewMapBuilder builder = ViewMapBuilder
-        .withHomeView(TypicalViews.HOME)
-        .mount(urlPathOf("tutorial/*"), TUTORIAL)
-        .mount(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
-        .mount(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)
-        .mount(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC)
-        .mount(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
+        .routeHomeTo(TypicalViews.HOME)
+        .route(urlPathOf("tutorial/*"), TUTORIAL)
+        .route(urlPathOf("tutorial/events"), TUTORIAL_ON_EVENTS)
+        .route(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)
+        .route(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC)
+        .route(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     ViewUrl4ResponseResolver resolver = new ViewUrl4ResponseResolver(
         path2home,
         new ViewMap(builder).viewClass2UrlPath());

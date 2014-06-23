@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.component.viewmap.ViewMap;
-import static org.mb4j.component.viewmap.ViewMapBuilder.withDefaultHomeView;
+import static org.mb4j.component.viewmap.ViewMapBuilder.routeDefaultHomeTo;
 import org.mb4j.example.liferay.SampleBasePortlet;
 import org.mb4j.example.liferay.event.edit.EventEditView;
 import org.mb4j.example.liferay.event.edit.EventEditViewModule;
@@ -20,8 +20,8 @@ public class EventPortlet extends SampleBasePortlet {
         EventListView eventList,
         EventEditView eventEdit) {
       super(
-          withDefaultHomeView(eventList)
-          .mount(urlPathOf("edit/*"), eventEdit)
+          routeDefaultHomeTo(eventList)
+          .route(urlPathOf("edit/*"), eventEdit)
       );
     }
   }

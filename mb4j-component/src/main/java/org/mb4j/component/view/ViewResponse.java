@@ -1,5 +1,6 @@
 package org.mb4j.component.view;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 import org.mb4j.brick.MustacheBrick;
@@ -20,6 +21,15 @@ public abstract class ViewResponse {
   public abstract void setCharacterEncoding(String encoding);
 
   public abstract Writer getWriter();
+
+  public ViewResponse write(String string) {
+    try {
+      getWriter().write(string);
+    } catch (IOException ex) {
+      throw new RuntimeException(ex);
+    }
+    return this;
+  }
 
   public abstract OutputStream getOutputStream();
 

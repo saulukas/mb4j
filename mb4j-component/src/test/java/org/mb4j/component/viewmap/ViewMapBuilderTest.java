@@ -17,12 +17,12 @@ import org.mb4j.component.view.View;
 public class ViewMapBuilderTest {
   @Test
   public void mounts_views_at_given_paths() {
-    ViewMapBuilder builder = ViewMapBuilder.withHomeView(HOME);
-    builder.mount(urlPathOf("/tutorial/*"), TUTORIAL);
-    builder.mount(urlPathOf("/tutorial/events"), TUTORIAL_ON_EVENTS);
-    builder.mount(urlPathOf("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
-    builder.mount(urlPathOf("/tutorial/topic/*"), TUTORIAL_TOPIC);
-    builder.mount(urlPathOf("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
+    ViewMapBuilder builder = ViewMapBuilder.routeHomeTo(HOME);
+    builder.route(urlPathOf("/tutorial/*"), TUTORIAL);
+    builder.route(urlPathOf("/tutorial/events"), TUTORIAL_ON_EVENTS);
+    builder.route(urlPathOf("/tutorial/sockets"), TUTORIAL_ON_SOCKETS);
+    builder.route(urlPathOf("/tutorial/topic/*"), TUTORIAL_TOPIC);
+    builder.route(urlPathOf("/tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
     String margin = "   ";
     System.out.println("");
     System.out.println(margin + builder.toString(margin));

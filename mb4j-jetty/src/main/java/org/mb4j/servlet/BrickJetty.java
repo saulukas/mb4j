@@ -1,18 +1,12 @@
 package org.mb4j.servlet;
 
-import java.io.IOException;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
-import org.mb4j.component.utils.HttpFilter;
 import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.component.viewmap.ViewMapBuilder;
 
@@ -52,13 +46,6 @@ public class BrickJetty {
     }
   }
 
-  public static class MyFilter extends HttpFilter {
-    @Override
-    protected void filter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
-      resp.getWriter().write("ma filte :)");
-    }
-  }
-
   void doStart() throws Exception {
     long startNanos = System.nanoTime();
     // Server
@@ -68,7 +55,7 @@ public class BrickJetty {
     // Servlet context
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath(contextPath);
-    context.addFilter(new FilterHolder(new MyFilter()), "/*", EnumSet.of(
+    context.addFilter(new FilterHolder(filter), "/*", EnumSet.of(
         DispatcherType.INCLUDE,
         DispatcherType.REQUEST));
     server.setHandler(context);

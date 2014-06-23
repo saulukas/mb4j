@@ -3,7 +3,7 @@ package org.mb4j.example.servlet;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.component.viewmap.ViewMap;
-import static org.mb4j.component.viewmap.ViewMapBuilder.withHomeView;
+import static org.mb4j.component.viewmap.ViewMapBuilder.routeHomeTo;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import org.mb4j.example.servlet.event.edit.EventEditPage;
 import org.mb4j.example.servlet.event.list.EventListPage;
@@ -17,10 +17,10 @@ public class ServletSampleSiteMap extends ViewMap {
       HomePage home,
       EventListPage eventList,
       EventEditPage eventEdit) {
-    super(withHomeView(home)
-        .mount(urlPathOf("event/*"), eventList)
-        .mount(urlPathOf("event/edit/*"), eventEdit)
-        .mount(urlPathOf("time/*"), new TimeService())
+    super(routeHomeTo(home)
+        .route(urlPathOf("event/*"), eventList)
+        .route(urlPathOf("event/edit/*"), eventEdit)
+        .route(urlPathOf("time/*"), new TimeService())
     );
   }
 }
