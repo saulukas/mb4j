@@ -8,7 +8,7 @@
 
   <portlet>
     <portlet-name>event-list</portlet-name>
-    <portlet-class>org.mb4j.sample.liferay.event.EventListPortlet</portlet-class>
+    <portlet-class>org.mb4j.example.liferay.event.EventPortlet</portlet-class>
     <expiration-cache>0</expiration-cache>
     <supports>
       <mime-type>text/html</mime-type>
@@ -30,7 +30,7 @@
 
   <portlet>
     <portlet-name>personal-offer</portlet-name>
-    <portlet-class>org.mb4j.sample.liferay.offer.PersonalOfferPortlet</portlet-class>
+    <portlet-class>org.mb4j.example.liferay.offer.PersonalOfferPortlet</portlet-class>
     <expiration-cache>0</expiration-cache>
     <supports>
       <mime-type>text/html</mime-type>
@@ -52,7 +52,7 @@
 
   <portlet>
     <portlet-name>time</portlet-name>
-    <portlet-class>org.mb4j.sample.liferay.time.TimePortlet</portlet-class>
+    <portlet-class>org.mb4j.example.liferay.time.TimePortlet</portlet-class>
     <expiration-cache>0</expiration-cache>
     <supports>
       <mime-type>text/html</mime-type>
@@ -74,7 +74,7 @@
 
   <portlet>
     <portlet-name>testbench</portlet-name>
-    <portlet-class>org.mb4j.sample.liferay.zbox.TestbenchPortlet</portlet-class>
+    <portlet-class>org.mb4j.example.liferay.zbox.TestbenchPortlet</portlet-class>
     <expiration-cache>0</expiration-cache>
     <supports>
       <mime-type>text/html</mime-type>
@@ -96,7 +96,7 @@
 
   <filter>
     <filter-name>debug-portlet-filter</filter-name>
-    <filter-class>org.mb4j.sample.liferay.util.PortletDebugFilter</filter-class>
+    <filter-class>org.mb4j.example.liferay.util.PortletDebugFilter</filter-class>
     <lifecycle>RENDER_PHASE</lifecycle>
     <lifecycle>ACTION_PHASE</lifecycle>
     <lifecycle>RESOURCE_PHASE</lifecycle>

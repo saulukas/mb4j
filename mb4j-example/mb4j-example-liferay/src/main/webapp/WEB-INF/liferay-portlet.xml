@@ -31,7 +31,7 @@
     <portlet-name>testbench</portlet-name>
     <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
     <friendly-url-mapping>testbench</friendly-url-mapping>
-    <friendly-url-routes>org/mb4j/sample/liferay/zbox/Testbench-Urls.xml</friendly-url-routes>
+    <friendly-url-routes>org/mb4j/example/liferay/zbox/Testbench-Urls.xml</friendly-url-routes>
     <instanceable>false</instanceable>
   </portlet>
 
