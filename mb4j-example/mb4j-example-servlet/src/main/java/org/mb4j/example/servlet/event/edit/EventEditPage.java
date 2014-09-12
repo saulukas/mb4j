@@ -1,6 +1,5 @@
 package org.mb4j.example.servlet.event.edit;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.ControllerUrl;

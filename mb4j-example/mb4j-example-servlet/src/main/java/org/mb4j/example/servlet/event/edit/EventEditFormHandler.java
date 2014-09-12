@@ -8,10 +8,6 @@ import org.mb4j.component.Request;
 import org.mb4j.component.form.Form;
 import org.mb4j.component.form.FormHandler;
 import org.mb4j.component.form.action.FormActionMethod;
-import org.mb4j.component.form.data.FormData;
-import org.mb4j.component.form.data.FormField;
-import static org.mb4j.component.form.data.FormField.optionalField;
-import static org.mb4j.component.form.data.FormField.requiredField;
 import org.mb4j.component.form.response.FormResponse;
 import static org.mb4j.component.form.response.FormResponseRedirectToView.redirectTo;
 import static org.mb4j.component.form.response.FormResponseRenderCurrentPage.renderCurrentPage;
@@ -20,9 +16,6 @@ import org.mb4j.example.domain.commands.EventSaveCommand;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventByIdQuery;
 import org.mb4j.example.servlet.event.list.EventListPage;
-import org.mb4j.example.servlet.util.FormFieldWithLabel;
-import static org.mb4j.example.servlet.util.FormFieldWithLabel.optionalFieldWithLabel;
-import static org.mb4j.example.servlet.util.FormFieldWithLabel.requiredFieldWithLabel;
 
 @Singleton
 public class EventEditFormHandler extends FormHandler<EventEditFormData> {
@@ -33,7 +26,6 @@ public class EventEditFormHandler extends FormHandler<EventEditFormData> {
     EventByIdQuery eventByIdQuery;
     @Inject
     EventSaveCommand eventSaveCommand;
-
 
     private EventEditFormData createData(Event event) {
         EventEditFormData data = createEmptyFields();

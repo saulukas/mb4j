@@ -7,8 +7,6 @@ import java.util.List;
 import org.mb4j.component.ComponentUsingReflection;
 import org.mb4j.component.ControllerUrl;
 import org.mb4j.component.Request;
-import org.mb4j.component.url.UrlParams;
-import org.mb4j.component.url.UrlPathBuilder;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventListQuery;
 import org.mb4j.example.servlet.event.list.EventListPanelBrick.DecoratedListItem;

@@ -1,8 +1,6 @@
 package org.mb4j.example.servlet.home;
 
 import com.google.inject.Singleton;
-import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ControllerUrl4Response;
 import org.mb4j.component.Request;
 import org.mb4j.example.servlet.event.list.EventListPage;
 
