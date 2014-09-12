@@ -1,7 +1,6 @@
 package org.mb4j.example.servlet;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.util.UrlEncoded;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class StartServletSampleJetty {
@@ -34,6 +33,5 @@ public class StartServletSampleJetty {
         server.stop();
         server.join();
         System.out.println("---- stopping jetty ... ok");
-        UrlEncoded.decodeTo(CONTEXT_PATH, null, CONTEXT_PATH, PORT);
     }
 }

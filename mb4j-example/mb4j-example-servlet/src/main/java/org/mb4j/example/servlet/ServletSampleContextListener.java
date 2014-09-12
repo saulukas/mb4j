@@ -10,7 +10,7 @@ public class ServletSampleContextListener extends GuiceServletContextListener {
 
     @Override
     protected Injector getInjector() {
-        Injector injector = ServletSampleModule.injector();
+        Injector injector = ServletSampleModule.injector;
         System.out.println(""
                 + "\n"
                 + "" + injector.getInstance(ViewMap.class).toString()

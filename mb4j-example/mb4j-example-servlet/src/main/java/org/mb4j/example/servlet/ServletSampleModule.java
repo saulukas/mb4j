@@ -13,14 +13,7 @@ import static org.mb4j.example.servlet.util.ModuleWithExplicitBindings.injectorW
 
 public class ServletSampleModule extends AbstractModule {
 
-    public static Injector injector() {
-        return Holder.injector;
-    }
-
-    private static class Holder { // Thread-safe Lazy initialization, Effective Java 2nd, Item 71.
-
-        static final Injector injector = injectorWithExplicitBindings(new ServletSampleModule());
-    }
+    public static final Injector injector = injectorWithExplicitBindings(new ServletSampleModule());
 
     @Override
     protected void configure() {
