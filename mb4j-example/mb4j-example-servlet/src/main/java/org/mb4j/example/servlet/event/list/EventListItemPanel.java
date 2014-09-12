@@ -20,7 +20,7 @@ public class EventListItemPanel extends ComponentUsingReflection {
   public Brick bakeBrick(Request request, Event event) {
     Brick brick = new Brick();
     brick.event = event;
-    brick.eventImageUrl = request.resolveUrl(event.imageUrl);
+    brick.eventImageUrl = request.resolveAssetUrl(event.imageUrl);
     brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));
     return brick;
   }

@@ -33,14 +33,14 @@ public abstract class Resources4ResponseResolver {
     }
   }
 
-  public Resources4ResponseResolver(MapComponentClass2Name componentWithResourcesClass2Name) {
-    this.componentWithResourcesClass2Name = componentWithResourcesClass2Name;
+  public Resources4ResponseResolver(MapComponentClass2Name mapper) {
+    this.componentWithResourcesClass2Name = mapper;
   }
 
   public Resources4Response resolveResourcesFor(Component component) {
     Collection<Resource4Response> resources = new ArrayList<>();
+    String componentName = componentWithResourcesClass2Name.componentNameOf(component.getClass());
     for (Resource resource : component.getResources()) {
-      String componentName = componentWithResourcesClass2Name.componentNameOf(component.getClass());
       ParamValue value = new ParamValue(componentName, resource.name);
       resources.add(new Resource4Response(
           resolveResourceUrl(RESOURCE_PARAM_NAME, value.toString()),

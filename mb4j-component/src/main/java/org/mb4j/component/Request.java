@@ -27,7 +27,8 @@ public class Request {
       AssetUrl4ResponseResolver assetUrlResolver,
       ControllerUrl4ResponseResolver viewUrlResolver,
       Form4ResponseResolver formDataResolver,
-      Resources4ResponseResolver resourcesResolver) {
+      Resources4ResponseResolver resourcesResolver
+  ) {
     this.viewUrl = viewUrl;
     this.urlPathReader = BufferedUrlPathReader.of(viewUrl.params.path);
     this.attributes = attributes;
@@ -53,7 +54,7 @@ public class Request {
     return viewUrlResolver.resolve(url);
   }
 
-  public AssetUrl4Response resolveUrl(String assetUrl) {
+  public AssetUrl4Response resolveAssetUrl(String assetUrl) {
     return assetUrlResolver.resolveUrl(assetUrl);
   }
 

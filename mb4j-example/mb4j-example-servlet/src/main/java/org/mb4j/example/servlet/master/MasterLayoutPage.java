@@ -26,7 +26,7 @@ public abstract class MasterLayoutPage extends Page {
     brick.header = headerPanel.bakeBrick(request);
     brick.content = bakeContentBrick(request);
     brick.footer = footerPanel.bakeBrick(request);
-    brick.jquery_js = request.resolveUrl("js/jquery.js");
+    brick.jquery_js = request.resolveAssetUrl("js/jquery.js");
     return brick;
   }
 
