@@ -3,12 +3,12 @@ package org.mb4j.example.servlet.event.edit;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.Component;
+import org.mb4j.component.ComponentUsingReflection;
 import org.mb4j.component.form.Form4Response;
 import org.mb4j.component.view.ViewRequest;
 
 @Singleton
-public class EventEditPanel extends Component {
+public class EventEditPanel extends ComponentUsingReflection {
   @Inject
   EventEditFormHandler formHandler;
 

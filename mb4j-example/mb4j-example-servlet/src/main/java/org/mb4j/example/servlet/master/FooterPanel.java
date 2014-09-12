@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.Component;
+import org.mb4j.component.ComponentUsingReflection;
 import org.mb4j.component.resource.ResourceMethod;
 import org.mb4j.component.resource.Resources4Response;
 import org.mb4j.component.view.ViewRequest;
@@ -13,7 +14,7 @@ import org.mb4j.component.view.ViewUrl4Response;
 import org.mb4j.example.servlet.services.TimeService;
 
 @Singleton
-public class FooterPanel extends Component {
+public class FooterPanel extends ComponentUsingReflection {
   public static final FooterPanel INSTANCE = new FooterPanel();
 
   private FooterPanel() {
