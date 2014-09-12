@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Component;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewResponse;
+import org.mb4j.component.Request;
+import org.mb4j.component.Response;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.response.FormResponseRenderCurrentPage;
@@ -21,7 +21,7 @@ import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
 import org.mb4j.component.viewmap.MapUrlPath2View;
 import org.mb4j.component.viewmap.MapUrlPath2View.Result;
 import org.mb4j.component.viewmap.ViewMap;
-import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.ControllerUrl;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
@@ -66,7 +66,7 @@ public class BrickServletFilter extends HttpFilter {
       Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
       Component componentWithResources
           = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
-      ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
+      Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
       componentWithResources.serveResource(
           value.resourceName,
           request,
@@ -79,7 +79,7 @@ public class BrickServletFilter extends HttpFilter {
     //   ------------------------
     //
     if (Objects.equal(httpRequest.getMethod(), "POST")) {
-      ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
+      Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
       NamedParams postParams = namedParamsFromRawQuery(httpRequest.getReader().readLine());
       Optional<FormResponse> formRC = formResponseFor(request, postParams, viewMap.formName2Form());
       if (formRC.isPresent()) {
@@ -97,22 +97,22 @@ public class BrickServletFilter extends HttpFilter {
     //   handle View response
     //   --------------------------
     //
-    ViewRequest request = createRequest(servletPath, queryParams, resolved, httpRequest);
-    ViewResponse response = new ControllerResponse(renderer, httpResponse);
+    Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
+    Response response = new ControllerResponse(renderer, httpResponse);
     resolved.view.handle(request, response);
   }
 
-  private ViewRequest createRequest(
+  private Request createRequest(
       String servletPath,
       NamedParams queryParams,
       Result resolved,
       HttpServletRequest httpRequest
   ) {
     String path2home = UrlPathStringToHome.from(servletPath);
-    ViewUrl viewUrl = ViewUrl.of(
+    ControllerUrl viewUrl = ControllerUrl.of(
         resolved.view.getClass(),
         UrlParams.of(resolved.paramsPath, queryParams));
-    ViewRequest request = ControllerRequest.of(
+    Request request = ControllerRequest.of(
         viewUrl,
         path2home,
         new ServletRequestAttributes(httpRequest),

@@ -1,6 +1,6 @@
 package org.mb4j.component.form.response;
 
-import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.Request;
 import org.mb4j.component.utils.AttributeKey;
 import org.mb4j.component.utils.Attributes;
 
@@ -11,7 +11,7 @@ public class FormResponseRenderCurrentPage implements FormResponse {
     this.attributes = attributes;
   }
 
-  public static FormResponseRenderCurrentPage renderCurrentPage(ViewRequest request) {
+  public static FormResponseRenderCurrentPage renderCurrentPage(Request request) {
     return new FormResponseRenderCurrentPage(request.attributes());
   }
 

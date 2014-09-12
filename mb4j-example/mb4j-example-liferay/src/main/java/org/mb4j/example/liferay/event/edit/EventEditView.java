@@ -5,8 +5,8 @@ import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.form.Form4Response;
 import static org.mb4j.component.url.UrlPathBuilder.urlPath;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
@@ -14,8 +14,8 @@ public class EventEditView extends PortletView {
   @Inject
   EventEditFormHandler form;
 
-  public static ViewUrl url(int eventId) {
-    return ViewUrl.of(EventEditView.class, urlPath().with(String.valueOf(eventId)));
+  public static ControllerUrl url(int eventId) {
+    return ControllerUrl.of(EventEditView.class, urlPath().with(String.valueOf(eventId)));
   }
 
   static class Brick extends MustacheBrick {
@@ -23,7 +23,7 @@ public class EventEditView extends PortletView {
   }
 
   @Override
-  public MustacheBrick bakeBrick(ViewRequest request) {
+  public MustacheBrick bakeBrick(Request request) {
     int eventId = Integer.parseInt(request.readPathSegment());
     Brick brick = new Brick();
     brick.form = request.resolve(form.fillForm(request, eventId));

@@ -5,8 +5,8 @@ import java.io.Writer;
 import static org.mb4j.brick.renderer.RendererUtils.renderer4Development;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.utils.ResponseOnWriter;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
 import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.servlet.ControllerRequest;
 
@@ -17,7 +17,7 @@ public class ServletSampleTestApplication {
     return injector.getInstance(klass);
   }
 
-  public static ViewRequest requestFor(ViewUrl url) {
+  public static Request requestFor(ControllerUrl url) {
     String path2home = "../../../";
     return ControllerRequest.of(
         url,

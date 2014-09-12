@@ -8,9 +8,9 @@ import java.util.List;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
-import org.mb4j.component.view.ViewUrl4Response;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ControllerUrl4Response;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventListQuery;
 import org.mb4j.example.liferay.event.list.EventListView.Brick.DecoratedListItem;
@@ -24,17 +24,17 @@ public class EventListView extends PortletView {
   EventListItemPanel itemPanel;
 
 
-  public static ViewUrl url() {
+  public static ControllerUrl url() {
     return url(Params.SHOW_ALL);
   }
 
-  public static ViewUrl url(int maxEventCount) {
-    return ViewUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
+  public static ControllerUrl url(int maxEventCount) {
+    return ControllerUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
   }
 
   static class Brick extends MustacheBrick {
     List<DecoratedListItem> list;
-    ViewUrl4Response reverseOrderUrl;
+    ControllerUrl4Response reverseOrderUrl;
 
     static class DecoratedListItem {
       EventListItemPanel.Brick item;
@@ -46,7 +46,7 @@ public class EventListView extends PortletView {
   }
 
   @Override
-  public MustacheBrick bakeBrick(ViewRequest request) {
+  public MustacheBrick bakeBrick(Request request) {
     Params params = Params.from(request);
     Brick brick = new Brick();
     brick.list = initDecoratedList(params, request);
@@ -54,7 +54,7 @@ public class EventListView extends PortletView {
     return brick;
   }
 
-  private List<DecoratedListItem> initDecoratedList(Params params, ViewRequest request) {
+  private List<DecoratedListItem> initDecoratedList(Params params, Request request) {
     LinkedList<DecoratedListItem> list = new LinkedList<>();
     List<Event> events = eventListQuery.resultFor(params.maxResultCount);
     for (Event event : events) {
@@ -68,7 +68,7 @@ public class EventListView extends PortletView {
     return list;
   }
 
-  private ViewUrl initReverseOrderUrl(Params params, ViewRequest request) {
+  private ControllerUrl initReverseOrderUrl(Params params, Request request) {
     boolean newReverseOrder = !params.reverseOrder;
     return newReverseOrder
         ? request.viewUrl().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
@@ -86,7 +86,7 @@ public class EventListView extends PortletView {
       this.reverseOrder = reverseOrder;
     }
 
-    public static Params from(ViewRequest request) {
+    public static Params from(Request request) {
       return new Params(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
@@ -98,7 +98,7 @@ public class EventListView extends PortletView {
       return UrlParams.of(pathBuilder.instance());
     }
 
-    private static int readMaxEventCount(ViewRequest request) {
+    private static int readMaxEventCount(Request request) {
       int maxEventCount = SHOW_ALL;
       if (request.hasMorePathSegments()) {
         maxEventCount = Integer.parseInt(request.readPathSegment());
@@ -106,7 +106,7 @@ public class EventListView extends PortletView {
       return maxEventCount;
     }
 
-    private static boolean readReverseOrderFlag(ViewRequest request) {
+    private static boolean readReverseOrderFlag(Request request) {
       return request.viewUrl().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
     }
   }

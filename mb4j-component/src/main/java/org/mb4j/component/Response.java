@@ -1,4 +1,4 @@
-package org.mb4j.component.view;
+package org.mb4j.component;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -7,10 +7,10 @@ import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.renderer.BrickRenderer;
 import static org.mb4j.brick.template.TemplateUtils.outputEncodingStringOf;
 
-public abstract class ViewResponse {
+public abstract class Response {
   private final BrickRenderer renderer;
 
-  protected ViewResponse(BrickRenderer renderer) {
+  protected Response(BrickRenderer renderer) {
     this.renderer = renderer;
   }
 
@@ -22,7 +22,7 @@ public abstract class ViewResponse {
 
   public abstract Writer getWriter();
 
-  public ViewResponse write(String string) {
+  public Response write(String string) {
     try {
       getWriter().write(string);
     } catch (IOException ex) {

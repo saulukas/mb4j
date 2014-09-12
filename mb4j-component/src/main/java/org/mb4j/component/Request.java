@@ -1,4 +1,4 @@
-package org.mb4j.component.view;
+package org.mb4j.component;
 
 import org.mb4j.component.Component;
 import org.mb4j.component.asset.AssetUrl4Response;
@@ -12,20 +12,20 @@ import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPathReader;
 import org.mb4j.component.utils.Attributes;
 
-public class ViewRequest {
-  private final ViewUrl viewUrl;
+public class Request {
+  private final ControllerUrl viewUrl;
   private final UrlPathReader urlPathReader;
   private final Attributes attributes;
   private final AssetUrl4ResponseResolver assetUrlResolver;
-  private final ViewUrl4ResponseResolver viewUrlResolver;
+  private final ControllerUrl4ResponseResolver viewUrlResolver;
   private final Form4ResponseResolver formDataResolver;
   private final Resources4ResponseResolver resourcesResolver;
 
-  public ViewRequest(
-      ViewUrl viewUrl,
+  public Request(
+      ControllerUrl viewUrl,
       Attributes attributes,
       AssetUrl4ResponseResolver assetUrlResolver,
-      ViewUrl4ResponseResolver viewUrlResolver,
+      ControllerUrl4ResponseResolver viewUrlResolver,
       Form4ResponseResolver formDataResolver,
       Resources4ResponseResolver resourcesResolver) {
     this.viewUrl = viewUrl;
@@ -37,7 +37,7 @@ public class ViewRequest {
     this.resourcesResolver = resourcesResolver;
   }
 
-  public ViewUrl viewUrl() {
+  public ControllerUrl viewUrl() {
     return viewUrl;
   }
 
@@ -49,7 +49,7 @@ public class ViewRequest {
     return urlPathReader.readSegment();
   }
 
-  public ViewUrl4Response resolve(ViewUrl url) {
+  public ControllerUrl4Response resolve(ControllerUrl url) {
     return viewUrlResolver.resolve(url);
   }
 

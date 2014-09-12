@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.mb4j.component.view.View;
+import org.mb4j.component.Controller;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;
@@ -24,7 +24,7 @@ class ViewMapNode implements MapUrlPath2View {
   private final String pathSegment;
   private boolean isAsterisk = false;
   @Nullable
-  private View view = null;
+  private Controller view = null;
   @Nullable
   private Map<String, ViewMapNode> children = null;
 
@@ -67,11 +67,11 @@ class ViewMapNode implements MapUrlPath2View {
         reader.remainingPath());
   }
 
-  void mount(UrlPath path, View view) {
+  void mount(UrlPath path, Controller view) {
     mount(BufferedUrlPathReader.of(path), view);
   }
 
-  void mount(BufferedUrlPathReader reader, View view) {
+  void mount(BufferedUrlPathReader reader, Controller view) {
     if (!reader.hasMoreSegments()) {
       setView(reader, view);
       return;
@@ -95,7 +95,7 @@ class ViewMapNode implements MapUrlPath2View {
     child.mount(reader, view);
   }
 
-  private void setView(BufferedUrlPathReader reader, View view) {
+  private void setView(BufferedUrlPathReader reader, Controller view) {
     if (hasView()) {
       throw new RuntimeException("Can not mount view " + debugNameOf(view)
           + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
@@ -116,7 +116,7 @@ class ViewMapNode implements MapUrlPath2View {
     return children != null && !children.isEmpty();
   }
 
-  private String debugNameOf(View view) {
+  private String debugNameOf(Controller view) {
     return view == null ? "null" : view.getClass().getName();
   }
 
@@ -135,7 +135,7 @@ class ViewMapNode implements MapUrlPath2View {
     return children;
   }
 
-  public void collectViews(Collection<View> result) {
+  public void collectViews(Collection<Controller> result) {
     if (view != null) {
       result.add(view);
     }

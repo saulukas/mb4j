@@ -2,7 +2,7 @@ package org.mb4j.example.servlet.master;
 
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.Request;
 import org.mb4j.servlet.Page;
 import org.mb4j.component.asset.AssetUrl4Response;
 import org.mb4j.example.servlet.offer.PersonalOfferPanel;
@@ -21,7 +21,7 @@ public abstract class MasterLayoutPage extends Page {
   }
 
   @Override
-  public MustacheBrick bakeBrick(ViewRequest request) {
+  public MustacheBrick bakeBrick(Request request) {
     Brick brick = new Brick();
     brick.header = headerPanel.bakeBrick(request);
     brick.content = bakeContentBrick(request);
@@ -30,5 +30,5 @@ public abstract class MasterLayoutPage extends Page {
     return brick;
   }
 
-  protected abstract MustacheBrick bakeContentBrick(ViewRequest request);
+  protected abstract MustacheBrick bakeContentBrick(Request request);
 }

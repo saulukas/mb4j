@@ -4,10 +4,10 @@ import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.ComponentUsingReflection;
-import org.mb4j.component.view.BrickBaker;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
-import org.mb4j.component.view.ViewUrl4Response;
+import org.mb4j.component.BrickBaker;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ControllerUrl4Response;
 
 @Singleton
 public class PersonalOfferPanel extends ComponentUsingReflection implements BrickBaker {
@@ -20,11 +20,11 @@ public class PersonalOfferPanel extends ComponentUsingReflection implements Bric
     boolean offerVisible = false;
     String offerText;
     String offerLinkText;
-    ViewUrl4Response toggleOfferUrl;
+    ControllerUrl4Response toggleOfferUrl;
   }
 
   @Override
-  public Brick bakeBrick(ViewRequest request) {
+  public Brick bakeBrick(Request request) {
     Params params = paramsFrom(request);
     Brick brick = new Brick();
     brick.offerVisible = !isOfferTextEmpty(params);
@@ -35,7 +35,7 @@ public class PersonalOfferPanel extends ComponentUsingReflection implements Bric
     return brick;
   }
 
-  static Params paramsFrom(ViewRequest request) {
+  static Params paramsFrom(Request request) {
     Params params = new Params();
     params.offerText = request.viewUrl().params.named.valueOrNullOf(Params.OFFER_TEXT);
     return params;
@@ -45,7 +45,7 @@ public class PersonalOfferPanel extends ComponentUsingReflection implements Bric
     return Strings.isNullOrEmpty(params.offerText);
   }
 
-  private ViewUrl initTogglePersonalOfferUrl(ViewRequest request, String newOffer) {
+  private ControllerUrl initTogglePersonalOfferUrl(Request request, String newOffer) {
     return Strings.isNullOrEmpty(newOffer)
         ? request.viewUrl().withDeletedParam(Params.OFFER_TEXT)
         : request.viewUrl().withReplacedParam(Params.OFFER_TEXT, newOffer);

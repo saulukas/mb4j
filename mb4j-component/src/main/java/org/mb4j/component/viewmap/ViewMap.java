@@ -2,7 +2,7 @@ package org.mb4j.component.viewmap;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.mb4j.component.view.View;
+import org.mb4j.component.Controller;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class ViewMap {
@@ -12,7 +12,7 @@ public class ViewMap {
 
   public ViewMap(ViewMapBuilder builder) {
     this.builder = builder;
-    Set<View> views = new HashSet<>();
+    Set<Controller> views = new HashSet<>();
     builder.collectViews(views);
     this.formMappings = new FormMappings(views);
     this.resourceMappings = new ResourceMappings(views);

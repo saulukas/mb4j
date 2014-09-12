@@ -16,7 +16,7 @@ import org.mb4j.component.utils.ReflectionUtils;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
 import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodsOf;
 import org.mb4j.component.utils.SimpleClassName;
-import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.Request;
 
 public class FormHandler<T extends FormData> {
   public final Class<T> dataClass;
@@ -30,7 +30,7 @@ public class FormHandler<T extends FormData> {
     this.dataClass = dataClass;
   }
 
-  public FormResponse handle(String actionName, ViewRequest request, T data) {
+  public FormResponse handle(String actionName, Request request, T data) {
     Method method = getActionMethodByName(actionName);
     try {
       method.setAccessible(true);

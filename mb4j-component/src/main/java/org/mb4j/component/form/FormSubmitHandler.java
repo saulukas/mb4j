@@ -6,13 +6,13 @@ import org.mb4j.component.form.response.FormResponse;
 import com.google.common.base.Optional;
 import org.mb4j.component.form.data.FormData;
 import org.mb4j.component.url.NamedParams;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
 import org.mb4j.component.viewmap.MapFormName2Form;
 
 public class FormSubmitHandler {
   public static Optional<FormResponse> formResponseFor(
-      ViewRequest request,
+      Request request,
       NamedParams postParams,
       MapFormName2Form formName2Form) {
     String formName = postParams.valueOrNullOf(Form4ResponseResolver.FORM_PARAM);
@@ -25,7 +25,7 @@ public class FormSubmitHandler {
     data.setValuesFrom(postParams.asMap());
     FormResponse formResponse = handler.handle(actionName, request, data);
     if (formResponse instanceof FormResponseRedirectToView) {
-      ViewUrl viewUrl = ((FormResponseRedirectToView) formResponse).viewUrl;
+      ControllerUrl viewUrl = ((FormResponseRedirectToView) formResponse).viewUrl;
       formResponse = FormResponseRedirectToUrlString.redirectTo(request.resolve(viewUrl));
     }
     return Optional.of(formResponse);

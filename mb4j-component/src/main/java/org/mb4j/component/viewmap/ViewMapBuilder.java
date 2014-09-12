@@ -5,7 +5,7 @@ import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
-import org.mb4j.component.view.View;
+import org.mb4j.component.Controller;
 
 public class ViewMapBuilder {
   private static final UrlPath HOME_VIEW_PATH = UrlPath.empty();
@@ -16,19 +16,19 @@ public class ViewMapBuilder {
   private ViewMapBuilder() {
   }
 
-  public static ViewMapBuilder routeHomeTo(View homeView) {
+  public static ViewMapBuilder routeHomeTo(Controller homeView) {
     return new ViewMapBuilder().route(HOME_VIEW_PATH, homeView);
   }
 
-  public static ViewMapBuilder routeDefaultHomeTo(View homeView) {
+  public static ViewMapBuilder routeDefaultHomeTo(Controller homeView) {
     return new ViewMapBuilder().route(DEFAULT_HOME_VIEW_PATH, homeView);
   }
 
-  public ViewMapBuilder route(String pathString, View view) {
+  public ViewMapBuilder route(String pathString, Controller view) {
     return route(urlPathOf(pathString), view);
   }
 
-  public ViewMapBuilder route(UrlPath path, View view) {
+  public ViewMapBuilder route(UrlPath path, Controller view) {
     BufferedUrlPathReader pathReader = BufferedUrlPathReader.of(path);
     root.mount(pathReader, view);
     viewClasses.mount(pathReader.processedPath(), view.getClass());
@@ -43,7 +43,7 @@ public class ViewMapBuilder {
     return viewClasses;
   }
 
-  void collectViews(Collection<View> result) {
+  void collectViews(Collection<Controller> result) {
     root.collectViews(result);
   }
 

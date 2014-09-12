@@ -3,8 +3,8 @@ package org.mb4j.example.servlet.home;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
 import org.mb4j.example.servlet.master.MasterLayoutPage;
 
 public class HomePage extends MasterLayoutPage {
@@ -19,12 +19,12 @@ public class HomePage extends MasterLayoutPage {
     }
   }
 
-  public static ViewUrl url() {
-    return ViewUrl.of(HomePage.class);
+  public static ControllerUrl url() {
+    return ControllerUrl.of(HomePage.class);
   }
 
   @Override
-  protected MustacheBrick bakeContentBrick(ViewRequest request) {
+  protected MustacheBrick bakeContentBrick(Request request) {
     return contentPanel.bakeBrick(request);
   }
 }

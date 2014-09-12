@@ -15,7 +15,7 @@ import org.mb4j.component.form.response.FormResponse;
 import static org.mb4j.component.form.response.FormResponseRedirectToView.redirectTo;
 import static org.mb4j.component.form.response.FormResponseRenderCurrentPage.renderCurrentPage;
 import org.mb4j.component.utils.AttributeKey;
-import org.mb4j.component.view.ViewRequest;
+import org.mb4j.component.Request;
 import org.mb4j.example.domain.commands.EventSaveCommand;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventByIdQuery;
@@ -57,7 +57,7 @@ public class EventEditFormHandler extends FormHandler<EventEditFormHandler.Data>
         data.summary.value);
   }
 
-  Form<Data> fillForm(ViewRequest request, int eventId) {
+  Form<Data> fillForm(Request request, int eventId) {
     Data data = request.attributes().valueOf(DATA_KEY).orNull();
     if (data == null) {
       Event event = eventByIdQuery.result(eventId).get();
@@ -67,7 +67,7 @@ public class EventEditFormHandler extends FormHandler<EventEditFormHandler.Data>
   }
 
   @FormActionMethod
-  FormResponse save(ViewRequest request, Data data) {
+  FormResponse save(Request request, Data data) {
     if (errorsFoundIn(data)) {
       return renderCurrentPage(request).with(DATA_KEY, data);
     }
@@ -76,13 +76,13 @@ public class EventEditFormHandler extends FormHandler<EventEditFormHandler.Data>
   }
 
   @FormActionMethod
-  FormResponse reset(ViewRequest request, Data data) {
+  FormResponse reset(Request request, Data data) {
     data.summary.value = "";
     return renderCurrentPage(request).with(DATA_KEY, data);
   }
 
   @FormActionMethod
-  FormResponse goToEventList(ViewRequest request, Data data) {
+  FormResponse goToEventList(Request request, Data data) {
     return redirectTo(EventListPage.url());
   }
 

@@ -1,9 +1,9 @@
-package org.mb4j.component.view;
+package org.mb4j.component;
 
-public class ViewUrl4Response {
+public class ControllerUrl4Response {
   private final String value;
 
-  public ViewUrl4Response(String value) {
+  public ControllerUrl4Response(String value) {
     this.value = value;
   }
 

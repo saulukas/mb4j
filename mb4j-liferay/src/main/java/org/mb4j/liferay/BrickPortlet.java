@@ -31,9 +31,9 @@ import org.mb4j.component.url.UrlPath;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import org.mb4j.component.utils.Attributes;
 import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewResponse;
-import org.mb4j.component.view.ViewUrl;
+import org.mb4j.component.Request;
+import org.mb4j.component.Response;
+import org.mb4j.component.ControllerUrl;
 import org.mb4j.component.viewmap.MapUrlPath2View;
 import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.liferay.adapters.PortletPathToHome.pathToAssets;
@@ -61,15 +61,15 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
   @Override
   public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
     MapUrlPath2View.Result resolved = resolveView(renderRequest);
-    ViewRequest request = createRequest(resolved, renderRequest, renderResponse);
-    ViewResponse response = new PortletViewResponse(renderer, renderResponse);
+    Request request = createRequest(resolved, renderRequest, renderResponse);
+    Response response = new PortletViewResponse(renderer, renderResponse);
     resolved.view.handle(request, response);
   }
 
   @Override
   public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException, IOException {
     MapUrlPath2View.Result resolved = resolveView(actionRequest);
-    ViewRequest request = createRequest(resolved, actionRequest, actionResponse);
+    Request request = createRequest(resolved, actionRequest, actionResponse);
     NamedParams postParams = PortletUrlUtils.namedParamsFrom(actionRequest);
     Optional<FormResponse> formRC = formResponseFor(request, postParams, viewMap.formName2Form());
     if (!formRC.isPresent()) {
@@ -98,7 +98,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
     Component componentWithResources
         = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
     MapUrlPath2View.Result resolved = resolveView(resourceRequest);
-    ViewRequest request = createRequest(resolved, resourceRequest, resourceResponse);
+    Request request = createRequest(resolved, resourceRequest, resourceResponse);
     componentWithResources.serveResource(
         value.resourceName,
         request,
@@ -116,13 +116,13 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
     return resolved;
   }
 
-  private ViewRequest createRequest(
+  private Request createRequest(
       MapUrlPath2View.Result resolved,
       PortletRequest request,
       PortletResponse response) {
     URI currentURI = PortletUrlUtils.currentURI(request);
     NamedParams namedParams = namedParamsFromRawQuery(currentURI.getRawQuery());
-    ViewUrl viewUrl = ViewUrl.of(
+    ControllerUrl viewUrl = ControllerUrl.of(
         resolved.view.getClass(),
         UrlParams.of(resolved.paramsPath, namedParams)
     );

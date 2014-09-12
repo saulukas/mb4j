@@ -3,9 +3,9 @@ package org.mb4j.component.utils;
 import java.io.OutputStream;
 import java.io.Writer;
 import org.mb4j.brick.renderer.BrickRenderer;
-import org.mb4j.component.view.ViewResponse;
+import org.mb4j.component.Response;
 
-public class ResponseOnWriter extends ViewResponse {
+public class ResponseOnWriter extends Response {
   private final Writer writer;
   public String contentType = null;
   public int contentLength = 0;

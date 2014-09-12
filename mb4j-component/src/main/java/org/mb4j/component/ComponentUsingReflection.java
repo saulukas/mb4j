@@ -1,7 +1,5 @@
 package org.mb4j.component;
 
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewResponse;
 import com.google.common.base.Objects;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -52,7 +50,7 @@ public class ComponentUsingReflection implements Component {
   }
 
   @Override
-  public void serveResource(String resourceName, ViewRequest request, ViewResponse response) throws IOException {
+  public void serveResource(String resourceName, Request request, Response response) throws IOException {
     Method method = getResourceMethodByName(resourceName);
     try {
       method.setAccessible(true);

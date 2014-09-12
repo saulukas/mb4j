@@ -1,12 +1,12 @@
 package org.mb4j.servlet;
 
-import org.mb4j.component.view.View;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewResponse;
+import org.mb4j.component.Controller;
+import org.mb4j.component.Request;
+import org.mb4j.component.Response;
 
-public abstract class Service implements View {
+public abstract class Service implements Controller {
   @Override
-  public void handle(ViewRequest request, ViewResponse response) {
+  public void handle(Request request, Response response) {
     try {
       serve(request, response);
     } catch (Exception ex) {
@@ -14,5 +14,5 @@ public abstract class Service implements View {
     }
   }
 
-  protected abstract void serve(ViewRequest request, ViewResponse response) throws Exception;
+  protected abstract void serve(Request request, Response response) throws Exception;
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import org.mb4j.component.Component;
-import org.mb4j.component.view.View;
+import org.mb4j.component.Controller;
 import org.mb4j.component.form.FormHandler;
 import org.mb4j.component.utils.SimpleClassName;
 
@@ -14,9 +14,9 @@ public class FormMappings implements MapFormClass2Name, MapFormName2Form {
   private final Map<Class<? extends FormHandler>, String> class2name = new HashMap<>();
   private final Map<String, FormHandler> name2form = new TreeMap<>();
 
-  public FormMappings(Set<View> views) {
+  public FormMappings(Set<Controller> views) {
     Set<FormHandler> forms = new HashSet<>();
-    for (View view : views) {
+    for (Controller view : views) {
       if (view instanceof Component) {
         Component component = (Component) view;
         component.addFormsRecursively(forms);

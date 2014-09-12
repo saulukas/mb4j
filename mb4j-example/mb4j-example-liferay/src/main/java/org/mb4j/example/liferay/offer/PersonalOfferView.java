@@ -3,14 +3,14 @@ package org.mb4j.example.liferay.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.view.ViewRequest;
-import org.mb4j.component.view.ViewUrl;
-import org.mb4j.component.view.ViewUrl4Response;
+import org.mb4j.component.Request;
+import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ControllerUrl4Response;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
 public class PersonalOfferView extends PortletView {
-  public static ViewUrl url(String offerText) {
+  public static ControllerUrl url(String offerText) {
     return new Params(offerText).toUrl();
   }
 
@@ -18,11 +18,11 @@ public class PersonalOfferView extends PortletView {
     boolean offerVisible = false;
     String offerText;
     String offerLinkText;
-    ViewUrl4Response toggleOfferUrl;
+    ControllerUrl4Response toggleOfferUrl;
   }
 
   @Override
-  public MustacheBrick bakeBrick(ViewRequest request) {
+  public MustacheBrick bakeBrick(Request request) {
     Params params = Params.from(request);
     Brick brick = new Brick();
     brick.offerVisible = !params.isOfferTextEmpty();
@@ -41,7 +41,7 @@ public class PersonalOfferView extends PortletView {
       this.offerText = offerText;
     }
 
-    public static Params from(ViewRequest request) {
+    public static Params from(Request request) {
       return new Params(request.viewUrl().params.named.valueOrNullOf(OFFER_TEXT));
     }
 
@@ -49,11 +49,11 @@ public class PersonalOfferView extends PortletView {
       return Strings.isNullOrEmpty(offerText);
     }
 
-    ViewUrl toUrl() {
-      return urlMergedWith(ViewUrl.of(PersonalOfferView.class));
+    ControllerUrl toUrl() {
+      return urlMergedWith(ControllerUrl.of(PersonalOfferView.class));
     }
 
-    ViewUrl urlMergedWith(ViewUrl currentUrl) {
+    ControllerUrl urlMergedWith(ControllerUrl currentUrl) {
       return isOfferTextEmpty()
           ? currentUrl.withDeletedParam(OFFER_TEXT)
           : currentUrl.withReplacedParam(OFFER_TEXT, offerText);
