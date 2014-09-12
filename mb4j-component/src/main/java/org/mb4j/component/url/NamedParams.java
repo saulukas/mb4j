@@ -6,55 +6,56 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class NamedParams {
-  private static final NamedParams EMPTY = new NamedParams(Collections.<String, String>emptyMap());
-  private final Map<String, String> name2value;
 
-  public NamedParams(Map<String, String> name2value) {
-    this.name2value = Collections.unmodifiableMap(createCopyOf(name2value));
-  }
+    private static final NamedParams EMPTY = new NamedParams(Collections.<String, String>emptyMap());
+    private final Map<String, String> name2value;
 
-  public static NamedParams empty() {
-    return EMPTY;
-  }
+    public NamedParams(Map<String, String> name2value) {
+        this.name2value = Collections.unmodifiableMap(createCopyOf(name2value));
+    }
 
-  public String valueOrNullOf(String paramName) {
-    return name2value.get(paramName);
-  }
+    public static NamedParams empty() {
+        return EMPTY;
+    }
 
-  public Set<String> names() {
-    return name2value.keySet();
-  }
+    public String valueOrNullOf(String paramName) {
+        return name2value.get(paramName);
+    }
 
-  public boolean isEmpty() {
-    return name2value.isEmpty();
-  }
+    public Set<String> names() {
+        return name2value.keySet();
+    }
 
-  public NamedParams withReplaced(String name, String value) {
-    Map<String, String> map = createMap();
-    map.put(name, value);
-    return new NamedParams(map);
-  }
+    public boolean isEmpty() {
+        return name2value.isEmpty();
+    }
 
-  public NamedParams withDeleted(String name) {
-    Map<String, String> map = createMap();
-    map.remove(name);
-    return new NamedParams(map);
-  }
+    public NamedParams withReplaced(String name, String value) {
+        Map<String, String> map = createMap();
+        map.put(name, value);
+        return new NamedParams(map);
+    }
 
-  private Map<String, String> createMap() {
-    return createCopyOf(name2value);
-  }
+    public NamedParams withDeleted(String name) {
+        Map<String, String> map = createMap();
+        map.remove(name);
+        return new NamedParams(map);
+    }
 
-  private static TreeMap<String, String> createCopyOf(Map<String, String> original) {
-    return new TreeMap<>(original);
-  }
+    private Map<String, String> createMap() {
+        return createCopyOf(name2value);
+    }
 
-  public Map<String, String> asMap() {
-    return name2value;
-  }
+    private static TreeMap<String, String> createCopyOf(Map<String, String> original) {
+        return new TreeMap<>(original);
+    }
 
-  @Override
-  public String toString() {
-    return name2value.toString();
-  }
+    public Map<String, String> asMap() {
+        return name2value;
+    }
+
+    @Override
+    public String toString() {
+        return name2value.toString();
+    }
 }

@@ -8,18 +8,19 @@ import java.io.Writer;
  * Does not html-escape rawText.
  */
 public class RawBrick extends MustacheBrick {
-  public final String rawText;
 
-  public RawBrick(String rawText) {
-    this.rawText = rawText;
-  }
+    public final String rawText;
 
-  @Override
-  public void execute(Template.Fragment frag, Writer out) {
-    try {
-      out.write(rawText);
-    } catch (IOException ex) {
-      throw new RuntimeException(ex);
+    public RawBrick(String rawText) {
+        this.rawText = rawText;
     }
-  }
+
+    @Override
+    public void execute(Template.Fragment frag, Writer out) {
+        try {
+            out.write(rawText);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

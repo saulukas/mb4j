@@ -3,7 +3,7 @@
     "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_1_0.dtd">
 
 <routes>
-  <route>
-    <pattern>/{urlPath:.*}</pattern>
-  </route>
+    <route>
+        <pattern>/{urlPath:.*}</pattern>
+    </route>
 </routes>

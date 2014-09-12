@@ -1,6 +1,5 @@
 package org.mb4j.component;
 
-import org.mb4j.component.Component;
 import org.mb4j.component.asset.AssetUrl4Response;
 import org.mb4j.component.asset.AssetUrl4ResponseResolver;
 import org.mb4j.component.form.Form;
@@ -13,65 +12,66 @@ import org.mb4j.component.url.UrlPathReader;
 import org.mb4j.component.utils.Attributes;
 
 public class Request {
-  private final ControllerUrl viewUrl;
-  private final UrlPathReader urlPathReader;
-  private final Attributes attributes;
-  private final AssetUrl4ResponseResolver assetUrlResolver;
-  private final ControllerUrl4ResponseResolver viewUrlResolver;
-  private final Form4ResponseResolver formDataResolver;
-  private final Resources4ResponseResolver resourcesResolver;
 
-  public Request(
-      ControllerUrl viewUrl,
-      Attributes attributes,
-      AssetUrl4ResponseResolver assetUrlResolver,
-      ControllerUrl4ResponseResolver viewUrlResolver,
-      Form4ResponseResolver formDataResolver,
-      Resources4ResponseResolver resourcesResolver
-  ) {
-    this.viewUrl = viewUrl;
-    this.urlPathReader = BufferedUrlPathReader.of(viewUrl.params.path);
-    this.attributes = attributes;
-    this.assetUrlResolver = assetUrlResolver;
-    this.viewUrlResolver = viewUrlResolver;
-    this.formDataResolver = formDataResolver;
-    this.resourcesResolver = resourcesResolver;
-  }
+    private final ControllerUrl viewUrl;
+    private final UrlPathReader urlPathReader;
+    private final Attributes attributes;
+    private final AssetUrl4ResponseResolver assetUrlResolver;
+    private final ControllerUrl4ResponseResolver viewUrlResolver;
+    private final Form4ResponseResolver formDataResolver;
+    private final Resources4ResponseResolver resourcesResolver;
 
-  public ControllerUrl viewUrl() {
-    return viewUrl;
-  }
+    public Request(
+            ControllerUrl viewUrl,
+            Attributes attributes,
+            AssetUrl4ResponseResolver assetUrlResolver,
+            ControllerUrl4ResponseResolver viewUrlResolver,
+            Form4ResponseResolver formDataResolver,
+            Resources4ResponseResolver resourcesResolver
+    ) {
+        this.viewUrl = viewUrl;
+        this.urlPathReader = BufferedUrlPathReader.of(viewUrl.params.path);
+        this.attributes = attributes;
+        this.assetUrlResolver = assetUrlResolver;
+        this.viewUrlResolver = viewUrlResolver;
+        this.formDataResolver = formDataResolver;
+        this.resourcesResolver = resourcesResolver;
+    }
 
-  public boolean hasMorePathSegments() {
-    return urlPathReader.hasMoreSegments();
-  }
+    public ControllerUrl viewUrl() {
+        return viewUrl;
+    }
 
-  public String readPathSegment() {
-    return urlPathReader.readSegment();
-  }
+    public boolean hasMorePathSegments() {
+        return urlPathReader.hasMoreSegments();
+    }
 
-  public ControllerUrl4Response resolve(ControllerUrl url) {
-    return viewUrlResolver.resolve(url);
-  }
+    public String readPathSegment() {
+        return urlPathReader.readSegment();
+    }
 
-  public AssetUrl4Response resolveAssetUrl(String assetUrl) {
-    return assetUrlResolver.resolveUrl(assetUrl);
-  }
+    public ControllerUrl4Response resolve(ControllerUrl url) {
+        return viewUrlResolver.resolve(url);
+    }
 
-  public Form4Response resolve(Form<?> formData) {
-    return formDataResolver.resolve(formData);
-  }
+    public AssetUrl4Response resolveAssetUrl(String assetUrl) {
+        return assetUrlResolver.resolveUrl(assetUrl);
+    }
 
-  public Resources4Response resolveResourcesOf(Component component) {
-    return resourcesResolver.resolveResourcesFor(component);
-  }
+    public Form4Response resolve(Form<?> formData) {
+        return formDataResolver.resolve(formData);
+    }
 
-  public Attributes attributes() {
-    return attributes;
-  }
+    public Resources4Response resolveResourcesOf(Component component) {
+        return resourcesResolver.resolveResourcesFor(component);
+    }
 
-  @Override
-  public String toString() {
-    return getClass().getSimpleName() + "[" + urlPathReader + "]";
-  }
+    public Attributes attributes() {
+        return attributes;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[" + urlPathReader + "]";
+    }
 }

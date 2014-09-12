@@ -5,6 +5,7 @@ import javax.portlet.Portlet;
 import javax.portlet.PortletRequest;
 
 public class PortletDebugUtils {
+
     public static long printParametersOf(String action, Portlet portlet, PortletRequest req) {
         System.out.println("==== " + action + " ==== " + portlet.getClass().getSimpleName());
         Enumeration<String> parameterNames = req.getParameterNames();

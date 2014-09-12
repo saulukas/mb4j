@@ -2,20 +2,20 @@
 <!DOCTYPE routes PUBLIC "-//Liferay//DTD Friendly URL Routes 6.1.0//EN"
     "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_1_0.dtd">
 <routes>
-  <route>
-    <pattern>/</pattern>
-    <generated-parameter name="mvcPath">urlPath_0</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_1/{seg0}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_2/{seg0}/{seg1}</generated-parameter>
-  </route>
-  <route>
-    <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{segZ:.*}</pattern>
-    <generated-parameter name="mvcPath">urlPath_3/{seg0}/{seg1}/{segZ}</generated-parameter>
-  </route>
+    <route>
+        <pattern>/</pattern>
+        <generated-parameter name="mvcPath">urlPath_0</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">urlPath_1/{seg0}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}</pattern>
+        <generated-parameter name="mvcPath">urlPath_2/{seg0}/{seg1}</generated-parameter>
+    </route>
+    <route>
+        <pattern>/{seg0:[^/]*}/{seg1:[^/]*}/{segZ:.*}</pattern>
+        <generated-parameter name="mvcPath">urlPath_3/{seg0}/{seg1}/{segZ}</generated-parameter>
+    </route>
 </routes>

@@ -7,20 +7,21 @@ import javax.servlet.ServletContextEvent;
 import org.mb4j.component.viewmap.ViewMap;
 
 public class ServletSampleContextListener extends GuiceServletContextListener {
-  @Override
-  protected Injector getInjector() {
-    Injector injector = ServletSampleModule.injector();
-    System.out.println(""
-        + "\n"
-        + "" + injector.getInstance(ViewMap.class).toString()
-        + "\n");
-    return injector;
-  }
 
-  @Override
-  public void contextInitialized(ServletContextEvent contextEvent) {
-    super.contextInitialized(contextEvent);
-    ServletContext context = contextEvent.getServletContext();
-    System.out.println("\n  contextPath=[" + context.getContextPath() + "]\n");
-  }
+    @Override
+    protected Injector getInjector() {
+        Injector injector = ServletSampleModule.injector();
+        System.out.println(""
+                + "\n"
+                + "" + injector.getInstance(ViewMap.class).toString()
+                + "\n");
+        return injector;
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent contextEvent) {
+        super.contextInitialized(contextEvent);
+        ServletContext context = contextEvent.getServletContext();
+        System.out.println("\n  contextPath=[" + context.getContextPath() + "]\n");
+    }
 }

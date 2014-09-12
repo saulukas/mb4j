@@ -6,20 +6,22 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 
 public class ModuleWithExplicitBindings extends AbstractModule {
-  private final Module[] modules;
 
-  public ModuleWithExplicitBindings(Module... modules) {
-    this.modules = modules;
-  }
-  public static Injector injectorWithExplicitBindings(Module... modules) {
-    return Guice.createInjector(new ModuleWithExplicitBindings(modules));
-  }
+    private final Module[] modules;
 
-  @Override
-  protected void configure() {
-    binder().requireExplicitBindings();
-    for (Module module : modules) {
-      install(module);
+    public ModuleWithExplicitBindings(Module... modules) {
+        this.modules = modules;
     }
-  }
+
+    public static Injector injectorWithExplicitBindings(Module... modules) {
+        return Guice.createInjector(new ModuleWithExplicitBindings(modules));
+    }
+
+    @Override
+    protected void configure() {
+        binder().requireExplicitBindings();
+        for (Module module : modules) {
+            install(module);
+        }
+    }
 }

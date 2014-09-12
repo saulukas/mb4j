@@ -18,5 +18,5 @@ public interface Component {
 
     Collection<Resource> getResources();
 
-    void serveResource(String resourceName, Request request, Response response) throws IOException;
+    void serveResource(String name, Request request, Response response) throws IOException;
 }

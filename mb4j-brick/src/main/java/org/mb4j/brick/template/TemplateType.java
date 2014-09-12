@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface TemplateType {
-  String DEFAULT = ".html";
 
-  String value() default DEFAULT;
+    String DEFAULT = ".html";
+
+    String value() default DEFAULT;
 }

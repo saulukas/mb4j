@@ -8,43 +8,44 @@ import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Response;
 
 public class ControllerResponse extends Response {
-  private final HttpServletResponse httpResponse;
 
-  public ControllerResponse(BrickRenderer renderer, HttpServletResponse httpResponse) {
-    super(renderer);
-    this.httpResponse = httpResponse;
-  }
+    private final HttpServletResponse httpResponse;
 
-  @Override
-  public void setContentType(String type) {
-    httpResponse.setContentType(type);
-  }
-
-  @Override
-  public void setContentLength(int len) {
-    httpResponse.setContentLength(len);
-  }
-
-  @Override
-  public void setCharacterEncoding(String encoding) {
-    httpResponse.setCharacterEncoding(encoding);
-  }
-
-  @Override
-  public Writer getWriter() {
-    try {
-      return httpResponse.getWriter();
-    } catch (IOException ex) {
-      throw new RuntimeException("Failed to getWriter from HTTP response: " + ex, ex);
+    public ControllerResponse(BrickRenderer renderer, HttpServletResponse httpResponse) {
+        super(renderer);
+        this.httpResponse = httpResponse;
     }
-  }
 
-  @Override
-  public OutputStream getOutputStream() {
-    try {
-      return httpResponse.getOutputStream();
-    } catch (IOException ex) {
-      throw new RuntimeException("Failed to getOutputStream from HTTP response: " + ex, ex);
+    @Override
+    public void setContentType(String type) {
+        httpResponse.setContentType(type);
     }
-  }
+
+    @Override
+    public void setContentLength(int len) {
+        httpResponse.setContentLength(len);
+    }
+
+    @Override
+    public void setCharacterEncoding(String encoding) {
+        httpResponse.setCharacterEncoding(encoding);
+    }
+
+    @Override
+    public Writer getWriter() {
+        try {
+            return httpResponse.getWriter();
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to getWriter from HTTP response: " + ex, ex);
+        }
+    }
+
+    @Override
+    public OutputStream getOutputStream() {
+        try {
+            return httpResponse.getOutputStream();
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to getOutputStream from HTTP response: " + ex, ex);
+        }
+    }
 }

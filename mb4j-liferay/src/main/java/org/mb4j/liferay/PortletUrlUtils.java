@@ -9,66 +9,67 @@ import java.util.Map;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
-import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;
+import static org.mb4j.component.utils.HttpNamedParams.namedParamsFromRawQuery;
 
 public class PortletUrlUtils {
-  public static UrlPath urlPathFor(PortletRequest request, String friendlyUrlMapping) {
-    URI uri = currentURI(request);
-    String path = uri.getPath();
-    String prefix = "/-/" + friendlyUrlMapping + "/";
-    int index = path.indexOf(prefix);
-    if (index < 0) {
-      return UrlPath.empty();
+
+    public static UrlPath urlPathFor(PortletRequest request, String friendlyUrlMapping) {
+        URI uri = currentURI(request);
+        String path = uri.getPath();
+        String prefix = "/-/" + friendlyUrlMapping + "/";
+        int index = path.indexOf(prefix);
+        if (index < 0) {
+            return UrlPath.empty();
+        }
+        String postfix = path.substring(index + prefix.length());
+        return UrlPathString.urlPathOf(postfix);
     }
-    String postfix = path.substring(index + prefix.length());
-    return UrlPathString.urlPathOf(postfix);
-  }
 
-  public static String path2homeFor(PortletResponse response) {
-    LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
-    PortletURL renderURL = liferayResponse.createRenderURL();
-    renderURL.setParameter("urlPath", "");
-    String path2home = renderURL.toString();
-    System.out.println("path2home=[" + path2home + "]");
-    return path2home;
-  }
-
-  public static NamedParams namedParamsFrom(PortletRequest request) {
-    Map<String, String> name2value = new HashMap<>();
-    for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
-      String name = entry.getKey();
-      String[] values = entry.getValue();
-      String value = (values != null && values.length > 0) ? values[0] : null;
-      if (value != null) {
-        name2value.put(name, value);
-      }
+    public static String path2homeFor(PortletResponse response) {
+        LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
+        PortletURL renderURL = liferayResponse.createRenderURL();
+        renderURL.setParameter("urlPath", "");
+        String path2home = renderURL.toString();
+        System.out.println("path2home=[" + path2home + "]");
+        return path2home;
     }
-    return new NamedParams(name2value);
-  }
 
-  public static String currentUrlString(PortletRequest request) {
-    return PortalUtil.getCurrentURL(request);
-  }
-
-  public static URI currentURI(PortletRequest request) {
-    return uriOf(currentUrlString(request));
-  }
-
-  public static URI uriOf(String url) {
-    try {
-      return new URI(url);
-    } catch (URISyntaxException ex) {
-      throw new RuntimeException("Invalid URL (" + url + "): " + ex, ex);
+    public static NamedParams namedParamsFrom(PortletRequest request) {
+        Map<String, String> name2value = new HashMap<>();
+        for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+            String name = entry.getKey();
+            String[] values = entry.getValue();
+            String value = (values != null && values.length > 0) ? values[0] : null;
+            if (value != null) {
+                name2value.put(name, value);
+            }
+        }
+        return new NamedParams(name2value);
     }
-  }
 
-  public static String authTokenOrNullFrom(PortletResponse response) {
-    LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
-    URI uri = uriOf(liferayResponse.createActionURL().toString());
-    NamedParams namedParams = namedParamsFromRawQuery(uri.getRawQuery());
-    return namedParams.valueOrNullOf("p_auth");
-  }
+    public static String currentUrlString(PortletRequest request) {
+        return PortalUtil.getCurrentURL(request);
+    }
+
+    public static URI currentURI(PortletRequest request) {
+        return uriOf(currentUrlString(request));
+    }
+
+    public static URI uriOf(String url) {
+        try {
+            return new URI(url);
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException("Invalid URL (" + url + "): " + ex, ex);
+        }
+    }
+
+    public static String authTokenOrNullFrom(PortletResponse response) {
+        LiferayPortletResponse liferayResponse = (LiferayPortletResponse) response;
+        URI uri = uriOf(liferayResponse.createActionURL().toString());
+        NamedParams namedParams = namedParamsFromRawQuery(uri.getRawQuery());
+        return namedParams.valueOrNullOf("p_auth");
+    }
 }

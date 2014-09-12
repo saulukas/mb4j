@@ -6,57 +6,58 @@ import java.util.LinkedList;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 
 public class BufferedUrlPathReader implements UrlPathReader {
-  private final LinkedList<String> processedSegments = new LinkedList<>();
-  private final LinkedList<String> remainingSegments = new LinkedList<>();
 
-  private BufferedUrlPathReader(Iterator<String> pathSegments) {
-    Iterators.addAll(remainingSegments, pathSegments);
-  }
+    private final LinkedList<String> processedSegments = new LinkedList<>();
+    private final LinkedList<String> remainingSegments = new LinkedList<>();
 
-  public static BufferedUrlPathReader of(UrlPath path) {
-    return new BufferedUrlPathReader(path.segments().iterator());
-  }
+    private BufferedUrlPathReader(Iterator<String> pathSegments) {
+        Iterators.addAll(remainingSegments, pathSegments);
+    }
 
-  public String peakNextSegment() {
-    return remainingSegments.getFirst();
-  }
+    public static BufferedUrlPathReader of(UrlPath path) {
+        return new BufferedUrlPathReader(path.segments().iterator());
+    }
 
-  public void revertLastRead() {
-    remainingSegments.addFirst(processedSegments.removeLast());
-  }
+    public String peakNextSegment() {
+        return remainingSegments.getFirst();
+    }
 
-  public UrlPath processedPath() {
-    return new UrlPath(processedSegments);
-  }
+    public void revertLastRead() {
+        remainingSegments.addFirst(processedSegments.removeLast());
+    }
 
-  public UrlPath remainingPath() {
-    return new UrlPath(remainingSegments);
-  }
+    public UrlPath processedPath() {
+        return new UrlPath(processedSegments);
+    }
 
-  public UrlPath fullPath() {
-    return processedPath().add(remainingPath());
-  }
+    public UrlPath remainingPath() {
+        return new UrlPath(remainingSegments);
+    }
 
-  @Override
-  public boolean hasMoreSegments() {
-    return !remainingSegments.isEmpty();
-  }
+    public UrlPath fullPath() {
+        return processedPath().add(remainingPath());
+    }
 
-  @Override
-  public String readSegment() {
-    processedSegments.add(remainingSegments.removeFirst());
-    return processedSegments.getLast();
-  }
+    @Override
+    public boolean hasMoreSegments() {
+        return !remainingSegments.isEmpty();
+    }
 
-  @Override
-  public UrlPathReader skipSegment() {
-    readSegment();
-    return this;
-  }
+    @Override
+    public String readSegment() {
+        processedSegments.add(remainingSegments.removeFirst());
+        return processedSegments.getLast();
+    }
 
-  @Override
-  public String toString() {
-    return pathStringOf(new UrlPath(processedSegments))
-        + " | " + pathStringOf(new UrlPath(remainingSegments));
-  }
+    @Override
+    public UrlPathReader skipSegment() {
+        readSegment();
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return pathStringOf(new UrlPath(processedSegments))
+                + " | " + pathStringOf(new UrlPath(remainingSegments));
+    }
 }

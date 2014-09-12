@@ -4,21 +4,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UrlPathBuilder {
-  private final List<String> pathSegments = new LinkedList<>();
 
-  private UrlPathBuilder() {
-  }
+    private final List<String> pathSegments = new LinkedList<>();
 
-  public static UrlPathBuilder urlPath() {
-    return new UrlPathBuilder();
-  }
+    private UrlPathBuilder() {
+    }
 
-  public UrlPathBuilder with(String segment) {
-    pathSegments.add(segment);
-    return this;
-  }
+    public static UrlPathBuilder urlPath() {
+        return new UrlPathBuilder();
+    }
 
-  public UrlPath instance() {
-    return new UrlPath(pathSegments);
-  }
+    public UrlPathBuilder with(String segment) {
+        pathSegments.add(segment);
+        return this;
+    }
+
+    public UrlPath instance() {
+        return new UrlPath(pathSegments);
+    }
 }

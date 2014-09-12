@@ -5,32 +5,33 @@ import java.util.Map;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class FormFieldValueTree {
-  public final FormFieldValueNode root;
 
-  private FormFieldValueTree(FormFieldValueNode root) {
-    this.root = root;
-  }
+    public final FormFieldValueNode root;
 
-  public static FormFieldValueTree fieldValueTreeOf(Map<String, String> name2value) {
-    FormFieldValueNode root = new FormFieldValueNode();
-    for (Map.Entry<String, String> entry : name2value.entrySet()) {
-      String name = entry.getKey();
-      String value = entry.getValue();
-      FormFieldValueNode node = root;
-      for (String nameSegment : Splitter.on(".").split(name)) {
-        node = node.findOrCreateChildFor(nameSegment);
-      }
-      node.value = value;
+    private FormFieldValueTree(FormFieldValueNode root) {
+        this.root = root;
     }
-    return new FormFieldValueTree(root);
-  }
 
-  @Override
-  public String toString() {
-    return toString("");
-  }
+    public static FormFieldValueTree fieldValueTreeOf(Map<String, String> name2value) {
+        FormFieldValueNode root = new FormFieldValueNode();
+        for (Map.Entry<String, String> entry : name2value.entrySet()) {
+            String name = entry.getKey();
+            String value = entry.getValue();
+            FormFieldValueNode node = root;
+            for (String nameSegment : Splitter.on(".").split(name)) {
+                node = node.findOrCreateChildFor(nameSegment);
+            }
+            node.value = value;
+        }
+        return new FormFieldValueTree(root);
+    }
 
-  public String toString(String margin) {
-    return SimpleClassName.of(getClass()) + root.toString(margin);
-  }
+    @Override
+    public String toString() {
+        return toString("");
+    }
+
+    public String toString(String margin) {
+        return SimpleClassName.of(getClass()) + root.toString(margin);
+    }
 }

@@ -18,158 +18,159 @@ import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import org.mb4j.component.utils.SimpleClassName;
 
 class ViewMapNode implements MapUrlPath2View {
-  @Nullable
-  private final ViewMapNode parent;
-  @Nullable
-  private final String pathSegment;
-  private boolean isAsterisk = false;
-  @Nullable
-  private Controller view = null;
-  @Nullable
-  private Map<String, ViewMapNode> children = null;
 
-  private ViewMapNode(ViewMapNode parent, String pathSegment) {
-    this.parent = parent;
-    this.pathSegment = pathSegment;
-    if (isRoot() && pathSegment != null) {
-      throw new RuntimeException("Root node may not have pathSegment.");
+    @Nullable
+    private final ViewMapNode parent;
+    @Nullable
+    private final String pathSegment;
+    private boolean isAsterisk = false;
+    @Nullable
+    private Controller view = null;
+    @Nullable
+    private Map<String, ViewMapNode> children = null;
+
+    private ViewMapNode(ViewMapNode parent, String pathSegment) {
+        this.parent = parent;
+        this.pathSegment = pathSegment;
+        if (isRoot() && pathSegment != null) {
+            throw new RuntimeException("Root node may not have pathSegment.");
+        }
+        if (!isRoot() && pathSegment == null) {
+            throw new RuntimeException("Non root node must have pathSegment.");
+        }
     }
-    if (!isRoot() && pathSegment == null) {
-      throw new RuntimeException("Non root node must have pathSegment.");
+
+    static ViewMapNode createRoot() {
+        return new ViewMapNode(null, null);
     }
-  }
 
-  static ViewMapNode createRoot() {
-    return new ViewMapNode(null, null);
-  }
-
-  @Override
-  public Result viewAt(UrlPath path) {
-    return resolve(BufferedUrlPathReader.of(path));
-  }
-
-  private Result resolve(BufferedUrlPathReader reader) {
-    if (!reader.hasMoreSegments()) {
-      return new Result(
-          view,
-          reader.processedPath(),
-          reader.remainingPath());
+    @Override
+    public Result viewAt(UrlPath path) {
+        return resolve(BufferedUrlPathReader.of(path));
     }
-    String segment = reader.readSegment();
-    ViewMapNode child = findChildOrNull(segment);
-    if (child != null) {
-      return child.resolve(reader);
+
+    private Result resolve(BufferedUrlPathReader reader) {
+        if (!reader.hasMoreSegments()) {
+            return new Result(
+                    view,
+                    reader.processedPath(),
+                    reader.remainingPath());
+        }
+        String segment = reader.readSegment();
+        ViewMapNode child = findChildOrNull(segment);
+        if (child != null) {
+            return child.resolve(reader);
+        }
+        reader.revertLastRead();
+        return new Result(
+                (isAsterisk ? view : null),
+                reader.processedPath(),
+                reader.remainingPath());
     }
-    reader.revertLastRead();
-    return new Result(
-        (isAsterisk ? view : null),
-        reader.processedPath(),
-        reader.remainingPath());
-  }
 
-  void mount(UrlPath path, Controller view) {
-    mount(BufferedUrlPathReader.of(path), view);
-  }
-
-  void mount(BufferedUrlPathReader reader, Controller view) {
-    if (!reader.hasMoreSegments()) {
-      setView(reader, view);
-      return;
+    void mount(UrlPath path, Controller view) {
+        mount(BufferedUrlPathReader.of(path), view);
     }
-    String segment = reader.readSegment();
-    if (Objects.equal(segment, UrlPathString.ASTERISK)) {
-      if (reader.hasMoreSegments()) {
-        throw new RuntimeException("Asterisk '" + UrlPathString.ASTERISK + "'"
-            + " is only allowed at the path end: \"" + pathStringOf(reader.fullPath()) + "\"");
-      }
-      reader.revertLastRead();
-      isAsterisk = true;
-      setView(reader, view);
-      return;
+
+    void mount(BufferedUrlPathReader reader, Controller view) {
+        if (!reader.hasMoreSegments()) {
+            setView(reader, view);
+            return;
+        }
+        String segment = reader.readSegment();
+        if (Objects.equal(segment, UrlPathString.ASTERISK)) {
+            if (reader.hasMoreSegments()) {
+                throw new RuntimeException("Asterisk '" + UrlPathString.ASTERISK + "'"
+                        + " is only allowed at the path end: \"" + pathStringOf(reader.fullPath()) + "\"");
+            }
+            reader.revertLastRead();
+            isAsterisk = true;
+            setView(reader, view);
+            return;
+        }
+        ViewMapNode child = findChildOrNull(segment);
+        if (child == null) {
+            child = new ViewMapNode(this, segment);
+            addChild(child);
+        }
+        child.mount(reader, view);
     }
-    ViewMapNode child = findChildOrNull(segment);
-    if (child == null) {
-      child = new ViewMapNode(this, segment);
-      addChild(child);
+
+    private void setView(BufferedUrlPathReader reader, Controller view) {
+        if (hasView()) {
+            throw new RuntimeException("Can not mount view " + debugNameOf(view)
+                    + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
+                    + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.view) + ".");
+        }
+        this.view = view;
     }
-    child.mount(reader, view);
-  }
 
-  private void setView(BufferedUrlPathReader reader, Controller view) {
-    if (hasView()) {
-      throw new RuntimeException("Can not mount view " + debugNameOf(view)
-          + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
-          + "\n   It is already used by " + (isAsterisk ? ".../* " : "") + debugNameOf(this.view) + ".");
+    private boolean hasView() {
+        return view != null;
     }
-    this.view = view;
-  }
 
-  private boolean hasView() {
-    return view != null;
-  }
-
-  private boolean isRoot() {
-    return parent == null;
-  }
-
-  private boolean hasChildren() {
-    return children != null && !children.isEmpty();
-  }
-
-  private String debugNameOf(Controller view) {
-    return view == null ? "null" : view.getClass().getName();
-  }
-
-  private void addChild(ViewMapNode child) {
-    nonNullChildren().put(child.pathSegment, child);
-  }
-
-  private ViewMapNode findChildOrNull(String segment) {
-    return children == null ? null : children.get(segment);
-  }
-
-  private Map<String, ViewMapNode> nonNullChildren() {
-    if (children == null) {
-      children = new HashMap<>();
+    private boolean isRoot() {
+        return parent == null;
     }
-    return children;
-  }
 
-  public void collectViews(Collection<Controller> result) {
-    if (view != null) {
-      result.add(view);
+    private boolean hasChildren() {
+        return children != null && !children.isEmpty();
     }
-    if (children != null) {
-      for (ViewMapNode child : children.values()) {
-        child.collectViews(result);
-      }
-    }
-  }
 
-  @Override
-  public String toString() {
-    return toString("");
-  }
+    private String debugNameOf(Controller view) {
+        return view == null ? "null" : view.getClass().getName();
+    }
 
-  public String toString(String margin) {
-    String result = "\"" + Strings.nullToEmpty(pathSegment) + (isAsterisk ? "/*" : "") + "\"";
-    if (hasView()) {
-      result += "   ....";
-      result = Strings.padEnd(result, 62 - margin.length(), '.');
-      result += " " + SimpleClassName.of(view.getClass());
+    private void addChild(ViewMapNode child) {
+        nonNullChildren().put(child.pathSegment, child);
     }
-    if (hasChildren()) {
-      List<String> childNames = newArrayList(children.keySet());
-      Collections.sort(childNames);
-      Iterator<String> namesIterator = childNames.iterator();
-      while (namesIterator.hasNext()) {
-        String childName = namesIterator.next();
-        ViewMapNode child = children.get(childName);
-        result += "\n" + margin + "|";
-        result += "\n" + margin + "+-- "
-            + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));
-      }
+
+    private ViewMapNode findChildOrNull(String segment) {
+        return children == null ? null : children.get(segment);
     }
-    return result;
-  }
+
+    private Map<String, ViewMapNode> nonNullChildren() {
+        if (children == null) {
+            children = new HashMap<>();
+        }
+        return children;
+    }
+
+    public void collectViews(Collection<Controller> result) {
+        if (view != null) {
+            result.add(view);
+        }
+        if (children != null) {
+            for (ViewMapNode child : children.values()) {
+                child.collectViews(result);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return toString("");
+    }
+
+    public String toString(String margin) {
+        String result = "\"" + Strings.nullToEmpty(pathSegment) + (isAsterisk ? "/*" : "") + "\"";
+        if (hasView()) {
+            result += "   ....";
+            result = Strings.padEnd(result, 62 - margin.length(), '.');
+            result += " " + SimpleClassName.of(view.getClass());
+        }
+        if (hasChildren()) {
+            List<String> childNames = newArrayList(children.keySet());
+            Collections.sort(childNames);
+            Iterator<String> namesIterator = childNames.iterator();
+            while (namesIterator.hasNext()) {
+                String childName = namesIterator.next();
+                ViewMapNode child = children.get(childName);
+                result += "\n" + margin + "|";
+                result += "\n" + margin + "+-- "
+                        + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));
+            }
+        }
+        return result;
+    }
 }

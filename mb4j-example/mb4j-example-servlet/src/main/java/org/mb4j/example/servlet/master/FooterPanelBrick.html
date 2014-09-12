@@ -9,6 +9,11 @@
     }
 </script>
 <p>
+    <input id="timeButton" type="button" value="Get time using service"
+           onclick="updateTimeLabel('#timeLabel', '{{timeServiceUrl}}')" >
+    <span id="timeLabel"></span>
+</p>
+<p>
     <input id="timeButton" type="button" value="Get time using resource"
            onclick="updateTimeLabel('#timeLabel2', '{{resources.time.url}}')" >
     <span id="timeLabel2"></span>

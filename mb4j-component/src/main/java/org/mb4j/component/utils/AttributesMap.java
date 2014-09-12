@@ -5,19 +5,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AttributesMap extends Attributes {
-  private final Map<AttributeKey, Object> map = new HashMap<>();
 
-  @Override
-  public <T> void setValueOf(AttributeKey<T> key, T value) {
-    map.put(key, value);
-  }
+    private final Map<AttributeKey, Object> map = new HashMap<>();
 
-  @Override
-  public <T> Optional<T> valueOf(AttributeKey<T> key) {
-    return Optional.fromNullable((T) map.get(key));
-  }
+    @Override
+    public <T> void setValueOf(AttributeKey<T> key, T value) {
+        map.put(key, value);
+    }
 
-  public Map<AttributeKey, Object> asMap() {
-    return map;
-  }
+    @Override
+    public <T> Optional<T> valueOf(AttributeKey<T> key) {
+        return Optional.fromNullable((T) map.get(key));
+    }
+
+    public Map<AttributeKey, Object> asMap() {
+        return map;
+    }
 }

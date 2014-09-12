@@ -5,5 +5,6 @@ import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
 public class Utf8Brick extends MustacheBrick {
-  final String ltCows = "žalos karvės ežere";
+
+    final String ltCows = "žalos karvės ežere";
 }

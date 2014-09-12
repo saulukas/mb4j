@@ -5,13 +5,14 @@ import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
 public class SimpleBrick extends MustacheBrick {
-  final String message;
 
-  public SimpleBrick() {
-    this("Hello");
-  }
+    final String message;
 
-  public SimpleBrick(String message) {
-    this.message = message;
-  }
+    public SimpleBrick() {
+        this("Hello");
+    }
+
+    public SimpleBrick(String message) {
+        this.message = message;
+    }
 }

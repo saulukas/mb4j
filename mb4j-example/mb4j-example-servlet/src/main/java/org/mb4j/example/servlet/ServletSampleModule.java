@@ -12,26 +12,28 @@ import org.mb4j.example.servlet.home.HomePage;
 import static org.mb4j.example.servlet.util.ModuleWithExplicitBindings.injectorWithExplicitBindings;
 
 public class ServletSampleModule extends AbstractModule {
-  public static Injector injector() {
-    return Holder.injector;
-  }
 
-  private static class Holder { // Thread-safe Lazy initialization, Effective Java 2nd, Item 71.
-    static final Injector injector = injectorWithExplicitBindings(new ServletSampleModule());
-  }
+    public static Injector injector() {
+        return Holder.injector;
+    }
 
-  @Override
-  protected void configure() {
-    install(new EventDomainModule());
-    install(new SampleServletHttpModule());
-    bindPages();
-    bind(ViewMap.class).to(ServletSampleSiteMap.class);
-    bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
-  }
+    private static class Holder { // Thread-safe Lazy initialization, Effective Java 2nd, Item 71.
 
-  private void bindPages() {
-    install(new HomePage.Module());
-    install(new EventListPage.Module());
-    install(new EventEditPage.Module());
-  }
+        static final Injector injector = injectorWithExplicitBindings(new ServletSampleModule());
+    }
+
+    @Override
+    protected void configure() {
+        install(new EventDomainModule());
+        install(new SampleServletHttpModule());
+        bindPages();
+        bind(ViewMap.class).to(ServletSampleSiteMap.class);
+        bind(BrickRenderer.class).toInstance(RendererUtils.renderer4Development());
+    }
+
+    private void bindPages() {
+        install(new HomePage.Module());
+        install(new EventListPage.Module());
+        install(new EventEditPage.Module());
+    }
 }

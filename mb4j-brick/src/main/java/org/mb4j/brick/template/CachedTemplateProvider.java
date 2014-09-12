@@ -5,20 +5,21 @@ import java.util.Map;
 import org.mb4j.brick.MustacheBrick;
 
 public class CachedTemplateProvider implements TemplateProvider {
-  private final TemplateProvider source;
-  private final Map<Class<? extends MustacheBrick>, BrickTemplate> class2template = new HashMap<>();
 
-  public CachedTemplateProvider(TemplateProvider source) {
-    this.source = source;
-  }
+    private final TemplateProvider source;
+    private final Map<Class<? extends MustacheBrick>, BrickTemplate> class2template = new HashMap<>();
 
-  @Override
-  public synchronized BrickTemplate templateFor(Class<? extends MustacheBrick> brickClass) {
-    BrickTemplate result = class2template.get(brickClass);
-    if (result == null) {
-      result = source.templateFor(brickClass);
-      class2template.put(brickClass, result);
+    public CachedTemplateProvider(TemplateProvider source) {
+        this.source = source;
     }
-    return result;
-  }
+
+    @Override
+    public synchronized BrickTemplate templateFor(Class<? extends MustacheBrick> brickClass) {
+        BrickTemplate result = class2template.get(brickClass);
+        if (result == null) {
+            result = source.templateFor(brickClass);
+            class2template.put(brickClass, result);
+        }
+        return result;
+    }
 }

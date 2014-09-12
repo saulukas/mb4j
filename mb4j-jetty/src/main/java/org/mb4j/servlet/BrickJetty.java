@@ -11,69 +11,70 @@ import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.component.viewmap.ViewMapBuilder;
 
 public class BrickJetty {
-  final ViewMap routes;
-  BrickRenderer renderer = RendererUtils.renderer4Development();
-  int port = 8080;
-  String contextPath = "/";
 
-  private BrickJetty(ViewMap routes) {
-    this.routes = routes;
-  }
+    final ViewMap routes;
+    BrickRenderer renderer = RendererUtils.renderer4Development();
+    int port = 8080;
+    String contextPath = "/";
 
-  public static BrickJetty brickJetty(ViewMap routes) {
-    return new BrickJetty(routes);
-  }
-
-  public static BrickJetty brickJetty(ViewMapBuilder routesBuilder) {
-    return brickJetty(new ViewMap(routesBuilder));
-  }
-
-  public BrickJetty port(int port) {
-    this.port = port;
-    return this;
-  }
-
-  public BrickJetty contextPath(String contextPath) {
-    this.contextPath = contextPath;
-    return this;
-  }
-
-  public void start() {
-    try {
-      doStart();
-    } catch (Exception ex) {
-      throw new RuntimeException(ex);
+    private BrickJetty(ViewMap routes) {
+        this.routes = routes;
     }
-  }
 
-  void doStart() throws Exception {
-    long startNanos = System.nanoTime();
-    // Server
-    Server server = new Server(port);
-    // Brick filter
-    BrickServletFilter filter = new BrickServletFilter(renderer, routes);
-    // Servlet context
-    ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    context.setContextPath(contextPath);
-    context.addFilter(new FilterHolder(filter), "/*", EnumSet.of(
-        DispatcherType.INCLUDE,
-        DispatcherType.REQUEST));
-    server.setHandler(context);
-    // starting...
-    System.out.println("---- starting jetty ...");
-    server.start();
-    long deltaMillis = (System.nanoTime() - startNanos) / 1000 / 1000;
-    System.out.println(""
-        + "\n---- starting jetty ... ok (" + deltaMillis + " ms)"
-        + "\n----"
-        + "\n----     http://localhost:" + port + contextPath
-        + "\n----"
-        + "\n---- press ENTER to stop jetty");
-    System.in.read();
-    // stopping ...
-    System.out.println("---- stopping jetty ...");
-    server.stop();
-    server.join();
-    System.out.println("---- stopping jetty ... ok");
-  }
+    public static BrickJetty brickJetty(ViewMap routes) {
+        return new BrickJetty(routes);
+    }
+
+    public static BrickJetty brickJetty(ViewMapBuilder routesBuilder) {
+        return brickJetty(new ViewMap(routesBuilder));
+    }
+
+    public BrickJetty port(int port) {
+        this.port = port;
+        return this;
+    }
+
+    public BrickJetty contextPath(String contextPath) {
+        this.contextPath = contextPath;
+        return this;
+    }
+
+    public void start() {
+        try {
+            doStart();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    void doStart() throws Exception {
+        long startNanos = System.nanoTime();
+        // Server
+        Server server = new Server(port);
+        // Brick filter
+        BrickServletFilter filter = new BrickServletFilter(renderer, routes);
+        // Servlet context
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath(contextPath);
+        context.addFilter(new FilterHolder(filter), "/*", EnumSet.of(
+                DispatcherType.INCLUDE,
+                DispatcherType.REQUEST));
+        server.setHandler(context);
+        // starting...
+        System.out.println("---- starting jetty ...");
+        server.start();
+        long deltaMillis = (System.nanoTime() - startNanos) / 1000 / 1000;
+        System.out.println(""
+                + "\n---- starting jetty ... ok (" + deltaMillis + " ms)"
+                + "\n----"
+                + "\n----     http://localhost:" + port + contextPath
+                + "\n----"
+                + "\n---- press ENTER to stop jetty");
+        System.in.read();
+        // stopping ...
+        System.out.println("---- stopping jetty ...");
+        server.stop();
+        server.join();
+        System.out.println("---- stopping jetty ... ok");
+    }
 }

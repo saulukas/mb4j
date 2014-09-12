@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface TemplateEncoding {
-  String DEFAULT = "utf-8";
 
-  String value() default DEFAULT;
+    String DEFAULT = "utf-8";
+
+    String value() default DEFAULT;
 }

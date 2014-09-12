@@ -5,19 +5,20 @@ import org.mb4j.brick.template.TemplateType;
 
 @TemplateType(".mustache")
 public class RecursiveBrick extends MustacheBrick {
-  final RecursiveBrick next;
-  final String message;
 
-  public RecursiveBrick(String message) {
-    this(message, null);
-  }
+    final RecursiveBrick next;
+    final String message;
 
-  public RecursiveBrick(String message, RecursiveBrick next) {
-    this.message = message;
-    this.next = next;
-  }
+    public RecursiveBrick(String message) {
+        this(message, null);
+    }
 
-  boolean hasNext() {
-    return next != null;
-  }
+    public RecursiveBrick(String message, RecursiveBrick next) {
+        this.message = message;
+        this.next = next;
+    }
+
+    boolean hasNext() {
+        return next != null;
+    }
 }

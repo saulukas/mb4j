@@ -8,40 +8,41 @@ import java.util.List;
 import java.util.Map;
 
 public class FormFieldValueNode {
-  public String value = null;
-  public Map<String, FormFieldValueNode> children = null;
 
-  FormFieldValueNode findOrCreateChildFor(String nameSegment) {
-    if (children == null) {
-      children = new HashMap<>();
-    }
-    FormFieldValueNode child = children.get(nameSegment);
-    if (child == null) {
-      child = new FormFieldValueNode();
-      children.put(nameSegment, child);
-    }
-    return child;
-  }
+    public String value = null;
+    public Map<String, FormFieldValueNode> children = null;
 
-  @Override
-  public String toString() {
-    return toString("");
-  }
-
-  public String toString(String margin) {
-    String result = (value == null ? "" : " = [" + value + "]");
-    if (children != null) {
-      List<String> childNames = newArrayList(children.keySet());
-      Collections.sort(childNames);
-      Iterator<String> namesIterator = childNames.iterator();
-      while (namesIterator.hasNext()) {
-        String childName = namesIterator.next();
-        FormFieldValueNode child = children.get(childName);
-        //result += "\n" + margin + "|";
-        result += "\n" + margin + "+-- " + childName
-            + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));
-      }
+    FormFieldValueNode findOrCreateChildFor(String nameSegment) {
+        if (children == null) {
+            children = new HashMap<>();
+        }
+        FormFieldValueNode child = children.get(nameSegment);
+        if (child == null) {
+            child = new FormFieldValueNode();
+            children.put(nameSegment, child);
+        }
+        return child;
     }
-    return result;
-  }
+
+    @Override
+    public String toString() {
+        return toString("");
+    }
+
+    public String toString(String margin) {
+        String result = (value == null ? "" : " = [" + value + "]");
+        if (children != null) {
+            List<String> childNames = newArrayList(children.keySet());
+            Collections.sort(childNames);
+            Iterator<String> namesIterator = childNames.iterator();
+            while (namesIterator.hasNext()) {
+                String childName = namesIterator.next();
+                FormFieldValueNode child = children.get(childName);
+                //result += "\n" + margin + "|";
+                result += "\n" + margin + "+-- " + childName
+                        + child.toString(margin + (namesIterator.hasNext() ? "|   " : "    "));
+            }
+        }
+        return result;
+    }
 }

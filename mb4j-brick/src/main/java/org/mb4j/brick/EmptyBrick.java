@@ -4,13 +4,14 @@ import com.samskivert.mustache.Template;
 import java.io.Writer;
 
 public class EmptyBrick extends MustacheBrick {
-  private static final EmptyBrick INSTANCE = new EmptyBrick();
 
-  public static EmptyBrick emptyBrick() {
-    return INSTANCE;
-  }
+    private static final EmptyBrick INSTANCE = new EmptyBrick();
 
-  @Override
-  public void execute(Template.Fragment frag, Writer out) {
-  }
+    public static EmptyBrick emptyBrick() {
+        return INSTANCE;
+    }
+
+    @Override
+    public void execute(Template.Fragment frag, Writer out) {
+    }
 }

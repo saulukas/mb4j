@@ -1,26 +1,27 @@
 package org.mb4j.component.form.data;
 
-import org.mb4j.component.form.data.binding.FormFieldValueNode;
 import java.util.HashMap;
 import java.util.Map;
+import org.mb4j.component.form.data.binding.FormFieldValueNode;
 
 public abstract class AbstractFormData {
-  public Map<String, FormField> asFieldMap() {
-    Map<String, FormField> formFields = new HashMap<>();
-    collectFields("", formFields);
-    return formFields;
-  }
 
-  abstract void collectFields(String nameInParent, Map<String, FormField> fieldMap);
+    public Map<String, FormField> asFieldMap() {
+        Map<String, FormField> formFields = new HashMap<>();
+        collectFields("", formFields);
+        return formFields;
+    }
 
-  abstract void setValuesFrom(FormFieldValueNode node);
+    abstract void collectFields(String nameInParent, Map<String, FormField> fieldMap);
 
-  public abstract String toString(String margin);
+    abstract void setValuesFrom(FormFieldValueNode node);
 
-  public abstract boolean hasErrors();
+    public abstract String toString(String margin);
 
-  @Override
-  public String toString() {
-    return toString("");
-  }
+    public abstract boolean hasErrors();
+
+    @Override
+    public String toString() {
+        return toString("");
+    }
 }

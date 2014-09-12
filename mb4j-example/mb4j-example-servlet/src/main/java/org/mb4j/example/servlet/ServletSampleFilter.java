@@ -6,8 +6,9 @@ import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.servlet.BrickServletFilter;
 
 public class ServletSampleFilter extends BrickServletFilter {
-  @Inject
-  public ServletSampleFilter(BrickRenderer renderer, ViewMap viewMap) {
-    super(renderer, viewMap);
-  }
+
+    @Inject
+    public ServletSampleFilter(BrickRenderer renderer, ViewMap viewMap) {
+        super(renderer, viewMap);
+    }
 }

@@ -13,29 +13,32 @@ import org.mb4j.example.liferay.event.list.EventListView;
 import org.mb4j.example.liferay.event.list.EventListViewModule;
 
 public class EventPortlet extends SampleBasePortlet {
-  @Singleton
-  public static class Views extends ViewMap {
-    @Inject
-    public Views(
-        EventListView eventList,
-        EventEditView eventEdit) {
-      super(
-          routeDefaultHomeTo(eventList)
-          .route(urlPathOf("edit/*"), eventEdit)
-      );
-    }
-  }
 
-  public EventPortlet() {
-    super("events", Views.class);
-  }
+    @Singleton
+    public static class Views extends ViewMap {
 
-  public static class Module extends AbstractModule {
-    @Override
-    protected void configure() {
-      install(new EventListViewModule());
-      install(new EventEditViewModule());
-      bind(Views.class);
+        @Inject
+        public Views(
+                EventListView eventList,
+                EventEditView eventEdit) {
+            super(
+                    routeDefaultHomeTo(eventList)
+                    .route(urlPathOf("edit/*"), eventEdit)
+            );
+        }
     }
-  }
+
+    public EventPortlet() {
+        super("events", Views.class);
+    }
+
+    public static class Module extends AbstractModule {
+
+        @Override
+        protected void configure() {
+            install(new EventListViewModule());
+            install(new EventEditViewModule());
+            bind(Views.class);
+        }
+    }
 }

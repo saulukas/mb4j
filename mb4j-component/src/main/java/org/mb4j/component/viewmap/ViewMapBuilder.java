@@ -1,58 +1,59 @@
 package org.mb4j.component.viewmap;
 
 import java.util.Collection;
+import org.mb4j.component.Controller;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
-import org.mb4j.component.Controller;
 
 public class ViewMapBuilder {
-  private static final UrlPath HOME_VIEW_PATH = UrlPath.empty();
-  private static final UrlPath DEFAULT_HOME_VIEW_PATH = UrlPathString.urlPathOf("*");
-  private final ViewMapNode root = ViewMapNode.createRoot();
-  private final ViewMapClasses viewClasses = new ViewMapClasses();
 
-  private ViewMapBuilder() {
-  }
+    private static final UrlPath HOME_VIEW_PATH = UrlPath.empty();
+    private static final UrlPath DEFAULT_HOME_VIEW_PATH = UrlPathString.urlPathOf("*");
+    private final ViewMapNode root = ViewMapNode.createRoot();
+    private final ViewMapClasses viewClasses = new ViewMapClasses();
 
-  public static ViewMapBuilder routeHomeTo(Controller homeView) {
-    return new ViewMapBuilder().route(HOME_VIEW_PATH, homeView);
-  }
+    private ViewMapBuilder() {
+    }
 
-  public static ViewMapBuilder routeDefaultHomeTo(Controller homeView) {
-    return new ViewMapBuilder().route(DEFAULT_HOME_VIEW_PATH, homeView);
-  }
+    public static ViewMapBuilder routeHomeTo(Controller homeView) {
+        return new ViewMapBuilder().route(HOME_VIEW_PATH, homeView);
+    }
 
-  public ViewMapBuilder route(String pathString, Controller view) {
-    return route(urlPathOf(pathString), view);
-  }
+    public static ViewMapBuilder routeDefaultHomeTo(Controller homeView) {
+        return new ViewMapBuilder().route(DEFAULT_HOME_VIEW_PATH, homeView);
+    }
 
-  public ViewMapBuilder route(UrlPath path, Controller view) {
-    BufferedUrlPathReader pathReader = BufferedUrlPathReader.of(path);
-    root.mount(pathReader, view);
-    viewClasses.mount(pathReader.processedPath(), view.getClass());
-    return this;
-  }
+    public ViewMapBuilder route(String pathString, Controller view) {
+        return route(urlPathOf(pathString), view);
+    }
 
-  MapUrlPath2View urlPath2View() {
-    return root;
-  }
+    public ViewMapBuilder route(UrlPath path, Controller view) {
+        BufferedUrlPathReader pathReader = BufferedUrlPathReader.of(path);
+        root.mount(pathReader, view);
+        viewClasses.mount(pathReader.processedPath(), view.getClass());
+        return this;
+    }
 
-  MapViewClass2UrlPath viewClass2UrlPath() {
-    return viewClasses;
-  }
+    MapUrlPath2View urlPath2View() {
+        return root;
+    }
 
-  void collectViews(Collection<Controller> result) {
-    root.collectViews(result);
-  }
+    MapViewClass2UrlPath viewClass2UrlPath() {
+        return viewClasses;
+    }
 
-  @Override
-  public String toString() {
-    return root.toString();
-  }
+    void collectViews(Collection<Controller> result) {
+        root.collectViews(result);
+    }
 
-  public String toString(String margin) {
-    return root.toString(margin);
-  }
+    @Override
+    public String toString() {
+        return root.toString();
+    }
+
+    public String toString(String margin) {
+        return root.toString(margin);
+    }
 }
