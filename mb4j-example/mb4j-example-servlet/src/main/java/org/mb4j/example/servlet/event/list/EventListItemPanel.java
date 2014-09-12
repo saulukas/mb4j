@@ -12,15 +12,9 @@ import org.mb4j.example.servlet.event.edit.EventEditPage;
 @Singleton
 public class EventListItemPanel extends ComponentUsingReflection {
 
-    public static class Brick extends MustacheBrick {
 
-        Event event;
-        AssetUrl4Response eventImageUrl;
-        ControllerUrl4Response eventEditUrl;
-    }
-
-    public Brick bakeBrick(Request request, Event event) {
-        Brick brick = new Brick();
+    public EventListItemPanelBrick bakeBrick(Request request, Event event) {
+        EventListItemPanelBrick brick = new EventListItemPanelBrick();
         brick.event = event;
         brick.eventImageUrl = request.resolveAssetUrl(event.imageUrl);
         brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));

@@ -13,15 +13,6 @@ public class EventEditPage extends MasterLayoutPage {
     @Inject
     EventEditPanel contentPanel;
 
-    public static class Module extends AbstractModule {
-
-        @Override
-        protected void configure() {
-            bind(EventEditPage.class);
-            bind(EventEditPanel.class);
-            bind(EventEditFormHandler.class);
-        }
-    }
 
     public static ControllerUrl url(int eventId) {
         return ControllerUrl.of(EventEditPage.class, urlPath().with(String.valueOf(eventId)));

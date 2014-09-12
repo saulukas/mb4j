@@ -9,15 +9,9 @@ import org.mb4j.example.servlet.event.list.EventListPage;
 @Singleton
 public class HomeContentPanel {
 
-    public static class Brick extends MustacheBrick {
 
-        ControllerUrl4Response oneEventUrl;
-        ControllerUrl4Response twoEventsUrl;
-        ControllerUrl4Response allEventsUrl;
-    }
-
-    public Brick bakeBrick(Request request) {
-        Brick brick = new Brick();
+    public HomeContentPanelBrick bakeBrick(Request request) {
+        HomeContentPanelBrick brick = new HomeContentPanelBrick();
         brick.oneEventUrl = request.resolve(EventListPage.url(1));
         brick.twoEventsUrl = request.resolve(EventListPage.url(2));
         brick.allEventsUrl = request.resolve(EventListPage.url(EventListPage.SHOW_ALL));
