@@ -6,8 +6,6 @@ import java.util.Date;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.Request;
 import org.mb4j.component.Response;
-import org.mb4j.component.resource.ResourceMethod;
-import org.mb4j.component.resource.Resources4Response;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
@@ -15,13 +13,13 @@ public class TimeView extends PortletView {
 
     static class Brick extends MustacheBrick {
 
-        Resources4Response resources;
+        String timeResourceUrl;
     }
 
     @Override
     public MustacheBrick bakeBrick(Request request) {
         Brick brick = new Brick();
-        brick.resources = request.resolveResourcesOf(this);
+        brick.timeResourceUrl = request.resolveResourceUrl(this, "time");
         return brick;
     }
 

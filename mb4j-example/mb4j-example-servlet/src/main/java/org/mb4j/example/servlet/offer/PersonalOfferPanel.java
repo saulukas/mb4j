@@ -3,12 +3,12 @@ package org.mb4j.example.servlet.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.component.BrickBaker;
-import org.mb4j.component.ComponentUsingReflection;
+import org.mb4j.component.ReflectiveComponent;
 import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 
 @Singleton
-public class PersonalOfferPanel extends ComponentUsingReflection implements BrickBaker {
+public class PersonalOfferPanel extends ReflectiveComponent implements BrickBaker {
 
     @Override
     public PersonalOfferPanelBrick bakeBrick(Request request) {

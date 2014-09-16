@@ -16,8 +16,8 @@ import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.response.FormResponseRenderCurrentPage;
-import org.mb4j.component.resource.Resources4ResponseResolver;
-import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
+import org.mb4j.component.ResourceUrlResolver;
+import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
@@ -62,9 +62,9 @@ public class BrickServletFilter extends HttpFilter {
         //   --------------------------------
         //
         NamedParams queryParams = namedParamsFromRawQuery(httpRequest.getQueryString());
-        String resourceParam = queryParams.valueOrNullOf(Resources4ResponseResolver.RESOURCE_PARAM_NAME);
+        String resourceParam = queryParams.valueOrNullOf(ResourceUrlResolver.RESOURCE_PARAM_NAME);
         if (resourceParam != null) {
-            Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
+            ResourceUrlResolver.ParamValue value = ParamValue.from(resourceParam);
             Component componentWithResources
                     = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
             Request request = createRequest(servletPath, queryParams, resolved, httpRequest);

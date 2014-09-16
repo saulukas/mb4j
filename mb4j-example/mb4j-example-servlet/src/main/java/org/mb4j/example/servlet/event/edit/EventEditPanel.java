@@ -2,11 +2,11 @@ package org.mb4j.example.servlet.event.edit;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.mb4j.component.ComponentUsingReflection;
+import org.mb4j.component.ReflectiveComponent;
 import org.mb4j.component.Request;
 
 @Singleton
-public class EventEditPanel extends ComponentUsingReflection {
+public class EventEditPanel extends ReflectiveComponent {
 
     @Inject
     EventEditFormHandler formHandler;

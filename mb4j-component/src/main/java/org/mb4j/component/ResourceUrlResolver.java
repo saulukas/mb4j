@@ -1,11 +1,9 @@
-package org.mb4j.component.resource;
+package org.mb4j.component;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.mb4j.component.Component;
 import org.mb4j.component.viewmap.MapComponentClass2Name;
 
-public abstract class Resources4ResponseResolver {
+public abstract class ResourceUrlResolver {
 
     public static final String RESOURCE_PARAM_NAME = "mb(r)";
     private final MapComponentClass2Name componentWithResourcesClass2Name;
@@ -35,20 +33,14 @@ public abstract class Resources4ResponseResolver {
         }
     }
 
-    public Resources4ResponseResolver(MapComponentClass2Name mapper) {
+    public ResourceUrlResolver(MapComponentClass2Name mapper) {
         this.componentWithResourcesClass2Name = mapper;
     }
 
-    public Resources4Response resolveResourcesFor(Component component) {
-        Collection<Resource4Response> resources = new ArrayList<>();
+    public String resolveResourceUrl(Component component, String resourceName) {
         String componentName = componentWithResourcesClass2Name.componentNameOf(component.getClass());
-        for (Resource resource : component.getResources()) {
-            ParamValue value = new ParamValue(componentName, resource.name);
-            resources.add(new Resource4Response(
-                    resolveResourceUrl(RESOURCE_PARAM_NAME, value.toString()),
-                    resource));
-        }
-        return new Resources4Response(resources);
+        ParamValue paramValue = new ParamValue(componentName, resourceName);
+        return resolveResourceUrl(RESOURCE_PARAM_NAME, paramValue.toString());
     }
 
     protected abstract String resolveResourceUrl(String resourceParamName, String resourceParamValue);

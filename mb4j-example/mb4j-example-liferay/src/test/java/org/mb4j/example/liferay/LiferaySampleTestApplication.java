@@ -3,7 +3,7 @@ package org.mb4j.example.liferay;
 import com.google.inject.Injector;
 import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
-import org.mb4j.component.resource.Resources4ResponseResolver;
+import org.mb4j.component.ResourceUrlResolver;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.example.liferay.SampleSingleViewPortlet.singleViewMapFor;
@@ -31,14 +31,13 @@ public class LiferaySampleTestApplication {
         String path2assets = "../path2assets/../";
         String authToken = "12auth34";
         String namespace = "_namespace_";
-        return PortletViewRequest.of(
-                viewUrl,
+        return PortletViewRequest.of(viewUrl,
                 path2home,
                 path2assets,
                 new AttributesMap(),
                 namespace,
                 authToken,
-                new Resources4ResponseResolver(viewMap.componentWithResourcesClass2Name()) {
+                new ResourceUrlResolver(viewMap.componentWithResourcesClass2Name()) {
                     @Override
                     protected String resolveResourceUrl(String resourceParamName, String resourceParamValue) {
                         return "./resourceUrl4Tests/?" + resourceParamName + "=" + resourceParamValue;

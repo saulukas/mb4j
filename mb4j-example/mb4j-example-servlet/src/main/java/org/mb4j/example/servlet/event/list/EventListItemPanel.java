@@ -1,13 +1,13 @@
 package org.mb4j.example.servlet.event.list;
 
 import com.google.inject.Singleton;
-import org.mb4j.component.ComponentUsingReflection;
+import org.mb4j.component.ReflectiveComponent;
 import org.mb4j.component.Request;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.servlet.event.edit.EventEditPage;
 
 @Singleton
-public class EventListItemPanel extends ComponentUsingReflection {
+public class EventListItemPanel extends ReflectiveComponent {
 
 
     public EventListItemPanelBrick bakeBrick(Request request, Event event) {

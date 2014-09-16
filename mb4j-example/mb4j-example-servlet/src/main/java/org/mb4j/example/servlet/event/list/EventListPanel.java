@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
-import org.mb4j.component.ComponentUsingReflection;
+import org.mb4j.component.ReflectiveComponent;
 import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.example.domain.data.Event;
@@ -12,7 +12,7 @@ import org.mb4j.example.domain.queries.EventListQuery;
 import org.mb4j.example.servlet.event.list.EventListPanelBrick.DecoratedListItem;
 
 @Singleton
-public class EventListPanel extends ComponentUsingReflection {
+public class EventListPanel extends ReflectiveComponent {
 
     @Inject
     EventListQuery eventListQuery;

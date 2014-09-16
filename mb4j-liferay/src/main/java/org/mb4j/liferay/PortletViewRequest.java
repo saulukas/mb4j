@@ -4,7 +4,7 @@ import org.mb4j.component.ViewUrl;
 import org.mb4j.component.ViewUrl4ResponseResolver;
 import org.mb4j.component.Request;
 import org.mb4j.component.asset.AssetUrl4ResponseResolver;
-import org.mb4j.component.resource.Resources4ResponseResolver;
+import org.mb4j.component.ResourceUrlResolver;
 import org.mb4j.component.utils.Attributes;
 import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.liferay.adapters.PortletFormData4ResponseResolver;
@@ -18,7 +18,7 @@ public class PortletViewRequest {
             Attributes attributes,
             String namespace,
             String authTokenOrNull,
-            Resources4ResponseResolver resourcesResolver,
+            ResourceUrlResolver resourcesResolver,
             ViewMap viewMap
     ) {
         return new Request(

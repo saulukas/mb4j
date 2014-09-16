@@ -24,8 +24,8 @@ import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.response.FormResponseRenderCurrentPage;
-import org.mb4j.component.resource.Resources4ResponseResolver;
-import org.mb4j.component.resource.Resources4ResponseResolver.ParamValue;
+import org.mb4j.component.ResourceUrlResolver;
+import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
@@ -91,11 +91,11 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
 
     @Override
     public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException, IOException {
-        String resourceParam = resourceRequest.getParameter(Resources4ResponseResolver.RESOURCE_PARAM_NAME);
+        String resourceParam = resourceRequest.getParameter(ResourceUrlResolver.RESOURCE_PARAM_NAME);
         if (resourceParam == null) {
             return;
         }
-        Resources4ResponseResolver.ParamValue value = ParamValue.from(resourceParam);
+        ResourceUrlResolver.ParamValue value = ParamValue.from(resourceParam);
         Component componentWithResources
                 = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
         MapUrlPath2View.Result resolved = resolveView(resourceRequest);

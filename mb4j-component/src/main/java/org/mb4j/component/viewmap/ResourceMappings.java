@@ -24,7 +24,7 @@ public class ResourceMappings implements MapComponentClass2Name, MapComponentNam
         }
         Set<Component> processedComponents = new HashSet<>();
         for (Component component : components) {
-            if (processedComponents.contains(component) || !component.hasResources()) {
+            if (processedComponents.contains(component) || !hasResources(component)) {
                 continue;
             }
             processedComponents.add(component);
@@ -72,5 +72,9 @@ public class ResourceMappings implements MapComponentClass2Name, MapComponentNam
                     + " " + component.getResourceNames();
         }
         return result;
+    }
+
+    private boolean hasResources(Component component) {
+        return !component.getResourceNames().isEmpty();
     }
 }

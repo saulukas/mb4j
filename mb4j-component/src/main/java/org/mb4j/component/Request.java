@@ -5,8 +5,6 @@ import org.mb4j.component.asset.AssetUrl4ResponseResolver;
 import org.mb4j.component.form.Form;
 import org.mb4j.component.form.Form4Response;
 import org.mb4j.component.form.Form4ResponseResolver;
-import org.mb4j.component.resource.Resources4Response;
-import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPathReader;
 import org.mb4j.component.utils.Attributes;
@@ -19,7 +17,7 @@ public class Request {
     private final AssetUrl4ResponseResolver assetUrlResolver;
     private final ViewUrl4ResponseResolver viewUrlResolver;
     private final Form4ResponseResolver formDataResolver;
-    private final Resources4ResponseResolver resourcesResolver;
+    private final ResourceUrlResolver resourcesResolver;
 
     public Request(
             ViewUrl viewUrl,
@@ -27,7 +25,7 @@ public class Request {
             AssetUrl4ResponseResolver assetUrlResolver,
             ViewUrl4ResponseResolver viewUrlResolver,
             Form4ResponseResolver formDataResolver,
-            Resources4ResponseResolver resourcesResolver
+            ResourceUrlResolver resourcesResolver
     ) {
         this.viewUrl = viewUrl;
         this.urlPathReader = BufferedUrlPathReader.of(viewUrl.params.path);
@@ -62,8 +60,8 @@ public class Request {
         return formDataResolver.resolve(formData);
     }
 
-    public Resources4Response resolveResourcesOf(Component component) {
-        return resourcesResolver.resolveResourcesFor(component);
+    public String resolveResourceUrl(Component component, String resourceName) {
+        return resourcesResolver.resolveResourceUrl(component, resourceName);
     }
 
     public Attributes attributes() {
