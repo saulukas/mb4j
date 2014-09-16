@@ -9,14 +9,13 @@ import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.mb4j.component.form.FormHandler;
 import org.mb4j.component.utils.ReflectionUtils;
-import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodNamesOf;
-import static org.mb4j.component.utils.ReflectionUtils.getAnnotatedMethodsOf;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class ReflectiveComponent implements Component {
@@ -24,6 +23,23 @@ public class ReflectiveComponent implements Component {
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ResourceMethod {
+    }
+
+    private final Map<String, Method> resourceMethodMap = new HashMap<>();
+
+    public ReflectiveComponent() {
+        initResourceMehodMap();
+    }
+
+    private void initResourceMehodMap() {
+        List<Method> resourceMethods = ReflectionUtils.getAnnotatedMethodsOf(
+                getClass(), ReflectiveComponent.class, ResourceMethod.class);
+        for (Method method : resourceMethods) {
+            if (!Objects.equal(method.getReturnType(), void.class)) {
+                throw new NonVoidResourceMethodException(method);
+            }
+            resourceMethodMap.put(method.getName(), method);
+        }
     }
 
     @Override
@@ -39,12 +55,12 @@ public class ReflectiveComponent implements Component {
 
     @Override
     public Set<String> getResourceNames() {
-        return getAnnotatedMethodNamesOf(getClass(), ReflectiveComponent.class, ResourceMethod.class);
+        return resourceMethodMap.keySet();
     }
 
     @Override
     public void serveResource(String name, Request request, Response response) throws IOException {
-        Method method = getResourceMethodByName(name);
+        Method method = resourceMethodMap.get(name);
         try {
             method.setAccessible(true);
             method.invoke(this, request, response);
@@ -86,15 +102,5 @@ public class ReflectiveComponent implements Component {
 
     private Map<String, ReflectiveComponent> getChildren() {
         return ReflectionUtils.getNonStaticFieldsOf(this, ReflectiveComponent.class, ReflectiveComponent.class);
-    }
-
-    private Method getResourceMethodByName(String name) {
-        List<Method> methods = getAnnotatedMethodsOf(getClass(), ReflectiveComponent.class, ResourceMethod.class);
-        for (Method method : methods) {
-            if (Objects.equal(name, method.getName())) {
-                return method;
-            }
-        }
-        return null;
     }
 }
