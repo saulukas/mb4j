@@ -4,8 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.mb4j.component.TypicalControllers.HOME;
-import static org.mb4j.component.TypicalControllers.TUTORIAL;
+import static org.mb4j.component.TypicalViews.HOME;
+import static org.mb4j.component.TypicalViews.TUTORIAL;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 

@@ -1,6 +1,6 @@
 package org.mb4j.component.viewmap;
 
-import org.mb4j.component.Controller;
+import org.mb4j.component.View;
 import org.mb4j.component.url.UrlPath;
 
 public interface MapUrlPath2View {
@@ -9,11 +9,11 @@ public interface MapUrlPath2View {
 
     class Result {
 
-        public final Controller view;
+        public final View view;
         public final UrlPath mappedPath;
         public final UrlPath paramsPath;
 
-        public Result(Controller view, UrlPath mappedPath, UrlPath paramsPath) {
+        public Result(View view, UrlPath mappedPath, UrlPath paramsPath) {
             this.view = view;
             this.mappedPath = mappedPath;
             this.paramsPath = paramsPath;

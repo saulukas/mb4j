@@ -4,13 +4,13 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.mb4j.component.Controller;
-import static org.mb4j.component.TypicalControllers.HOME;
-import static org.mb4j.component.TypicalControllers.TUTORIAL;
-import static org.mb4j.component.TypicalControllers.TUTORIAL_ON_EVENTS;
-import static org.mb4j.component.TypicalControllers.TUTORIAL_ON_SOCKETS;
-import static org.mb4j.component.TypicalControllers.TUTORIAL_OTHER_STUFF;
-import static org.mb4j.component.TypicalControllers.TUTORIAL_TOPIC;
+import org.mb4j.component.View;
+import static org.mb4j.component.TypicalViews.HOME;
+import static org.mb4j.component.TypicalViews.TUTORIAL;
+import static org.mb4j.component.TypicalViews.TUTORIAL_ON_EVENTS;
+import static org.mb4j.component.TypicalViews.TUTORIAL_ON_SOCKETS;
+import static org.mb4j.component.TypicalViews.TUTORIAL_OTHER_STUFF;
+import static org.mb4j.component.TypicalViews.TUTORIAL_TOPIC;
 import static org.mb4j.component.url.UrlPathString.pathStringOf;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 
@@ -50,11 +50,11 @@ public class ViewMapBuilderTest {
         assertThat(viewAt(map, "tutorial/other/stuff"), sameInstance(TUTORIAL_OTHER_STUFF));
     }
 
-    private String pathString(MapViewClass2UrlPath map, Controller view) {
+    private String pathString(MapViewClass2UrlPath map, View view) {
         return pathStringOf(map.urlPathFor(view.getClass()));
     }
 
-    private Controller viewAt(MapUrlPath2View map, String pathString) {
+    private View viewAt(MapUrlPath2View map, String pathString) {
         return map.viewAt(urlPathOf(pathString)).view;
     }
 }

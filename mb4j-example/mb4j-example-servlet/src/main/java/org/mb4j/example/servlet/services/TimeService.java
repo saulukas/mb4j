@@ -2,7 +2,7 @@ package org.mb4j.example.servlet.services;
 
 import com.google.inject.Singleton;
 import java.util.Date;
-import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.component.Response;
 import org.mb4j.servlet.Service;
@@ -10,8 +10,8 @@ import org.mb4j.servlet.Service;
 @Singleton
 public class TimeService extends Service {
 
-    public static ControllerUrl url() {
-        return ControllerUrl.of(TimeService.class);
+    public static ViewUrl url() {
+        return ViewUrl.of(TimeService.class);
     }
 
     @Override

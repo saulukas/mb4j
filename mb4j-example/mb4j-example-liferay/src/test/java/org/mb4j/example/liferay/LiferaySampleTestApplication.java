@@ -1,7 +1,7 @@
 package org.mb4j.example.liferay;
 
 import com.google.inject.Injector;
-import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.component.resource.Resources4ResponseResolver;
 import org.mb4j.component.utils.AttributesMap;
@@ -18,15 +18,15 @@ public class LiferaySampleTestApplication {
         return injector.getInstance(klass);
     }
 
-    public static Request singleViewRequestFor(ControllerUrl viewUrl) {
-        return requestFor(singleViewMapFor((Class<? extends PortletView>) viewUrl.controllerClass), viewUrl);
+    public static Request singleViewRequestFor(ViewUrl viewUrl) {
+        return requestFor(singleViewMapFor((Class<? extends PortletView>) viewUrl.viewClass), viewUrl);
     }
 
-    public static Request requestFor(Class<? extends ViewMap> viewMapClass, ControllerUrl viewUrl) {
+    public static Request requestFor(Class<? extends ViewMap> viewMapClass, ViewUrl viewUrl) {
         return requestFor(inject(viewMapClass), viewUrl);
     }
 
-    public static Request requestFor(ViewMap viewMap, ControllerUrl viewUrl) {
+    public static Request requestFor(ViewMap viewMap, ViewUrl viewUrl) {
         String path2home = "../path2home/../";
         String path2assets = "../path2assets/../";
         String authToken = "12auth34";

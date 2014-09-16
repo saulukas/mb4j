@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import org.mb4j.component.Controller;
+import org.mb4j.component.View;
 import org.mb4j.component.url.BufferedUrlPathReader;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.url.UrlPathString;
@@ -25,7 +25,7 @@ class ViewMapNode implements MapUrlPath2View {
     private final String pathSegment;
     private boolean isAsterisk = false;
     @Nullable
-    private Controller view = null;
+    private View view = null;
     @Nullable
     private Map<String, ViewMapNode> children = null;
 
@@ -68,11 +68,11 @@ class ViewMapNode implements MapUrlPath2View {
                 reader.remainingPath());
     }
 
-    void mount(UrlPath path, Controller view) {
+    void mount(UrlPath path, View view) {
         mount(BufferedUrlPathReader.of(path), view);
     }
 
-    void mount(BufferedUrlPathReader reader, Controller view) {
+    void mount(BufferedUrlPathReader reader, View view) {
         if (!reader.hasMoreSegments()) {
             setView(reader, view);
             return;
@@ -96,7 +96,7 @@ class ViewMapNode implements MapUrlPath2View {
         child.mount(reader, view);
     }
 
-    private void setView(BufferedUrlPathReader reader, Controller view) {
+    private void setView(BufferedUrlPathReader reader, View view) {
         if (hasView()) {
             throw new RuntimeException("Can not mount view " + debugNameOf(view)
                     + "\n   at path [" + pathStringOf(reader.processedPath()) + "]."
@@ -117,7 +117,7 @@ class ViewMapNode implements MapUrlPath2View {
         return children != null && !children.isEmpty();
     }
 
-    private String debugNameOf(Controller view) {
+    private String debugNameOf(View view) {
         return view == null ? "null" : view.getClass().getName();
     }
 
@@ -136,7 +136,7 @@ class ViewMapNode implements MapUrlPath2View {
         return children;
     }
 
-    public void collectViews(Collection<Controller> result) {
+    public void collectViews(Collection<View> result) {
         if (view != null) {
             result.add(view);
         }

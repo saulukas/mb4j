@@ -8,20 +8,20 @@ import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.viewmap.MapViewClass2UrlPath;
 
-public class ControllerUrl4ResponseResolver {
+public class ViewUrl4ResponseResolver {
 
     private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
     private final String path2home;
     private final MapViewClass2UrlPath viewClass2UrlPath;
 
-    public ControllerUrl4ResponseResolver(String path2home, MapViewClass2UrlPath viewClass2UrlPath) {
+    public ViewUrl4ResponseResolver(String path2home, MapViewClass2UrlPath viewClass2UrlPath) {
         this.path2home = path2home;
         this.viewClass2UrlPath = viewClass2UrlPath;
     }
 
-    public ControllerUrl4Response resolve(ControllerUrl url) {
+    public ViewUrl4Response resolve(ViewUrl url) {
         StringBuilder result = new StringBuilder(path2home);
-        appendEscapedPath(result, viewClass2UrlPath.urlPathFor(url.controllerClass));
+        appendEscapedPath(result, viewClass2UrlPath.urlPathFor(url.viewClass));
         if (!url.params.path.isEmpty()) {
             result.append('/');
             appendEscapedPath(result, url.params.path);
@@ -31,7 +31,7 @@ public class ControllerUrl4ResponseResolver {
         if (Strings.isNullOrEmpty(urlString)) {
             urlString = "./";
         }
-        return new ControllerUrl4Response(urlString);
+        return new ViewUrl4Response(urlString);
     }
 
     private void appendNamedParamsString(StringBuilder result, NamedParams params) {

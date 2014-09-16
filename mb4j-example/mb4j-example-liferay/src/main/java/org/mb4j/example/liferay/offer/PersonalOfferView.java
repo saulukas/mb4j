@@ -3,15 +3,15 @@ package org.mb4j.example.liferay.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ControllerUrl;
-import org.mb4j.component.ControllerUrl4Response;
+import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewUrl4Response;
 import org.mb4j.component.Request;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
 public class PersonalOfferView extends PortletView {
 
-    public static ControllerUrl url(String offerText) {
+    public static ViewUrl url(String offerText) {
         return new Params(offerText).toUrl();
     }
 
@@ -20,7 +20,7 @@ public class PersonalOfferView extends PortletView {
         boolean offerVisible = false;
         String offerText;
         String offerLinkText;
-        ControllerUrl4Response toggleOfferUrl;
+        ViewUrl4Response toggleOfferUrl;
     }
 
     @Override
@@ -52,11 +52,11 @@ public class PersonalOfferView extends PortletView {
             return Strings.isNullOrEmpty(offerText);
         }
 
-        ControllerUrl toUrl() {
-            return urlMergedWith(ControllerUrl.of(PersonalOfferView.class));
+        ViewUrl toUrl() {
+            return urlMergedWith(ViewUrl.of(PersonalOfferView.class));
         }
 
-        ControllerUrl urlMergedWith(ControllerUrl currentUrl) {
+        ViewUrl urlMergedWith(ViewUrl currentUrl) {
             return isOfferTextEmpty()
                     ? currentUrl.withDeletedParam(OFFER_TEXT)
                     : currentUrl.withReplacedParam(OFFER_TEXT, offerText);

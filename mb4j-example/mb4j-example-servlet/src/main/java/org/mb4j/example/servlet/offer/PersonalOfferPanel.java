@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.component.BrickBaker;
 import org.mb4j.component.ComponentUsingReflection;
-import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 
 @Singleton
@@ -32,7 +32,7 @@ public class PersonalOfferPanel extends ComponentUsingReflection implements Bric
         return Strings.isNullOrEmpty(params.offerText);
     }
 
-    private ControllerUrl initTogglePersonalOfferUrl(Request request, String newOffer) {
+    private ViewUrl initTogglePersonalOfferUrl(Request request, String newOffer) {
         return Strings.isNullOrEmpty(newOffer)
                 ? request.viewUrl().withDeletedParam(PersonalOfferPanelParams.OFFER_TEXT)
                 : request.viewUrl().withReplacedParam(PersonalOfferPanelParams.OFFER_TEXT, newOffer);

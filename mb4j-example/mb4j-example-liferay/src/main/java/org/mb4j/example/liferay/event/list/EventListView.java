@@ -5,8 +5,8 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ControllerUrl;
-import org.mb4j.component.ControllerUrl4Response;
+import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewUrl4Response;
 import org.mb4j.component.Request;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
@@ -23,18 +23,18 @@ public class EventListView extends PortletView {
     @Inject
     EventListItemPanel itemPanel;
 
-    public static ControllerUrl url() {
+    public static ViewUrl url() {
         return url(Params.SHOW_ALL);
     }
 
-    public static ControllerUrl url(int maxEventCount) {
-        return ControllerUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
+    public static ViewUrl url(int maxEventCount) {
+        return ViewUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
     }
 
     static class Brick extends MustacheBrick {
 
         List<DecoratedListItem> list;
-        ControllerUrl4Response reverseOrderUrl;
+        ViewUrl4Response reverseOrderUrl;
 
         static class DecoratedListItem {
 
@@ -69,7 +69,7 @@ public class EventListView extends PortletView {
         return list;
     }
 
-    private ControllerUrl initReverseOrderUrl(Params params, Request request) {
+    private ViewUrl initReverseOrderUrl(Params params, Request request) {
         boolean newReverseOrder = !params.reverseOrder;
         return newReverseOrder
                 ? request.viewUrl().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")

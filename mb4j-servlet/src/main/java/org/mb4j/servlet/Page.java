@@ -4,11 +4,11 @@ import org.mb4j.brick.EmptyBrick;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.BrickBaker;
 import org.mb4j.component.ComponentUsingReflection;
-import org.mb4j.component.Controller;
+import org.mb4j.component.View;
 import org.mb4j.component.Request;
 import org.mb4j.component.Response;
 
-public class Page extends ComponentUsingReflection implements Controller, BrickBaker {
+public class Page extends ComponentUsingReflection implements View, BrickBaker {
 
     @Override
     public void handle(Request request, Response response) {

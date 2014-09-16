@@ -1,6 +1,6 @@
 package org.mb4j.component;
 
-public interface Controller {
+public interface View {
 
     void handle(Request request, Response response);
 }

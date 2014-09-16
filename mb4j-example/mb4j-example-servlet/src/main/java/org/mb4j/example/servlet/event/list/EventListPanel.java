@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.component.ComponentUsingReflection;
-import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventListQuery;
@@ -41,7 +41,7 @@ public class EventListPanel extends ComponentUsingReflection {
         return list;
     }
 
-    private ControllerUrl initReverseOrderUrl(EventListPanelParams params, Request request) {
+    private ViewUrl initReverseOrderUrl(EventListPanelParams params, Request request) {
         boolean newReverseOrder = !params.reverseOrder;
         return newReverseOrder
                 ? request.viewUrl().withReplacedParam(EventListPanelParams.PARAM_REVERSE_ORDER, "")

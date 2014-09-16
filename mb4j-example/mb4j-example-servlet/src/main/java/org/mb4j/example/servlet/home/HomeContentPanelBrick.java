@@ -1,12 +1,12 @@
 package org.mb4j.example.servlet.home;
 
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ControllerUrl4Response;
+import org.mb4j.component.ViewUrl4Response;
 
 public class HomeContentPanelBrick extends MustacheBrick {
 
-    ControllerUrl4Response oneEventUrl;
-    ControllerUrl4Response twoEventsUrl;
-    ControllerUrl4Response allEventsUrl;
+    ViewUrl4Response oneEventUrl;
+    ViewUrl4Response twoEventsUrl;
+    ViewUrl4Response allEventsUrl;
 
 }

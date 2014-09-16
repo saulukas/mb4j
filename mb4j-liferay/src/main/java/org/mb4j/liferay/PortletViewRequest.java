@@ -1,7 +1,7 @@
 package org.mb4j.liferay;
 
-import org.mb4j.component.ControllerUrl;
-import org.mb4j.component.ControllerUrl4ResponseResolver;
+import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewUrl4ResponseResolver;
 import org.mb4j.component.Request;
 import org.mb4j.component.asset.AssetUrl4ResponseResolver;
 import org.mb4j.component.resource.Resources4ResponseResolver;
@@ -12,7 +12,7 @@ import org.mb4j.liferay.adapters.PortletFormData4ResponseResolver;
 public class PortletViewRequest {
 
     public static Request of(
-            ControllerUrl viewUrl,
+            ViewUrl viewUrl,
             String path2home,
             String path2assets,
             Attributes attributes,
@@ -25,7 +25,7 @@ public class PortletViewRequest {
                 viewUrl,
                 attributes,
                 new AssetUrl4ResponseResolver(path2assets),
-                new ControllerUrl4ResponseResolver(path2home, viewMap.viewClass2UrlPath()),
+                new ViewUrl4ResponseResolver(path2home, viewMap.viewClass2UrlPath()),
                 new PortletFormData4ResponseResolver(namespace, authTokenOrNull, viewMap.formClass2Name()),
                 resourcesResolver
         );

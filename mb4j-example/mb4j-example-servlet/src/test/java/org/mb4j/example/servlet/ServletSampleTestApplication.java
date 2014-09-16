@@ -2,7 +2,7 @@ package org.mb4j.example.servlet;
 
 import java.io.Writer;
 import static org.mb4j.brick.renderer.RendererUtils.renderer4Development;
-import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.utils.ResponseOnWriter;
@@ -15,7 +15,7 @@ public class ServletSampleTestApplication {
         return ServletSampleModule.injector.getInstance(klass);
     }
 
-    public static Request requestFor(ControllerUrl url) {
+    public static Request requestFor(ViewUrl url) {
         String path2home = "../../../";
         return ControllerRequest.of(
                 url,

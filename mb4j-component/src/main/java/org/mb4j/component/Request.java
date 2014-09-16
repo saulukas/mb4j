@@ -13,19 +13,19 @@ import org.mb4j.component.utils.Attributes;
 
 public class Request {
 
-    private final ControllerUrl viewUrl;
+    private final ViewUrl viewUrl;
     private final UrlPathReader urlPathReader;
     private final Attributes attributes;
     private final AssetUrl4ResponseResolver assetUrlResolver;
-    private final ControllerUrl4ResponseResolver viewUrlResolver;
+    private final ViewUrl4ResponseResolver viewUrlResolver;
     private final Form4ResponseResolver formDataResolver;
     private final Resources4ResponseResolver resourcesResolver;
 
     public Request(
-            ControllerUrl viewUrl,
+            ViewUrl viewUrl,
             Attributes attributes,
             AssetUrl4ResponseResolver assetUrlResolver,
-            ControllerUrl4ResponseResolver viewUrlResolver,
+            ViewUrl4ResponseResolver viewUrlResolver,
             Form4ResponseResolver formDataResolver,
             Resources4ResponseResolver resourcesResolver
     ) {
@@ -38,7 +38,7 @@ public class Request {
         this.resourcesResolver = resourcesResolver;
     }
 
-    public ControllerUrl viewUrl() {
+    public ViewUrl viewUrl() {
         return viewUrl;
     }
 
@@ -50,7 +50,7 @@ public class Request {
         return urlPathReader.readSegment();
     }
 
-    public ControllerUrl4Response resolve(ControllerUrl url) {
+    public ViewUrl4Response resolve(ViewUrl url) {
         return viewUrlResolver.resolve(url);
     }
 

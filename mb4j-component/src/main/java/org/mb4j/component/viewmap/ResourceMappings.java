@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import org.mb4j.component.Component;
-import org.mb4j.component.Controller;
+import org.mb4j.component.View;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class ResourceMappings implements MapComponentClass2Name, MapComponentName2Component {
@@ -14,9 +14,9 @@ public class ResourceMappings implements MapComponentClass2Name, MapComponentNam
     private final Map<Class<? extends Component>, String> class2name = new HashMap<>();
     private final Map<String, Component> name2component = new TreeMap<>();
 
-    public ResourceMappings(Set<Controller> views) {
+    public ResourceMappings(Set<View> views) {
         Set<Component> components = new HashSet<>();
-        for (Controller view : views) {
+        for (View view : views) {
             if (view instanceof Component) {
                 Component component = (Component) view;
                 component.addSubtree(components);

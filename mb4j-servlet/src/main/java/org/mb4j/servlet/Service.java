@@ -1,10 +1,10 @@
 package org.mb4j.servlet;
 
-import org.mb4j.component.Controller;
+import org.mb4j.component.View;
 import org.mb4j.component.Request;
 import org.mb4j.component.Response;
 
-public abstract class Service implements Controller {
+public abstract class Service implements View {
 
     @Override
     public void handle(Request request, Response response) {

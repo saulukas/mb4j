@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Component;
-import org.mb4j.component.ControllerUrl;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.component.Response;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
@@ -110,7 +110,7 @@ public class BrickServletFilter extends HttpFilter {
             HttpServletRequest httpRequest
     ) {
         String path2home = UrlPathStringToHome.from(servletPath);
-        ControllerUrl viewUrl = ControllerUrl.of(
+        ViewUrl viewUrl = ViewUrl.of(
                 resolved.view.getClass(),
                 UrlParams.of(resolved.paramsPath, queryParams));
         Request request = ControllerRequest.of(
