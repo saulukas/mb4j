@@ -24,7 +24,7 @@ public class ComponentNameResolver {
         return name;
     }
 
-    public Component componentFor(String componentName) {
+    public Component componentByName(String componentName) {
         Component component = name2component.get(componentName);
         if (component == null) {
             throw new RuntimeException("No mapping found for Component name: " + componentName);

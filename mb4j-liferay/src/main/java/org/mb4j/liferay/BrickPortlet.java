@@ -17,15 +17,15 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceServingPortlet;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Component;
-import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
+import org.mb4j.component.ResourceUrlResolver;
+import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.Response;
+import org.mb4j.component.ViewUrl;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.response.FormResponseRenderCurrentPage;
-import org.mb4j.component.ResourceUrlResolver;
-import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
@@ -37,7 +37,7 @@ import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.liferay.PortletUrlUtils.authTokenOrNullFrom;
 import static org.mb4j.liferay.adapters.PortletPathToHome.pathToAssets;
 import org.mb4j.liferay.adapters.PortletRequestAttributes;
-import org.mb4j.liferay.adapters.PortletResources4ResponseResolver;
+import org.mb4j.liferay.adapters.PortletResourceUrlResolver;
 
 public class BrickPortlet implements Portlet, ResourceServingPortlet {
 
@@ -96,8 +96,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
             return;
         }
         ResourceUrlResolver.ParamValue value = ParamValue.from(resourceParam);
-        Component componentWithResources
-                = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
+        Component componentWithResources = viewMap.componentByName(value.componentName);
         MapUrlPath2View.Result resolved = resolveView(resourceRequest);
         Request request = createRequest(resolved, resourceRequest, resourceResponse);
         componentWithResources.serveResource(
@@ -132,14 +131,13 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
         Attributes attributes = new PortletRequestAttributes(request);
         String authTokenOrNull = authTokenOrNullFrom(response);
         String namespace = response.getNamespace();
-        return PortletViewRequest.of(
-                viewUrl,
+        return PortletViewRequest.of(viewUrl,
                 path2home,
                 path2assets,
                 attributes,
                 namespace,
                 authTokenOrNull,
-                new PortletResources4ResponseResolver(response, viewMap.componentWithResourcesClass2Name()),
+                new PortletResourceUrlResolver(response, viewMap.componentNameResolver),
                 viewMap
         );
     }

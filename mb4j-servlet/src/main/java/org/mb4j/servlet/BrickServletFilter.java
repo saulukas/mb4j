@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.component.Component;
-import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
+import org.mb4j.component.ResourceUrlResolver;
+import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.Response;
+import org.mb4j.component.ViewUrl;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
 import org.mb4j.component.form.response.FormResponseRenderCurrentPage;
-import org.mb4j.component.ResourceUrlResolver;
-import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPath;
@@ -66,7 +66,7 @@ public class BrickServletFilter extends HttpFilter {
         if (resourceParam != null) {
             ResourceUrlResolver.ParamValue value = ParamValue.from(resourceParam);
             Component componentWithResources
-                    = viewMap.componentWithResourcesName2Component().componentFor(value.componentName);
+                    = viewMap.componentByName(value.componentName);
             Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
             componentWithResources.serveResource(
                     value.resourceName,

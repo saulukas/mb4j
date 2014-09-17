@@ -52,7 +52,7 @@ public class Request {
         return viewUrlResolver.resolve(url);
     }
 
-    public AssetUrl4Response resolveAssetUrl(String assetUrl) {
+    public AssetUrl4Response assetUrl(String assetUrl) {
         return assetUrlResolver.resolveUrl(assetUrl);
     }
 
@@ -60,8 +60,8 @@ public class Request {
         return formDataResolver.resolve(formData);
     }
 
-    public String resolveResourceUrl(Component component, String resourceName) {
-        return resourcesResolver.resolveResourceUrl(component, resourceName);
+    public String resourceUrl(Component component, String resourceName) {
+        return resourcesResolver.resourceUrl(component, resourceName);
     }
 
     public Attributes attributes() {

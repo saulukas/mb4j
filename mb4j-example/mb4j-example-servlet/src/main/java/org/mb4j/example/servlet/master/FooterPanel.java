@@ -19,7 +19,7 @@ public class FooterPanel extends ReflectiveComponent {
     FooterPanelBrick bakeBrick(Request request) {
         FooterPanelBrick brick = new FooterPanelBrick();
         brick.timeServiceUrl = request.resolve(TimeService.url());
-        brick.timeResourceUrl = request.resolveResourceUrl(this, "time");
+        brick.timeResourceUrl = request.resourceUrl(this, "time");
         return brick;
     }
 

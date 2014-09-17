@@ -60,12 +60,6 @@ public class ReflectiveComponent implements Component {
     }
 
     @Override
-    public void addSubtree(Collection<Component> result) {
-        result.add(this);
-        ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, Component.class, Component.class, result);
-    }
-
-    @Override
     public Set<String> getResourceNames() {
         return resourceMethodMap.keySet();
     }

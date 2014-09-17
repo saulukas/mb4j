@@ -4,11 +4,16 @@ import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.component.BrickBaker;
 import org.mb4j.component.ReflectiveComponent;
-import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
+import org.mb4j.component.ViewUrl;
 
 @Singleton
 public class PersonalOfferPanel extends ReflectiveComponent implements BrickBaker {
+
+    public static final PersonalOfferPanel INSTANCE = new PersonalOfferPanel();
+
+    private PersonalOfferPanel() {
+    }
 
     @Override
     public PersonalOfferPanelBrick bakeBrick(Request request) {

@@ -2,21 +2,22 @@ package org.mb4j.component.viewmap;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.mb4j.component.Component;
 import org.mb4j.component.View;
 import org.mb4j.component.utils.SimpleClassName;
 
 public class ViewMap {
 
     private final ViewMapBuilder builder;
+    public final ComponentNameResolver componentNameResolver;
     private final FormMappings formMappings;
-    private final ResourceMappings resourceMappings;
 
     public ViewMap(ViewMapBuilder builder) {
         this.builder = builder;
         Set<View> views = new HashSet<>();
         builder.collectViews(views);
+        this.componentNameResolver = ComponentNameResolverBuilder.resolverFor(views);
         this.formMappings = new FormMappings(views);
-        this.resourceMappings = new ResourceMappings(views);
     }
 
     public MapUrlPath2View urlPath2View() {
@@ -35,19 +36,14 @@ public class ViewMap {
         return formMappings;
     }
 
-    public MapComponentClass2Name componentWithResourcesClass2Name() {
-        return resourceMappings;
-    }
-
-    public MapComponentName2Component componentWithResourcesName2Component() {
-        return resourceMappings;
+    public Component componentByName(String name) {
+        return componentNameResolver.componentByName(name);
     }
 
     @Override
     public String toString() {
         return SimpleClassName.of(getClass()) + ":"
                 + "\n    " + builder.toString("    ")
-                + (formMappings.isEmpty() ? "" : "\n" + formMappings)
-                + (resourceMappings.isEmpty() ? "" : "\n" + resourceMappings);
+                + (formMappings.isEmpty() ? "" : "\n" + formMappings);
     }
 }

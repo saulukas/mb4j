@@ -1,12 +1,12 @@
 package org.mb4j.servlet.adapters;
 
 import org.mb4j.component.ResourceUrlResolver;
-import org.mb4j.component.viewmap.MapComponentClass2Name;
+import org.mb4j.component.viewmap.ComponentNameResolver;
 
-public class ServletResources4ResponseResolver extends ResourceUrlResolver {
+public class ServletResourceUrlResolver extends ResourceUrlResolver {
 
-    public ServletResources4ResponseResolver(MapComponentClass2Name componentClass2Name) {
-        super(componentClass2Name);
+    public ServletResourceUrlResolver(ComponentNameResolver componentNames) {
+        super(componentNames);
     }
 
     @Override

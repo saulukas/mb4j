@@ -1,9 +1,9 @@
 package org.mb4j.example.liferay;
 
 import com.google.inject.Injector;
-import org.mb4j.component.ViewUrl;
 import org.mb4j.component.Request;
 import org.mb4j.component.ResourceUrlResolver;
+import org.mb4j.component.ViewUrl;
 import org.mb4j.component.utils.AttributesMap;
 import org.mb4j.component.viewmap.ViewMap;
 import static org.mb4j.example.liferay.SampleSingleViewPortlet.singleViewMapFor;
@@ -37,7 +37,7 @@ public class LiferaySampleTestApplication {
                 new AttributesMap(),
                 namespace,
                 authToken,
-                new ResourceUrlResolver(viewMap.componentWithResourcesClass2Name()) {
+                new ResourceUrlResolver(viewMap.componentNameResolver) {
                     @Override
                     protected String resolveResourceUrl(String resourceParamName, String resourceParamValue) {
                         return "./resourceUrl4Tests/?" + resourceParamName + "=" + resourceParamValue;

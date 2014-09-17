@@ -19,7 +19,7 @@ public class TimeView extends PortletView {
     @Override
     public MustacheBrick bakeBrick(Request request) {
         Brick brick = new Brick();
-        brick.timeResourceUrl = request.resolveResourceUrl(this, "time");
+        brick.timeResourceUrl = request.resourceUrl(this, "time");
         return brick;
     }
 

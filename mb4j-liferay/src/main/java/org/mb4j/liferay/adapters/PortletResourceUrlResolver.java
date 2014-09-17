@@ -4,17 +4,17 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceURL;
 import org.mb4j.component.ResourceUrlResolver;
-import org.mb4j.component.viewmap.MapComponentClass2Name;
+import org.mb4j.component.viewmap.ComponentNameResolver;
 
-public class PortletResources4ResponseResolver extends ResourceUrlResolver {
+public class PortletResourceUrlResolver extends ResourceUrlResolver {
 
     private final LiferayPortletResponse portletResponse;
 
-    public PortletResources4ResponseResolver(
+    public PortletResourceUrlResolver(
             PortletResponse portletResponse,
-            MapComponentClass2Name componentClass2Name
+            ComponentNameResolver componentNames
     ) {
-        super(componentClass2Name);
+        super(componentNames);
         this.portletResponse = (LiferayPortletResponse) portletResponse;
     }
 

@@ -21,7 +21,7 @@ public class EventListItemPanel {
     Brick bakeBrick(Request request, Event event) {
         Brick brick = new Brick();
         brick.event = event;
-        brick.eventImageUrl = request.resolveAssetUrl(event.imageUrl);
+        brick.eventImageUrl = request.assetUrl(event.imageUrl);
         brick.eventEditUrl = request.resolve(EventEditView.url(event.id));
         return brick;
     }

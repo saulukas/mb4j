@@ -9,7 +9,7 @@ import org.mb4j.servlet.Page;
 @Singleton
 public abstract class MasterLayoutPage extends Page {
 
-    final PersonalOfferPanel headerPanel = new PersonalOfferPanel();
+    final PersonalOfferPanel headerPanel = PersonalOfferPanel.INSTANCE;
     final FooterPanel footerPanel = FooterPanel.INSTANCE;
 
     @Override
@@ -18,7 +18,7 @@ public abstract class MasterLayoutPage extends Page {
         brick.header = headerPanel.bakeBrick(request);
         brick.content = bakeContentBrick(request);
         brick.footer = footerPanel.bakeBrick(request);
-        brick.jquery_js = request.resolveAssetUrl("js/jquery.js");
+        brick.jquery_js = request.assetUrl("js/jquery.js");
         return brick;
     }
 

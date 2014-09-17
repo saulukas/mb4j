@@ -17,7 +17,7 @@ public class ComponentNameResolverBuilder {
         this.views = views;
     }
 
-    public static ComponentNameResolver componentNameResolverOf(Collection<View> views) {
+    public static ComponentNameResolver resolverFor(Collection<View> views) {
         return new ComponentNameResolverBuilder(views).build();
     }
 

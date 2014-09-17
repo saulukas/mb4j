@@ -12,8 +12,6 @@ public interface Component {
 
     void addFormsRecursively(Collection<FormHandler> result);
 
-    void addSubtree(Collection<Component> result);
-
     Set<String> getResourceNames();
 
     void serveResource(String name, Request request, Response response) throws IOException;

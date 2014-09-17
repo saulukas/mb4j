@@ -1,12 +1,28 @@
 package org.mb4j.component;
 
-import org.mb4j.component.Component;
-import org.mb4j.component.viewmap.MapComponentClass2Name;
+import org.mb4j.component.viewmap.ComponentNameResolver;
 
 public abstract class ResourceUrlResolver {
 
-    public static final String RESOURCE_PARAM_NAME = "mb(r)";
-    private final MapComponentClass2Name componentWithResourcesClass2Name;
+    public static final String RESOURCE_PARAM_NAME = "mb4r";
+    private final ComponentNameResolver componentNames;
+
+    public ResourceUrlResolver(ComponentNameResolver componentNames) {
+        this.componentNames = componentNames;
+    }
+
+    public String resourceUrl(Component component, String resourceName) {
+        String componentName = componentNames.componentNameOf(component.getClass());
+        if (!component.getResourceNames().contains(resourceName)) {
+            throw new RuntimeException("Component " + component + " does not have resource"
+                    + " with name " + resourceName + "."
+                    + " Available resources: " + component.getResourceNames());
+        }
+        ParamValue paramValue = new ParamValue(componentName, resourceName);
+        return resolveResourceUrl(RESOURCE_PARAM_NAME, paramValue.toString());
+    }
+
+    protected abstract String resolveResourceUrl(String resourceParamName, String resourceParamValue);
 
     public static class ParamValue {
 
@@ -33,15 +49,4 @@ public abstract class ResourceUrlResolver {
         }
     }
 
-    public ResourceUrlResolver(MapComponentClass2Name mapper) {
-        this.componentWithResourcesClass2Name = mapper;
-    }
-
-    public String resolveResourceUrl(Component component, String resourceName) {
-        String componentName = componentWithResourcesClass2Name.componentNameOf(component.getClass());
-        ParamValue paramValue = new ParamValue(componentName, resourceName);
-        return resolveResourceUrl(RESOURCE_PARAM_NAME, paramValue.toString());
-    }
-
-    protected abstract String resolveResourceUrl(String resourceParamName, String resourceParamValue);
 }
