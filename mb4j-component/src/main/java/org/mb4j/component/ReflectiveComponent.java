@@ -50,6 +50,11 @@ public class ReflectiveComponent implements Component {
     }
 
     @Override
+    public Map<String, Component> getChildren() {
+        return ReflectionUtils.getNonStaticFieldsOf(this, ReflectiveComponent.class, Component.class);
+    }
+
+    @Override
     public void addFormsRecursively(Collection<FormHandler> result) {
         ReflectionUtils.collectRecursivelyNonStaticFieldsOf(this, ReflectiveComponent.class, FormHandler.class, result);
     }
@@ -78,7 +83,7 @@ public class ReflectiveComponent implements Component {
 
     public String componentTreeToString(String margin) {
         String result = SimpleClassName.of(getClass());
-        Map<String, ReflectiveComponent> children = getChildren();
+        Map<String, Component> children = getChildren();
         for (FormHandler form : getForms().values()) {
             String formMargin = margin + (children.isEmpty() ? "    " : "|   ");
             result += "\n" + formMargin + "form: " + SimpleClassName.of(form.getClass())
@@ -95,10 +100,13 @@ public class ReflectiveComponent implements Component {
         Iterator<String> namesIterator = children.keySet().iterator();
         while (namesIterator.hasNext()) {
             String childName = namesIterator.next();
-            ReflectiveComponent child = children.get(childName);
+            Component child = children.get(childName);
+            String childString = (child instanceof ReflectiveComponent)
+                    ? ((ReflectiveComponent) child).componentTreeToString(
+                            margin + (namesIterator.hasNext() ? "|   " : "    "))
+                    : child.toString();
             result += "\n" + margin + "|";
-            result += "\n" + margin + "+-- " + childName + " = "
-                    + child.componentTreeToString(margin + (namesIterator.hasNext() ? "|   " : "    "));
+            result += "\n" + margin + "+-- " + childName + " = " + childString;
         }
         return result;
     }
@@ -107,7 +115,4 @@ public class ReflectiveComponent implements Component {
         return ReflectionUtils.getNonStaticFieldsOf(this, ReflectiveComponent.class, FormHandler.class);
     }
 
-    private Map<String, ReflectiveComponent> getChildren() {
-        return ReflectionUtils.getNonStaticFieldsOf(this, ReflectiveComponent.class, ReflectiveComponent.class);
-    }
 }

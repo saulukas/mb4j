@@ -9,20 +9,24 @@ import static org.mb4j.component.url.UrlPathString.urlPathOf;
 
 public class ViewMapBuilder {
 
-    private static final UrlPath HOME_VIEW_PATH = UrlPath.empty();
-    private static final UrlPath DEFAULT_HOME_VIEW_PATH = UrlPathString.urlPathOf("*");
+    public static final UrlPath HOME_VIEW_PATH = UrlPath.empty();
+    public static final UrlPath DEFAULT_HOME_VIEW_PATH = UrlPathString.urlPathOf("*");
     private final ViewMapNode root = ViewMapNode.createRoot();
     private final ViewMapClasses viewClasses = new ViewMapClasses();
 
     private ViewMapBuilder() {
     }
 
+    public static ViewMapBuilder routerBuilder() {
+        return new ViewMapBuilder();
+    }
+
     public static ViewMapBuilder routeHomeTo(View homeView) {
-        return new ViewMapBuilder().route(HOME_VIEW_PATH, homeView);
+        return routerBuilder().route(HOME_VIEW_PATH, homeView);
     }
 
     public static ViewMapBuilder routeDefaultHomeTo(View homeView) {
-        return new ViewMapBuilder().route(DEFAULT_HOME_VIEW_PATH, homeView);
+        return routerBuilder().route(DEFAULT_HOME_VIEW_PATH, homeView);
     }
 
     public ViewMapBuilder route(String pathString, View view) {
