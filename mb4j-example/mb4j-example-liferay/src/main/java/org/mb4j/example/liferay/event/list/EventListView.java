@@ -5,8 +5,8 @@ import com.google.inject.Singleton;
 import java.util.LinkedList;
 import java.util.List;
 import org.mb4j.brick.MustacheBrick;
+import org.mb4j.component.ViewLocator;
 import org.mb4j.component.ViewUrl;
-import org.mb4j.component.ViewUrl4Response;
 import org.mb4j.component.Request;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
@@ -23,18 +23,18 @@ public class EventListView extends PortletView {
     @Inject
     EventListItemPanel itemPanel;
 
-    public static ViewUrl url() {
+    public static ViewLocator url() {
         return url(Params.SHOW_ALL);
     }
 
-    public static ViewUrl url(int maxEventCount) {
-        return ViewUrl.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
+    public static ViewLocator url(int maxEventCount) {
+        return ViewLocator.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
     }
 
     static class Brick extends MustacheBrick {
 
         List<DecoratedListItem> list;
-        ViewUrl4Response reverseOrderUrl;
+        ViewUrl reverseOrderUrl;
 
         static class DecoratedListItem {
 
@@ -69,11 +69,11 @@ public class EventListView extends PortletView {
         return list;
     }
 
-    private ViewUrl initReverseOrderUrl(Params params, Request request) {
+    private ViewLocator initReverseOrderUrl(Params params, Request request) {
         boolean newReverseOrder = !params.reverseOrder;
         return newReverseOrder
-                ? request.viewUrl().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
-                : request.viewUrl().withDeletedParam(Params.PARAM_REVERSE_ORDER);
+                ? request.viewLocator().withReplacedParam(Params.PARAM_REVERSE_ORDER, "")
+                : request.viewLocator().withDeletedParam(Params.PARAM_REVERSE_ORDER);
     }
 
     public static class Params {
@@ -109,7 +109,7 @@ public class EventListView extends PortletView {
         }
 
         private static boolean readReverseOrderFlag(Request request) {
-            return request.viewUrl().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
+            return request.viewLocator().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
         }
     }
 }

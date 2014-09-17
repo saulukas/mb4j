@@ -1,16 +1,16 @@
 package org.mb4j.component.form.response;
 
-import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewLocator;
 
 public class FormResponseRedirectToView implements FormResponse {
 
-    public final ViewUrl viewUrl;
+    public final ViewLocator viewLocator;
 
-    private FormResponseRedirectToView(ViewUrl viewUrl) {
-        this.viewUrl = viewUrl;
+    private FormResponseRedirectToView(ViewLocator viewLocator) {
+        this.viewLocator = viewLocator;
     }
 
-    public static FormResponseRedirectToView redirectTo(ViewUrl viewUrl) {
-        return new FormResponseRedirectToView(viewUrl);
+    public static FormResponseRedirectToView redirectTo(ViewLocator viewLocator) {
+        return new FormResponseRedirectToView(viewLocator);
     }
 }

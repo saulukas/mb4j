@@ -13,7 +13,7 @@ import org.mb4j.component.Request;
 import org.mb4j.component.ResourceUrlResolver;
 import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.Response;
-import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewLocator;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
@@ -110,11 +110,11 @@ public class BrickServletFilter extends HttpFilter {
             HttpServletRequest httpRequest
     ) {
         String path2home = UrlPathStringToHome.from(servletPath);
-        ViewUrl viewUrl = ViewUrl.of(
+        ViewLocator viewLocator = ViewLocator.of(
                 resolved.view.getClass(),
                 UrlParams.of(resolved.paramsPath, queryParams));
         Request request = ControllerRequest.of(
-                viewUrl,
+                viewLocator,
                 path2home,
                 new ServletRequestAttributes(httpRequest),
                 viewMap);

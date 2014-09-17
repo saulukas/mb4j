@@ -11,7 +11,7 @@ public abstract class ResourceUrlResolver {
         this.componentNames = componentNames;
     }
 
-    public String resourceUrl(Component component, String resourceName) {
+    public ResourceUrl resourceUrl(Component component, String resourceName) {
         String componentName = componentNames.componentNameOf(component.getClass());
         if (!component.getResourceNames().contains(resourceName)) {
             throw new RuntimeException("Component " + component + " does not have resource"
@@ -19,7 +19,7 @@ public abstract class ResourceUrlResolver {
                     + " Available resources: " + component.getResourceNames());
         }
         ParamValue paramValue = new ParamValue(componentName, resourceName);
-        return resolveResourceUrl(RESOURCE_PARAM_NAME, paramValue.toString());
+        return new ResourceUrl(resolveResourceUrl(RESOURCE_PARAM_NAME, paramValue.toString()));
     }
 
     protected abstract String resolveResourceUrl(String resourceParamName, String resourceParamValue);

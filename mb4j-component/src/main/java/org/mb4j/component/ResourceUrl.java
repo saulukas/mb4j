@@ -1,10 +1,10 @@
-package org.mb4j.component.asset;
+package org.mb4j.component;
 
-public class AssetUrl4Response {
+public class ResourceUrl {
 
     private final String value;
 
-    public AssetUrl4Response(String value) {
+    public ResourceUrl(String value) {
         this.value = value;
     }
 

@@ -1,7 +1,5 @@
 package org.mb4j.component;
 
-import org.mb4j.component.asset.AssetUrl4Response;
-import org.mb4j.component.asset.AssetUrl4ResponseResolver;
 import org.mb4j.component.form.Form;
 import org.mb4j.component.form.Form4Response;
 import org.mb4j.component.form.Form4ResponseResolver;
@@ -11,33 +9,33 @@ import org.mb4j.component.utils.Attributes;
 
 public class Request {
 
-    private final ViewUrl viewUrl;
+    private final ViewLocator viewLocator;
     private final UrlPathReader urlPathReader;
     private final Attributes attributes;
-    private final AssetUrl4ResponseResolver assetUrlResolver;
-    private final ViewUrl4ResponseResolver viewUrlResolver;
+    private final AssetUrlResolver assetUrlResolver;
+    private final ViewUrlResolver viewLocatorResolver;
     private final Form4ResponseResolver formDataResolver;
     private final ResourceUrlResolver resourcesResolver;
 
     public Request(
-            ViewUrl viewUrl,
+            ViewLocator viewLocator,
             Attributes attributes,
-            AssetUrl4ResponseResolver assetUrlResolver,
-            ViewUrl4ResponseResolver viewUrlResolver,
+            AssetUrlResolver assetUrlResolver,
+            ViewUrlResolver viewLocatorResolver,
             Form4ResponseResolver formDataResolver,
             ResourceUrlResolver resourcesResolver
     ) {
-        this.viewUrl = viewUrl;
-        this.urlPathReader = BufferedUrlPathReader.of(viewUrl.params.path);
+        this.viewLocator = viewLocator;
+        this.urlPathReader = BufferedUrlPathReader.of(viewLocator.params.path);
         this.attributes = attributes;
         this.assetUrlResolver = assetUrlResolver;
-        this.viewUrlResolver = viewUrlResolver;
+        this.viewLocatorResolver = viewLocatorResolver;
         this.formDataResolver = formDataResolver;
         this.resourcesResolver = resourcesResolver;
     }
 
-    public ViewUrl viewUrl() {
-        return viewUrl;
+    public ViewLocator viewLocator() {
+        return viewLocator;
     }
 
     public boolean hasMorePathSegments() {
@@ -48,11 +46,11 @@ public class Request {
         return urlPathReader.readSegment();
     }
 
-    public ViewUrl4Response resolve(ViewUrl url) {
-        return viewUrlResolver.resolve(url);
+    public ViewUrl resolve(ViewLocator url) {
+        return viewLocatorResolver.resolve(url);
     }
 
-    public AssetUrl4Response assetUrl(String assetUrl) {
+    public AssetUrl assetUrl(String assetUrl) {
         return assetUrlResolver.resolveUrl(assetUrl);
     }
 
@@ -60,7 +58,7 @@ public class Request {
         return formDataResolver.resolve(formData);
     }
 
-    public String resourceUrl(Component component, String resourceName) {
+    public ResourceUrl resourceUrl(Component component, String resourceName) {
         return resourcesResolver.resourceUrl(component, resourceName);
     }
 

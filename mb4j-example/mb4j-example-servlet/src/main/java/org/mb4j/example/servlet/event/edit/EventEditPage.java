@@ -2,7 +2,7 @@ package org.mb4j.example.servlet.event.edit;
 
 import com.google.inject.Inject;
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewLocator;
 import org.mb4j.component.Request;
 import static org.mb4j.component.url.UrlPathBuilder.urlPath;
 import org.mb4j.example.servlet.master.MasterLayoutPage;
@@ -13,8 +13,8 @@ public class EventEditPage extends MasterLayoutPage {
     EventEditPanel contentPanel;
 
 
-    public static ViewUrl url(int eventId) {
-        return ViewUrl.of(EventEditPage.class, urlPath().with(String.valueOf(eventId)));
+    public static ViewLocator url(int eventId) {
+        return ViewLocator.of(EventEditPage.class, urlPath().with(String.valueOf(eventId)));
     }
 
     @Override

@@ -1,19 +1,19 @@
-package org.mb4j.component.asset;
+package org.mb4j.component;
 
-public class AssetUrl4ResponseResolver {
+public class AssetUrlResolver {
 
     private final String path2assets;
 
-    public AssetUrl4ResponseResolver(String path2assets) {
+    public AssetUrlResolver(String path2assets) {
         this.path2assets = path2assets.isEmpty() || path2assets.endsWith("/")
                 ? path2assets
                 : path2assets + "/";
     }
 
-    public AssetUrl4Response resolveUrl(String assetUrl) {
+    public AssetUrl resolveUrl(String assetUrl) {
         if (assetUrl.startsWith("/")) {
             assetUrl = assetUrl.substring(1);
         }
-        return new AssetUrl4Response(path2assets + assetUrl);
+        return new AssetUrl(path2assets + assetUrl);
     }
 }

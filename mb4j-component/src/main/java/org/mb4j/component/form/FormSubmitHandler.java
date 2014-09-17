@@ -1,7 +1,7 @@
 package org.mb4j.component.form;
 
 import com.google.common.base.Optional;
-import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewLocator;
 import org.mb4j.component.Request;
 import org.mb4j.component.form.data.FormData;
 import org.mb4j.component.form.response.FormResponse;
@@ -26,8 +26,8 @@ public class FormSubmitHandler {
         data.setValuesFrom(postParams.asMap());
         FormResponse formResponse = handler.handle(actionName, request, data);
         if (formResponse instanceof FormResponseRedirectToView) {
-            ViewUrl viewUrl = ((FormResponseRedirectToView) formResponse).viewUrl;
-            formResponse = FormResponseRedirectToUrlString.redirectTo(request.resolve(viewUrl));
+            ViewLocator viewLocator = ((FormResponseRedirectToView) formResponse).viewLocator;
+            formResponse = FormResponseRedirectToUrlString.redirectTo(request.resolve(viewLocator));
         }
         return Optional.of(formResponse);
     }

@@ -1,9 +1,9 @@
 package org.mb4j.servlet;
 
 import org.mb4j.component.Request;
-import org.mb4j.component.ViewUrl;
-import org.mb4j.component.ViewUrl4ResponseResolver;
-import org.mb4j.component.asset.AssetUrl4ResponseResolver;
+import org.mb4j.component.ViewLocator;
+import org.mb4j.component.ViewUrlResolver;
+import org.mb4j.component.AssetUrlResolver;
 import org.mb4j.component.utils.Attributes;
 import org.mb4j.component.viewmap.ViewMap;
 import org.mb4j.servlet.adapters.ServletFormData4ResponseResolver;
@@ -12,15 +12,15 @@ import org.mb4j.servlet.adapters.ServletResourceUrlResolver;
 public class ControllerRequest {
 
     public static Request of(
-            ViewUrl viewUrl,
+            ViewLocator viewLocator,
             String path2home,
             Attributes attributes,
             ViewMap viewMap) {
         return new Request(
-                viewUrl,
+                viewLocator,
                 attributes,
-                new AssetUrl4ResponseResolver(path2home),
-                new ViewUrl4ResponseResolver(path2home, viewMap.viewClass2UrlPath()),
+                new AssetUrlResolver(path2home),
+                new ViewUrlResolver(path2home, viewMap.viewClass2UrlPath()),
                 new ServletFormData4ResponseResolver(viewMap.formClass2Name()),
                 new ServletResourceUrlResolver(viewMap.componentNameResolver)
         );

@@ -21,7 +21,7 @@ import org.mb4j.component.Request;
 import org.mb4j.component.ResourceUrlResolver;
 import org.mb4j.component.ResourceUrlResolver.ParamValue;
 import org.mb4j.component.Response;
-import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewLocator;
 import static org.mb4j.component.form.FormSubmitHandler.formResponseFor;
 import org.mb4j.component.form.response.FormResponse;
 import org.mb4j.component.form.response.FormResponseRedirectToUrlString;
@@ -122,7 +122,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
             PortletResponse response) {
         URI currentURI = PortletUrlUtils.currentURI(request);
         NamedParams namedParams = namedParamsFromRawQuery(currentURI.getRawQuery());
-        ViewUrl viewUrl = ViewUrl.of(
+        ViewLocator viewLocator = ViewLocator.of(
                 resolved.view.getClass(),
                 UrlParams.of(resolved.paramsPath, namedParams)
         );
@@ -131,7 +131,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
         Attributes attributes = new PortletRequestAttributes(request);
         String authTokenOrNull = authTokenOrNullFrom(response);
         String namespace = response.getNamespace();
-        return PortletViewRequest.of(viewUrl,
+        return PortletViewRequest.of(viewLocator,
                 path2home,
                 path2assets,
                 attributes,

@@ -32,18 +32,18 @@ public class ViewUrl4ResponseResolverTest {
                 .route(urlPathOf("tutorial/sockets"), TUTORIAL_ON_SOCKETS)
                 .route(urlPathOf("tutorial/topic/*"), TUTORIAL_TOPIC)
                 .route(urlPathOf("tutorial/other/stuff"), TUTORIAL_OTHER_STUFF);
-        ViewUrl4ResponseResolver resolver = new ViewUrl4ResponseResolver(
+        ViewUrlResolver resolver = new ViewUrlResolver(
                 path2home,
                 new ViewMap(builder).viewClass2UrlPath());
-        assertThat(resolver.resolve(ViewUrl.of(Home.class)).toString(),
+        assertThat(resolver.resolve(ViewLocator.of(Home.class)).toString(),
                 is("../../"));
-        assertThat(resolver.resolve(ViewUrl.of(TutorialOnEvents.class)).toString(),
+        assertThat(resolver.resolve(ViewLocator.of(TutorialOnEvents.class)).toString(),
                 is("../../tutorial/events"));
-        assertThat(resolver.resolve(ViewUrl.of(TutorialOnSockets.class)).toString(),
+        assertThat(resolver.resolve(ViewLocator.of(TutorialOnSockets.class)).toString(),
                 is("../../tutorial/sockets"));
-        assertThat(resolver.resolve(ViewUrl.of(TutorialTopic.class, UrlParams.of(urlPathOf("1/2/3")))).toString(),
+        assertThat(resolver.resolve(ViewLocator.of(TutorialTopic.class, UrlParams.of(urlPathOf("1/2/3")))).toString(),
                 is("../../tutorial/topic/1/2/3"));
-        assertThat(resolver.resolve(ViewUrl.of(TutorialOtherStuff.class)).toString(),
+        assertThat(resolver.resolve(ViewLocator.of(TutorialOtherStuff.class)).toString(),
                 is("../../tutorial/other/stuff"));
         NamedParams namedParams = NamedParams.empty()
                 .withReplaced("order", "ascending")
@@ -51,7 +51,7 @@ public class ViewUrl4ResponseResolverTest {
                 .withReplaced("lt_message", "vidur prūdo bliūdas plūdo")
                 .withReplaced("name with spaces", "someValue");
         System.out.println("" + namedParams);
-        ViewUrl url = ViewUrl.of(TutorialTopic.class, UrlParams.of(urlPathOf("127"), namedParams));
+        ViewLocator url = ViewLocator.of(TutorialTopic.class, UrlParams.of(urlPathOf("127"), namedParams));
         assertThat(resolver.resolve(url).toString(), is("../../tutorial/topic"
                 + "/127"
                 + "?lt_message=vidur%20pr%C5%ABdo%20bli%C5%ABdas%20pl%C5%ABdo"

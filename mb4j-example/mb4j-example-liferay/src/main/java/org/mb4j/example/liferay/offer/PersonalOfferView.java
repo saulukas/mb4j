@@ -3,15 +3,15 @@ package org.mb4j.example.liferay.offer;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 import org.mb4j.brick.MustacheBrick;
+import org.mb4j.component.ViewLocator;
 import org.mb4j.component.ViewUrl;
-import org.mb4j.component.ViewUrl4Response;
 import org.mb4j.component.Request;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
 public class PersonalOfferView extends PortletView {
 
-    public static ViewUrl url(String offerText) {
+    public static ViewLocator url(String offerText) {
         return new Params(offerText).toUrl();
     }
 
@@ -20,7 +20,7 @@ public class PersonalOfferView extends PortletView {
         boolean offerVisible = false;
         String offerText;
         String offerLinkText;
-        ViewUrl4Response toggleOfferUrl;
+        ViewUrl toggleOfferUrl;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PersonalOfferView extends PortletView {
         brick.offerText = params.offerText;
         brick.offerLinkText = brick.offerVisible ? "Hide personal offer" : "Show personal offer";
         Params newParams = new Params(brick.offerVisible ? "" : "Consider going to fishing event!");
-        brick.toggleOfferUrl = request.resolve(newParams.urlMergedWith(request.viewUrl()));
+        brick.toggleOfferUrl = request.resolve(newParams.urlMergedWith(request.viewLocator()));
         return brick;
     }
 
@@ -45,18 +45,18 @@ public class PersonalOfferView extends PortletView {
         }
 
         public static Params from(Request request) {
-            return new Params(request.viewUrl().params.named.valueOrNullOf(OFFER_TEXT));
+            return new Params(request.viewLocator().params.named.valueOrNullOf(OFFER_TEXT));
         }
 
         boolean isOfferTextEmpty() {
             return Strings.isNullOrEmpty(offerText);
         }
 
-        ViewUrl toUrl() {
-            return urlMergedWith(ViewUrl.of(PersonalOfferView.class));
+        ViewLocator toUrl() {
+            return urlMergedWith(ViewLocator.of(PersonalOfferView.class));
         }
 
-        ViewUrl urlMergedWith(ViewUrl currentUrl) {
+        ViewLocator urlMergedWith(ViewLocator currentUrl) {
             return isOfferTextEmpty()
                     ? currentUrl.withDeletedParam(OFFER_TEXT)
                     : currentUrl.withReplacedParam(OFFER_TEXT, offerText);

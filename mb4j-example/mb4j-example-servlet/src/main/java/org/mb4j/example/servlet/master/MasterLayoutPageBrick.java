@@ -1,7 +1,7 @@
 package org.mb4j.example.servlet.master;
 
 import org.mb4j.brick.MustacheBrick;
-import org.mb4j.component.asset.AssetUrl4Response;
+import org.mb4j.component.AssetUrl;
 
 public class MasterLayoutPageBrick extends MustacheBrick {
 
@@ -9,5 +9,5 @@ public class MasterLayoutPageBrick extends MustacheBrick {
     MustacheBrick content;
     MustacheBrick footer;
     String title = "Events";
-    AssetUrl4Response jquery_js;
+    AssetUrl jquery_js;
 }

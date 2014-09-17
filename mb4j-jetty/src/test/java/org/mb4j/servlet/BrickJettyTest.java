@@ -18,7 +18,7 @@ public class BrickJettyTest {
         }).route(urlPathOf("go/*"), new Service() {
             @Override
             protected void serve(Request request, Response response) throws Exception {
-                response.getWriter().write("chielou-go: " + request.viewUrl());
+                response.getWriter().write("chielou-go: " + request.viewLocator());
             }
         })
         ).port(6789).contextPath("/mb4j").start();

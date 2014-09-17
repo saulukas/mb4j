@@ -37,7 +37,7 @@ public class EventListPanelParams {
     }
 
     private static boolean readReverseOrderFlag(Request request) {
-        return request.viewUrl().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
+        return request.viewLocator().params.named.valueOrNullOf(PARAM_REVERSE_ORDER) != null;
     }
 
 }

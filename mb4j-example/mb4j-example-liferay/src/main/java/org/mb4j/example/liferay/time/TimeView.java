@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.component.Request;
+import org.mb4j.component.ResourceUrl;
 import org.mb4j.component.Response;
 import org.mb4j.liferay.PortletView;
 
@@ -13,7 +14,7 @@ public class TimeView extends PortletView {
 
     static class Brick extends MustacheBrick {
 
-        String timeResourceUrl;
+        ResourceUrl timeResourceUrl;
     }
 
     @Override

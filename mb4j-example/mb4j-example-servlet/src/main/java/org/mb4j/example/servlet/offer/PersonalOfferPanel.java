@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import org.mb4j.component.BrickBaker;
 import org.mb4j.component.ReflectiveComponent;
 import org.mb4j.component.Request;
-import org.mb4j.component.ViewUrl;
+import org.mb4j.component.ViewLocator;
 
 @Singleton
 public class PersonalOfferPanel extends ReflectiveComponent implements BrickBaker {
@@ -29,7 +29,7 @@ public class PersonalOfferPanel extends ReflectiveComponent implements BrickBake
 
     static PersonalOfferPanelParams paramsFrom(Request request) {
         PersonalOfferPanelParams params = new PersonalOfferPanelParams();
-        params.offerText = request.viewUrl().params.named.valueOrNullOf(PersonalOfferPanelParams.OFFER_TEXT);
+        params.offerText = request.viewLocator().params.named.valueOrNullOf(PersonalOfferPanelParams.OFFER_TEXT);
         return params;
     }
 
@@ -37,9 +37,9 @@ public class PersonalOfferPanel extends ReflectiveComponent implements BrickBake
         return Strings.isNullOrEmpty(params.offerText);
     }
 
-    private ViewUrl initTogglePersonalOfferUrl(Request request, String newOffer) {
+    private ViewLocator initTogglePersonalOfferUrl(Request request, String newOffer) {
         return Strings.isNullOrEmpty(newOffer)
-                ? request.viewUrl().withDeletedParam(PersonalOfferPanelParams.OFFER_TEXT)
-                : request.viewUrl().withReplacedParam(PersonalOfferPanelParams.OFFER_TEXT, newOffer);
+                ? request.viewLocator().withDeletedParam(PersonalOfferPanelParams.OFFER_TEXT)
+                : request.viewLocator().withReplacedParam(PersonalOfferPanelParams.OFFER_TEXT, newOffer);
     }
 }

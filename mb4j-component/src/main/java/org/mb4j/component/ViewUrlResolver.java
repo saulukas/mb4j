@@ -8,18 +8,18 @@ import org.mb4j.component.url.NamedParams;
 import org.mb4j.component.url.UrlPath;
 import org.mb4j.component.viewmap.MapViewClass2UrlPath;
 
-public class ViewUrl4ResponseResolver {
+public class ViewUrlResolver {
 
     private final static Escaper PATH_SEGMENT_ESCAPER = UrlEscapers.urlPathSegmentEscaper();
     private final String path2home;
     private final MapViewClass2UrlPath viewClass2UrlPath;
 
-    public ViewUrl4ResponseResolver(String path2home, MapViewClass2UrlPath viewClass2UrlPath) {
+    public ViewUrlResolver(String path2home, MapViewClass2UrlPath viewClass2UrlPath) {
         this.path2home = path2home;
         this.viewClass2UrlPath = viewClass2UrlPath;
     }
 
-    public ViewUrl4Response resolve(ViewUrl url) {
+    public ViewUrl resolve(ViewLocator url) {
         StringBuilder result = new StringBuilder(path2home);
         appendEscapedPath(result, viewClass2UrlPath.urlPathFor(url.viewClass));
         if (!url.params.path.isEmpty()) {
@@ -31,7 +31,7 @@ public class ViewUrl4ResponseResolver {
         if (Strings.isNullOrEmpty(urlString)) {
             urlString = "./";
         }
-        return new ViewUrl4Response(urlString);
+        return new ViewUrl(urlString);
     }
 
     private void appendNamedParamsString(StringBuilder result, NamedParams params) {
