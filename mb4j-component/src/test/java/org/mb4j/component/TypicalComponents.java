@@ -20,11 +20,20 @@ public class TypicalComponents {
         }
     }
 
-    public static class NonVoidResourceMethod extends ReflectiveComponent {
+    public static class ComponentWithInvalidResourceMethods extends ReflectiveComponent {
 
         @ResourceMethod
-        public int resource3(Request request, Response response) {
+        public void validResourceMethod(Request request, Response response) {
+        }
+
+        @ResourceMethod
+        public int nonVoidResourceMethod(Request request, Response response) {
             return 0;
         }
+
+        @ResourceMethod
+        public void wrongParameterOrder(Response response, Request request) {
+        }
+
     }
 }

@@ -35,11 +35,18 @@ public class ReflectiveComponent implements Component {
         List<Method> resourceMethods = ReflectionUtils.getAnnotatedMethodsOf(
                 getClass(), ReflectiveComponent.class, ResourceMethod.class);
         for (Method method : resourceMethods) {
-            if (!Objects.equal(method.getReturnType(), void.class)) {
-                throw new NonVoidResourceMethodException(method);
+            if (!isValid(method)) {
+                throw new ResourceMethodSignatureException(method);
             }
             resourceMethodMap.put(method.getName(), method);
         }
+    }
+
+    static boolean isValid(Method method) {
+        return Objects.equal(method.getReturnType(), void.class)
+                && method.getParameterTypes().length == 2
+                && method.getParameterTypes()[0].equals(Request.class)
+                && method.getParameterTypes()[1].equals(Response.class);
     }
 
     @Override
