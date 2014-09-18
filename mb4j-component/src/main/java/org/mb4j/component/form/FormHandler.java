@@ -57,8 +57,8 @@ public class FormHandler<T extends FormData> {
         return ReflectionUtils.createInstanceOf(dataClass);
     }
 
-    public Form<T> formWith(T data) {
-        return new Form(getClass(), data, getActions());
+    public FormOldVersion<T> formWith(T data) {
+        return new FormOldVersion(getClass(), data, getActions());
     }
 
     protected FormAction actionForName(String name) {

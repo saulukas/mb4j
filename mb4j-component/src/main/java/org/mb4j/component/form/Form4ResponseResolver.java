@@ -20,7 +20,7 @@ public abstract class Form4ResponseResolver {
         this.formClass2name = formClass2name;
     }
 
-    public Form4Response resolve(Form<?> form) {
+    public Form4Response resolve(FormOldVersion<?> form) {
         return new Form4Response(
                 createHeaderBrick(formClass2name.formNameOf(form.handlerClass)),
                 fields4ResponseFrom(form),
@@ -33,7 +33,7 @@ public abstract class Form4ResponseResolver {
         return name;
     }
 
-    private Map<String, FormField4Response> fields4ResponseFrom(Form<?> formData) {
+    private Map<String, FormField4Response> fields4ResponseFrom(FormOldVersion<?> formData) {
         Map<String, FormField> fieldMap = formData.data.asFieldMap();
         Map<String, FormField4Response> fields4Response = new HashMap<>();
         for (Map.Entry<String, FormField> entry : fieldMap.entrySet()) {
@@ -43,7 +43,7 @@ public abstract class Form4ResponseResolver {
         return fields4Response;
     }
 
-    private Map<String, FormAction4Response> actions4ResponseFrom(Form<?> formData) {
+    private Map<String, FormAction4Response> actions4ResponseFrom(FormOldVersion<?> formData) {
         Map<String, FormAction4Response> actions4Response = new TreeMap<>();
         for (FormAction action : formData.actions) {
             actions4Response.put(

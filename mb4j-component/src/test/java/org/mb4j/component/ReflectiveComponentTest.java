@@ -7,8 +7,12 @@ import java.util.List;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import org.mb4j.component.ReflectiveComponent.ActionMethodSignatureException;
+import org.mb4j.component.ReflectiveComponent.ResourceMethodSignatureException;
 import org.mb4j.component.TypicalComponents.BaseComponent;
+import org.mb4j.component.TypicalComponents.ComponentWithInvalidActionMethods;
 import org.mb4j.component.TypicalComponents.ComponentWithInvalidResourceMethods;
 import org.mb4j.component.TypicalComponents.ExtendedComponent;
 
@@ -35,10 +39,41 @@ public class ReflectiveComponentTest {
 
     @Test
     public void ResourceMethods_must_be_void_and_have_two_params__Request_and_Response() {
-        assertFalse(ReflectiveComponent.isValid(methodByName(
+        assertTrue(ReflectiveComponent.isValidResourceMethod(methodByName(
+                ComponentWithInvalidResourceMethods.class, "validResourceMethod")));
+        assertFalse(ReflectiveComponent.isValidResourceMethod(methodByName(
                 ComponentWithInvalidResourceMethods.class, "nonVoidResourceMethod")));
-        assertFalse(ReflectiveComponent.isValid(methodByName(
+        assertFalse(ReflectiveComponent.isValidResourceMethod(methodByName(
                 ComponentWithInvalidResourceMethods.class, "wrongParameterOrder")));
+    }
+
+    @Test
+    public void finds_ActionMethods() {
+        BaseComponent component = new BaseComponent();
+        assertThat(component.getActionNames(),
+                containsInAnyOrder("action1", "action2"));
+    }
+
+    @Test
+    public void finds_ActionMethods_from_base_class() {
+        ExtendedComponent component = new ExtendedComponent();
+        assertThat(component.getActionNames(),
+                containsInAnyOrder("action1", "action2", "action3"));
+    }
+
+    @Test(expected = ActionMethodSignatureException.class)
+    public void validates_ActionMethods_in_constructor() {
+        new ComponentWithInvalidActionMethods();
+    }
+
+    @Test
+    public void ActionMethods_must_return_ActionReponse_and_have_two_params__Request_and_NamedParams() {
+        assertTrue(ReflectiveComponent.isValidActionMethod(methodByName(
+                ComponentWithInvalidActionMethods.class, "validActionMethod")));
+        assertFalse(ReflectiveComponent.isValidActionMethod(methodByName(
+                ComponentWithInvalidActionMethods.class, "voidActionMethod")));
+        assertFalse(ReflectiveComponent.isValidActionMethod(methodByName(
+                ComponentWithInvalidActionMethods.class, "wrongParameterOrder")));
     }
 
     static Method methodByName(Class<?> klass, String name) {

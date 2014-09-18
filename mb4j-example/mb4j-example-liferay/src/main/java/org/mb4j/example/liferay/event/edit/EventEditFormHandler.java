@@ -4,7 +4,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.mb4j.component.Request;
-import org.mb4j.component.form.Form;
+import org.mb4j.component.form.FormOldVersion;
 import org.mb4j.component.form.FormHandler;
 import org.mb4j.component.form.action.FormActionMethod;
 import org.mb4j.component.form.data.FormData;
@@ -58,7 +58,7 @@ public class EventEditFormHandler extends FormHandler<EventEditFormHandler.Data>
                 data.summary.value);
     }
 
-    Form<Data> fillForm(Request request, int eventId) {
+    FormOldVersion<Data> fillForm(Request request, int eventId) {
         Data data = request.attributes().valueOf(DATA_KEY).orNull();
         if (data == null) {
             Event event = eventByIdQuery.result(eventId).get();

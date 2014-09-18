@@ -1,6 +1,6 @@
 package org.mb4j.component;
 
-import org.mb4j.component.form.Form;
+import org.mb4j.component.form.FormOldVersion;
 import org.mb4j.component.form.Form4Response;
 import org.mb4j.component.form.Form4ResponseResolver;
 import org.mb4j.component.url.BufferedUrlPathReader;
@@ -54,7 +54,7 @@ public class Request {
         return assetUrlResolver.resolveUrl(assetUrl);
     }
 
-    public Form4Response resolve(Form<?> formData) {
+    public Form4Response resolve(FormOldVersion<?> formData) {
         return formDataResolver.resolve(formData);
     }
 
