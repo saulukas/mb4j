@@ -4,11 +4,11 @@ import com.samskivert.mustache.Template.Fragment;
 import java.io.Writer;
 import org.mb4j.brick.renderer.RenderingScope;
 
-public class BrickList extends MustacheBrick {
+public class BrickList<T extends MustacheBrick> extends MustacheBrick {
 
-    public final Iterable<? extends MustacheBrick> items;
+    public final Iterable<T> items;
 
-    public BrickList(Iterable<? extends MustacheBrick> items) {
+    public BrickList(Iterable<T> items) {
         this.items = items;
     }
 

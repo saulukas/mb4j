@@ -5,7 +5,7 @@ import org.mb4j.component.ViewUrl;
 import org.mb4j.component.AssetUrl;
 import org.mb4j.example.domain.data.Event;
 
-public class EventListItemPanelBrick extends MustacheBrick {
+public class EventListItemBrick extends MustacheBrick {
 
     Event event;
     AssetUrl eventImageUrl;

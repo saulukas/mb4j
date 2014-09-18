@@ -9,9 +9,8 @@ import org.mb4j.example.servlet.event.edit.EventEditPage;
 @Singleton
 public class EventListItemPanel extends ReflectiveComponent {
 
-
-    public EventListItemPanelBrick bakeBrick(Request request, Event event) {
-        EventListItemPanelBrick brick = new EventListItemPanelBrick();
+    public EventListItemBrick bakeBrick(Request request, Event event) {
+        EventListItemBrick brick = new EventListItemBrick();
         brick.event = event;
         brick.eventImageUrl = request.assetUrl(event.imageUrl);
         brick.eventEditUrl = request.resolve(EventEditPage.url(event.id));
