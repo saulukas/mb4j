@@ -45,7 +45,7 @@ public class ComponentNameResolverBuilder {
         String name = selectNameFor(component);
         name2component.put(name, component);
         class2name.put(component.getClass(), name);
-        for (Component child : component.getChildren().values()) {
+        for (Component child : component.getNamedChildren().values()) {
             process(child);
         }
     }

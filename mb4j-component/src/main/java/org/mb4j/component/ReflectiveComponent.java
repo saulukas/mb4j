@@ -50,7 +50,7 @@ public class ReflectiveComponent implements Component {
     }
 
     @Override
-    public Map<String, Component> getChildren() {
+    public Map<String, Component> getNamedChildren() {
         return ReflectionUtils.getNonStaticFieldsOf(this, ReflectiveComponent.class, Component.class);
     }
 
@@ -77,7 +77,7 @@ public class ReflectiveComponent implements Component {
 
     public String componentTreeToString(String margin) {
         String result = SimpleClassName.of(getClass());
-        Map<String, Component> children = getChildren();
+        Map<String, Component> children = getNamedChildren();
         for (FormHandler form : getForms().values()) {
             String formMargin = margin + (children.isEmpty() ? "    " : "|   ");
             result += "\n" + formMargin + "form: " + SimpleClassName.of(form.getClass())

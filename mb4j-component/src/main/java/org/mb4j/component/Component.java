@@ -8,11 +8,12 @@ import org.mb4j.component.form.FormHandler;
 
 public interface Component {
 
-    Map<String, Component> getChildren();
-
-    void addFormsRecursively(Collection<FormHandler> result);
+    Map<String, Component> getNamedChildren();
 
     Set<String> getResourceNames();
 
     void serveResource(String name, Request request, Response response) throws IOException;
+
+    void addFormsRecursively(Collection<FormHandler> result);
+
 }
