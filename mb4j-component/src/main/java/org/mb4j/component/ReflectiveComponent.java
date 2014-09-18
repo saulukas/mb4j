@@ -77,13 +77,6 @@ public class ReflectiveComponent implements Component {
         }
     }
 
-    static boolean isValidResourceMethod(Method method) {
-        return method.getReturnType().equals(void.class)
-                && method.getParameterTypes().length == 2
-                && method.getParameterTypes()[0].equals(Request.class)
-                && method.getParameterTypes()[1].equals(Response.class);
-    }
-
     private void initActionMethodMap() {
         List<Method> actionMethods = ReflectionUtils.getAnnotatedMethodsOf(
                 getClass(), ReflectiveComponent.class, ActionMethod.class);
@@ -94,6 +87,13 @@ public class ReflectiveComponent implements Component {
             method.setAccessible(true);
             actionMethodMap.put(method.getName(), method);
         }
+    }
+
+    static boolean isValidResourceMethod(Method method) {
+        return method.getReturnType().equals(void.class)
+                && method.getParameterTypes().length == 2
+                && method.getParameterTypes()[0].equals(Request.class)
+                && method.getParameterTypes()[1].equals(Response.class);
     }
 
     static boolean isValidActionMethod(Method method) {
