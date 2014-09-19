@@ -100,7 +100,7 @@ public class BrickServletFilter extends HttpFilter {
         //
         Request request = createRequest(servletPath, queryParams, resolved, httpRequest);
         Response response = new ControllerResponse(renderer, httpResponse);
-        resolved.view.handle(request, response);
+        resolved.view.render(request, response);
     }
 
     private Request createRequest(

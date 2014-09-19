@@ -1,0 +1,15 @@
+<script>
+  updateFormV2ResourceLabel = function (labelId, pUrl) {
+      $.ajax({
+          url: pUrl,
+          success: function (data) {
+              $(labelId).html(data);
+          }});
+  }
+</script>
+<h1>Form V2 testbench</h1>
+<p>
+    <input id="formV2ResourceButton" type="button" value="FormV2 Resource..."
+           onclick="updateFormV2ResourceLabel('#formV2ResourceLabel', '{{resourceUrl}}')" >
+    <span id="formV2ResourceLabel"></span>
+</p>

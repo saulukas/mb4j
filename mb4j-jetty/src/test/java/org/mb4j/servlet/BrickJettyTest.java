@@ -12,7 +12,7 @@ public class BrickJettyTest {
     public static void main(String[] args) {
         brickJetty(routeDefaultHomeTo(new View() {
             @Override
-            public void handle(Request request, Response response) {
+            public void render(Request request, Response response) {
                 response.getWriter();
             }
         }).route(urlPathOf("go/*"), new Service() {

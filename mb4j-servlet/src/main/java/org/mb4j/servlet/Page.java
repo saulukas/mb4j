@@ -11,7 +11,7 @@ import org.mb4j.component.Response;
 public class Page extends ReflectiveComponent implements View, BrickBaker {
 
     @Override
-    public void handle(Request request, Response response) {
+    public void render(Request request, Response response) {
         response.render(bakeBrick(request));
     }
 

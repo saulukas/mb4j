@@ -5,42 +5,42 @@ public class TypicalViews {
     public static class Home implements View {
 
         @Override
-        public void handle(Request request, Response response) {
+        public void render(Request request, Response response) {
         }
     }
 
     public static class Tutorial implements View {
 
         @Override
-        public void handle(Request request, Response response) {
+        public void render(Request request, Response response) {
         }
     }
 
     public static class TutorialOnEvents implements View {
 
         @Override
-        public void handle(Request request, Response response) {
+        public void render(Request request, Response response) {
         }
     }
 
     public static class TutorialOnSockets implements View {
 
         @Override
-        public void handle(Request request, Response response) {
+        public void render(Request request, Response response) {
         }
     }
 
     public static class TutorialTopic implements View {
 
         @Override
-        public void handle(Request request, Response response) {
+        public void render(Request request, Response response) {
         }
     }
 
     public static class TutorialOtherStuff implements View {
 
         @Override
-        public void handle(Request request, Response response) {
+        public void render(Request request, Response response) {
         }
     }
     public static final View HOME = new Home();

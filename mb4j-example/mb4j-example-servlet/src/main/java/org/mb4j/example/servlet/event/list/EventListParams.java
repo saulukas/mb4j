@@ -4,20 +4,20 @@ import org.mb4j.component.Request;
 import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
 
-public class EventListPanelParams {
+public class EventListParams {
 
     public static final int SHOW_ALL = -1;
     static final String PARAM_REVERSE_ORDER = "reverseOrder";
     final int maxResultCount;
     final boolean reverseOrder;
 
-    public EventListPanelParams(int maxResultCount, boolean reverseOrder) {
+    public EventListParams(int maxResultCount, boolean reverseOrder) {
         this.maxResultCount = maxResultCount;
         this.reverseOrder = reverseOrder;
     }
 
-    public static EventListPanelParams from(Request request) {
-        return new EventListPanelParams(readMaxEventCount(request), readReverseOrderFlag(request));
+    public static EventListParams from(Request request) {
+        return new EventListParams(readMaxEventCount(request), readReverseOrderFlag(request));
     }
 
     public UrlParams toUrlParams() {

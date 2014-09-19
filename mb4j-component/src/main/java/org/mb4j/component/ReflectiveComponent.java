@@ -30,12 +30,12 @@ public class ReflectiveComponent implements Component {
         private static final long serialVersionUID = 1L;
 
         public ResourceMethodSignatureException(Method method) {
-            super(ResourceMethod.class.getSimpleName() + " " + method + " must have signature:\n  "
-                    + "void " + method.getName() + "("
-                    + Request.class.getSimpleName()
-                    + " request, "
-                    + Response.class.getSimpleName()
-                    + "response).");
+            super("Invalid ResourceMethod '" + method.getName() + "' signature:"
+                    + "\n    expected : void " + method.getName() + "("
+                    + Request.class.getSimpleName() + " request, "
+                    + Response.class.getSimpleName() + " response)"
+                    + "\n    found    : " + method
+            );
         }
 
     }
@@ -50,10 +50,13 @@ public class ReflectiveComponent implements Component {
         private static final long serialVersionUID = 1L;
 
         public ActionMethodSignatureException(Method method) {
-            super(ActionMethod.class.getSimpleName() + " " + method + " must have signature\n  "
+            super("Invalid ActionMethod '" + method.getName() + "' signature:"
+                    + "\n    expected : "
                     + ActionResponse.class.getSimpleName() + " " + method.getName() + "("
                     + Request.class.getSimpleName() + " request, "
-                    + NamedParams.class.getSimpleName() + " formInput)");
+                    + NamedParams.class.getSimpleName() + " formInput)"
+                    + "\n    found    : " + method
+            );
         }
 
     }

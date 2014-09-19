@@ -64,7 +64,7 @@ public class BrickPortlet implements Portlet, ResourceServingPortlet {
         MapUrlPath2View.Result resolved = resolveView(renderRequest);
         Request request = createRequest(resolved, renderRequest, renderResponse);
         Response response = new PortletViewResponse(renderer, renderResponse);
-        resolved.view.handle(request, response);
+        resolved.view.render(request, response);
     }
 
     @Override

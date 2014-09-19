@@ -7,7 +7,6 @@ public class EventListPageModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(EventListPage.class);
-        bind(EventListPanel.class);
         bind(EventListItemPanel.class);
     }
 

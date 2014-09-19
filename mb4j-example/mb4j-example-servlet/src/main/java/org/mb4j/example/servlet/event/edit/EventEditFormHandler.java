@@ -59,7 +59,7 @@ public class EventEditFormHandler extends FormHandler<EventEditFormData> {
             return renderCurrentPage(request).with(DATA_KEY, data);
         }
         eventSaveCommand.execute(createEvent(data));
-        return redirectTo(EventListPage.url());
+        return redirectTo(EventListPage.locatorShowAll());
     }
 
     @FormActionMethod
@@ -70,7 +70,7 @@ public class EventEditFormHandler extends FormHandler<EventEditFormData> {
 
     @FormActionMethod
     FormResponse goToEventList(Request request, EventEditFormData data) {
-        return redirectTo(EventListPage.url());
+        return redirectTo(EventListPage.locatorShowAll());
     }
 
     private boolean errorsFoundIn(EventEditFormData data) {

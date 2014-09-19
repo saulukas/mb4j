@@ -7,7 +7,7 @@ import org.mb4j.component.Response;
 public abstract class Service implements View {
 
     @Override
-    public void handle(Request request, Response response) {
+    public void render(Request request, Response response) {
         try {
             serve(request, response);
         } catch (Exception ex) {
