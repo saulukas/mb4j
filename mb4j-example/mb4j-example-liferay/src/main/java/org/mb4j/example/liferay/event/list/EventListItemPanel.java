@@ -11,15 +11,9 @@ import org.mb4j.example.liferay.event.edit.EventEditView;
 @Singleton
 public class EventListItemPanel {
 
-    static class Brick extends MustacheBrick {
 
-        Event event;
-        AssetUrl eventImageUrl;
-        ViewUrl eventEditUrl;
-    }
-
-    Brick bakeBrick(Request request, Event event) {
-        Brick brick = new Brick();
+    EventListItemPanelBrick bakeBrick(Request request, Event event) {
+        EventListItemPanelBrick brick = new EventListItemPanelBrick();
         brick.event = event;
         brick.eventImageUrl = request.assetUrl(event.imageUrl);
         brick.eventEditUrl = request.resolve(EventEditView.url(event.id));

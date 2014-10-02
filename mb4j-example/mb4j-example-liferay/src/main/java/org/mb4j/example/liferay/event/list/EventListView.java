@@ -12,7 +12,7 @@ import org.mb4j.component.url.UrlParams;
 import org.mb4j.component.url.UrlPathBuilder;
 import org.mb4j.example.domain.data.Event;
 import org.mb4j.example.domain.queries.EventListQuery;
-import org.mb4j.example.liferay.event.list.EventListView.Brick.DecoratedListItem;
+import org.mb4j.example.liferay.event.list.EventListViewBrick.DecoratedListItem;
 import org.mb4j.liferay.PortletView;
 
 @Singleton
@@ -31,25 +31,11 @@ public class EventListView extends PortletView {
         return ViewLocator.of(EventListView.class, new Params(maxEventCount, false).toUrlParams());
     }
 
-    static class Brick extends MustacheBrick {
-
-        List<DecoratedListItem> list;
-        ViewUrl reverseOrderUrl;
-
-        static class DecoratedListItem {
-
-            EventListItemPanel.Brick item;
-
-            DecoratedListItem(EventListItemPanel.Brick item) {
-                this.item = item;
-            }
-        }
-    }
 
     @Override
     public MustacheBrick bakeBrick(Request request) {
         Params params = Params.from(request);
-        Brick brick = new Brick();
+        EventListViewBrick brick = new EventListViewBrick();
         brick.list = initDecoratedList(params, request);
         brick.reverseOrderUrl = request.resolve(initReverseOrderUrl(params, request));
         return brick;

@@ -1,8 +1,8 @@
 package org.mb4j.servlet;
 
-import org.mb4j.component.View;
 import org.mb4j.component.Request;
 import org.mb4j.component.Response;
+import org.mb4j.component.View;
 import static org.mb4j.component.url.UrlPathString.urlPathOf;
 import static org.mb4j.component.viewmap.ViewMapBuilder.routeDefaultHomeTo;
 import static org.mb4j.servlet.BrickJetty.brickJetty;
@@ -13,7 +13,9 @@ public class BrickJettyTest {
         brickJetty(routeDefaultHomeTo(new View() {
             @Override
             public void render(Request request, Response response) {
-                response.getWriter();
+                response.write(""
+                        + "<p>Hello MB on Jetty :)</p>"
+                        + "<a href=\"go?aaa=111\">One more hello...</a>");
             }
         }).route(urlPathOf("go/*"), new Service() {
             @Override
