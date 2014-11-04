@@ -2,6 +2,8 @@ package org.mb4j.servlet;
 
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -49,17 +51,7 @@ public class BrickJetty {
 
     void doStart() throws Exception {
         long startNanos = System.nanoTime();
-        // Server
-        Server server = new Server(port);
-        // Brick filter
-        BrickServletFilter filter = new BrickServletFilter(renderer, routes);
-        // Servlet context
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath(contextPath);
-        context.addFilter(new FilterHolder(filter), "/*", EnumSet.of(
-                DispatcherType.INCLUDE,
-                DispatcherType.REQUEST));
-        server.setHandler(context);
+        Server server = createServer();
         // starting...
         System.out.println("---- starting jetty ...");
         server.start();
@@ -76,5 +68,28 @@ public class BrickJetty {
         server.stop();
         server.join();
         System.out.println("---- stopping jetty ... ok");
+    }
+
+    Server createServer() {
+        Server server = new Server(port);
+        BrickServletFilter filter = new BrickServletFilter(renderer, routes);
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath(contextPath);
+        context.addFilter(new FilterHolder(filter), "/*", EnumSet.of(
+                DispatcherType.INCLUDE,
+                DispatcherType.REQUEST));
+        server.setHandler(context);
+        disableSendServerVersion(server);
+        return server;
+    }
+
+    private void disableSendServerVersion(Server server) {
+        for (Connector y : server.getConnectors()) {
+            for (org.eclipse.jetty.server.ConnectionFactory x : y.getConnectionFactories()) {
+                if (x instanceof HttpConnectionFactory) {
+                    ((HttpConnectionFactory) x).getHttpConfiguration().setSendServerVersion(false);
+                }
+            }
+        }
     }
 }

@@ -27,7 +27,13 @@
                         <scanIntervalSeconds>1</scanIntervalSeconds>
                         <webApp>
                             <contextPath>/mb4j</contextPath>
+                            <extraClasspath>target/classes;../../mb4j-servlet/target/classes;../../mb4j-component/target/classes;../../mb4j-brick/target/classes</extraClasspath>
                         </webApp>
+                        <scanTargets>
+                            <scanTarget>../../mb4j-servlet/target/classes</scanTarget>
+                            <scanTarget>../../mb4j-component/target/classes</scanTarget>
+                            <scanTarget>../../mb4j-brick/target/classes</scanTarget>
+                        </scanTargets>
                     </configuration>
                 </plugin>
             </plugins>
