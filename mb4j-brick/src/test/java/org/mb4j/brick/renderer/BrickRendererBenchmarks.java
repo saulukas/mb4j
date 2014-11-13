@@ -9,12 +9,15 @@ import com.samskivert.mustache.Template;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
 public class BrickRendererBenchmarks {
 
-    static final int RENDER_COUNT = 10000;
+    static final int MAX_THREAD_COUNT = 2;
+    static final int RENDER_COUNT = 10_000;
 
     public static void main(String[] args) {
         System.out.println("render count: " + RENDER_COUNT);
@@ -23,19 +26,57 @@ public class BrickRendererBenchmarks {
         renderUsingGuavaEscapers();
         renderUsingObjectAttributes();
         renderUsingLambdas();
+        renderUsingPlainWrite();
     }
 
-    static void benchmark(String info, int count, Runnable runnable) {
+    static class BenchmarkRunnable implements Runnable {
+
+        final Runnable task;
+        final int repeatCount;
+
+        public BenchmarkRunnable(Runnable task, int repeatCount) {
+            this.task = task;
+            this.repeatCount = repeatCount;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < repeatCount; i++) {
+                task.run();
+            }
+        }
+
+    }
+
+    static void benchmark(String info, final int count, final Runnable runnable) {
         System.out.print(info);
+        int countLeft = count;
+        List<Thread> threadList = new ArrayList<>(MAX_THREAD_COUNT);
+        int repeatCount = (count / MAX_THREAD_COUNT) + (count % MAX_THREAD_COUNT);
+        while (countLeft > 0) {
+            countLeft -= repeatCount;
+            threadList.add(new Thread(new BenchmarkRunnable(runnable, repeatCount)));
+            repeatCount = (count / MAX_THREAD_COUNT);
+        }
         long startNanos = System.nanoTime();
-        for (int i = 0; i < count; i++) {
-            runnable.run();
+        for (Thread thread : threadList) {
+            thread.start();
+        }
+        try {
+            for (Thread thread : threadList) {
+                thread.join();
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
         long deltaNanos = System.nanoTime() - startNanos;
         double millis = deltaNanos / 1000_000.0;
         double secs = millis / 1000.0;
         long frequency = (long) (count / secs);
-        System.out.println("\t" + "freq=" + frequency + "\t" + "millis=" + millis);
+        System.out.println(""
+                + "\t" + "threads=" + threadList.size()
+                + "\t" + "freq=" + frequency
+                + "\t" + "millis=" + millis);
 
     }
 
@@ -143,7 +184,8 @@ public class BrickRendererBenchmarks {
 
             @Override
             public void run() {
-                template.execute(context);
+                StringWriter writer = new StringWriter();
+                template.execute(context, writer);
             }
         });
     }
@@ -204,8 +246,52 @@ public class BrickRendererBenchmarks {
 
             @Override
             public void run() {
-                template.execute(context);
+                StringWriter writer = new StringWriter();
+                template.execute(context, writer);
             }
         });
     }
+
+    private static void renderUsingPlainWrite() {
+        benchmark("plain write: ", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                StringWriter writer = new StringWriter();
+                writer.write(""
+                        + "\n"
+                        + "    More composite brick wants to say More Composite Hello :)\n"
+                        + "    --------------------------------------------------------------------\n"
+                        + "    composite1:");
+                writer.write(""
+                        + " \n"
+                        + "    \n"
+                        + "        Composite brick wants to say Composite Hello 1 :)\n"
+                        + "    \n"
+                        + "        1. Just wanted to say First Hello :)\n"
+                        + "        2. Just wanted to say Second Hello :)\n"
+                        + "    \n"
+                );
+                writer.write(""
+                        + "    --------------------------------------------------------------------\n"
+                        + "    composite2:"
+                );
+                writer.write(""
+                        + " \n"
+                        + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
+                        + "    ----------- \n"
+                        + "    -----------     1. Just wanted to say First Hello :)\n"
+                        + "    -----------     2. Just wanted to say Second Hello :)\n"
+                        + "    ----------- \n"
+                        + "    --------------------------------------------------------------------\n"
+                        + "    simple:"
+                );
+                writer.write(""
+                        + " Just wanted to say Simple Hello2 :)\n"
+                        + "\n"
+                );
+            }
+        });
+    }
+
 }
