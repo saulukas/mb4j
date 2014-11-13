@@ -4,6 +4,7 @@ import com.google.common.escape.Escaper;
 import com.google.common.html.HtmlEscapers;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Mustache.Lambda;
+import com.samskivert.mustache.MustacheException;
 import com.samskivert.mustache.Template;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -11,22 +12,53 @@ import java.io.Writer;
 import org.mb4j.brick.MustacheBrick;
 import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
-public class BrickRendererSpeedBenchmarks {
+public class BrickRendererBenchmarks {
+
+    static final int RENDER_COUNT = 1000;
 
     public static void main(String[] args) {
+        System.out.println("render count: " + RENDER_COUNT);
+        //render4development();
+        render4production();
+        renderUsingGuavaEscapers();
+        renderUsingObjectAttributes();
+        renderUsingLambdas();
+    }
+
+    private static void render4development() {
+        //
+        //      0
+        //    --------
+        //
+        MustacheBrick brick = new MoreCompositeBrick();
+        long startNanos = System.nanoTime();
+        String output = "";
+        for (int i = 0; i < RENDER_COUNT; i++) {
+            output = RendererUtils.renderToString4Development(brick);
+        }
+        long deltaNanos = System.nanoTime() - startNanos;
+//    System.out.println(output);
+        System.out.println("deltaMillis0 = " + deltaNanos / 1000000.0);
+    }
+
+    private static void render4production() {
         //
         //      1
         //    --------
         //
         MustacheBrick brick = new MoreCompositeBrick();
         long startNanos = System.nanoTime();
-        String output = "";
-        for (int i = 0; i < 10 * 1000; i++) {
-            output = RendererUtils.renderToString4Development(brick);
+        BrickRenderer renderer = RendererUtils.renderer4Production();
+        for (int i = 0; i < RENDER_COUNT; i++) {
+            Writer writer = new StringWriter();
+            renderer.render(brick, writer);
         }
         long deltaNanos = System.nanoTime() - startNanos;
 //    System.out.println(output);
-        System.out.println("deltaMillis = " + deltaNanos / 1000000.0);
+        System.out.println("deltaMillis1 = " + deltaNanos / 1000000.0);
+    }
+
+    private static void renderUsingGuavaEscapers() {
         //
         //      2
         //    --------
@@ -40,7 +72,7 @@ public class BrickRendererSpeedBenchmarks {
                 //          }
                 //        };
                 = HtmlEscapers.htmlEscaper();
-        for (int i = 0; i < 10 * 1000; i++) {
+        for (int i = 0; i < RENDER_COUNT; i++) {
             StringWriter writer = new StringWriter();
             writer.write(htmlEscaper.escape(""
                     + "\n"
@@ -77,6 +109,9 @@ public class BrickRendererSpeedBenchmarks {
         }
         long deltaNanos2 = System.nanoTime() - startNanos2;
         System.out.println("deltaMillis2 = " + deltaNanos2 / 1000000.0);
+    }
+
+    private static void renderUsingObjectAttributes() throws MustacheException {
         //
         //      3
         //    --------
@@ -113,12 +148,15 @@ public class BrickRendererSpeedBenchmarks {
         Template template3 = Mustache.compiler().compile(templateString3);
         long startNanos3 = System.nanoTime();
         String actual3 = "";
-        for (int i = 0; i < 10 * 1000; i++) {
+        for (int i = 0; i < RENDER_COUNT; i++) {
             actual3 = template3.execute(context3);
         }
         long deltaNanos3 = System.nanoTime() - startNanos3;
 //    System.out.println(actual3);
         System.out.println("deltaMillis3 = " + deltaNanos3 / 1000000.0);
+    }
+
+    private static void renderUsingLambdas() throws MustacheException {
         //
         //      4
         //    --------
@@ -176,7 +214,7 @@ public class BrickRendererSpeedBenchmarks {
         Template template4 = Mustache.compiler().compile(templateString4);
         long startNanos4 = System.nanoTime();
         String actual4 = "";
-        for (int i = 0; i < 10 * 1000; i++) {
+        for (int i = 0; i < RENDER_COUNT; i++) {
             actual4 = template4.execute(context4);
         }
         long deltaNanos4 = System.nanoTime() - startNanos4;

@@ -1,6 +1,10 @@
 package org.mb4j.example.liferay.zbox;
 
+import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.portlet.GenericPortlet;
@@ -12,6 +16,9 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceURL;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.mb4j.example.liferay.util.PortletDebugUtils;
 
 public class TestbenchPortlet extends GenericPortlet {
@@ -57,11 +64,19 @@ public class TestbenchPortlet extends GenericPortlet {
         //   session attributes
         //
         boolean hadSession = request.getPortletSession(false) != null;
+        HttpServletRequest httpRequest = ((LiferayPortletRequest) request).getHttpServletRequest();
+        HttpServletResponse httpResponse = ((LiferayPortletResponse) response).getHttpServletResponse();
         Object oldValue = request.getPortletSession().getAttribute("LIFERAY_SHARED_A123", APPLICATION_SCOPE);
         String newValue = "mb" + renderCount.incrementAndGet();
         request.getPortletSession().setAttribute("LIFERAY_SHARED_A123", newValue, APPLICATION_SCOPE);
         response.getWriter().println(""
                 + "<p>Session existed: " + hadSession + " oldValue=" + oldValue + " newValue=" + newValue + "</p>");
+        response.getWriter().println("" + "<p>Session existed2: "
+                + httpRequest.getSession(false) + "</p>");
+        response.getWriter().println("" + "<p>Session existed3: "
+                + Collections.list(httpRequest.getSession().getAttributeNames()) + "</p>");
+        response.getWriter().println("<p>Session existed4: "
+                + cookies(httpRequest) + "</p>");
         response.getWriter().println(""
                 + "<pre>Application attributes: "
                 + separateWith("\n", request.getPortletSession().getAttributeMap(APPLICATION_SCOPE))
@@ -70,6 +85,16 @@ public class TestbenchPortlet extends GenericPortlet {
                 + separateWith("\n", request.getPortletSession().getAttributeMap())
                 + "</pre>"
         );
+    }
+
+    private static String cookies(HttpServletRequest httpRequest) {
+        String result = "coockies: ";
+        if (httpRequest.getCookies() != null) {
+            for (Cookie cookie : Arrays.asList(httpRequest.getCookies())) {
+                result += cookie.getName() + "=" + cookie.getValue() + ",";
+            }
+        }
+        return result;
     }
 
     @Override
