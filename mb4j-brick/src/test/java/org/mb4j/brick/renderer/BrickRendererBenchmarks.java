@@ -14,7 +14,7 @@ import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
 public class BrickRendererBenchmarks {
 
-    static final int RENDER_COUNT = 1000;
+    static final int RENDER_COUNT = 10000;
 
     public static void main(String[] args) {
         System.out.println("render count: " + RENDER_COUNT);
@@ -25,98 +25,91 @@ public class BrickRendererBenchmarks {
         renderUsingLambdas();
     }
 
-    private static void render4development() {
-        //
-        //      0
-        //    --------
-        //
-        MustacheBrick brick = new MoreCompositeBrick();
+    static void benchmark(String info, int count, Runnable runnable) {
+        System.out.print(info);
         long startNanos = System.nanoTime();
-        String output = "";
-        for (int i = 0; i < RENDER_COUNT; i++) {
-            output = RendererUtils.renderToString4Development(brick);
+        for (int i = 0; i < count; i++) {
+            runnable.run();
         }
         long deltaNanos = System.nanoTime() - startNanos;
-//    System.out.println(output);
-        System.out.println("deltaMillis0 = " + deltaNanos / 1000000.0);
+        double millis = deltaNanos / 1000_000.0;
+        double secs = millis / 1000.0;
+        long frequency = (long) (count / secs);
+        System.out.println("\t" + "freq=" + frequency + "\t" + "millis=" + millis);
+
+    }
+
+    private static void render4development() {
+        final MustacheBrick brick = new MoreCompositeBrick();
+        final BrickRenderer renderer = RendererUtils.renderer4Development();
+        benchmark("development: ", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                Writer writer = new StringWriter();
+                renderer.render(brick, writer);
+            }
+        });
     }
 
     private static void render4production() {
-        //
-        //      1
-        //    --------
-        //
-        MustacheBrick brick = new MoreCompositeBrick();
-        long startNanos = System.nanoTime();
-        BrickRenderer renderer = RendererUtils.renderer4Production();
-        for (int i = 0; i < RENDER_COUNT; i++) {
-            Writer writer = new StringWriter();
-            renderer.render(brick, writer);
-        }
-        long deltaNanos = System.nanoTime() - startNanos;
-//    System.out.println(output);
-        System.out.println("deltaMillis1 = " + deltaNanos / 1000000.0);
+        final MustacheBrick brick = new MoreCompositeBrick();
+        final BrickRenderer renderer = RendererUtils.renderer4Production();
+        benchmark("production: ", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                Writer writer = new StringWriter();
+                renderer.render(brick, writer);
+            }
+        });
     }
 
     private static void renderUsingGuavaEscapers() {
-        //
-        //      2
-        //    --------
-        //
-        long startNanos2 = System.nanoTime();
-        Escaper htmlEscaper
-                //        = new Escaper() {
-                //          @Override
-                //          public String escape(String string) {
-                //            return string;
-                //          }
-                //        };
-                = HtmlEscapers.htmlEscaper();
-        for (int i = 0; i < RENDER_COUNT; i++) {
-            StringWriter writer = new StringWriter();
-            writer.write(htmlEscaper.escape(""
-                    + "\n"
-                    + "    More composite brick wants to say More Composite Hello :)\n"
-                    + "    --------------------------------------------------------------------\n"
-                    + "    composite1:"));
-            writer.write(htmlEscaper.escape(""
-                    + " \n"
-                    + "    \n"
-                    + "        Composite brick wants to say Composite Hello 1 :)\n"
-                    + "    \n"
-                    + "        1. Just wanted to say First Hello :)\n"
-                    + "        2. Just wanted to say Second Hello :)\n"
-                    + "    \n"
-            ));
-            writer.write(htmlEscaper.escape(""
-                    + "    --------------------------------------------------------------------\n"
-                    + "    composite2:"
-            ));
-            writer.write(htmlEscaper.escape(""
-                    + " \n"
-                    + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
-                    + "    ----------- \n"
-                    + "    -----------     1. Just wanted to say First Hello :)\n"
-                    + "    -----------     2. Just wanted to say Second Hello :)\n"
-                    + "    ----------- \n"
-                    + "    --------------------------------------------------------------------\n"
-                    + "    simple:"
-            ));
-            writer.write(htmlEscaper.escape(""
-                    + " Just wanted to say Simple Hello2 :)\n"
-                    + "\n"
-            ));
-        }
-        long deltaNanos2 = System.nanoTime() - startNanos2;
-        System.out.println("deltaMillis2 = " + deltaNanos2 / 1000000.0);
+        final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
+        benchmark("guava escaper: ", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                StringWriter writer = new StringWriter();
+                writer.write(htmlEscaper.escape(""
+                        + "\n"
+                        + "    More composite brick wants to say More Composite Hello :)\n"
+                        + "    --------------------------------------------------------------------\n"
+                        + "    composite1:"));
+                writer.write(htmlEscaper.escape(""
+                        + " \n"
+                        + "    \n"
+                        + "        Composite brick wants to say Composite Hello 1 :)\n"
+                        + "    \n"
+                        + "        1. Just wanted to say First Hello :)\n"
+                        + "        2. Just wanted to say Second Hello :)\n"
+                        + "    \n"
+                ));
+                writer.write(htmlEscaper.escape(""
+                        + "    --------------------------------------------------------------------\n"
+                        + "    composite2:"
+                ));
+                writer.write(htmlEscaper.escape(""
+                        + " \n"
+                        + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
+                        + "    ----------- \n"
+                        + "    -----------     1. Just wanted to say First Hello :)\n"
+                        + "    -----------     2. Just wanted to say Second Hello :)\n"
+                        + "    ----------- \n"
+                        + "    --------------------------------------------------------------------\n"
+                        + "    simple:"
+                ));
+                writer.write(htmlEscaper.escape(""
+                        + " Just wanted to say Simple Hello2 :)\n"
+                        + "\n"
+                ));
+            }
+        });
     }
 
     private static void renderUsingObjectAttributes() throws MustacheException {
-        //
-        //      3
-        //    --------
-        //
-        String templateString3 = "\n"
+        String templateString = "\n"
                 + "    More composite brick wants to say More Composite Hello :)\n"
                 + "    --------------------------------------------------------------------\n"
                 + "    composite1:{{composite1}}"
@@ -126,7 +119,7 @@ public class BrickRendererBenchmarks {
                 + "    simple:{{simple}}"
                 + "\n"
                 + "";
-        Object context3 = new Object() {
+        final Object context = new Object() {
             String composite1 = ""
                     + " \n"
                     + "    \n"
@@ -145,23 +138,18 @@ public class BrickRendererBenchmarks {
             String simple = ""
                     + " Just wanted to say Simple Hello3 :)\n";
         };
-        Template template3 = Mustache.compiler().compile(templateString3);
-        long startNanos3 = System.nanoTime();
-        String actual3 = "";
-        for (int i = 0; i < RENDER_COUNT; i++) {
-            actual3 = template3.execute(context3);
-        }
-        long deltaNanos3 = System.nanoTime() - startNanos3;
-//    System.out.println(actual3);
-        System.out.println("deltaMillis3 = " + deltaNanos3 / 1000000.0);
+        final Template template = Mustache.compiler().compile(templateString);
+        benchmark("object attrs: ", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                template.execute(context);
+            }
+        });
     }
 
     private static void renderUsingLambdas() throws MustacheException {
-        //
-        //      4
-        //    --------
-        //
-        String templateString4 = "\n"
+        String templateString = "\n"
                 + "    More composite brick wants to say More Composite Hello :)\n"
                 + "    --------------------------------------------------------------------\n"
                 + "    composite1: {{#composite1}}"
@@ -173,7 +161,7 @@ public class BrickRendererBenchmarks {
                 + "    simple: {{#simple}}{{/simple}}"
                 + "\n"
                 + "";
-        Object context4 = new Object() {
+        final Object context = new Object() {
             Lambda composite1 = new Lambda() {
                 @Override
                 public void execute(Template.Fragment frag, Writer out) throws IOException {
@@ -211,14 +199,13 @@ public class BrickRendererBenchmarks {
                 }
             };
         };
-        Template template4 = Mustache.compiler().compile(templateString4);
-        long startNanos4 = System.nanoTime();
-        String actual4 = "";
-        for (int i = 0; i < RENDER_COUNT; i++) {
-            actual4 = template4.execute(context4);
-        }
-        long deltaNanos4 = System.nanoTime() - startNanos4;
-//    System.out.println(actual4);
-        System.out.println("deltaMillis4 = " + deltaNanos4 / 1000000.0);
+        final Template template = Mustache.compiler().compile(templateString);
+        benchmark("lambdas: ", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                template.execute(context);
+            }
+        });
     }
 }
