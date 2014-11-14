@@ -1,4 +1,4 @@
-package org.mb4j.brick.renderer;
+package org.mb4j.brick.benchmark;
 
 import com.google.common.escape.Escaper;
 import com.google.common.html.HtmlEscapers;
@@ -15,17 +15,31 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.mb4j.brick.MustacheBrick;
+import static org.mb4j.brick.benchmark.TextUtils.add1000seps;
+import static org.mb4j.brick.benchmark.TextUtils.alignLeft;
+import static org.mb4j.brick.benchmark.TextUtils.alignRight;
+import static org.mb4j.brick.benchmark.TextUtils.fillChar;
+import org.mb4j.brick.renderer.BrickRenderer;
+import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
 public class BrickRendererBenchmarks {
 
-    static final int MAX_THREAD_COUNT = 1;
+    static final int MAX_THREAD_COUNT = 2;
     static final int RENDER_COUNT = 100_000;
+    static final int NAME_WIDTH = 16;
+    static final int FREQUENCY_WIDTH = 12;
+    static final int MILLIS_WIDTH = 7;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("render count: " + RENDER_COUNT);
+        System.out.println("Threads      : " + MAX_THREAD_COUNT);
+        System.out.println("render count : " + RENDER_COUNT);
+        System.out.println(fillChar('-', NAME_WIDTH)
+                + " " + alignRight("Frequency", FREQUENCY_WIDTH)
+                + " " + alignRight("Millis", MILLIS_WIDTH)
+        );
         //render4development();
-        render4production();
+        //render4production();
         renderUsingObjectAttributes();
         renderUsingObjectAttributes2();
         renderUsingLambdas();
@@ -57,7 +71,7 @@ public class BrickRendererBenchmarks {
     }
 
     static void benchmark(String info, final int count, final Runnable runnable) {
-        System.out.print(info);
+        System.out.print(alignLeft(" " + info, NAME_WIDTH));
         int countLeft = count;
         List<Thread> threadList = new ArrayList<>(MAX_THREAD_COUNT);
         int repeatCount = (count / MAX_THREAD_COUNT) + (count % MAX_THREAD_COUNT);
@@ -82,9 +96,9 @@ public class BrickRendererBenchmarks {
         double secs = millis / 1000.0;
         long frequency = (long) (count / secs);
         System.out.println(""
-                + "\t" + "threads=" + threadList.size()
-                + "\t" + "freq=" + frequency
-                + "\t" + "millis=" + millis);
+                + " " + alignRight(add1000seps(frequency + ""), FREQUENCY_WIDTH)
+                + " " + alignRight(add1000seps((long) millis + ""), MILLIS_WIDTH)
+        );
 
     }
 
@@ -104,7 +118,7 @@ public class BrickRendererBenchmarks {
     private static void render4production() {
         final MustacheBrick brick = new MoreCompositeBrick();
         final BrickRenderer renderer = RendererUtils.renderer4Production();
-        benchmark("production: ", RENDER_COUNT, new Runnable() {
+        benchmark("production", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -116,7 +130,7 @@ public class BrickRendererBenchmarks {
 
     private static void renderUsingGuavaEscapers() {
         final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
-        benchmark("guava escaper: ", RENDER_COUNT, new Runnable() {
+        benchmark("guava escaper", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -191,7 +205,7 @@ public class BrickRendererBenchmarks {
                     + " Just wanted to say Simple Hello3 :)\n";
         };
 
-        benchmark("reflection: ", RENDER_COUNT, new Runnable() {
+        benchmark("reflection", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -246,12 +260,22 @@ public class BrickRendererBenchmarks {
         };
 
         final Field composite1 = context.getClass().getDeclaredField("composite1");
+        composite1.setAccessible(true);
         final Field composite2 = context.getClass().getDeclaredField("composite2");
+        composite2.setAccessible(true);
         final Field simple = context.getClass().getDeclaredField("simple");
+        simple.setAccessible(true);
 
-        final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
+        final Escaper htmlEscaper = //HtmlEscapers.htmlEscaper();
+                new Escaper() {
 
-        benchmark("reflection2: ", RENDER_COUNT, new Runnable() {
+                    @Override
+                    public String escape(String string) {
+                        return string;
+                    }
+                };
+
+        benchmark("reflection2", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -312,7 +336,7 @@ public class BrickRendererBenchmarks {
         //final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
         final Mustache.Escaper htmlEscaper = Escapers.HTML;
 
-        benchmark("reflection3: ", RENDER_COUNT, new Runnable() {
+        benchmark("reflection3", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -377,9 +401,15 @@ public class BrickRendererBenchmarks {
         final Method composite2 = context.getClass().getDeclaredMethod("getComposite2");
         final Method simple = context.getClass().getDeclaredMethod("getSimple");
 
-        final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
+        final Escaper htmlEscaper = //HtmlEscapers.htmlEscaper();
+                new Escaper() {
 
-        benchmark("refl getters: ", RENDER_COUNT, new Runnable() {
+                    @Override
+                    public String escape(String string) {
+                        return string;
+                    }
+                };
+        benchmark("refl getters", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -430,7 +460,7 @@ public class BrickRendererBenchmarks {
                     + " Just wanted to say Simple Hello3 :)\n";
         };
         final Template template = Mustache.compiler().compile(templateString);
-        benchmark("object attrs: ", RENDER_COUNT, new Runnable() {
+        benchmark("object attrs", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -471,7 +501,7 @@ public class BrickRendererBenchmarks {
                     + " Just wanted to say Simple Hello3 :)\n";
         };
         final Template template = Mustache.compiler().compile(templateString);
-        benchmark("object attrs2: ", RENDER_COUNT, new Runnable() {
+        benchmark("object attrs2", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
@@ -533,18 +563,21 @@ public class BrickRendererBenchmarks {
             };
         };
         final Template template = Mustache.compiler().compile(templateString);
-        benchmark("lambdas: ", RENDER_COUNT, new Runnable() {
+        final String[] output = new String[]{""};
+        benchmark("lambdas", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
                 StringWriter writer = new StringWriter();
                 template.execute(context, writer);
+                //   output[0] = writer.toString();
             }
         });
+        System.out.print(output[0]);
     }
 
     private static void renderUsingPlainWrite() {
-        benchmark("plain write: ", RENDER_COUNT, new Runnable() {
+        benchmark("plain write", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
