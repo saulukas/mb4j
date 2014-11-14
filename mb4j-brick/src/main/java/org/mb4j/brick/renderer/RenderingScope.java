@@ -1,12 +1,12 @@
 package org.mb4j.brick.renderer;
 
-import com.samskivert.mustache.MustacheException;
-import com.samskivert.mustache.Template.Fragment;
 import java.io.FilterWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Iterator;
 import org.mb4j.brick.MustacheBrick;
+import org.mb4j.brick.jmustache.MustacheException;
+import org.mb4j.brick.jmustache.Template.Fragment;
 import org.mb4j.brick.template.BrickTemplate;
 import org.mb4j.brick.template.TemplateProvider;
 

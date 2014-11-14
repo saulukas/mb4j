@@ -2,10 +2,6 @@ package org.mb4j.brick.benchmark;
 
 import com.google.common.escape.Escaper;
 import com.google.common.html.HtmlEscapers;
-import com.samskivert.mustache.Escapers;
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Mustache.Lambda;
-import com.samskivert.mustache.Template;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -19,6 +15,9 @@ import static org.mb4j.brick.benchmark.TextUtils.add1000seps;
 import static org.mb4j.brick.benchmark.TextUtils.alignLeft;
 import static org.mb4j.brick.benchmark.TextUtils.alignRight;
 import static org.mb4j.brick.benchmark.TextUtils.fillChar;
+import org.mb4j.brick.jmustache.Mustache;
+import org.mb4j.brick.jmustache.Mustache.Lambda;
+import org.mb4j.brick.jmustache.Template;
 import org.mb4j.brick.renderer.BrickRenderer;
 import org.mb4j.brick.renderer.RendererUtils;
 import org.mb4j.brick.samples.composition.MoreCompositeBrick;
@@ -39,14 +38,13 @@ public class BrickRendererBenchmarks {
                 + " " + alignRight("Millis", MILLIS_WIDTH)
         );
         //render4development();
-        //render4production();
+        render4production();
         renderUsingObjectAttributes();
         renderUsingObjectAttributes2();
         renderUsingLambdas();
         renderUsingPlainWrite();
         renderUsingReflection();
         renderUsingReflection2();
-        renderUsingReflection3();
         renderUsingReflectionGetters();
         renderUsingGuavaEscapers();
     }
@@ -225,22 +223,23 @@ public class BrickRendererBenchmarks {
         });
     }
 
-    private static void renderUsingReflection2() throws Exception {
-        final String templateString1 = "\n"
+    static class Data {
+
+        static String templateString1 = "\n"
                 + "    More composite brick wants to say More Composite Hello :)\n"
                 + "    --------------------------------------------------------------------\n"
                 + "    composite1:";
-        final String templateString2 = "" // {{composite1}}"
+        static String templateString2 = "" // {{composite1}}"
                 + "    --------------------------------------------------------------------\n"
                 + "    composite2:";
-        final String templateString3 = "" // {{composite2}}"
+        static String templateString3 = "" // {{composite2}}"
                 + "    --------------------------------------------------------------------\n"
                 + "    simple:";
-        final String templateString4 = "" //  "{{simple}}"
+        static String templateString4 = "" //  "{{simple}}"
                 + "\n"
                 + "";
-        final Object context = new Object() {
-            public String composite1 = ""
+        static Object context = new Object() {
+            String composite1 = ""
                     + " \n"
                     + "    \n"
                     + "        Composite brick wants to say Composite Hello 1 :)\n"
@@ -248,32 +247,28 @@ public class BrickRendererBenchmarks {
                     + "        1. Just wanted to say First Hello :)\n"
                     + "        2. Just wanted to say Second Hello :)\n"
                     + "    \n";
-            public String composite2 = ""
+            String composite2 = ""
                     + " \n"
                     + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
-                    + "    ----------- \n"
+                    + "    -----------     These will be escaped [<>\"\'] \n"
                     + "    -----------     1. Just wanted to say First Hello :)\n"
                     + "    -----------     2. Just wanted to say Second Hello :)\n"
                     + "    ----------- \n";
-            public String simple = ""
+            String simple = ""
                     + " Just wanted to say Simple Hello3 :)\n";
         };
+    }
 
-        final Field composite1 = context.getClass().getDeclaredField("composite1");
+    private static void renderUsingReflection2() throws Exception {
+
+        final Field composite1 = Data.context.getClass().getDeclaredField("composite1");
         composite1.setAccessible(true);
-        final Field composite2 = context.getClass().getDeclaredField("composite2");
+        final Field composite2 = Data.context.getClass().getDeclaredField("composite2");
         composite2.setAccessible(true);
-        final Field simple = context.getClass().getDeclaredField("simple");
+        final Field simple = Data.context.getClass().getDeclaredField("simple");
         simple.setAccessible(true);
 
-        final Escaper htmlEscaper = //HtmlEscapers.htmlEscaper();
-                new Escaper() {
-
-                    @Override
-                    public String escape(String string) {
-                        return string;
-                    }
-                };
+        final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
 
         benchmark("reflection2", RENDER_COUNT, new Runnable() {
 
@@ -281,74 +276,13 @@ public class BrickRendererBenchmarks {
             public void run() {
                 StringWriter writer = new StringWriter();
                 try {
-                    writer.write(templateString1);
-                    writer.write(htmlEscaper.escape(composite1.get(context).toString()));
-                    writer.write(templateString2);
-                    writer.write(htmlEscaper.escape(composite2.get(context).toString()));
-                    writer.write(templateString3);
-                    writer.write(htmlEscaper.escape(simple.get(context).toString()));
-                    writer.write(templateString4);
-                } catch (SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-    }
-
-    private static void renderUsingReflection3() throws Exception {
-        final String templateString1 = "\n"
-                + "    More composite brick wants to say More Composite Hello :)\n"
-                + "    --------------------------------------------------------------------\n"
-                + "    composite1:";
-        final String templateString2 = "" // {{composite1}}"
-                + "    --------------------------------------------------------------------\n"
-                + "    composite2:";
-        final String templateString3 = "" // {{composite2}}"
-                + "    --------------------------------------------------------------------\n"
-                + "    simple:";
-        final String templateString4 = "" //  "{{simple}}"
-                + "\n"
-                + "";
-        final Object context = new Object() {
-            public String composite1 = ""
-                    + " \n"
-                    + "    \n"
-                    + "        Composite brick wants to say Composite Hello 1 :)\n"
-                    + "    \n"
-                    + "        1. Just wanted to say First Hello :)\n"
-                    + "        2. Just wanted to say Second Hello :)\n"
-                    + "    \n";
-            public String composite2 = ""
-                    + " \n"
-                    + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
-                    + "    ----------- \n"
-                    + "    -----------     1. Just wanted to say First Hello :)\n"
-                    + "    -----------     2. Just wanted to say Second Hello :)\n"
-                    + "    ----------- \n";
-            public String simple = ""
-                    + " Just wanted to say Simple Hello3 :)\n";
-        };
-
-        final Field composite1 = context.getClass().getDeclaredField("composite1");
-        final Field composite2 = context.getClass().getDeclaredField("composite2");
-        final Field simple = context.getClass().getDeclaredField("simple");
-
-        //final Escaper htmlEscaper = HtmlEscapers.htmlEscaper();
-        final Mustache.Escaper htmlEscaper = Escapers.HTML;
-
-        benchmark("reflection3", RENDER_COUNT, new Runnable() {
-
-            @Override
-            public void run() {
-                StringWriter writer = new StringWriter();
-                try {
-                    writer.write(templateString1);
-                    writer.write(htmlEscaper.escape(composite1.get(context).toString()));
-                    writer.write(templateString2);
-                    writer.write(htmlEscaper.escape(composite2.get(context).toString()));
-                    writer.write(templateString3);
-                    writer.write(htmlEscaper.escape(simple.get(context).toString()));
-                    writer.write(templateString4);
+                    writer.write(Data.templateString1);
+                    writer.write(htmlEscaper.escape(composite1.get(Data.context).toString()));
+                    writer.write(Data.templateString2);
+                    writer.write(htmlEscaper.escape(composite2.get(Data.context).toString()));
+                    writer.write(Data.templateString3);
+                    writer.write(htmlEscaper.escape(simple.get(Data.context).toString()));
+                    writer.write(Data.templateString4);
                 } catch (SecurityException | IllegalArgumentException | IllegalAccessException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -440,32 +374,14 @@ public class BrickRendererBenchmarks {
                 + "    simple:{{simple}}"
                 + "\n"
                 + "";
-        final Object context = new Object() {
-            public String composite1 = ""
-                    + " \n"
-                    + "    \n"
-                    + "        Composite brick wants to say Composite Hello 1 :)\n"
-                    + "    \n"
-                    + "        1. Just wanted to say First Hello :)\n"
-                    + "        2. Just wanted to say Second Hello :)\n"
-                    + "    \n";
-            public String composite2 = ""
-                    + " \n"
-                    + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
-                    + "    ----------- \n"
-                    + "    -----------     1. Just wanted to say First Hello :)\n"
-                    + "    -----------     2. Just wanted to say Second Hello :)\n"
-                    + "    ----------- \n";
-            public String simple = ""
-                    + " Just wanted to say Simple Hello3 :)\n";
-        };
+
         final Template template = Mustache.compiler().compile(templateString);
         benchmark("object attrs", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
                 StringWriter writer = new StringWriter();
-                template.execute(context, writer);
+                template.execute(Data.context, writer);
             }
         });
     }

@@ -1,7 +1,7 @@
 package org.mb4j.brick;
 
-import com.samskivert.mustache.Template;
 import java.io.Writer;
+import org.mb4j.brick.jmustache.Template;
 
 public class EmptyBrick extends MustacheBrick {
 

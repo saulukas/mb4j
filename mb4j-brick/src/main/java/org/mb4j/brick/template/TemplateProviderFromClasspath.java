@@ -1,9 +1,9 @@
 package org.mb4j.brick.template;
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Template;
 import java.io.InputStream;
 import org.mb4j.brick.MustacheBrick;
+import org.mb4j.brick.jmustache.Mustache;
+import org.mb4j.brick.jmustache.Template;
 
 public class TemplateProviderFromClasspath implements TemplateProvider {
 

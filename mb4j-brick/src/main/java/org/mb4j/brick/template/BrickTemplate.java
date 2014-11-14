@@ -1,6 +1,6 @@
 package org.mb4j.brick.template;
 
-import com.samskivert.mustache.Template;
+import org.mb4j.brick.jmustache.Template;
 
 public class BrickTemplate {
 

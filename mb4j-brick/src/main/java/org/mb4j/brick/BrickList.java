@@ -1,7 +1,7 @@
 package org.mb4j.brick;
 
-import com.samskivert.mustache.Template.Fragment;
 import java.io.Writer;
+import org.mb4j.brick.jmustache.Template.Fragment;
 import org.mb4j.brick.renderer.RenderingScope;
 
 public class BrickList<T extends MustacheBrick> extends MustacheBrick {
