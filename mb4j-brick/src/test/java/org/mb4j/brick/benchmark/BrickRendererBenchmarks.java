@@ -70,24 +70,29 @@ public class BrickRendererBenchmarks {
 
     static void benchmark(String info, final int count, final Runnable runnable) {
         System.out.print(alignLeft(" " + info, NAME_WIDTH));
-        int countLeft = count;
-        List<Thread> threadList = new ArrayList<>(MAX_THREAD_COUNT);
-        int repeatCount = (count / MAX_THREAD_COUNT) + (count % MAX_THREAD_COUNT);
-        while (countLeft > 0) {
-            countLeft -= repeatCount;
-            threadList.add(new Thread(new BenchmarkRunnable(runnable, repeatCount)));
-            repeatCount = (count / MAX_THREAD_COUNT);
-        }
         long startNanos = System.nanoTime();
-        for (Thread thread : threadList) {
-            thread.start();
-        }
-        try {
-            for (Thread thread : threadList) {
-                thread.join();
+        if (MAX_THREAD_COUNT == 1) {
+            new BenchmarkRunnable(runnable, count).run();
+        } else {
+            int countLeft = count;
+            List<Thread> threadList = new ArrayList<>(MAX_THREAD_COUNT);
+            int repeatCount = (count / MAX_THREAD_COUNT) + (count % MAX_THREAD_COUNT);
+            while (countLeft > 0) {
+                countLeft -= repeatCount;
+                threadList.add(new Thread(new BenchmarkRunnable(runnable, repeatCount)));
+                repeatCount = (count / MAX_THREAD_COUNT);
             }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            startNanos = System.nanoTime();
+            for (Thread thread : threadList) {
+                thread.start();
+            }
+            try {
+                for (Thread thread : threadList) {
+                    thread.join();
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         }
         long deltaNanos = System.nanoTime() - startNanos;
         double millis = deltaNanos / 1000_000.0;
@@ -116,14 +121,17 @@ public class BrickRendererBenchmarks {
     private static void render4production() {
         final MustacheBrick brick = new MoreCompositeBrick();
         final BrickRenderer renderer = RendererUtils.renderer4Production();
+        final String[] output = new String[]{""};
         benchmark("production", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
                 Writer writer = new StringWriter();
                 renderer.render(brick, writer);
+                output[0] = writer.toString();
             }
         });
+        System.out.print(output[0]);
     }
 
     private static void renderUsingGuavaEscapers() {
@@ -390,6 +398,29 @@ public class BrickRendererBenchmarks {
         String templateString = "\n"
                 + "    More composite brick wants to say More Composite Hello :)\n"
                 + "    --------------------------------------------------------------------\n"
+                + "    composite1:{{composite1}}{{simple}}{{simple}}"
+                + "    --------------------------------------------------------------------\n"
+                + "    composite2:{{composite2}}{{simple}}{{simple}}"
+                + "    --------------------------------------------------------------------\n"
+                + "    simple:{{simple}}"
+                + "\n"
+                + "";
+
+        final Template template = Mustache.compiler().compile(templateString);
+        benchmark("object attrs2", RENDER_COUNT, new Runnable() {
+
+            @Override
+            public void run() {
+                StringWriter writer = new StringWriter();
+                template.execute(Data.context, writer);
+            }
+        });
+    }
+
+    private static void renderUsingObjectAttributes3() {
+        String templateString = "\n"
+                + "    More composite brick wants to say More Composite Hello :)\n"
+                + "    --------------------------------------------------------------------\n"
                 + "    composite1:{{{composite1}}}"
                 + "    --------------------------------------------------------------------\n"
                 + "    composite2:{{{composite2}}}"
@@ -397,32 +428,13 @@ public class BrickRendererBenchmarks {
                 + "    simple:{{{simple}}}"
                 + "\n"
                 + "";
-        final Object context = new Object() {
-            public String composite1 = ""
-                    + " \n"
-                    + "    \n"
-                    + "        Composite brick wants to say Composite Hello 1 :)\n"
-                    + "    \n"
-                    + "        1. Just wanted to say First Hello :)\n"
-                    + "        2. Just wanted to say Second Hello :)\n"
-                    + "    \n";
-            public String composite2 = ""
-                    + " \n"
-                    + "    -----------     Composite brick wants to say Composite Hello 2 :)\n"
-                    + "    ----------- \n"
-                    + "    -----------     1. Just wanted to say First Hello :)\n"
-                    + "    -----------     2. Just wanted to say Second Hello :)\n"
-                    + "    ----------- \n";
-            public String simple = ""
-                    + " Just wanted to say Simple Hello3 :)\n";
-        };
         final Template template = Mustache.compiler().compile(templateString);
-        benchmark("object attrs2", RENDER_COUNT, new Runnable() {
+        benchmark("object attrs3", RENDER_COUNT, new Runnable() {
 
             @Override
             public void run() {
                 StringWriter writer = new StringWriter();
-                template.execute(context, writer);
+                template.execute(Data.context, writer);
             }
         });
     }

@@ -85,15 +85,39 @@ public class RenderingScope extends FilterWriter {
 
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-        doWrite(new String(cbuf, off, len));
+        int start = off;
+        int end = off + len;
+        for (int i = off; i < end; i++) {
+            char c = cbuf[i];
+            if (c == '\n') {
+                if (start < i) {
+                    out.write(cbuf, start, i - start);
+                }
+                out.write(lineEnd);
+                start = i + 1;
+            }
+        }
+        if (start < end) {
+            out.write(cbuf, start, end - start);
+        }
     }
 
     @Override
     public void write(String str, int off, int len) throws IOException {
-        doWrite(str.substring(off, len));
-    }
-
-    private void doWrite(String string) throws IOException {
-        out.write(string.replace("\n", lineEnd));
+        int start = off;
+        int end = off + len;
+        for (int i = off; i < end; i++) {
+            char c = str.charAt(i);
+            if (c == '\n') {
+                if (start < i) {
+                    out.write(str, start, i - start);
+                }
+                out.write(lineEnd);
+                start = i + 1;
+            }
+        }
+        if (start < end) {
+            out.write(str, start, end - start);
+        }
     }
 }
