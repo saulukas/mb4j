@@ -24,8 +24,8 @@ import org.mb4j.brick.samples.composition.MoreCompositeBrick;
 
 public class BrickRendererBenchmarks {
 
-    static final int MAX_THREAD_COUNT = 2;
-    static final int RENDER_COUNT = 100_000;
+    static final int MAX_THREAD_COUNT = 4;
+    static final int RENDER_COUNT = 1000_000;
     static final int NAME_WIDTH = 16;
     static final int FREQUENCY_WIDTH = 12;
     static final int MILLIS_WIDTH = 7;
@@ -128,7 +128,7 @@ public class BrickRendererBenchmarks {
             public void run() {
                 Writer writer = new StringWriter();
                 renderer.render(brick, writer);
-                output[0] = writer.toString();
+                //        output[0] = writer.toString();
             }
         });
         System.out.print(output[0]);

@@ -22,7 +22,7 @@ public class Escapers {
                     return guavaEscaper.escape(raw);
                 }
             };
-//            simple(new String[][] {
+//           = simple(new String[][] {
 //        { "&",  "&amp;" },
 //        { "'",  "&#39;" },
 //        { "\"", "&quot;" },
