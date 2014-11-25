@@ -12,6 +12,7 @@
 
     <modules>
         <module>mb4j-brick</module>
+        <module>mb4j-brick2</module>
         <module>mb4j-component</module>
         <module>mb4j-example</module>
         <module>mb4j-liferay</module>
