@@ -1,20 +1,22 @@
 package org.mb4j.brick;
 
-import java.io.File;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class RendererTest {
 
     @Test
-    public void dummy() {
-        new File("asdf");
-//   Template<SimpleBrick> template = Compiler.compile(SimpleBrick.class);
-//   template
+    public void substitutes_variables() {
+        String output = Renderer.render("aaa {{var1}} bbb", new DemoBrick());
+        System.out.println("output = " + output);
+//        assertThat(output, is("aaa 123 bbb"));
     }
 
-    public static void main(String[] args) {
+    @Ignore
+    @Test
+    public void substitutes_variables2() {
         String output = Renderer.render("aaa {{oho}} bbb", new Object() {
             String oho = "123";
         });
