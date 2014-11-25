@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 public class Parser {
 
     private final ParserInput input;
-
     private final Class brickClass;
 
     Parser(ParserInput input, Class brickClass) {
