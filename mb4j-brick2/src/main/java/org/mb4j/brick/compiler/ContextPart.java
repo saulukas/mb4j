@@ -1,7 +1,8 @@
-package org.mb4j.brick.internal;
+package org.mb4j.brick.compiler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.mb4j.brick.renderer.RendererOutput;
 
 class ContextPart extends TemplatePart {
 
@@ -13,7 +14,7 @@ class ContextPart extends TemplatePart {
     }
 
     @Override
-    public void render(TemplateWriter out, Object brick) {
+    public void render(RendererOutput out, Object brick) {
         for (TemplatePart part : partList) {
             part.render(out, brick);
         }

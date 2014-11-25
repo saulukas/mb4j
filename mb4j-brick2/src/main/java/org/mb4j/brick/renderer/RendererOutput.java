@@ -1,13 +1,13 @@
-package org.mb4j.brick.internal;
+package org.mb4j.brick.renderer;
 
 import java.io.IOException;
 import java.io.Writer;
 
-public class TemplateWriter {
+public class RendererOutput {
 
     final Writer writer;
 
-    public TemplateWriter(Writer writer) {
+    public RendererOutput(Writer writer) {
         this.writer = writer;
     }
 

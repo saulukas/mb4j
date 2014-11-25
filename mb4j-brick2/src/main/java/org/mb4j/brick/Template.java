@@ -1,7 +1,7 @@
 package org.mb4j.brick;
 
-import org.mb4j.brick.internal.TemplatePart;
-import org.mb4j.brick.internal.TemplateWriter;
+import org.mb4j.brick.compiler.TemplatePart;
+import org.mb4j.brick.renderer.RendererOutput;
 
 public class Template<T> {
 
@@ -11,7 +11,7 @@ public class Template<T> {
         this.part = part;
     }
 
-    void render(TemplateWriter out, T brick) {
+    void render(RendererOutput out, T brick) {
         part.render(out, brick);
     }
 }

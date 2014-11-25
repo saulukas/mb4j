@@ -1,16 +1,21 @@
-package org.mb4j.brick.internal;
+package org.mb4j.brick.compiler;
 
 import java.io.Reader;
 import java.lang.reflect.Field;
 
 public class Parser {
 
-    private final Reader reader;
+    private final ParserInput input;
+
     private final Class brickClass;
 
-    public Parser(Reader reader, Class brickClass) {
-        this.reader = reader;
+    Parser(ParserInput input, Class brickClass) {
+        this.input = input;
         this.brickClass = brickClass;
+    }
+
+    public static TemplatePart parse(Reader reader, Class brickClass) {
+        return new Parser(new ParserInput(reader), brickClass).parse();
     }
 
     public TemplatePart parse() {

@@ -4,7 +4,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import org.mb4j.brick.internal.TemplateWriter;
+import org.mb4j.brick.renderer.RendererOutput;
 
 public class Renderer {
 
@@ -28,7 +28,7 @@ public class Renderer {
 
     public static void render(Writer out, Reader templateReader, Object brick) {
         Template template = Compiler.compile(templateReader, brick.getClass());
-        template.render(new TemplateWriter(out), brick);
+        template.render(new RendererOutput(out), brick);
     }
 
 }
