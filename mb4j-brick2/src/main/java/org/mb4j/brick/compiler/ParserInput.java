@@ -1,5 +1,6 @@
 package org.mb4j.brick.compiler;
 
+import java.io.IOException;
 import java.io.Reader;
 
 class ParserInput {
@@ -10,6 +11,19 @@ class ParserInput {
 
     ParserInput(Reader reader) {
         this.reader = reader;
+    }
+
+    ParserLexem readNext() {
+        int c = readChar();
+        return null;
+    }
+
+    private int readChar() {
+        try {
+            return reader.read();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }
