@@ -2,6 +2,8 @@ package org.mb4j.brick.compiler;
 
 import java.io.Reader;
 import java.lang.reflect.Field;
+import static org.mb4j.brick.compiler.ParserLexem.END;
+import static org.mb4j.brick.compiler.ParserLexem.TEXT;
 
 public class Parser {
 
@@ -19,6 +21,16 @@ public class Parser {
 
     public TemplatePart parse() {
         ContextPart contextPart = withLineNo(new ContextPart(brickClass));
+        ParserLexem lexem = input.readNext();
+        while (lexem != END) {
+            if (lexem == TEXT) {
+                contextPart.partList.add(withLineNo(new TextPart(input.getLastToken())));
+            } else if (lexem == ParserLexem.DELIMITER_OPEN) {
+
+            } else {
+                throw new RuntimeException("Something wrong...");
+            }
+        }
         contextPart.partList.add(withLineNo(new TextPart("aaa ")));
         contextPart.partList.add(withLineNo(new FieldPart(getBrickField("var1"))));
         contextPart.partList.add(withLineNo(new TextPart(" bbb")));
