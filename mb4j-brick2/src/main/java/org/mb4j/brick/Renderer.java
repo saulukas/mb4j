@@ -12,23 +12,23 @@ public class Renderer {
         return render("aaa {{oho}} bbb", brick);
     }
 
-    public static String render(String templateText, Object brick) {
-        return render(new StringReader(templateText), brick);
+    public static String render(String templateText, Object context) {
+        return render(new StringReader(templateText), context);
     }
 
-    public static String render(Reader templateReader, Object brick) {
+    public static String render(Reader templateReader, Object context) {
         StringWriter out = new StringWriter();
-        render(out, templateReader, brick);
+        render(out, templateReader, context);
         return out.toString();
     }
 
-    public static void render(Writer out, String templateText, Object brick) {
-        render(out, new StringReader(templateText), brick);
+    public static void render(Writer out, String templateText, Object context) {
+        render(out, new StringReader(templateText), context);
     }
 
-    public static void render(Writer out, Reader templateReader, Object brick) {
-        Template template = Compiler.compile(templateReader, brick.getClass());
-        template.render(new RendererOutput(out), brick);
+    public static void render(Writer out, Reader templateReader, Object context) {
+        Template template = Compiler.compile(context.getClass(), templateReader);
+        template.render(new RendererOutput(out), context);
     }
 
 }

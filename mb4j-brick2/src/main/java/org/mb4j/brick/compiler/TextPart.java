@@ -6,7 +6,8 @@ class TextPart extends TemplatePart {
 
     final String text;
 
-    public TextPart(String text) {
+    public TextPart(int lineNo, int colNo, String text) {
+        super(lineNo, colNo);
         this.text = text;
     }
 

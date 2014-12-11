@@ -5,13 +5,13 @@ import org.mb4j.brick.renderer.RendererOutput;
 
 public class Template<T> {
 
-    private final TemplatePart part;
+    private final TemplatePart root;
 
-    Template(TemplatePart part) {
-        this.part = part;
+    Template(TemplatePart root) {
+        this.root = root;
     }
 
-    void render(RendererOutput out, T brick) {
-        part.render(out, brick);
+    void render(RendererOutput out, T context) {
+        root.render(out, context);
     }
 }

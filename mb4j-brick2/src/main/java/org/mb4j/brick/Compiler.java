@@ -9,8 +9,8 @@ public class Compiler {
         return null;
     }
 
-    public static <T> Template<T> compile(Reader reader, Class<T> brickClass) {
-        return new Template<>(Parser.parse(reader, brickClass));
+    public static <T> Template<T> compile(Class<T> contextClass, Reader reader) {
+        return new Template<>(Parser.parse(contextClass, reader));
     }
 
 }

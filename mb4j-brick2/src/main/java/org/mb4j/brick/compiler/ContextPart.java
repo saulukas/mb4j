@@ -6,11 +6,12 @@ import org.mb4j.brick.renderer.RendererOutput;
 
 class ContextPart extends TemplatePart {
 
-    final Class brickClass;
-    final List<TemplatePart> partList = new ArrayList<>();
+    final Class contextClass;
+    private final List<TemplatePart> partList = new ArrayList<>();
 
-    public ContextPart(Class brickClass) {
-        this.brickClass = brickClass;
+    public ContextPart(int lineNo, int colNo, Class contextClass) {
+        super(lineNo, colNo);
+        this.contextClass = contextClass;
     }
 
     @Override
@@ -18,6 +19,10 @@ class ContextPart extends TemplatePart {
         for (TemplatePart part : partList) {
             part.render(out, brick);
         }
+    }
+
+    void add(TemplatePart part) {
+        partList.add(part);
     }
 
 }
