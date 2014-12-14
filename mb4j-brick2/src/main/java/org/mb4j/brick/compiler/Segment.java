@@ -2,12 +2,12 @@ package org.mb4j.brick.compiler;
 
 import org.mb4j.brick.renderer.RendererOutput;
 
-public abstract class TemplatePart {
+abstract class Segment {
 
     int lineNo;
     int colNo;
 
-    public TemplatePart(int lineNo, int colNo) {
+    public Segment(int lineNo, int colNo) {
         this.lineNo = lineNo;
         this.colNo = colNo;
     }

@@ -4,9 +4,19 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import org.mb4j.brick.compiler.MBTemplate;
+import org.mb4j.brick.compiler.MBCompiler;
 import org.mb4j.brick.renderer.RendererOutput;
 
-public class Renderer {
+public class MustacheBricks {
+
+    public static <T> MBTemplate<T> compile(Class<T> brickClass) {
+        return null;
+    }
+
+    public static <T> MBTemplate<T> compile(Class<T> contextClass, Reader reader) {
+        return MBCompiler.compile(contextClass, reader);
+    }
 
     public static String render(Object brick) {
         return render("aaa {{oho}} bbb", brick);
@@ -27,7 +37,7 @@ public class Renderer {
     }
 
     public static void render(Writer out, Reader templateReader, Object context) {
-        Template template = Compiler.compile(context.getClass(), templateReader);
+        MBTemplate template = MBCompiler.compile(context.getClass(), templateReader);
         template.render(new RendererOutput(out), context);
     }
 

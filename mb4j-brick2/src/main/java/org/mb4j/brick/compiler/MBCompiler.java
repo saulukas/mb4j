@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Field;
 
-public class Parser {
+public class MBCompiler {
 
-    private final ContextPart root;
+    private final SegmentContext root;
     private final Reader reader;
     private final static char EOF = (char) -1;
     private char delimOpen1 = '{';
@@ -16,19 +16,19 @@ public class Parser {
     private int lineNo = 1;
     private int colNo = 0;
 
-    Parser(ContextPart root, Reader reader) {
+    MBCompiler(SegmentContext root, Reader reader) {
         this.root = root;
         this.reader = reader;
     }
 
-    public static TemplatePart parse(Class contextClass, Reader reader) {
-        return new Parser(new ContextPart(1, 1, contextClass), reader).parse();
+    public static <T> MBTemplate<T> compile(Class<T> contextClass, Reader reader) {
+        return new MBCompiler(new SegmentContext(1, 1, contextClass), reader).compile();
     }
 
-    public TemplatePart parse() {
+    private MBTemplate compile() {
         char c = readChar();
         parseText(c, root);
-        return root;
+        return new MBTemplate(root);
     }
 
     private RuntimeException exception(String msg) {
@@ -54,7 +54,7 @@ public class Parser {
         }
     }
 
-    private void parseText(char c, ContextPart context) {
+    private void parseText(char c, SegmentContext context) {
         StringBuilder buffer = new StringBuilder();
         while (c != EOF) {
             if (c != delimOpen1) {
@@ -80,14 +80,14 @@ public class Parser {
             }
             String text = buffer.toString();
             if (!text.isEmpty()) {
-                context.add(new TextPart(lineNo, colNo, text));
+                context.add(new SegmentText(lineNo, colNo, text));
             }
             buffer = new StringBuilder();
             c = parseAfterDelimOpen2(c, context);
         }
         String text = buffer.toString();
         if (!text.isEmpty()) {
-            context.add(new TextPart(lineNo, colNo, text));
+            context.add(new SegmentText(lineNo, colNo, text));
         }
     }
 
@@ -107,7 +107,7 @@ public class Parser {
         }
     }
 
-    private char parseAfterDelimOpen2(char c, ContextPart context) {
+    private char parseAfterDelimOpen2(char c, SegmentContext context) {
         if (c == EOF) {
             throw exception("Unexpected EOF after opening delimiters '" + delimOpen1 + delimOpen2 + "'.");
         }
@@ -117,7 +117,7 @@ public class Parser {
         return parseVariable(c, context);
     }
 
-    private char parseVariable(char c, ContextPart context) {
+    private char parseVariable(char c, SegmentContext context) {
         if (c == '{'
                 && (delimOpen1 != '{' || delimOpen2 != '{' || delimClose1 != '}' || delimClose2 != '}')) {
             throw exception("Third '{' is only allowed with '{{' and '}}' delimiters."
@@ -159,7 +159,7 @@ public class Parser {
                 throw exception("Expected variable name between delimiters.");
             }
             Field field = getField(context.contextClass, fieldName);
-            context.add(new FieldPart(lineNo, colNo, escapeHtml, field));
+            context.add(new SegmentField(lineNo, colNo, escapeHtml, field));
             return readChar();
         }
     }

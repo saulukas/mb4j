@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import org.mb4j.brick.renderer.RendererOutput;
 
-class ContextPart extends TemplatePart {
+class SegmentContext extends Segment {
 
     final Class contextClass;
-    private final List<TemplatePart> partList = new ArrayList<>();
+    private final List<Segment> partList = new ArrayList<>();
 
-    public ContextPart(int lineNo, int colNo, Class contextClass) {
+    public SegmentContext(int lineNo, int colNo, Class contextClass) {
         super(lineNo, colNo);
         this.contextClass = contextClass;
     }
 
     @Override
     public void render(RendererOutput out, Object brick) {
-        for (TemplatePart part : partList) {
+        for (Segment part : partList) {
             part.render(out, brick);
         }
     }
 
-    void add(TemplatePart part) {
+    void add(Segment part) {
         partList.add(part);
     }
 

@@ -3,12 +3,12 @@ package org.mb4j.brick.compiler;
 import java.lang.reflect.Field;
 import org.mb4j.brick.renderer.RendererOutput;
 
-class FieldPart extends TemplatePart {
+class SegmentField extends Segment {
 
     private final boolean escapeHtml;
     private final Field field;
 
-    public FieldPart(int lineNo, int colNo, boolean escapeHtml, Field field) {
+    public SegmentField(int lineNo, int colNo, boolean escapeHtml, Field field) {
         super(lineNo, colNo);
         this.escapeHtml = escapeHtml;
         this.field = field;
