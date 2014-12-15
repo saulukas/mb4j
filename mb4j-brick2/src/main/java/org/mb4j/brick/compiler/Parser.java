@@ -21,12 +21,12 @@ public class Parser {
 
     public TemplatePart parse() {
         ContextPart contextPart = withLineNo(new ContextPart(brickClass));
-        ParserLexem lexem = input.readNext();
+        ParserLexem lexem = input.readLexem();
         while (lexem != END) {
             if (lexem == TEXT) {
                 contextPart.partList.add(withLineNo(new TextPart(input.getLastToken())));
             } else if (lexem == ParserLexem.DELIMITER_OPEN) {
-
+                input.readLexem();
             } else {
                 throw new RuntimeException("Something wrong...");
             }

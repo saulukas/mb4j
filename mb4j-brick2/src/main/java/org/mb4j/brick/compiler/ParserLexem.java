@@ -6,4 +6,5 @@ enum ParserLexem {
     TEXT,
     DELIMITER_OPEN,
     DELIMITER_CLOSE;
+
 }
