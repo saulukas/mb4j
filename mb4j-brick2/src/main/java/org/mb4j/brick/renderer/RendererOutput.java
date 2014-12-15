@@ -12,6 +12,10 @@ public class RendererOutput {
     }
 
     public void write(String string) {
+        write(string, false);
+    }
+
+    public void write(String string, boolean escapeHtml) {
         try {
             writer.write(string);
         } catch (IOException ex) {
