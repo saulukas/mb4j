@@ -2,6 +2,7 @@ package org.mb4j.brick.compiler;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 
 public class MBCompiler {
@@ -19,6 +20,10 @@ public class MBCompiler {
     MBCompiler(SegmentContext root, Reader reader) {
         this.root = root;
         this.reader = reader;
+    }
+
+    public static <T> MBTemplate<T> compile(Class<T> contextClass, String templateText) {
+        return compile(contextClass, new StringReader(templateText));
     }
 
     public static <T> MBTemplate<T> compile(Class<T> contextClass, Reader reader) {
