@@ -4,8 +4,8 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import org.mb4j.brick.compiler.MBTemplate;
 import org.mb4j.brick.compiler.MBCompiler;
+import org.mb4j.brick.compiler.MBTemplate;
 import org.mb4j.brick.renderer.RendererOutput;
 
 public class MustacheBricks {

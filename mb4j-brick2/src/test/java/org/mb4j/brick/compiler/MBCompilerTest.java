@@ -36,9 +36,24 @@ public class MBCompilerTest {
     @Test
     public void no_extra_segments_beweent_adjacent_tags() {
         List<Segment> segments = segmentsOf(compile(Brick.class, "{{name}}{{nr}}"));
-        assertThat(segments.size(), is(4));
+        assertThat(segments.size(), is(2));
         assertThat(nameOfFieldSegment(segments.get(0)), is("name"));
         assertThat(nameOfFieldSegment(segments.get(1)), is("nr"));
+    }
+
+    @Test
+    public void empty_template_results_into_empty_context_segment() {
+        List<Segment> segments = segmentsOf(compile(Brick.class, ""));
+        assertThat(segments.size(), is(0));
+    }
+
+    @Test
+    public void comments_are_ignored() {
+        List<Segment> segments = segmentsOf(compile(Brick.class, ""
+                + "This is {{!comments some times are very usefull"
+                + "\n but sometimes just unnecessary duplication}}simple text."));
+        assertThat(segments.size(), is(1));
+        assertThat(valueOfTextSegment(segments.get(0)), is("This is simple text."));
     }
 
     private static String nameOfFieldSegment(Segment segment) {
