@@ -5,7 +5,7 @@ import org.mb4j.brick.renderer.RendererOutput;
 
 public class MBTemplate<T> {
 
-    private final Segment root;
+    final Segment root;
 
     MBTemplate(Segment root) {
         this.root = root;

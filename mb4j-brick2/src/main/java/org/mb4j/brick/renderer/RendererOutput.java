@@ -1,13 +1,11 @@
 package org.mb4j.brick.renderer;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 public class RendererOutput {
 
-    public static final RendererOutput SYSTEM_OUT
-            = new RendererOutput(new OutputStreamWriter(System.out));
+    public static final RendererOutput SYSTEM_OUT = new RendererOutput(SystemOut.WRITER);
 
     final Writer writer;
 

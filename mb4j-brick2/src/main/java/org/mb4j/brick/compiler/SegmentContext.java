@@ -7,7 +7,7 @@ import org.mb4j.brick.renderer.RendererOutput;
 class SegmentContext extends Segment {
 
     final Class contextClass;
-    private final List<Segment> partList = new ArrayList<>();
+    final List<Segment> segments = new ArrayList<>();
 
     public SegmentContext(int lineNo, int colNo, Class contextClass) {
         super(lineNo, colNo);
@@ -16,13 +16,13 @@ class SegmentContext extends Segment {
 
     @Override
     public void render(RendererOutput out, Object brick) {
-        for (Segment part : partList) {
-            part.render(out, brick);
+        for (Segment segment : segments) {
+            segment.render(out, brick);
         }
     }
 
     void add(Segment part) {
-        partList.add(part);
+        segments.add(part);
     }
 
 }

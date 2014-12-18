@@ -5,8 +5,8 @@ import org.mb4j.brick.renderer.RendererOutput;
 
 class SegmentField extends Segment {
 
-    private final boolean escapeHtml;
-    private final Field field;
+    final boolean escapeHtml;
+    final Field field;
 
     public SegmentField(int lineNo, int colNo, boolean escapeHtml, Field field) {
         super(lineNo, colNo);
